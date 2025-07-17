@@ -9,35 +9,35 @@
 @layer base {
   :root {
     /* Core Background & Foreground */
-    --background: 258 89% 15%;
+    --background: 215 100% 6%;
     --foreground: 0 0% 98%;
 
     /* Card & Surface Colors */
-    --card: 258 60% 20%;
+    --card: 215 50% 12%;
     --card-foreground: 0 0% 98%;
-    --card-hover: 258 60% 25%;
+    --card-hover: 215 50% 16%;
 
     /* Popover Colors */
-    --popover: 258 60% 20%;
+    --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary Vibrant Purple */
-    --primary: 258 89% 66%;
+    /* Primary Cool Blue */
+    --primary: 200 98% 39%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 258 89% 76%;
-    --primary-dark: 258 89% 56%;
+    --primary-glow: 200 98% 55%;
+    --primary-dark: 200 98% 25%;
 
-    /* Secondary Vibrant Green */
-    --secondary: 84 81% 60%;
-    --secondary-foreground: 258 89% 15%;
+    /* Secondary Bright Cyan */
+    --secondary: 191 91% 36%;
+    --secondary-foreground: 215 100% 6%;
 
     /* Muted Colors */
-    --muted: 258 30% 30%;
-    --muted-foreground: 258 20% 70%;
+    --muted: 215 25% 25%;
+    --muted-foreground: 215 20% 70%;
 
-    /* Accent Bright Green */
-    --accent: 84 81% 60%;
-    --accent-foreground: 258 89% 15%;
+    /* Accent Electric Blue */
+    --accent: 199 89% 48%;
+    --accent-foreground: 215 100% 6%;
 
     /* Status Colors */
     --destructive: 0 84% 60%;
@@ -46,16 +46,16 @@
     --success-foreground: 0 0% 98%;
 
     /* Interactive Elements */
-    --border: 258 30% 35%;
-    --input: 258 30% 25%;
-    --ring: 258 89% 66%;
+    --border: 215 25% 25%;
+    --input: 215 25% 18%;
+    --ring: 200 98% 39%;
 
     /* Design System Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-secondary: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--primary)) 50%, hsl(var(--accent)));
     --gradient-accent: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-vibrant: linear-gradient(135deg, hsl(258 89% 66%), hsl(84 81% 60%));
+    --gradient-vibrant: linear-gradient(135deg, hsl(200 98% 39%), hsl(199 89% 48%));
 
     /* Shadows & Effects */
     --shadow-tech: 0 10px 30px -10px hsl(var(--primary) / 0.4);
