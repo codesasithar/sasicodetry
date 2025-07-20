@@ -117,7 +117,7 @@ const Projects = () => {
             rel="noopener noreferrer"
             className="btn-tech group"
           >
-            View All Projects on GitHub
+            GitHub
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
