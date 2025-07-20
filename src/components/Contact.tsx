@@ -207,7 +207,7 @@ const Contact = () => {
                   "Sending..."
                 ) : (
                   <>
-                    Ping Sasi                    
+                    Ping Sasi ! Wake him up !                   
                   </>
                 )}
               </button>
