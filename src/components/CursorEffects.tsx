@@ -121,7 +121,7 @@ const CursorEffects = () => {
   // Format time as HH:MM:SS
   const formatClock = (date: Date) => {
     return date
-      .toLocaleTimeString('en-GB', { hour12: false })
+      .toLocaleTimeString('en-GB', { hour12: true })
       .slice(0, 8);
   };
 
