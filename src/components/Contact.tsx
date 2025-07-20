@@ -208,7 +208,7 @@ const Contact = () => {
                 ) : (
                   <>
                     Ping Sasi
-                    <Send/>
+                    
                   </>
                 )}
               </button>
