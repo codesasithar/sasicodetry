@@ -216,7 +216,6 @@ const Contact = () => {
                 ) : (
                   <>
                     Ping Sasi! Wake him up!
-                    <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </>
                 )}
               </button>
