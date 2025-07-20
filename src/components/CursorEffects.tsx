@@ -7,16 +7,17 @@ const CursorEffects = () => {
   const [trails, setTrails] = useState<Array<{ x: number; y: number; id: number }>>([]);
   const [cursorText, setCursorText] = useState('');
   const [showCursorText, setShowCursorText] = useState(false);
+  const [clock, setClock] = useState(new Date());
 
   useEffect(() => {
     let trailId = 0;
 
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-      
-      // Add trail effect (faster trails)
+
+      // Add trail effect
       const newTrail = { x: e.clientX, y: e.clientY, id: trailId++ };
-      setTrails(prev => [...prev.slice(-6), newTrail]); // Keep last 6 trails for better performance
+      setTrails((prev) => [...prev.slice(-6), newTrail]);
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -24,37 +25,28 @@ const CursorEffects = () => {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
-      // Check for interactive elements
+
       if (target.matches('button, a, .btn-tech, .nav-link, .tech-card, .interactive-orb')) {
         setIsHovering(true);
-        
-        // Set cursor text based on element
-        if (target.matches('button, .btn-tech')) {
-          setCursorText('Click');
-        } else if (target.matches('a')) {
-          setCursorText('Link');
-        } else if (target.matches('.nav-link')) {
-          setCursorText('Navigate');
-        } else if (target.matches('.tech-card')) {
-          setCursorText('Explore');
-        } else if (target.matches('.interactive-orb')) {
-          setCursorText('Interact');
-        }
+
+        if (target.matches('button, .btn-tech')) setCursorText('Click');
+        else if (target.matches('a')) setCursorText('Link');
+        else if (target.matches('.nav-link')) setCursorText('Navigate');
+        else if (target.matches('.tech-card')) setCursorText('Explore');
+        else if (target.matches('.interactive-orb')) setCursorText('Interact');
+
         setShowCursorText(true);
       } else {
         setIsHovering(false);
         setShowCursorText(false);
       }
 
-      // Magnetic effect for certain elements (more responsive)
       if (target.matches('.cursor-magnetic')) {
         const rect = target.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const deltaX = (e.clientX - centerX) * 0.1; // Increased from 0.3 to 0.5
+        const deltaX = (e.clientX - centerX) * 0.1;
         const deltaY = (e.clientY - centerY) * 0.1;
-        
         target.style.setProperty('--cursor-x', `${deltaX}px`);
         target.style.setProperty('--cursor-y', `${deltaY}px`);
       }
@@ -62,7 +54,6 @@ const CursorEffects = () => {
 
     const handleMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
       if (target.matches('.cursor-magnetic')) {
         target.style.setProperty('--cursor-x', '0px');
         target.style.setProperty('--cursor-y', '0px');
@@ -70,7 +61,6 @@ const CursorEffects = () => {
     };
 
     const handleClick = (e: MouseEvent) => {
-      // Create ripple effect
       const target = e.target as HTMLElement;
       if (target.matches('.ripple-effect, button, .btn-tech')) {
         const rect = target.getBoundingClientRect();
@@ -78,21 +68,20 @@ const CursorEffects = () => {
         const size = Math.max(rect.width, rect.height);
         const x = e.clientX - rect.left - size / 2;
         const y = e.clientY - rect.top - size / 2;
-        
+
         ripple.className = 'ripple';
         ripple.style.width = ripple.style.height = size + 'px';
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
-        
-        if (target.style.position !== 'absolute' && target.style.position !== 'relative') {
+
+        // Only set position if not already relative or absolute
+        const pos = getComputedStyle(target).position;
+        if (pos !== 'absolute' && pos !== 'relative') {
           target.style.position = 'relative';
         }
-        
+
         target.appendChild(ripple);
-        
-        setTimeout(() => {
-          ripple.remove();
-        }, 400); // Reduced from 600ms
+        setTimeout(() => ripple.remove(), 400);
       }
     };
 
@@ -113,18 +102,32 @@ const CursorEffects = () => {
     };
   }, []);
 
-  // Clean up old trails (faster cleanup)
+  // Clean up old trails
   useEffect(() => {
     const interval = setInterval(() => {
-      setTrails(prev => prev.slice(1));
-    }, 50); // Reduced from 100ms to 50ms
-
+      setTrails((prev) => prev.slice(1));
+    }, 50);
     return () => clearInterval(interval);
   }, []);
 
+  // Update clock every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setClock(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Format time as HH:MM:SS
+  const formatClock = (date: Date) => {
+    return date
+      .toLocaleTimeString('en-GB', { hour12: false })
+      .slice(0, 8);
+  };
+
   return (
     <>
-      {/* Custom Cursor */}
+      {/* Custom white cursor */}
       <div
         className={`custom-cursor ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
         style={{
@@ -132,6 +135,17 @@ const CursorEffects = () => {
           top: mousePosition.y,
         }}
       />
+
+      {/* Tech Clock near cursor */}
+      <div
+        className="cursor-clock"
+        style={{
+          left: mousePosition.x + 36, // Offset from cursor
+          top: mousePosition.y - 8,
+        }}
+      >
+        <span>{formatClock(clock)}</span>
+      </div>
 
       {/* Cursor Text */}
       <div
@@ -152,7 +166,7 @@ const CursorEffects = () => {
           style={{
             left: trail.x,
             top: trail.y,
-            opacity: (index + 1) / trails.length * 5,
+            opacity: ((index + 1) / trails.length) * 0.5,
             transform: `scale(${(index + 1) / trails.length})`,
           }}
         />
