@@ -133,10 +133,63 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: none; /* Hide default cursor */
   }
 
   body {
     @apply bg-background text-foreground font-poppins;
+    cursor: none; /* Hide default cursor */
+  }
+
+  /* Custom Cursor Styles */
+  .custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: hsl(var(--primary));
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s ease;
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 40px;
+    height: 40px;
+    border: 2px solid hsl(var(--primary) / 0.3);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .custom-cursor.hovering {
+    transform: scale(1.5);
+    background: hsl(var(--accent));
+  }
+
+  .custom-cursor.hovering::before {
+    transform: scale(1.2);
+    border-color: hsl(var(--accent) / 0.5);
+  }
+
+  .custom-cursor.clicking {
+    transform: scale(0.8);
+    background: hsl(var(--success));
+  }
+
+  .cursor-trail {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: hsl(var(--primary) / 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.3s ease;
   }
 }
 
@@ -400,5 +453,106 @@
   @keyframes circuit-pulse {
     0%, 100% { opacity: 0.1; }
     50% { opacity: 0.2; }
+  }
+
+  /* Interactive Cursor Effects */
+  .cursor-magnetic {
+    transition: transform 0.2s ease;
+  }
+
+  .cursor-magnetic:hover {
+    transform: translate(var(--cursor-x, 0), var(--cursor-y, 0));
+  }
+
+  .cursor-glow {
+    position: relative;
+  }
+
+  .cursor-glow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.3), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .cursor-glow:hover::after {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Sparkle Effect on Hover */
+  .sparkle-hover {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sparkle-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(var(--primary) / 0.4),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .sparkle-hover:hover::before {
+    left: 100%;
+  }
+
+  /* Ripple Effect */
+  .ripple-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: hsl(var(--primary) / 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+  }
+
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  /* Cursor Text Follow */
+  .cursor-text {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    font-size: 12px;
+    color: hsl(var(--primary));
+    background: hsl(var(--background) / 0.8);
+    padding: 4px 8px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    transform: translate(-50%, -150%);
+  }
+
+  .cursor-text.visible {
+    opacity: 1;
   }
 }

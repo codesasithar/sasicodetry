@@ -177,14 +177,14 @@ const Hero = () => {
             <div className="mb-8 animate-fade-in" style={{animationDelay: '0.8s'}}>
               <button
                 onClick={scrollToProjects}
-                className="btn-tech text-lg group mr-4"
+                className="btn-tech text-lg group mr-4 cursor-glow ripple-effect sparkle-hover"
               >
                 View My Work
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </button>
               <a
                 href="mailto:sasicodes@gmail.com"
-                className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+                className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors cursor-glow"
               >
                 <Mail className="mr-2 h-5 w-5" />
                 Get In Touch
@@ -197,7 +197,7 @@ const Hero = () => {
                 href="https://linkedin.com/in/sasitharcodes"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -205,13 +205,13 @@ const Hero = () => {
                 href="https://github.com/codesasithar/Projects"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
                 <Github className="h-5 w-5" />
               </a>
               <a
                 href="tel:+919443798476"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
                 <Phone className="h-5 w-5" />
               </a>
