@@ -108,6 +108,18 @@ const Projects = () => {
             </div>
           ))}
         </div>
+        {/* View More Projects */}
+<div className="text-center mt-12">
+  <a
+    href="https://github.com/codesasithar/Projects"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-semibold rounded-md shadow-sm hover:bg-primary/90 transition-colors group"
+  >
+    View all projects on GitHub
+    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+  </a>
+</div>
 
 
   );
