@@ -14,9 +14,9 @@ const CursorEffects = () => {
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
       
-      // Add trail effect
+      // Add trail effect (faster trails)
       const newTrail = { x: e.clientX, y: e.clientY, id: trailId++ };
-      setTrails(prev => [...prev.slice(-8), newTrail]); // Keep last 8 trails
+      setTrails(prev => [...prev.slice(-6), newTrail]); // Keep last 6 trails for better performance
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -47,13 +47,13 @@ const CursorEffects = () => {
         setShowCursorText(false);
       }
 
-      // Magnetic effect for certain elements
+      // Magnetic effect for certain elements (more responsive)
       if (target.matches('.cursor-magnetic')) {
         const rect = target.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const deltaX = (e.clientX - centerX) * 0.3;
-        const deltaY = (e.clientY - centerY) * 0.3;
+        const deltaX = (e.clientX - centerX) * 0.5; // Increased from 0.3 to 0.5
+        const deltaY = (e.clientY - centerY) * 0.5;
         
         target.style.setProperty('--cursor-x', `${deltaX}px`);
         target.style.setProperty('--cursor-y', `${deltaY}px`);
@@ -92,7 +92,7 @@ const CursorEffects = () => {
         
         setTimeout(() => {
           ripple.remove();
-        }, 600);
+        }, 400); // Reduced from 600ms
       }
     };
 
@@ -113,11 +113,11 @@ const CursorEffects = () => {
     };
   }, []);
 
-  // Clean up old trails
+  // Clean up old trails (faster cleanup)
   useEffect(() => {
     const interval = setInterval(() => {
       setTrails(prev => prev.slice(1));
-    }, 100);
+    }, 50); // Reduced from 100ms to 50ms
 
     return () => clearInterval(interval);
   }, []);

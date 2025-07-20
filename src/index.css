@@ -150,8 +150,9 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: all 0.1s ease;
+    transition: all 0.05s ease;
     mix-blend-mode: difference;
+    will-change: transform;
   }
 
   .custom-cursor::before {
@@ -163,22 +164,26 @@
     height: 40px;
     border: 2px solid hsl(var(--primary) / 0.3);
     border-radius: 50%;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
+    will-change: transform;
   }
 
   .custom-cursor.hovering {
     transform: scale(1.5);
     background: hsl(var(--accent));
+    transition: all 0.08s ease;
   }
 
   .custom-cursor.hovering::before {
     transform: scale(1.2);
     border-color: hsl(var(--accent) / 0.5);
+    transition: all 0.08s ease;
   }
 
   .custom-cursor.clicking {
     transform: scale(0.8);
     background: hsl(var(--success));
+    transition: all 0.05s ease;
   }
 
   .cursor-trail {
@@ -189,7 +194,8 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
-    transition: all 0.3s ease;
+    transition: all 0.15s ease;
+    will-change: transform, opacity;
   }
 }
 
@@ -457,7 +463,8 @@
 
   /* Interactive Cursor Effects */
   .cursor-magnetic {
-    transition: transform 0.2s ease;
+    transition: transform 0.1s ease;
+    will-change: transform;
   }
 
   .cursor-magnetic:hover {
@@ -478,9 +485,10 @@
     background: radial-gradient(circle, hsl(var(--primary) / 0.3), transparent);
     border-radius: 50%;
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: all 0.15s ease;
     transform: translate(-50%, -50%);
     z-index: -1;
+    will-change: width, height;
   }
 
   .cursor-glow:hover::after {
@@ -507,7 +515,8 @@
       hsl(var(--primary) / 0.4),
       transparent
     );
-    transition: left 0.5s ease;
+    transition: left 0.3s ease;
+    will-change: left;
   }
 
   .sparkle-hover:hover::before {
@@ -525,8 +534,9 @@
     border-radius: 50%;
     background: hsl(var(--primary) / 0.3);
     transform: scale(0);
-    animation: ripple-animation 0.6s linear;
+    animation: ripple-animation 0.4s ease-out;
     pointer-events: none;
+    will-change: transform, opacity;
   }
 
   @keyframes ripple-animation {
@@ -548,8 +558,9 @@
     border-radius: 4px;
     backdrop-filter: blur(4px);
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.1s ease;
     transform: translate(-50%, -150%);
+    will-change: opacity, transform;
   }
 
   .cursor-text.visible {
