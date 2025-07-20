@@ -52,8 +52,8 @@ const CursorEffects = () => {
         const rect = target.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const deltaX = (e.clientX - centerX) * 0.5; // Increased from 0.3 to 0.5
-        const deltaY = (e.clientY - centerY) * 0.5;
+        const deltaX = (e.clientX - centerX) * 0.9; // Increased from 0.3 to 0.5
+        const deltaY = (e.clientY - centerY) * 0.9;
         
         target.style.setProperty('--cursor-x', `${deltaX}px`);
         target.style.setProperty('--cursor-y', `${deltaY}px`);
