@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,15 +25,32 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    if (!formRef.current) return;
+
+    try {
+      const result = await emailjs.sendForm(
+        "your_service_id",     // Replace with your EmailJS service ID
+        "your_template_id",    // Replace with your EmailJS template ID
+        formRef.current,
+        "your_public_key"      // Replace with your EmailJS public key
+      );
+
       toast({
         title: "Message Sent!",
         description: "Thank you for reaching out. I'll get back to you soon!",
       });
+
       setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Email sending error:", error);
+      toast({
+        title: "Something went wrong",
+        description: "Message could not be sent. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const contactInfo = [
@@ -79,7 +98,7 @@ const Contact = () => {
   return (
     <section id="contact" className="section-container">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Let's Work <span className="text-primary">Together</span>
@@ -90,18 +109,15 @@ const Contact = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Information */}
+          {/* Contact Info */}
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-bold mb-6">Get In Touch</h3>
               <p className="text-muted-foreground mb-8">
-                I'm always excited to work on new projects and collaborate with fellow developers and innovators. 
-                Whether you have a mobile app idea, need API development, or want to explore AR/VR possibilities, 
-                let's discuss how we can make it happen.
+                I'm always excited to work on new projects and collaborate with fellow developers and innovators.
               </p>
             </div>
 
-            {/* Contact Details */}
             <div className="space-y-6">
               {contactInfo.map((contact) => (
                 <div key={contact.label} className="flex items-center">
@@ -111,7 +127,7 @@ const Contact = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">{contact.label}</p>
                     {contact.href ? (
-                      <a 
+                      <a
                         href={contact.href}
                         className="text-foreground hover:text-primary transition-colors font-medium"
                       >
@@ -125,7 +141,6 @@ const Contact = () => {
               ))}
             </div>
 
-            {/* Social Links */}
             <div>
               <h4 className="text-lg font-bold mb-4">Connect With Me</h4>
               <div className="flex space-x-4">
@@ -145,15 +160,12 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Form */}
           <div className="tech-card p-8">
             <h3 className="text-2xl font-bold mb-6">Send Me A Message</h3>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Your Name
-                </label>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">Your Name</label>
                 <input
                   type="text"
                   id="name"
@@ -161,15 +173,13 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary"
                   placeholder="Enter your name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email Address
-                </label>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address</label>
                 <input
                   type="email"
                   id="email"
@@ -177,15 +187,13 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary"
                   placeholder="Enter your email"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
+                <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
                 <textarea
                   id="message"
                   name="message"
@@ -193,7 +201,7 @@ const Contact = () => {
                   onChange={handleInputChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary resize-none"
                   placeholder="Tell me about your project..."
                 />
               </div>
@@ -216,7 +224,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="mt-16 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
             © 2024 Sasithar M. Built with passion for technology and innovation.
