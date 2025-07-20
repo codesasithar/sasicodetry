@@ -152,7 +152,7 @@ const CursorEffects = () => {
           style={{
             left: trail.x,
             top: trail.y,
-            opacity: (index + 1) / trails.length * 0.5,
+            opacity: (index + 1) / trails.length * 0.9,
             transform: `scale(${(index + 1) / trails.length})`,
           }}
         />
