@@ -109,8 +109,6 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* View More Projects */}
-       {/* View More Projects */}
 
   );
 };
