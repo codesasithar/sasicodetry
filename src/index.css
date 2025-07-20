@@ -63,9 +63,14 @@
     --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.5);
     --shadow-accent: 0 10px 30px -10px hsl(var(--accent) / 0.3);
 
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* Animations */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Tech Animations */
+  --matrix-speed: 20s;
+  --particle-count: 6;
+  --code-typing-speed: 3s;
 
     --radius: 0.75rem;
 
@@ -241,5 +246,159 @@
 
   .nav-link.active::after {
     @apply w-full;
+  }
+
+  /* Tech-Focused Animations */
+  .matrix-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    opacity: 0.1;
+  }
+
+  .matrix-column {
+    position: absolute;
+    top: -100%;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: hsl(var(--primary));
+    white-space: nowrap;
+    animation: matrix-fall linear infinite;
+  }
+
+  @keyframes matrix-fall {
+    to {
+      transform: translateY(100vh);
+    }
+  }
+
+  .code-snippet {
+    @apply absolute font-mono text-xs text-primary/60;
+    animation: typing var(--code-typing-speed) infinite;
+  }
+
+  @keyframes typing {
+    0%, 50% { width: 0; }
+    100% { width: 100%; }
+  }
+
+  .particle-tech {
+    @apply absolute w-1 h-1 bg-accent rounded-full;
+    animation: float-particle 8s infinite ease-in-out;
+  }
+
+  @keyframes float-particle {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    10%, 90% { opacity: 1; }
+    50% { transform: translate(50px, -30px) rotate(180deg); }
+  }
+
+  .glitch-text {
+    position: relative;
+    animation: glitch 2s infinite;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    animation: glitch-1 0.5s infinite;
+    color: hsl(var(--accent));
+    z-index: -1;
+  }
+
+  .glitch-text::after {
+    animation: glitch-2 0.5s infinite;
+    color: hsl(var(--primary));
+    z-index: -2;
+  }
+
+  @keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+  }
+
+  @keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    10% { transform: translate(-2px, -2px); }
+    20% { transform: translate(2px, 2px); }
+  }
+
+  @keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    10% { transform: translate(2px, 2px); }
+    20% { transform: translate(-2px, -2px); }
+  }
+
+  .tech-grid {
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: grid-move 20s linear infinite;
+  }
+
+  @keyframes grid-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(20px, 20px); }
+  }
+
+  .binary-rain {
+    @apply absolute inset-0 overflow-hidden opacity-5;
+  }
+
+  .binary-column {
+    @apply absolute top-0 text-primary font-mono text-xs whitespace-nowrap;
+    animation: binary-fall 15s linear infinite;
+  }
+
+  @keyframes binary-fall {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+
+  .interactive-orb {
+    @apply absolute w-32 h-32 rounded-full opacity-20;
+    background: radial-gradient(circle, hsl(var(--primary)), transparent);
+    animation: orb-float 6s ease-in-out infinite;
+    transition: all 0.3s ease;
+  }
+
+  .interactive-orb:hover {
+    @apply opacity-40 scale-110;
+    animation-play-state: paused;
+  }
+
+  @keyframes orb-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.1); }
+    66% { transform: translate(-20px, 10px) scale(0.9); }
+  }
+
+  .circuit-pattern {
+    @apply absolute inset-0 opacity-10;
+    background-image: 
+      radial-gradient(circle at 20% 20%, hsl(var(--accent)) 2px, transparent 2px),
+      radial-gradient(circle at 80% 80%, hsl(var(--primary)) 2px, transparent 2px),
+      linear-gradient(45deg, transparent 48%, hsl(var(--accent) / 0.3) 50%, transparent 52%);
+    background-size: 40px 40px, 60px 60px, 30px 30px;
+    animation: circuit-pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes circuit-pulse {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.2; }
   }
 }
