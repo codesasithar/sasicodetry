@@ -202,7 +202,7 @@ const Contact = () => {
                   required
                   rows={5}
                   className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary resize-none"
-                  placeholder="Tell me about your project..."
+                  placeholder="Hi buddy! Tell me!"
                 />
               </div>
 
@@ -226,7 +226,7 @@ const Contact = () => {
 
         <div className="mt-16 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            © 2024 Sasithar M. Built with passion for technology and innovation.
+            © 2025 Sasithar M. Built with passion for technology and innovation.
           </p>
         </div>
       </div>
