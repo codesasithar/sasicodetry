@@ -207,7 +207,7 @@ const Contact = () => {
                   "Sending..."
                 ) : (
                   <>
-                    Send Message
+                    Send
                     <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </>
                 )}
@@ -219,7 +219,7 @@ const Contact = () => {
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            © 2024 Sasithar M. Built with passion for technology and innovation.
+            © 2025 Sasithar M. Built with passion for technology and innovation.
           </p>
         </div>
       </div>
