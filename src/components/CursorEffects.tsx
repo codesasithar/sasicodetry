@@ -118,12 +118,15 @@ const CursorEffects = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Format time as HH:MM:SS
-  const formatClock = (date: Date) => {
-    return date
-      .toLocaleTimeString('en-GB', { hour12: true })
-      .slice(0, 8);
-  };
+const formatClock = (date: Date) => {
+  return date
+    .toLocaleTimeString('en-US', {
+      hour12: true,       // 12-hour format
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+};
 
   return (
     <>
@@ -138,15 +141,14 @@ const CursorEffects = () => {
 
       {/* Tech Clock near cursor */}
       <div
-        className="cursor-clock"
-        style={{
-          left: mousePosition.x + 36, // Offset from cursor
-          top: mousePosition.y - 8,
-        }}
-      >
-        <span>{formatClock(clock)}</span>
-      </div>
-
+      className="cursor-clock"
+      style={{
+        left: mousePosition.x + 36,
+        top: mousePosition.y - 8,
+      }}
+    >
+      <span>{formatClock(clock)}</span>
+    </div>
       {/* Cursor Text */}
       <div
         className={`cursor-text ${showCursorText ? 'visible' : ''}`}
