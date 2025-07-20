@@ -567,3 +567,100 @@
     opacity: 1;
   }
 }
+
+/* Custom Cursor is white with "techy" effect */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.97);  /* white */
+  border: 2px solid #00eaff; /* bright tech blue border */
+  box-shadow: 
+    0 0 8px 0 #00eaff55,
+    0 0 20px 0 #fff;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: 
+    background 0.13s, 
+    border 0.13s, 
+    box-shadow 0.18s;
+}
+
+.custom-cursor.hovering {
+  background: rgba(255,255,255,0.3);
+  border-color: #ffeb3b;
+  box-shadow: 0 0 20px 3px #ffeb3b77, 0 0 8px 0 #00eaff55;
+}
+
+.custom-cursor.clicking {
+  background: rgba(255,255,255,1);
+  border-width: 4px;
+}
+
+.cursor-text {
+  position: fixed;
+  pointer-events: none;
+  color: #fff;
+  background: rgba(0,34,255,0.85);
+  border-radius: 7px;
+  font-size: 13px;
+  font-family: 'Roboto Mono', 'Fira Mono', 'monospace';
+  padding: 2px 10px;
+  z-index: 10000;
+  transform: translate(-50%, -175%) scale(0.95);
+  opacity: 0;
+  transition: opacity 0.18s, transform 0.14s;
+  user-select: none;
+}
+.cursor-text.visible {
+  opacity: 1;
+  transform: translate(-50%, -175%) scale(1.05);
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid #00eaff55;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.25s, transform 0.2s;
+  will-change: opacity, transform;
+}
+
+.cursor-clock {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10001;
+  background: rgba(10,18,34,0.84);
+  border: 1.5px solid #00eaff;
+  color: #00eaff;
+  font-family: 'Roboto Mono', 'Fira Mono', 'monospace';
+  font-size: 13px;
+  border-radius: 7px;
+  padding: 2.5px 13px 2.5px 10px;
+  letter-spacing: 1.3px;
+  box-shadow: 0 0 4px #00eaff44, 0 2px 8px #00224444;
+  transform: translate(-15%, -45%) scale(1.04) skew(-6deg);
+  opacity: 0.96;
+  user-select: none;
+}
+
+/* Add a simple ripple animation used by the code */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0,234,255,0.35);
+  animation: ripple-fade 0.4s linear;
+  pointer-events: none;
+  z-index: 20;
+}
+@keyframes ripple-fade {
+  from { transform: scale(0); opacity: 0.65; }
+  to { transform: scale(2.3); opacity: 0; }
+}
