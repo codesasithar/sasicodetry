@@ -10,20 +10,22 @@ import MatrixBackground from "@/components/MatrixBackground";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative">
-      {/* Matrix digital rain background - positioned behind everything */}
+    <>
+      {/* Matrix background - appears behind everything */}
       <MatrixBackground />
       
-      {/* Your existing components - these will appear on top of the Matrix effect */}
-      <CursorEffects />
-      <Navigation />
-      <Hero />
-      <About />
-      <Projects />
-      <Services />
-      <Achievements />
-      <Contact />
-    </div>
+      {/* All your content with proper layering */}
+      <div className="min-h-screen relative z-10">
+        <CursorEffects />
+        <Navigation />
+        <Hero />
+        <About />
+        <Projects />
+        <Services />
+        <Achievements />
+        <Contact />
+      </div>
+    </>
   );
 };
 
