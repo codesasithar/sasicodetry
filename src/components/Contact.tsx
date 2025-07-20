@@ -19,20 +19,42 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon!",
-      });
-      setFormData({ name: "", email: "", message: "" });
-      setIsSubmitting(false);
-    }, 1000);
-  };
+  // Replace these with your actual EmailJS IDs
+  const SERVICE_ID = "service_yeeprqz";
+  const TEMPLATE_ID = "template_j0yjswr";
+  const USER_ID = "3bZTmspU8KIyv9k7q"; // (formerly "user id", now called "public key" on EmailJS)
+
+  try {
+    await emailjs.send(
+      SERVICE_ID,
+      TEMPLATE_ID,
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      },
+      USER_ID
+    );
+
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. I'll get back to you soon!",
+    });
+    setFormData({ name: "", email: "", message: "" });
+  } catch (error) {
+    toast({
+      title: "Oops, something went wrong!",
+      description: "Sorry, we couldn't send your message. Please try again later.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const contactInfo = [
     {
