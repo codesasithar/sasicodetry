@@ -207,8 +207,7 @@ const Contact = () => {
                   "Sending..."
                 ) : (
                   <>
-                    Ping Sasi
-                    
+                    Ping Sasi                    
                   </>
                 )}
               </button>
