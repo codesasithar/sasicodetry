@@ -111,15 +111,7 @@ className="text-xs bg-secondary px-3 py-1 rounded-full text-secondary-foreground
 
 {/* View More Projects */}
 <div className="text-center mt-12">
-<a
-href="https://github.com/codesasithar/Projects"
-target="_blank"
-rel="noopener noreferrer"
-className="btn-tech group"
->
-GitHub
 
-</a>
 </div>
 </div>
 </section>
