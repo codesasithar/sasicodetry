@@ -2,9 +2,6 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-
-
-
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -22,42 +19,20 @@ const Contact = () => {
     }));
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  // Replace these with your actual EmailJS IDs
-  const SERVICE_ID = "service_yeeprqz";
-  const TEMPLATE_ID = "template_j0yjswr";
-  const USER_ID = "3bZTmspU8KIyv9k7q"; // (formerly "user id", now called "public key" on EmailJS)
-
-  try {
-    await emailjs.send(
-      SERVICE_ID,
-      TEMPLATE_ID,
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message,
-      },
-      USER_ID
-    );
-
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
-    });
-    setFormData({ name: "", email: "", message: "" });
-  } catch (error) {
-    toast({
-      title: "Oops, something went wrong!",
-      description: "Sorry, we couldn't send your message. Please try again later.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+    // Simulate form submission
+    setTimeout(() => {
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+      setFormData({ name: "", email: "", message: "" });
+      setIsSubmitting(false);
+    }, 1000);
+  };
 
   const contactInfo = [
     {
@@ -173,7 +148,7 @@ const Contact = () => {
           {/* Contact Form */}
           <div className="tech-card p-8">
             <h3 className="text-2xl font-bold mb-6">Send Me A Message</h3>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -232,7 +207,8 @@ const Contact = () => {
                   "Sending..."
                 ) : (
                   <>
-                    Ping Sasi ! Wake him up !                   
+                    Send Message
+                    <Send className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </>
                 )}
               </button>
@@ -243,7 +219,7 @@ const Contact = () => {
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            © 2025 Sasithar M. Built with passion for technology and innovation.
+            © 2024 Sasithar M. Built with passion for technology and innovation.
           </p>
         </div>
       </div>
