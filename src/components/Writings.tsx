@@ -126,11 +126,11 @@ const Writings = () => {
             
             <div className="grid grid-cols-2 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-2">12+</div>
+                <div className="text-3xl font-bold text-primary mb-2">4</div>
                 <div className="text-sm text-muted-foreground">Articles Published</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-accent mb-2">5k+</div>
+                <div className="text-3xl font-bold text-accent mb-2">200+</div>
                 <div className="text-sm text-muted-foreground">Total Reads</div>
               </div>
               <div className="text-center">
@@ -138,8 +138,8 @@ const Writings = () => {
                 <div className="text-sm text-muted-foreground">Main Topics</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-accent mb-2">2+</div>
-                <div className="text-sm text-muted-foreground">Years Writing</div>
+                <div className="text-3xl font-bold text-accent mb-2">6</div>
+                <div className="text-sm text-muted-foreground">Months Writing</div>
               </div>
             </div>
           </div>
