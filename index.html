@@ -2,113 +2,163 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Sasithar M | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
-
-  <!-- Add your stylesheets here -->
-  <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Example styles — replace with your original component styles */
+    /* Minimal styling for layout and visuals */
     body {
       margin: 0;
-      padding: 0;
-      overflow-x: hidden;
       font-family: sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    .min-h-screen {
-      min-height: 100vh;
+    nav {
+      position: fixed;
+      width: 100%;
+      background-color: #111;
+      padding: 1rem;
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
     }
 
-    .z-10 {
-      position: relative;
-      z-index: 10;
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
     }
 
-    /* Place your matrix background styles here */
-    #matrix-background {
+    section {
+      padding: 100px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      color: #00ffcc;
+    }
+
+    .matrix-bg,
+    canvas#matrix-background {
       position: fixed;
       top: 0;
       left: 0;
+      pointer-events: none;
       width: 100vw;
       height: 100vh;
       z-index: 0;
-      background-color: black;
-      /* This will be replaced with JS-based matrix effect */
+    }
+
+    .custom-cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
     }
   </style>
 </head>
 <body>
-  <!-- Background Effect: Matrix -->
+  <!-- Matrix visual background -->
   <canvas id="matrix-background"></canvas>
 
-  <!-- Content -->
-  <div class="min-h-screen z-10">
-    <!-- Cursor Effects (inject JS below) -->
-    <!-- Inject CursorEffects script here -->
+  <!-- Cursor Effects -->
+  <div class="custom-cursor" id="cursor"></div>
 
-    <!-- Navigation -->
-    <nav id="navigation">
-      <!-- Replace with real HTML from Navigation component -->
-      <h2>My Portfolio</h2>
-    </nav>
+  <!-- Navigation -->
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#services">Services</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <!-- Hero Section -->
-    <section id="hero">
-      <h1>Hello, I'm John Doe</h1>
-      <p>Creative Developer | Designer | Dreamer</p>
-    </section>
+  <!-- Hero Section -->
+  <section id="home">
+    <h1>Welcome to my portfolio</h1>
+    <h2>Mobile App Developer</h2>
+    <p>I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions.</p>
+    <p><strong>Available for work | Based in India</strong></p>
+  </section>
 
-    <!-- About -->
-    <section id="about">
-      <h2>About Me</h2>
-      <p>Brief intro...</p>
-    </section>
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm Sasithar M, a passionate coder and mobile app developer who loves turning ideas into working digital products. My passion extends into psychology and motivational content, which inspires how I create and interact with technology.</p>
+    <p><strong>Education:</strong> Bachelor of Computer Applications</p>
+    <p><strong>Profession:</strong> Analyst at Deloitte — contributing to enterprise solutions and digital transformation initiatives</p>
+    <p><strong>Skills:</strong> Android apps with modern UI/UX, MuleSoft & backend solutions</p>
+  </section>
 
-    <!-- Projects -->
-    <section id="projects">
-      <h2>Projects</h2>
-      <p>Portfolio previews go here...</p>
-    </section>
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <p>Showcasing innovative solutions across mobile, web, AR/VR, and backend development.</p>
 
-    <!-- Services -->
-    <section id="services">
-      <h2>Services</h2>
-      <p>What I offer...</p>
-    </section>
+    <h3>Forex Transaction API Integration</h3>
+    <p>Developed MuleSoft APIs enabling online forex transactions for mobile apps. Enhanced client systems with seamless API communication.</p>
 
-    <!-- Achievements -->
-    <section id="achievements">
-      <h2>Achievements</h2>
-      <ul>
-        <li>Award 1</li>
-        <li>Award 2</li>
-      </ul>
-    </section>
+    <h3>ExcelPro Android Application</h3>
+    <p>OCR-powered app for converting Excel data to student-specific formats. Integrated Firebase for backend support.</p>
 
-    <!-- Contact -->
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <form>
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Email" required />
-        <textarea placeholder="Message"></textarea>
-        <button type="submit">Send</button>
-      </form>
-    </section>
-  </div>
+    <h3>Angel Eyes – AR Road Safety App</h3>
+    <p>Created during a hackathon using Unity and Spark AR. Provides immersive AR experiences for road safety education.</p>
+
+    <h3>Indian Roads – Android Game</h3>
+    <p>Designed an engaging mobile game using Unity with intuitive controls and user-friendly UI.</p>
+
+    <h3>Oculus VR Projects</h3>
+    <p>Contributed to immersive VR apps built in Unity, pushing the boundaries of user interaction.</p>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2>Services</h2>
+    <p>I create high-quality, user-centric Android mobile applications from scratch. From concept to deployment — I deliver sleek, performant apps that engage users and drive results.</p>
+  </section>
+
+  <!-- Achievements Section -->
+  <section id="achievements">
+    <h2>Achievements</h2>
+    <ul>
+      <li>Recognition of excellence in programming, development, and professional growth</li>
+      <li>Projects Completed</li>
+      <li>Certifications</li>
+      <li>Awards Won</li>
+      <li>Years Experience</li>
+    </ul>
+    <p>Interested in collaborating? Let's bring your ideas to life!</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>Ready to bring your ideas to life? Get in touch and let's create something amazing together.</p>
+    <p>Whether you have a mobile app idea, need API development, or want to explore AR/VR possibilities, let’s discuss how we can make it happen.</p>
+    <form>
+      <input type="text" placeholder="Your Name" required /><br />
+      <input type="email" placeholder="Email" required /><br />
+      <textarea placeholder="Message"></textarea><br />
+      <button type="submit">Send</button>
+    </form>
+    <p>© 2025 Sasithar M. Built with passion for technology and innovation.</p>
+  </section>
 
   <!-- Matrix Background Script -->
   <script>
-    // Simple Matrix Effect
     const canvas = document.getElementById("matrix-background");
     const ctx = canvas.getContext("2d");
-
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-    const letters = "01".split("");
-    const fontSize = 14;
+    const characters = "01";
+    const fontSize = 16;
     const columns = canvas.width / fontSize;
     const drops = Array(Math.floor(columns)).fill(1);
 
@@ -119,7 +169,7 @@
       ctx.font = fontSize + "px monospace";
 
       for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
+        const text = characters[Math.floor(Math.random() * characters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
@@ -135,18 +185,8 @@
 
   <!-- Cursor Effects Script -->
   <script>
-    // Simple cursor effect
-    const cursor = document.createElement("div");
-    cursor.style.width = "10px";
-    cursor.style.height = "10px";
-    cursor.style.background = "white";
-    cursor.style.position = "fixed";
-    cursor.style.pointerEvents = "none";
-    cursor.style.borderRadius = "50%";
-    cursor.style.zIndex = "1000";
-    document.body.appendChild(cursor);
-
-    document.addEventListener("mousemove", (e) => {
+    const cursor = document.getElementById("cursor");
+    document.addEventListener("mousemove", function(e) {
       cursor.style.left = e.clientX + "px";
       cursor.style.top = e.clientY + "px";
     });
