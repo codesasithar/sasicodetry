@@ -1,14 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite React App</title>
-    <!-- If you have a favicon, add line below and provide the right path -->
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+
+  <!-- Add your stylesheets here -->
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Example styles — replace with your original component styles */
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: sans-serif;
+    }
+
+    .min-h-screen {
+      min-height: 100vh;
+    }
+
+    .z-10 {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Place your matrix background styles here */
+    #matrix-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background-color: black;
+      /* This will be replaced with JS-based matrix effect */
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Effect: Matrix -->
+  <canvas id="matrix-background"></canvas>
+
+  <!-- Content -->
+  <div class="min-h-screen z-10">
+    <!-- Cursor Effects (inject JS below) -->
+    <!-- Inject CursorEffects script here -->
+
+    <!-- Navigation -->
+    <nav id="navigation">
+      <!-- Replace with real HTML from Navigation component -->
+      <h2>My Portfolio</h2>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+      <h1>Hello, I'm John Doe</h1>
+      <p>Creative Developer | Designer | Dreamer</p>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>Brief intro...</p>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <p>Portfolio previews go here...</p>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+      <h2>Services</h2>
+      <p>What I offer...</p>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements">
+      <h2>Achievements</h2>
+      <ul>
+        <li>Award 1</li>
+        <li>Award 2</li>
+      </ul>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Message"></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Matrix Background Script -->
+  <script>
+    // Simple Matrix Effect
+    const canvas = document.getElementById("matrix-background");
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const letters = "01".split("");
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#0F0";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+  </script>
+
+  <!-- Cursor Effects Script -->
+  <script>
+    // Simple cursor effect
+    const cursor = document.createElement("div");
+    cursor.style.width = "10px";
+    cursor.style.height = "10px";
+    cursor.style.background = "white";
+    cursor.style.position = "fixed";
+    cursor.style.pointerEvents = "none";
+    cursor.style.borderRadius = "50%";
+    cursor.style.zIndex = "1000";
+    document.body.appendChild(cursor);
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
+    });
+  </script>
+</body>
 </html>
