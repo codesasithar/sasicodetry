@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageSquare, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageSquare, Instagram, Facebook } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 
@@ -92,6 +92,12 @@ const Contact = () => {
       label: "Instagram",
       href: "https://www.instagram.com/sasitharm/",
       color: "hover:text-pink-400"
+    },
+    {
+      icon: Facebook,
+      label: "Facebook",
+      href: "https://www.facebook.com/snazzy.sasithar",
+      color: "hover:text-blue-600"
     },
     {
       icon: MessageSquare,
