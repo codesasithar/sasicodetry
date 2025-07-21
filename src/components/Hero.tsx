@@ -1,4 +1,4 @@
-import { ArrowRight, Github, Linkedin, Mail, Phone, Code, Terminal, Zap } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Phone, Code, Terminal, Zap, Instagram } from "lucide-react";
 import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
 import { useEffect } from "react";
 
@@ -208,6 +208,14 @@ const Hero = () => {
                 className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
                 <Github className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.instagram.com/sasitharm/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+              >
+                <Instagram className="h-5 w-5" />
               </a>
               <a
                 href="tel:+919443798476"
