@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
+import AudioPlayer from "@/components/AudioPlayer"; // Adjust path as needed
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,13 +63,24 @@ const Navigation = () => {
                 {item.label}
               </button>
             ))}
+
+            {/* Audio Player inside desktop nav */}
+            <div className="ml-6 w-48">
+              <AudioPlayer />
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-4">
+            {/* Audio Player in mobile nav on top bar */}
+            <div className="w-32">
+              <AudioPlayer />
+            </div>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-foreground hover:text-primary transition-colors"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
