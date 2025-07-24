@@ -8,7 +8,7 @@ import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
 import MatrixBackground from "@/components/MatrixBackground";
-import AudioPlayer from "@/components/AudioPlayer";
+
 
 const Index = () => {
   return (
@@ -18,7 +18,6 @@ const Index = () => {
       
       {/* All your content with proper layering */}
       <div className="min-h-screen relative z-10">
-        <AudioPlayer />
         <CursorEffects />
         <Navigation />
         <Hero />

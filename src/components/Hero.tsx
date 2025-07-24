@@ -1,5 +1,6 @@
 import { ArrowRight, Github, Linkedin, Mail, Phone, Code, Terminal, Zap, Instagram, Facebook } from "lucide-react";
 import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
+import AudioPlayer from "@/components/AudioPlayer";
 import { useEffect } from "react";
 
 const Hero = () => {
@@ -257,6 +258,11 @@ const Hero = () => {
                 <div className="text-sm font-medium text-accent">Available for work</div>
                 <div className="text-xs text-muted-foreground">Based in India</div>
               </div>
+            </div>
+            
+            {/* Audio Player below profile picture */}
+            <div className="mt-8 flex justify-center lg:justify-end">
+              <AudioPlayer />
             </div>
           </div>
         </div>

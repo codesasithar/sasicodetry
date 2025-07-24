@@ -63,7 +63,7 @@ const AudioPlayer = () => {
   };
 
   return (
-    <div className="fixed top-4 right-4 z-50 bg-background/90 backdrop-blur-md border border-primary/30 rounded-xl p-4 shadow-2xl shadow-primary/20 tech-glow">
+    <div className="bg-background/90 backdrop-blur-md border border-primary/30 rounded-xl p-4 shadow-2xl shadow-primary/20 tech-glow">
       <div className="flex items-center gap-4">
         {/* Audio Icon */}
         <div className="p-2 bg-primary/10 rounded-lg">
