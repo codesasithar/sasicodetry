@@ -15,7 +15,6 @@ const Hero = () => {
   useEffect(() => {
     const matrixContainer = document.querySelector('.matrix-bg');
     if (!matrixContainer) return;
-
     const characters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</>{}[];';
     const createMatrixColumn = () => {
       const column = document.createElement('div');
@@ -80,19 +79,13 @@ const Hero = () => {
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Dynamic Tech Background */}
       <div className="absolute inset-0 gradient-hero">
-        {/* Matrix Rain Effect */}
         <div className="matrix-bg"></div>
-        {/* Binary Rain Effect */}
         <div className="binary-rain"></div>
-        {/* Tech Grid Pattern */}
         <div className="tech-grid absolute inset-0"></div>
-        {/* Circuit Pattern */}
         <div className="circuit-pattern"></div>
-        {/* Interactive Floating Orbs */}
         <div className="interactive-orb top-20 left-20"></div>
         <div className="interactive-orb bottom-32 right-32" style={{animationDelay: '2s'}}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{animationDelay: '4s'}}></div>
-        {/* Floating Code Snippets */}
         <div className="absolute top-20 right-20 code-snippet overflow-hidden w-48">
           <span className="text-accent">const</span> <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
         </div>
@@ -102,14 +95,12 @@ const Hero = () => {
         <div className="absolute top-1/3 right-1/4 code-snippet overflow-hidden w-32" style={{animationDelay: '2s'}}>
           <span className="text-accent">import</span> <span className="text-primary">React</span> <span className="text-accent">from</span> 'react';
         </div>
-        {/* Particle Tech Elements */}
         <div className="particle-tech top-32 left-32" style={{animationDelay: '0s'}}></div>
         <div className="particle-tech top-40 right-40" style={{animationDelay: '1s'}}></div>
         <div className="particle-tech bottom-32 left-1/3" style={{animationDelay: '2s'}}></div>
         <div className="particle-tech bottom-40 right-1/3" style={{animationDelay: '3s'}}></div>
         <div className="particle-tech top-1/2 left-1/2" style={{animationDelay: '4s'}}></div>
         <div className="particle-tech top-60 right-60" style={{animationDelay: '5s'}}></div>
-        {/* Animated Tech Icons */}
         <div className="absolute top-24 left-1/3 text-primary/20 animate-float">
           <Code className="w-8 h-8" />
         </div>
@@ -128,11 +119,6 @@ const Hero = () => {
             {/* Tagline */}
             <div className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6 animate-slide-up">
               Welcome to my portfolio
-            </div>
-
-            {/* Audio Player below Welcome heading */}
-            <div className="mb-6 mt-2 max-w-xs mx-auto">
-              <AudioPlayer />
             </div>
 
             {/* Main Heading */}
@@ -221,8 +207,8 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column - Profile Photo */}
-          <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{animationDelay: '0.3s'}}>
+          {/* Right Column - Profile Photo and Audio Player */}
+          <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <div className="relative">
               {/* Decorative Elements */}
               <div className="absolute -inset-4 bg-gradient-vibrant rounded-3xl blur-lg opacity-30 animate-pulse"></div>
@@ -244,6 +230,11 @@ const Hero = () => {
                 <div className="text-sm font-medium text-accent">Available for work</div>
                 <div className="text-xs text-muted-foreground">Based in India</div>
               </div>
+            </div>
+
+            {/* Audio Player placed below profile photo */}
+            <div className="mt-6 w-full max-w-xs flex justify-center lg:justify-end">
+              <AudioPlayer />
             </div>
           </div>
         </div>
