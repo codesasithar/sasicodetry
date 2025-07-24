@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
-import AudioPlayerCompact from "@/components/AudioPlayer"; // Adjust path as needed
+import AudioPlayerCompact from "@/components/AudioPlayer"; // Adjust path if necessary
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,7 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.id));
+      const sections = navItems.map((item) => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 100;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -30,14 +30,14 @@ const Navigation = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsOpen(false);
   };
@@ -58,29 +58,31 @@ const Navigation = () => {
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                className={`nav-link ${activeSection === item.id ? "active" : ""}`}
+                type="button"
               >
                 {item.label}
               </button>
             ))}
 
-            {/* Audio Player inside desktop nav */}
-            <div className="ml-6 w-48">
-              <AudioPlayer />
+            {/* Compact AudioPlayer inside desktop nav */}
+            <div className="ml-4 flex items-center">
+              <AudioPlayerCompact />
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button with AudioPlayer */}
           <div className="md:hidden flex items-center space-x-4">
-            {/* Audio Player in mobile nav on top bar */}
-            <div className="w-32">
-              <AudioPlayer />
+            {/* Compact AudioPlayer in mobile navbar */}
+            <div className="w-auto flex items-center">
+              <AudioPlayerCompact />
             </div>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-foreground hover:text-primary transition-colors"
               aria-label={isOpen ? "Close menu" : "Open menu"}
+              type="button"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -89,13 +91,14 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="md:hidden py-4 border-t border-border bg-background/90 backdrop-blur-lg">
             <div className="flex flex-col space-y-4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-left nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  className={`text-left nav-link ${activeSection === item.id ? "active" : ""}`}
+                  type="button"
                 >
                   {item.label}
                 </button>
