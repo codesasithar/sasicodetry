@@ -1,5 +1,6 @@
 import { ArrowRight, Github, Linkedin, Mail, Phone, Code, Terminal, Zap, Instagram, Facebook } from "lucide-react";
 import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
+import AudioPlayer from "@/components/AudioPlayer";
 import { useEffect } from "react";
 
 const Hero = () => {
@@ -83,30 +84,30 @@ const Hero = () => {
         <div className="tech-grid absolute inset-0"></div>
         <div className="circuit-pattern"></div>
         <div className="interactive-orb top-20 left-20"></div>
-        <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: '2s' }}></div>
-        <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: '4s' }}></div>
+        <div className="interactive-orb bottom-32 right-32" style={{animationDelay: '2s'}}></div>
+        <div className="interactive-orb top-1/2 left-1/4" style={{animationDelay: '4s'}}></div>
         <div className="absolute top-20 right-20 code-snippet overflow-hidden w-48">
           <span className="text-accent">const</span> <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
         </div>
-        <div className="absolute bottom-40 left-20 code-snippet overflow-hidden w-40" style={{ animationDelay: '1s' }}>
+        <div className="absolute bottom-40 left-20 code-snippet overflow-hidden w-40" style={{animationDelay: '1s'}}>
           <span className="text-primary">function</span> <span className="text-accent">buildApp()</span> {'{'}...{'}'}
         </div>
-        <div className="absolute top-1/3 right-1/4 code-snippet overflow-hidden w-32" style={{ animationDelay: '2s' }}>
+        <div className="absolute top-1/3 right-1/4 code-snippet overflow-hidden w-32" style={{animationDelay: '2s'}}>
           <span className="text-accent">import</span> <span className="text-primary">React</span> <span className="text-accent">from</span> 'react';
         </div>
-        <div className="particle-tech top-32 left-32" style={{ animationDelay: '0s' }}></div>
-        <div className="particle-tech top-40 right-40" style={{ animationDelay: '1s' }}></div>
-        <div className="particle-tech bottom-32 left-1/3" style={{ animationDelay: '2s' }}></div>
-        <div className="particle-tech bottom-40 right-1/3" style={{ animationDelay: '3s' }}></div>
-        <div className="particle-tech top-1/2 left-1/2" style={{ animationDelay: '4s' }}></div>
-        <div className="particle-tech top-60 right-60" style={{ animationDelay: '5s' }}></div>
+        <div className="particle-tech top-32 left-32" style={{animationDelay: '0s'}}></div>
+        <div className="particle-tech top-40 right-40" style={{animationDelay: '1s'}}></div>
+        <div className="particle-tech bottom-32 left-1/3" style={{animationDelay: '2s'}}></div>
+        <div className="particle-tech bottom-40 right-1/3" style={{animationDelay: '3s'}}></div>
+        <div className="particle-tech top-1/2 left-1/2" style={{animationDelay: '4s'}}></div>
+        <div className="particle-tech top-60 right-60" style={{animationDelay: '5s'}}></div>
         <div className="absolute top-24 left-1/3 text-primary/20 animate-float">
           <Code className="w-8 h-8" />
         </div>
-        <div className="absolute bottom-24 right-1/3 text-accent/20 animate-float" style={{ animationDelay: '1.5s' }}>
+        <div className="absolute bottom-24 right-1/3 text-accent/20 animate-float" style={{animationDelay: '1.5s'}}>
           <Terminal className="w-6 h-6" />
         </div>
-        <div className="absolute top-1/3 right-20 text-primary/20 animate-float" style={{ animationDelay: '3s' }}>
+        <div className="absolute top-1/3 right-20 text-primary/20 animate-float" style={{animationDelay: '3s'}}>
           <Zap className="w-7 h-7" />
         </div>
       </div>
@@ -121,20 +122,20 @@ const Hero = () => {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up" style={{animationDelay: '0.2s'}}>
               <span className="text-foreground">Mobile App</span>
               <br />
               <span className="text-primary text-glow glitch-text" data-text="Developer.">Developer.</span>
             </h1>
 
             {/* Description */}
-            <p className="text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              I like to craft solid and scalable mobile products with great user experiences.
+            <p className="text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in" style={{animationDelay: '0.4s'}}>
+              I like to craft solid and scalable mobile products with great user experiences. 
               Passionate about turning innovative ideas into working digital solutions.
             </p>
 
             {/* Stats */}
-            <div className="flex space-x-8 mb-8 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <div className="flex space-x-8 mb-8 animate-fade-in" style={{animationDelay: '0.6s'}}>
               <div>
                 <div className="text-2xl font-bold text-accent">5+</div>
                 <div className="text-sm text-muted-foreground">Projects Built</div>
@@ -146,7 +147,7 @@ const Hero = () => {
             </div>
 
             {/* CTA Button */}
-            <div className="mb-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            <div className="mb-8 animate-fade-in" style={{animationDelay: '0.8s'}}>
               <button
                 onClick={scrollToProjects}
                 className="btn-tech text-lg group mr-4 cursor-glow ripple-effect sparkle-hover"
@@ -164,7 +165,7 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex space-x-4 animate-fade-in" style={{ animationDelay: '1s' }}>
+            <div className="flex space-x-4 animate-fade-in" style={{animationDelay: '1s'}}>
               <a
                 href="https://linkedin.com/in/sasitharcodes"
                 target="_blank"
@@ -206,14 +207,14 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column - Profile Photo (AudioPlayer removed) */}
+          {/* Right Column - Profile Photo and Audio Player */}
           <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <div className="relative">
               {/* Decorative Elements */}
               <div className="absolute -inset-4 bg-gradient-vibrant rounded-3xl blur-lg opacity-30 animate-pulse"></div>
               <div className="absolute -top-8 -right-8 w-32 h-32 border-2 border-accent/20 rounded-full"></div>
               <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-primary/20 rounded-2xl rotate-45"></div>
-
+              
               {/* Main Photo */}
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden border-4 border-primary/30">
                 <img
@@ -229,6 +230,11 @@ const Hero = () => {
                 <div className="text-sm font-medium text-accent">Available for work</div>
                 <div className="text-xs text-muted-foreground">Based in India</div>
               </div>
+            </div>
+
+            {/* Audio Player placed below profile photo */}
+            <div className="mt-6 w-full max-w-xs flex justify-center lg:justify-end">
+              <AudioPlayer />
             </div>
           </div>
         </div>
