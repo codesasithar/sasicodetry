@@ -99,8 +99,11 @@ const AudioPlayer = () => {
           preload="auto"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
+          onError={() => console.log('Audio file not found - please add your audio file to public/background-audio.mp3')}
         >
           <source src="/background-audio.mp3" type="audio/mpeg" />
+          <source src="/background-audio.wav" type="audio/wav" />
+          <source src="/background-audio.ogg" type="audio/ogg" />
           Your browser does not support the audio element.
         </audio>
       </div>
