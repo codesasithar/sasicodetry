@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
-import AudioPlayerCompact from "@/components/AudioPlayer"; // Adjust path if necessary
+import AudioPlayerCompact from "@/components/AudioPlayerCompact"; // Adjust path correctly
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +74,7 @@ const Navigation = () => {
           {/* Mobile Menu Button with AudioPlayer */}
           <div className="md:hidden flex items-center space-x-4">
             {/* Compact AudioPlayer in mobile navbar */}
-            <div className="w-auto flex items-center">
+            <div className="flex items-center">
               <AudioPlayerCompact />
             </div>
 
