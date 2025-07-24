@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
-import AudioPlayer from "@/components/AudioPlayer"; // Adjust path as needed
+import AudioPlayerCompact from "@/components/AudioPlayer"; // Adjust path as needed
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
