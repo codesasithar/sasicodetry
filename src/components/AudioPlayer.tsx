@@ -69,4 +69,4 @@ const AudioPlayerCompact = () => {
   );
 };
 
-export default AudioPlayerCompact;
+export default AudioPlayer;
