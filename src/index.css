@@ -568,6 +568,30 @@
   }
 }
 
+/* Tech-themed audio slider */
+.tech-slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+  transition: all 0.2s ease;
+}
+
+.tech-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.8);
+}
+
+.tech-slider::-webkit-slider-track {
+  height: 4px;
+  cursor: pointer;
+  background: hsl(var(--accent));
+  border-radius: 2px;
+}
+
 /* Custom Cursor is white with "techy" effect */
 .custom-cursor {
   position: fixed;
