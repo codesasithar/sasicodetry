@@ -11,7 +11,7 @@ import {
   Facebook,
 } from "lucide-react";
 import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
-import AudioPlayerCompact from "@/components/AudioPlayerCompact"; // updated import
+import iRobotBg from "@/assets/irobot-bg.png";
 import { useEffect } from "react";
 
 const Hero = () => {
@@ -34,7 +34,6 @@ const Hero = () => {
       column.style.left = Math.random() * 100 + "%";
       column.style.animationDuration = (Math.random() * 10 + 10) + "s";
       column.style.animationDelay = Math.random() * 5 + "s";
-
       let text = "";
       for (let i = 0; i < 20; i++) {
         text += characters[Math.floor(Math.random() * characters.length)] + "\n";
@@ -69,7 +68,6 @@ const Hero = () => {
       column.style.left = Math.random() * 100 + "%";
       column.style.animationDuration = (Math.random() * 8 + 12) + "s";
       column.style.animationDelay = Math.random() * 3 + "s";
-
       let binary = "";
       for (let i = 0; i < 15; i++) {
         binary += Math.random() > 0.5 ? "1" : "0";
@@ -99,6 +97,21 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
+      {/* -- I, Robot-inspired visual layer -- */}
+      <img
+        src={iRobotBg}
+        alt="Futuristic humanoid robot"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend"
+        style={{
+          width: "45vw",
+          maxWidth: "600px",
+          minWidth: "300px",
+          opacity: 0.36,
+          filter: "blur(0.5px)",
+          mixBlendMode: "lighten",
+        }}
+      />
+
       {/* Dynamic Tech Background */}
       <div className="absolute inset-0 gradient-hero">
         <div className="matrix-bg"></div>
@@ -151,16 +164,14 @@ const Hero = () => {
       </div>
 
       {/* Content Wrapper */}
-      <div className="section-container relative z-10">
+      <div className="section-container relative z-20">
         <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
           {/* Left Column - Text Content */}
           <div className="text-left lg:text-left">
-            {/* Tagline */}
             <div className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6 animate-slide-up">
               Welcome to my portfolio
             </div>
 
-            {/* Main Heading */}
             <h1
               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up"
               style={{ animationDelay: "0.2s" }}
@@ -172,13 +183,11 @@ const Hero = () => {
               </span>
             </h1>
 
-            {/* Description */}
             <p className="text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in" style={{ animationDelay: "0.4s" }}>
               I like to craft solid and scalable mobile products with great user experiences.
               Passionate about turning innovative ideas into working digital solutions.
             </p>
 
-            {/* Stats */}
             <div className="flex space-x-8 mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
               <div>
                 <div className="text-2xl font-bold text-accent">5+</div>
@@ -190,7 +199,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* CTA Button */}
             <div className="mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
               <button
                 onClick={scrollToProjects}
@@ -208,7 +216,6 @@ const Hero = () => {
               </a>
             </div>
 
-            {/* Social Links */}
             <div className="flex space-x-4 animate-fade-in" style={{ animationDelay: "1s" }}>
               <a
                 href="https://linkedin.com/in/sasitharcodes"
@@ -251,15 +258,13 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column - Profile Photo and Audio Player Compact */}
+          {/* Right Column - Profile Photo and Badge */}
           <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: "0.3s" }}>
             <div className="relative">
-              {/* Decorative Elements */}
               <div className="absolute -inset-4 bg-gradient-vibrant rounded-3xl blur-lg opacity-30 animate-pulse"></div>
               <div className="absolute -top-8 -right-8 w-32 h-32 border-2 border-accent/20 rounded-full"></div>
               <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-primary/20 rounded-2xl rotate-45"></div>
 
-              {/* Main Photo */}
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden border-4 border-primary/30">
                 <img
                   src={sasitharPortrait}
@@ -269,16 +274,10 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
               </div>
 
-              {/* Floating Badge */}
               <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-2xl p-4 animate-float">
                 <div className="text-sm font-medium text-accent">Available for work</div>
                 <div className="text-xs text-muted-foreground">Based in India</div>
               </div>
-            </div>
-
-            {/* Use AudioPlayerCompact instead of AudioPlayer */}
-            <div className="mt-6 w-full max-w-xs flex justify-center lg:justify-end">
-              <AudioPlayerCompact />
             </div>
           </div>
         </div>
