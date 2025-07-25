@@ -3,20 +3,52 @@ import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 const AudioPlayerCompact = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
-  // Start muted for autoplay to work on browsers
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
+  const [hasPermission, setHasPermission] = useState(false);
+
+  useEffect(() => {
+    const requestAudioPermission = async () => {
+      try {
+        // Ask for permission to play audio
+        const permission = await navigator.permissions.query({ name: 'microphone' as PermissionName });
+        
+        // Try to play audio immediately when component mounts
+        if (audioRef.current) {
+          audioRef.current.muted = false;
+          const playPromise = audioRef.current.play();
+          
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                setIsPlaying(true);
+                setHasPermission(true);
+                console.log('Audio autoplay started successfully');
+              })
+              .catch((error) => {
+                console.log('Autoplay prevented by browser policy:', error);
+                // Show user interaction needed
+                setHasPermission(false);
+              });
+          }
+        }
+      } catch (error) {
+        console.log('Permission API not supported or failed:', error);
+        // Fallback: try to play anyway
+        if (audioRef.current) {
+          audioRef.current.play().catch(() => {
+            console.log('Autoplay blocked, user interaction required');
+          });
+        }
+      }
+    };
+
+    requestAudioPermission();
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.muted = isMuted;
-      // Attempt autoplay when component mounts
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(() => {
-        // Autoplay failed, which is expected on many browsers
-        console.log('Autoplay blocked, user interaction required');
-      });
     }
   }, [isMuted]);
 
@@ -84,8 +116,6 @@ const AudioPlayerCompact = () => {
         ref={audioRef}
         loop
         preload="auto"
-        autoPlay
-        muted={true} // Start muted for autoplay policy
         src="/background-audio.mp3"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
