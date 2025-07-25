@@ -10,6 +10,13 @@ const AudioPlayerCompact = () => {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.muted = isMuted;
+      // Attempt autoplay when component mounts
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {
+        // Autoplay failed, which is expected on many browsers
+        console.log('Autoplay blocked, user interaction required');
+      });
     }
   }, [isMuted]);
 
