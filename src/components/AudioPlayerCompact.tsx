@@ -5,45 +5,26 @@ const AudioPlayerCompact = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [hasPermission, setHasPermission] = useState(false);
+  const [showAutoplayPrompt, setShowAutoplayPrompt] = useState(false);
 
   useEffect(() => {
-    const requestAudioPermission = async () => {
-      try {
-        // Ask for permission to play audio
-        const permission = await navigator.permissions.query({ name: 'microphone' as PermissionName });
-        
-        // Try to play audio immediately when component mounts
-        if (audioRef.current) {
+    const tryAutoplay = async () => {
+      if (audioRef.current) {
+        try {
           audioRef.current.muted = false;
-          const playPromise = audioRef.current.play();
-          
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                setIsPlaying(true);
-                setHasPermission(true);
-                console.log('Audio autoplay started successfully');
-              })
-              .catch((error) => {
-                console.log('Autoplay prevented by browser policy:', error);
-                // Show user interaction needed
-                setHasPermission(false);
-              });
-          }
-        }
-      } catch (error) {
-        console.log('Permission API not supported or failed:', error);
-        // Fallback: try to play anyway
-        if (audioRef.current) {
-          audioRef.current.play().catch(() => {
-            console.log('Autoplay blocked, user interaction required');
-          });
+          await audioRef.current.play();
+          setIsPlaying(true);
+          console.log('Audio autoplay started successfully');
+        } catch (error) {
+          console.log('Autoplay prevented by browser policy, showing prompt');
+          setShowAutoplayPrompt(true);
         }
       }
     };
 
-    requestAudioPermission();
+    // Add a small delay to ensure the component is fully mounted
+    const timer = setTimeout(tryAutoplay, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -51,6 +32,19 @@ const AudioPlayerCompact = () => {
       audioRef.current.muted = isMuted;
     }
   }, [isMuted]);
+
+  const handleUserEnableAudio = async () => {
+    if (audioRef.current) {
+      try {
+        audioRef.current.muted = false;
+        await audioRef.current.play();
+        setIsPlaying(true);
+        setShowAutoplayPrompt(false);
+      } catch (error) {
+        console.log('Failed to start audio:', error);
+      }
+    }
+  };
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -83,48 +77,73 @@ const AudioPlayerCompact = () => {
   };
 
   return (
-    <div className="flex items-center gap-1 bg-background/80 border border-primary/30 rounded px-1 py-1 shadow h-8">
-      <button
-        onClick={togglePlay}
-        aria-label={isPlaying ? "Pause" : "Play"}
-        className="hover:bg-primary/20 rounded transition"
-        style={{ padding: 2 }}
-        type="button"
-      >
-        {isPlaying ? (
-          <Pause className="h-4 w-4 text-primary" />
-        ) : (
-          <Play className="h-4 w-4 text-primary" />
-        )}
-      </button>
+    <>
+      {showAutoplayPrompt && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-background border border-primary/30 rounded-lg p-6 max-w-sm mx-4">
+            <h3 className="text-lg font-semibold mb-2 text-foreground">Enable Background Music?</h3>
+            <p className="text-muted-foreground mb-4">Click to start the ambient background music for the best experience.</p>
+            <div className="flex gap-2">
+              <button
+                onClick={handleUserEnableAudio}
+                className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded hover:bg-primary/90 transition"
+              >
+                Enable Audio
+              </button>
+              <button
+                onClick={() => setShowAutoplayPrompt(false)}
+                className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded hover:bg-secondary/90 transition"
+              >
+                No Thanks
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <div className="flex items-center gap-1 bg-background/80 border border-primary/30 rounded px-1 py-1 shadow h-8">
+        <button
+          onClick={togglePlay}
+          aria-label={isPlaying ? "Pause" : "Play"}
+          className="hover:bg-primary/20 rounded transition"
+          style={{ padding: 2 }}
+          type="button"
+        >
+          {isPlaying ? (
+            <Pause className="h-4 w-4 text-primary" />
+          ) : (
+            <Play className="h-4 w-4 text-primary" />
+          )}
+        </button>
 
-      <button
-        onClick={toggleMute}
-        aria-label={isMuted ? "Unmute" : "Mute"}
-        className="hover:bg-accent/40 rounded transition"
-        style={{ padding: 2 }}
-        type="button"
-      >
-        {isMuted ? (
-          <VolumeX className="h-4 w-4 text-muted-foreground" />
-        ) : (
-          <Volume2 className="h-4 w-4 text-muted-foreground" />
-        )}
-      </button>
+        <button
+          onClick={toggleMute}
+          aria-label={isMuted ? "Unmute" : "Mute"}
+          className="hover:bg-accent/40 rounded transition"
+          style={{ padding: 2 }}
+          type="button"
+        >
+          {isMuted ? (
+            <VolumeX className="h-4 w-4 text-muted-foreground" />
+          ) : (
+            <Volume2 className="h-4 w-4 text-muted-foreground" />
+          )}
+        </button>
 
-      <audio
-        ref={audioRef}
-        loop
-        preload="auto"
-        src="/background-audio.mp3"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-      >
-        <source src="/background-audio.mp3" type="audio/mpeg" />
-        <source src="/background-audio.wav" type="audio/wav" />
-        <source src="/background-audio.ogg" type="audio/ogg" />
-      </audio>
-    </div>
+        <audio
+          ref={audioRef}
+          loop
+          preload="auto"
+          src="/background-audio.mp3"
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+        >
+          <source src="/background-audio.mp3" type="audio/mpeg" />
+          <source src="/background-audio.wav" type="audio/wav" />
+          <source src="/background-audio.ogg" type="audio/ogg" />
+        </audio>
+      </div>
+    </>
   );
 };
 
