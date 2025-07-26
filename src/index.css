@@ -724,9 +724,9 @@
 /* Arc Reactor Animations */
 .arc-reactor {
   position: relative;
-  width: 120px;
-  height: 120px;
-  opacity: 0.7;
+  width: 140px;
+  height: 140px;
+  opacity: 0.95;
 }
 
 .arc-core {
@@ -734,14 +734,15 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
-  background: radial-gradient(circle, hsl(var(--primary)), hsl(var(--primary)) 40%, transparent 70%);
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle, hsl(210 100% 70%), hsl(210 100% 60%) 30%, hsl(0 80% 60%) 60%, transparent 80%);
   border-radius: 50%;
   box-shadow: 
-    0 0 20px hsl(var(--primary)),
-    0 0 40px hsl(var(--primary)),
-    inset 0 0 10px hsl(var(--primary));
+    0 0 25px hsl(210 100% 70%),
+    0 0 50px hsl(210 100% 60%),
+    0 0 10px hsl(0 80% 60%),
+    inset 0 0 15px hsl(210 100% 80%);
   animation: arc-core-pulse 2s ease-in-out infinite;
 }
 
@@ -751,30 +752,31 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 2px solid hsl(var(--primary) / 0.6);
-  box-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  border: 3px solid;
 }
 
 .arc-ring-1 {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
+  border-color: hsl(210 100% 70% / 0.8);
+  box-shadow: 0 0 15px hsl(210 100% 70% / 0.6);
   animation: arc-ring-rotate 4s linear infinite;
 }
 
 .arc-ring-2 {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
+  border-color: hsl(0 80% 60% / 0.6);
+  box-shadow: 0 0 12px hsl(0 80% 60% / 0.4);
   animation: arc-ring-rotate 6s linear infinite reverse;
-  border-color: hsl(var(--accent) / 0.4);
-  box-shadow: 0 0 8px hsl(var(--accent) / 0.3);
 }
 
 .arc-ring-3 {
-  width: 110px;
-  height: 110px;
+  width: 125px;
+  height: 125px;
+  border-color: hsl(210 100% 60% / 0.4);
+  box-shadow: 0 0 18px hsl(210 100% 60% / 0.3);
   animation: arc-ring-rotate 8s linear infinite;
-  border-color: hsl(var(--primary) / 0.3);
-  box-shadow: 0 0 12px hsl(var(--primary) / 0.2);
 }
 
 .arc-particles {
@@ -782,22 +784,24 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
 }
 
 .arc-particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: hsl(var(--accent));
+  width: 5px;
+  height: 5px;
+  background: hsl(0 90% 65%);
   border-radius: 50%;
-  box-shadow: 0 0 6px hsl(var(--accent));
+  box-shadow: 0 0 8px hsl(0 90% 65%);
   animation: arc-particle-orbit 3s linear infinite;
 }
 
 .arc-particle:nth-child(1) {
   animation-delay: 0s;
+  background: hsl(210 100% 70%);
+  box-shadow: 0 0 8px hsl(210 100% 70%);
 }
 
 .arc-particle:nth-child(2) {
@@ -806,6 +810,8 @@
 
 .arc-particle:nth-child(3) {
   animation-delay: -1s;
+  background: hsl(210 100% 70%);
+  box-shadow: 0 0 8px hsl(210 100% 70%);
 }
 
 .arc-particle:nth-child(4) {
@@ -814,6 +820,8 @@
 
 .arc-particle:nth-child(5) {
   animation-delay: -2s;
+  background: hsl(210 100% 70%);
+  box-shadow: 0 0 8px hsl(210 100% 70%);
 }
 
 .arc-particle:nth-child(6) {
@@ -824,16 +832,18 @@
   0%, 100% {
     transform: translate(-50%, -50%) scale(1);
     box-shadow: 
-      0 0 20px hsl(var(--primary)),
-      0 0 40px hsl(var(--primary)),
-      inset 0 0 10px hsl(var(--primary));
+      0 0 25px hsl(210 100% 70%),
+      0 0 50px hsl(210 100% 60%),
+      0 0 10px hsl(0 80% 60%),
+      inset 0 0 15px hsl(210 100% 80%);
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.15);
     box-shadow: 
-      0 0 30px hsl(var(--primary)),
-      0 0 60px hsl(var(--primary)),
-      inset 0 0 15px hsl(var(--primary));
+      0 0 35px hsl(210 100% 70%),
+      0 0 70px hsl(210 100% 60%),
+      0 0 20px hsl(0 80% 60%),
+      inset 0 0 20px hsl(210 100% 85%);
   }
 }
 
@@ -848,9 +858,9 @@
 
 @keyframes arc-particle-orbit {
   0% {
-    transform: rotate(0deg) translateX(45px) rotate(0deg);
+    transform: rotate(0deg) translateX(50px) rotate(0deg);
   }
   100% {
-    transform: rotate(360deg) translateX(45px) rotate(-360deg);
+    transform: rotate(360deg) translateX(50px) rotate(-360deg);
   }
 }
