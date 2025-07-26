@@ -32,7 +32,7 @@ const About = () => {
               <Brain className="h-8 w-8 text-primary mb-4" />
               <h3 className="text-2xl font-bold mb-4">Personal Bio</h3>
               <p className="text-muted-foreground leading-relaxed">
-                I'm <span className="text-primary font-semibold">Sasithar M</span>, a passionate coder and mobile app developer 
+                I'm <span className="text-primary font-semibold">Sasithar M</span>, a passionate coder and Application developer 
                 who loves turning ideas into working digital products. My passion extends into psychology and motivational content, 
                 which inspires how I create and interact with technology.
               </p>

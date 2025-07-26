@@ -268,7 +268,7 @@ const Hero = () => {
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden border-4 border-primary/30">
                 <img
                   src={sasitharPortrait}
-                  alt="Sasithar M - Mobile App Developer"
+                  alt="Sasithar M - Application Developer"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
