@@ -122,6 +122,24 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
+        {/* Arc Reactor Center */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5">
+          <div className="arc-reactor">
+            <div className="arc-core"></div>
+            <div className="arc-ring arc-ring-1"></div>
+            <div className="arc-ring arc-ring-2"></div>
+            <div className="arc-ring arc-ring-3"></div>
+            <div className="arc-particles">
+              <div className="arc-particle"></div>
+              <div className="arc-particle"></div>
+              <div className="arc-particle"></div>
+              <div className="arc-particle"></div>
+              <div className="arc-particle"></div>
+              <div className="arc-particle"></div>
+            </div>
+          </div>
+        </div>
+
         {/* Floating Code Snippets */}
         <div className="absolute top-20 right-20 code-snippet overflow-hidden w-48">
           <span className="text-accent">const</span>{" "}
