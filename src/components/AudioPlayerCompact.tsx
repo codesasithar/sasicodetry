@@ -82,7 +82,7 @@ const AudioPlayerCompact = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-background border border-primary/30 rounded-lg p-6 max-w-sm mx-4">
             <h3 className="text-lg font-semibold mb-2 text-foreground">Enable Background Music?</h3>
-            <p className="text-muted-foreground mb-4">Click to start the ambient background music for the best experience.</p>
+            <p className="text-muted-foreground mb-4">Hear me out !</p>
             <div className="flex gap-2">
               <button
                 onClick={handleUserEnableAudio}
