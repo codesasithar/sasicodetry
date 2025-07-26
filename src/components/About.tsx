@@ -13,7 +13,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-container">
+    <section id="about" className="section-container relative">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -25,7 +25,23 @@ const About = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {/* Arc Reactor Background */}
+        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-10">
+          <div className="arc-reactor">
+            <div className="arc-core"></div>
+            <div className="arc-ring arc-ring-1"></div>
+            <div className="arc-ring arc-ring-2"></div>
+            <div className="arc-ring arc-ring-3"></div>
+            <div className="arc-particles">
+              <div className="particle"></div>
+              <div className="particle"></div>
+              <div className="particle"></div>
+              <div className="particle"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
           {/* Left Column - Bio */}
           <div className="space-y-8">
             <div className="tech-card">
