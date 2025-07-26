@@ -176,7 +176,7 @@ const Hero = () => {
               className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up"
               style={{ animationDelay: "0.2s" }}
             >
-              <span className="text-foreground">Mobile App</span>
+              <span className="text-foreground">Application</span>
               <br />
               <span className="text-primary text-glow glitch-text" data-text="Developer.">
                 Developer.
