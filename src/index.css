@@ -877,20 +877,12 @@
 
 .spark {
   position: absolute;
-  width: 3px;
-  height: 12px;
-  background: linear-gradient(to bottom, 
-    hsl(30 100% 85%), 
-    hsl(15 95% 70%), 
-    hsl(5 90% 60%), 
-    transparent);
-  border-radius: 2px 2px 0 0;
+  width: 2px;
+  height: 8px;
+  background: linear-gradient(to bottom, hsl(210 100% 80%), transparent);
+  border-radius: 1px;
   opacity: 0;
-  animation: spark-fire 1.8s ease-in-out infinite;
-  box-shadow: 
-    0 0 4px hsl(30 100% 70%),
-    0 0 8px hsl(15 90% 60%),
-    0 0 2px hsl(5 100% 50%);
+  animation: spark-flash 2s ease-in-out infinite;
 }
 
 .spark-1 {
@@ -949,44 +941,18 @@
   animation-delay: 1.75s;
 }
 
-@keyframes spark-fire {
-  0%, 85% {
+@keyframes spark-flash {
+  0%, 90% {
     opacity: 0;
-    transform: scale(0.4) translateY(0);
-    background: linear-gradient(to bottom, 
-      hsl(30 100% 85%), 
-      hsl(15 95% 70%), 
-      hsl(5 90% 60%), 
-      transparent);
+    transform: scale(0.5);
   }
-  5% {
-    opacity: 0.9;
-    transform: scale(1.2) translateY(-2px);
-    background: linear-gradient(to bottom, 
-      hsl(45 100% 90%), 
-      hsl(30 100% 75%), 
-      hsl(15 95% 65%), 
-      hsl(5 90% 55%));
-    box-shadow: 
-      0 0 6px hsl(45 100% 80%),
-      0 0 12px hsl(30 90% 70%),
-      0 0 4px hsl(15 100% 60%);
-  }
-  12% {
+  5%, 15% {
     opacity: 1;
-    transform: scale(1) translateY(-1px);
-    background: linear-gradient(to bottom, 
-      hsl(35 100% 85%), 
-      hsl(20 95% 70%), 
-      hsl(10 90% 60%), 
-      transparent);
-    box-shadow: 
-      0 0 8px hsl(35 100% 75%),
-      0 0 16px hsl(20 90% 65%),
-      0 0 6px hsl(10 100% 55%);
+    transform: scale(1);
+    box-shadow: 0 0 8px hsl(210 100% 70%), 0 0 4px hsl(0 80% 60%);
   }
   20%, 100% {
     opacity: 0;
-    transform: scale(0.3) translateY(2px);
+    transform: scale(0.3);
   }
 }
