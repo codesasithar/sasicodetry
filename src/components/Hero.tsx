@@ -137,6 +137,16 @@ const Hero = () => {
               <div className="arc-particle"></div>
               <div className="arc-particle"></div>
             </div>
+            <div className="arc-sparks">
+              <div className="spark spark-1"></div>
+              <div className="spark spark-2"></div>
+              <div className="spark spark-3"></div>
+              <div className="spark spark-4"></div>
+              <div className="spark spark-5"></div>
+              <div className="spark spark-6"></div>
+              <div className="spark spark-7"></div>
+              <div className="spark spark-8"></div>
+            </div>
           </div>
         </div>
 

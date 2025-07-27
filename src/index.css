@@ -864,3 +864,95 @@
     transform: rotate(360deg) translateX(50px) rotate(-360deg);
   }
 }
+
+/* Arc Reactor Sparks */
+.arc-sparks {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+}
+
+.spark {
+  position: absolute;
+  width: 2px;
+  height: 8px;
+  background: linear-gradient(to bottom, hsl(210 100% 80%), transparent);
+  border-radius: 1px;
+  opacity: 0;
+  animation: spark-flash 2s ease-in-out infinite;
+}
+
+.spark-1 {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0s;
+}
+
+.spark-2 {
+  top: 15%;
+  right: 15%;
+  transform: rotate(45deg);
+  animation-delay: 0.25s;
+}
+
+.spark-3 {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) rotate(90deg);
+  animation-delay: 0.5s;
+}
+
+.spark-4 {
+  bottom: 15%;
+  right: 15%;
+  transform: rotate(135deg);
+  animation-delay: 0.75s;
+}
+
+.spark-5 {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  animation-delay: 1s;
+}
+
+.spark-6 {
+  bottom: 15%;
+  left: 15%;
+  transform: rotate(225deg);
+  animation-delay: 1.25s;
+}
+
+.spark-7 {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) rotate(270deg);
+  animation-delay: 1.5s;
+}
+
+.spark-8 {
+  top: 15%;
+  left: 15%;
+  transform: rotate(315deg);
+  animation-delay: 1.75s;
+}
+
+@keyframes spark-flash {
+  0%, 90% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  5%, 15% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 8px hsl(210 100% 70%), 0 0 4px hsl(0 80% 60%);
+  }
+  20%, 100% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
