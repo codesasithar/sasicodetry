@@ -7,7 +7,13 @@ const AudioPlayerCompact = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [showAutoplayPrompt, setShowAutoplayPrompt] = useState(false);
 
-  // No automatic audio start - user must manually enable
+  useEffect(() => {
+    // Always show prompt when page loads to ask user about background music
+    const timer = setTimeout(() => {
+      setShowAutoplayPrompt(true);
+    }, 500); // Small delay to let page load
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {
