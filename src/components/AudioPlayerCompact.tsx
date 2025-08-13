@@ -7,25 +7,7 @@ const AudioPlayerCompact = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [showAutoplayPrompt, setShowAutoplayPrompt] = useState(false);
 
-  useEffect(() => {
-    const tryAutoplay = async () => {
-      if (audioRef.current) {
-        try {
-          audioRef.current.muted = false;
-          await audioRef.current.play();
-          setIsPlaying(true);
-          console.log('Audio autoplay started successfully');
-        } catch (error) {
-          console.log('Autoplay prevented by browser policy, showing prompt');
-          setShowAutoplayPrompt(true);
-        }
-      }
-    };
-
-    // Add a small delay to ensure the component is fully mounted
-    const timer = setTimeout(tryAutoplay, 100);
-    return () => clearTimeout(timer);
-  }, []);
+  // No automatic audio start - user must manually enable
 
   useEffect(() => {
     if (audioRef.current) {
