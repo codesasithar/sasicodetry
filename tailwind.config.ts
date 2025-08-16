@@ -71,6 +71,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				wood: {
+					200: 'hsl(var(--wood-200))',
+					400: 'hsl(var(--wood-400))',
+					500: 'hsl(var(--wood-500))',
+					600: 'hsl(var(--wood-600))'
 				}
 			},
 			borderRadius: {

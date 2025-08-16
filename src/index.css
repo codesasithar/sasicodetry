@@ -89,6 +89,12 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Wood colors for bookshelf */
+    --wood-200: 35 50% 85%;
+    --wood-400: 30 40% 65%;
+    --wood-500: 25 35% 45%;
+    --wood-600: 20 30% 35%;
   }
 
   .dark {
@@ -127,6 +133,12 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Wood colors for bookshelf - darker in dark mode */
+    --wood-200: 25 30% 25%;
+    --wood-400: 20 25% 20%;
+    --wood-500: 15 20% 15%;
+    --wood-600: 10 15% 10%;
   }
 }
 
