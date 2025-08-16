@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import briefHistoryOfTime from "@/assets/books/brief-history-of-time.jpg";
 import atomicHabits from "@/assets/books/atomic-habits.jpg";
+import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
+import originOfSpecies from "@/assets/books/origin-of-species.jpg";
 
 interface Book {
   id: string;
@@ -31,6 +33,22 @@ const books: Book[] = [
     cover: atomicHabits,
     genre: "Self-Help",
     status: "read"
+  },
+  {
+    id: "3",
+    title: "Rich Dad Poor Dad",
+    author: "Robert T. Kiyosaki",
+    cover: richDadPoorDad,
+    genre: "Finance",
+    status: "read"
+  },
+  {
+    id: "4",
+    title: "The Origin of Species",
+    author: "Charles Darwin",
+    cover: originOfSpecies,
+    genre: "Science",
+    status: "read"
   }
 ];
 
@@ -56,7 +74,7 @@ const Bookshelf = () => {
   };
 
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-20 w-80">
+    <div className="w-full max-w-2xl mx-auto">
       <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-6">
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">

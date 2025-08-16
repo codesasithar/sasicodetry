@@ -8,7 +8,6 @@ import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
 import MatrixBackground from "@/components/MatrixBackground";
-import Bookshelf from "@/components/Bookshelf";
 
 
 const Index = () => {
@@ -28,7 +27,6 @@ const Index = () => {
         <Writings />
         <Achievements />
         <Contact />
-        <Bookshelf />
       </div>
     </>
   );
