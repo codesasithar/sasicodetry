@@ -6,6 +6,7 @@ import briefHistoryOfTime from "@/assets/books/brief-history-of-time.jpg";
 import atomicHabits from "@/assets/books/atomic-habits.jpg";
 import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
 import originOfSpecies from "@/assets/books/origin-of-species.jpg";
+import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
 
 interface Book {
   id: string;
@@ -48,6 +49,14 @@ const books: Book[] = [
     author: "Charles Darwin",
     cover: originOfSpecies,
     genre: "Science",
+    status: "read"
+  },
+  {
+    id: "5",
+    title: "Mind is Your Business",
+    author: "Sadhguru",
+    cover: mindIsYourBusiness,
+    genre: "Philosophy",
     status: "read"
   }
 ];
