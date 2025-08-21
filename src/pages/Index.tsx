@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Services from "@/components/Services";
 import Writings from "@/components/Writings";
+import RoleModels from "@/components/RoleModels";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
@@ -25,6 +26,7 @@ const Index = () => {
         <Projects />
         <Services />
         <Writings />
+        <RoleModels />
         <Achievements />
         <Contact />
       </div>
