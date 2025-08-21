@@ -116,14 +116,14 @@ const Bookshelf = () => {
         <div className="space-y-8">
           {/* Shelf 1 */}
           <div className="relative">
-            <div className="flex gap-2 pb-3 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-2 pt-2 rounded-t-sm">
+            <div className="flex gap-3 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-3 pt-3 rounded-t-sm">
               {books.slice(0, 3).map((book) => (
                 <div
                   key={book.id}
-                  className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+                  className="relative group cursor-pointer transform hover:scale-110 transition-all duration-300"
                   onClick={() => setSelectedBook(selectedBook?.id === book.id ? null : book)}
                 >
-                  <div className="w-16 h-20 bg-gradient-to-b from-background to-muted rounded-sm shadow-lg overflow-hidden">
+                  <div className="w-20 h-28 bg-gradient-to-b from-background to-muted rounded-sm shadow-xl overflow-hidden border border-border/20">
                     <img
                       src={book.cover}
                       alt={book.title}
@@ -132,23 +132,25 @@ const Bookshelf = () => {
                   </div>
                   {/* Book spine shadow */}
                   <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent rounded-sm pointer-events-none" />
+                  {/* Hover glow effect */}
+                  <div className="absolute -inset-1 bg-primary/20 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm" />
                 </div>
               ))}
             </div>
             {/* Shelf wood effect */}
-            <div className="h-1 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+            <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
           </div>
 
           {/* Shelf 2 - For future books */}
           <div className="relative">
-            <div className="flex gap-2 pb-3 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-2 pt-2 rounded-t-sm min-h-[5rem]">
+            <div className="flex gap-3 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-3 pt-3 rounded-t-sm min-h-[8rem]">
               {books.slice(3, 6).map((book) => (
                 <div
                   key={book.id}
-                  className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+                  className="relative group cursor-pointer transform hover:scale-110 transition-all duration-300"
                   onClick={() => setSelectedBook(selectedBook?.id === book.id ? null : book)}
                 >
-                  <div className="w-16 h-20 bg-gradient-to-b from-background to-muted rounded-sm shadow-lg overflow-hidden">
+                  <div className="w-20 h-28 bg-gradient-to-b from-background to-muted rounded-sm shadow-xl overflow-hidden border border-border/20">
                     <img
                       src={book.cover}
                       alt={book.title}
@@ -156,6 +158,7 @@ const Bookshelf = () => {
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent rounded-sm pointer-events-none" />
+                  <div className="absolute -inset-1 bg-primary/20 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm" />
                 </div>
               ))}
               {/* Empty shelf message */}
@@ -165,19 +168,19 @@ const Bookshelf = () => {
                 </div>
               )}
             </div>
-            <div className="h-1 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+            <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
           </div>
 
           {/* Shelf 3 - For even more future books */}
           <div className="relative">
-            <div className="flex gap-2 pb-3 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-2 pt-2 rounded-t-sm min-h-[5rem]">
+            <div className="flex gap-3 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-3 pt-3 rounded-t-sm min-h-[8rem]">
               {books.slice(6).map((book) => (
                 <div
                   key={book.id}
-                  className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+                  className="relative group cursor-pointer transform hover:scale-110 transition-all duration-300"
                   onClick={() => setSelectedBook(selectedBook?.id === book.id ? null : book)}
                 >
-                  <div className="w-16 h-20 bg-gradient-to-b from-background to-muted rounded-sm shadow-lg overflow-hidden">
+                  <div className="w-20 h-28 bg-gradient-to-b from-background to-muted rounded-sm shadow-xl overflow-hidden border border-border/20">
                     <img
                       src={book.cover}
                       alt={book.title}
@@ -185,10 +188,11 @@ const Bookshelf = () => {
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent rounded-sm pointer-events-none" />
+                  <div className="absolute -inset-1 bg-primary/20 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm" />
                 </div>
               ))}
             </div>
-            <div className="h-1 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+            <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
           </div>
         </div>
 
