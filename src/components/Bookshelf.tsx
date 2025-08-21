@@ -17,6 +17,7 @@ interface Book {
   cover: string;
   genre: string;
   status: "read" | "reading" | "to-read";
+  summary: string;
 }
 
 // Easy to add more books - just add to this array
@@ -27,7 +28,8 @@ const books: Book[] = [
     author: "Stephen Hawking",
     cover: briefHistoryOfTime,
     genre: "Science",
-    status: "read"
+    status: "read",
+    summary: "Hawking's masterpiece explores the nature of time, space, and the universe in accessible language. From the Big Bang to black holes, this book reveals the fundamental principles governing our cosmos and challenges our understanding of reality itself."
   },
   {
     id: "2",
@@ -35,7 +37,8 @@ const books: Book[] = [
     author: "James Clear",
     cover: atomicHabits,
     genre: "Self-Help",
-    status: "read"
+    status: "read",
+    summary: "A practical guide to building good habits and breaking bad ones. Clear reveals how small changes compound into remarkable results, providing a proven framework for improving every day through the power of atomic habits."
   },
   {
     id: "3",
@@ -43,7 +46,8 @@ const books: Book[] = [
     author: "Robert T. Kiyosaki",
     cover: richDadPoorDad,
     genre: "Finance",
-    status: "read"
+    status: "read",
+    summary: "Kiyosaki challenges conventional wisdom about money and investing through the contrasting philosophies of his 'rich dad' and 'poor dad'. A foundational book on financial literacy that emphasizes assets over liabilities and financial education."
   },
   {
     id: "4",
@@ -51,7 +55,8 @@ const books: Book[] = [
     author: "Charles Darwin",
     cover: originOfSpecies,
     genre: "Science",
-    status: "read"
+    status: "read",
+    summary: "Darwin's groundbreaking work that introduced the theory of evolution by natural selection. This revolutionary text fundamentally changed our understanding of life on Earth and remains one of the most influential scientific works ever written."
   },
   {
     id: "5",
@@ -59,7 +64,8 @@ const books: Book[] = [
     author: "Sadhguru",
     cover: mindIsYourBusiness,
     genre: "Philosophy",
-    status: "read"
+    status: "read",
+    summary: "Sadhguru explores the nature of the mind and consciousness, offering practical wisdom for achieving mental clarity and inner peace. A profound guide to understanding the mechanics of the mind and transcending its limitations."
   },
   {
     id: "6",
@@ -67,7 +73,8 @@ const books: Book[] = [
     author: "Joseph Murphy",
     cover: powerOfSubconsciousMind,
     genre: "Self-Help",
-    status: "read"
+    status: "read",
+    summary: "Murphy reveals how to harness the incredible power of your subconscious mind to transform your life. This classic explores techniques for programming your mind for success, health, and happiness through positive thinking and visualization."
   },
   {
     id: "7",
@@ -75,7 +82,8 @@ const books: Book[] = [
     author: "Stephen Hawking",
     cover: blackHolesHawking,
     genre: "Science",
-    status: "read"
+    status: "read",
+    summary: "A collection of Hawking's essays exploring the mysteries of black holes, the possibility of baby universes, and the search for a unified theory of everything. Combines deep scientific insights with personal reflections on life and the cosmos."
   }
 ];
 
@@ -208,6 +216,12 @@ const Bookshelf = () => {
               <span className={`text-xs ${getStatusColor(selectedBook.status)}`}>
                 {getStatusText(selectedBook.status)}
               </span>
+            </div>
+            <div className="mt-3 pt-3 border-t border-border/30">
+              <h5 className="text-sm font-medium text-foreground mb-2">Summary</h5>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {selectedBook.summary}
+              </p>
             </div>
           </div>
         )}
