@@ -7,6 +7,8 @@ import atomicHabits from "@/assets/books/atomic-habits.jpg";
 import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
 import originOfSpecies from "@/assets/books/origin-of-species.jpg";
 import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
+import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.jpg";
+import blackHolesHawking from "@/assets/books/black-holes-hawking.jpg";
 
 interface Book {
   id: string;
@@ -57,6 +59,22 @@ const books: Book[] = [
     author: "Sadhguru",
     cover: mindIsYourBusiness,
     genre: "Philosophy",
+    status: "read"
+  },
+  {
+    id: "6",
+    title: "The Power of Your Subconscious Mind",
+    author: "Joseph Murphy",
+    cover: powerOfSubconsciousMind,
+    genre: "Self-Help",
+    status: "read"
+  },
+  {
+    id: "7",
+    title: "Black Holes and Baby Universes",
+    author: "Stephen Hawking",
+    cover: blackHolesHawking,
+    genre: "Science",
     status: "read"
   }
 ];
