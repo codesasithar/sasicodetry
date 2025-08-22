@@ -109,6 +109,18 @@ const Bookshelf = () => {
   };
 
   return (
+    <section id="bookshelf" className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-4">
+            <BookOpen className="w-8 h-8 text-primary mr-3" />
+            <h2 className="text-4xl font-bold text-foreground">Books That Inspire Me</h2>
+          </div>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            A curated collection of books that have shaped my thinking and inspired my journey
+          </p>
+        </div>
+        
     <div className="w-full max-w-2xl mx-auto">
       <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-6">
         {/* Header */}
@@ -235,6 +247,8 @@ const Bookshelf = () => {
         </div>
       </Card>
     </div>
+      </div>
+    </section>
   );
 };
 
