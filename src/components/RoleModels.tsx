@@ -6,7 +6,7 @@ import { Lightbulb } from "lucide-react";
 import nikolaTesla from "@/assets/role-models/nikola-tesla.jpg";
 import albertEinstein from "@/assets/role-models/albert-einstein.jpg";
 import elonMusk from "@/assets/role-models/elon-musk.jpg";
-import kamalHassan from "@/assets/role-models/kamal-hassan.jpg";
+import kamalHassan from "/lovable-uploads/8a583bd8-8a7b-419c-98d4-819cef5329ac.png";
 import gandhi from "@/assets/role-models/gandhi.jpg";
 import bruceLee from "@/assets/role-models/bruce-lee.jpg";
 import muhammadAli from "@/assets/role-models/muhammad-ali.jpg";
