@@ -12,6 +12,19 @@ import bruceLee from "@/assets/role-models/bruce-lee.jpg";
 import muhammadAli from "@/assets/role-models/muhammad-ali.jpg";
 import mikeTyson from "@/assets/role-models/mike-tyson.jpg";
 import alexanderGreat from "@/assets/role-models/alexander-great.jpg";
+import michaelJackson from "@/assets/role-models/michael-jackson.jpg";
+import quentinTarantino from "@/assets/role-models/quentin-tarantino.jpg";
+import clintEastwood from "@/assets/role-models/clint-eastwood.jpg";
+import nelsonMandela from "@/assets/role-models/nelson-mandela.jpg";
+import morganFreeman from "@/assets/role-models/morgan-freeman.jpg";
+import apjAbdulKalam from "@/assets/role-models/apj-abdul-kalam.jpg";
+import billGates from "@/assets/role-models/bill-gates.jpg";
+import steveJobs from "@/assets/role-models/steve-jobs.jpg";
+import vanGogh from "@/assets/role-models/van-gogh.jpg";
+import jackieChan from "@/assets/role-models/jackie-chan.jpg";
+import willSmith from "@/assets/role-models/will-smith.jpg";
+import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.jpg";
+import keanuReeves from "@/assets/role-models/keanu-reeves.jpg";
 
 interface RoleModel {
   id: string;
@@ -94,6 +107,110 @@ const roleModels: RoleModel[] = [
     image: alexanderGreat,
     category: "Leadership",
     introduction: "One of history's greatest military strategists who created one of the largest empires in ancient history. Alexander's leadership, tactical brilliance, and ability to inspire loyalty in his troops remain legendary. His vision of cultural fusion and his relentless pursuit of excellence continue to inspire leaders and strategists across all fields."
+  },
+  {
+    id: "10",
+    name: "Michael Jackson",
+    title: "King of Pop",
+    image: michaelJackson,
+    category: "Entertainment",
+    introduction: "The undisputed King of Pop who revolutionized music, dance, and entertainment. Jackson's perfectionism, innovative artistry, and dedication to his craft set new standards for performance. His ability to unite people across cultures through music and his relentless pursuit of artistic excellence continue to inspire entertainers worldwide."
+  },
+  {
+    id: "11",
+    name: "Quentin Tarantino",
+    title: "Film Director & Screenwriter",
+    image: quentinTarantino,
+    category: "Cinema",
+    introduction: "A visionary filmmaker who redefined modern cinema with his unique storytelling style. Tarantino's passion for film history, meticulous attention to detail, and bold creative choices demonstrate the power of artistic vision. His ability to blend genres and create compelling narratives inspires filmmakers and storytellers everywhere."
+  },
+  {
+    id: "12",
+    name: "Clint Eastwood",
+    title: "Actor & Director",
+    image: clintEastwood,
+    category: "Cinema",
+    introduction: "A legendary actor and director whose career spans over six decades. Eastwood's dedication to his craft, work ethic, and ability to evolve as an artist demonstrate longevity and excellence in entertainment. His transition from actor to acclaimed director shows the importance of continuous growth and reinvention."
+  },
+  {
+    id: "13",
+    name: "Nelson Mandela",
+    title: "Anti-Apartheid Leader & President",
+    image: nelsonMandela,
+    category: "Leadership",
+    introduction: "A symbol of peace, reconciliation, and human dignity who transformed a nation through forgiveness and unity. Mandela's resilience during 27 years of imprisonment and his commitment to justice without revenge demonstrate extraordinary character. His leadership in transitioning South Africa peacefully inspires leaders working for social change."
+  },
+  {
+    id: "14",
+    name: "Morgan Freeman",
+    title: "Actor & Narrator",
+    image: morganFreeman,
+    category: "Arts",
+    introduction: "A distinguished actor whose voice and presence have defined storytelling for generations. Freeman's dedication to his craft, wisdom, and ability to bring depth to every role demonstrate mastery of the art of acting. His journey from struggling actor to Hollywood icon shows the power of persistence and belief in oneself."
+  },
+  {
+    id: "15",
+    name: "APJ Abdul Kalam",
+    title: "Scientist & President of India",
+    image: apjAbdulKalam,
+    category: "Science",
+    introduction: "The People's President who combined scientific brilliance with humanitarian values. Kalam's contributions to India's space and missile programs, along with his dedication to education and youth development, exemplify using knowledge for national progress. His humility, vision, and commitment to inspiring young minds continue to motivate scientists and leaders."
+  },
+  {
+    id: "16",
+    name: "Bill Gates",
+    title: "Entrepreneur & Philanthropist",
+    image: billGates,
+    category: "Innovation",
+    introduction: "A technology pioneer who revolutionized personal computing and later dedicated his life to global health and education. Gates' strategic thinking, problem-solving abilities, and commitment to using wealth for humanitarian causes demonstrate responsible leadership. His transition from tech entrepreneur to philanthropist inspires others to use success for positive global impact."
+  },
+  {
+    id: "17",
+    name: "Steve Jobs",
+    title: "Co-founder of Apple",
+    image: steveJobs,
+    category: "Innovation",
+    introduction: "A visionary who transformed multiple industries through design excellence and user-centered innovation. Jobs' perfectionism, attention to detail, and ability to anticipate consumer needs revolutionized technology. His philosophy of simplicity, focus, and creating products that enrich people's lives continues to inspire entrepreneurs and designers worldwide."
+  },
+  {
+    id: "18",
+    name: "Vincent van Gogh",
+    title: "Post-Impressionist Painter",
+    image: vanGogh,
+    category: "Visual Arts",
+    introduction: "An artistic genius whose passionate dedication to art transcended personal struggles. Van Gogh's unique style, emotional intensity, and perseverance despite lack of recognition during his lifetime demonstrate the power of artistic vision. His commitment to expressing human emotion through color and brushwork continues to inspire artists worldwide."
+  },
+  {
+    id: "19",
+    name: "Jackie Chan",
+    title: "Martial Artist & Actor",
+    image: jackieChan,
+    category: "Entertainment",
+    introduction: "A martial arts legend who combined action with comedy to create a unique entertainment style. Chan's dedication to performing his own stunts, innovation in fight choreography, and global cultural bridge-building demonstrate passion and versatility. His work ethic, creativity, and commitment to entertaining audiences worldwide inspire performers across all disciplines."
+  },
+  {
+    id: "20",
+    name: "Will Smith",
+    title: "Actor & Entertainer",
+    image: willSmith,
+    category: "Entertainment",
+    introduction: "A charismatic entertainer who successfully transitioned from music to becoming one of Hollywood's biggest stars. Smith's positive attitude, work ethic, and ability to connect with audiences across different mediums demonstrate versatility and star power. His commitment to family values and motivational philosophy inspires people to pursue their dreams with optimism."
+  },
+  {
+    id: "21",
+    name: "Leonardo DiCaprio",
+    title: "Actor & Environmental Activist",
+    image: leonardoDiCaprio,
+    category: "Arts",
+    introduction: "An acclaimed actor who uses his platform for environmental advocacy and social change. DiCaprio's dedication to his craft, selective choice of meaningful projects, and commitment to climate activism demonstrate using fame responsibly. His ability to balance commercial success with artistic integrity and environmental causes inspires conscious celebrity leadership."
+  },
+  {
+    id: "22",
+    name: "Keanu Reeves",
+    title: "Actor & Humanitarian",
+    image: keanuReeves,
+    category: "Humility",
+    introduction: "An actor beloved not just for his performances but for his genuine kindness and humility. Reeves' generosity, down-to-earth nature, and resilience through personal tragedies demonstrate grace under pressure. His charitable acts, respect for others, and authentic personality show that true greatness comes from character, not just talent or fame."
   }
 ];
 
@@ -108,7 +225,11 @@ const RoleModels = () => {
       Leadership: "bg-amber-500/10 text-amber-400 border-amber-500/20",
       Discipline: "bg-green-500/10 text-green-400 border-green-500/20",
       Courage: "bg-red-500/10 text-red-400 border-red-500/20",
-      Resilience: "bg-orange-500/10 text-orange-400 border-orange-500/20"
+      Resilience: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+      Entertainment: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+      Cinema: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+      "Visual Arts": "bg-rose-500/10 text-rose-400 border-rose-500/20",
+      Humility: "bg-teal-500/10 text-teal-400 border-teal-500/20"
     };
     return colors[category as keyof typeof colors] || "bg-muted text-muted-foreground border-border";
   };
