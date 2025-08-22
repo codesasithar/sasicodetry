@@ -17,14 +17,14 @@ import quentinTarantino from "@/assets/role-models/quentin-tarantino.jpg";
 import clintEastwood from "@/assets/role-models/clint-eastwood.jpg";
 import nelsonMandela from "@/assets/role-models/nelson-mandela.jpg";
 import morganFreeman from "@/assets/role-models/morgan-freeman.jpg";
-import apjAbdulKalam from "@/assets/role-models/apj-abdul-kalam.jpg";
+import apjAbdulKalam from "/lovable-uploads/51b56dc6-2991-43a3-a98b-7dc0de156dcc.png";
 import billGates from "@/assets/role-models/bill-gates.jpg";
 import steveJobs from "@/assets/role-models/steve-jobs.jpg";
 import vanGogh from "@/assets/role-models/van-gogh.jpg";
-import jackieChan from "@/assets/role-models/jackie-chan.jpg";
+import jackieChan from "/lovable-uploads/ccff2e08-9724-4120-871c-ad84e51771bc.png";
 import willSmith from "@/assets/role-models/will-smith.jpg";
 import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.jpg";
-import keanuReeves from "@/assets/role-models/keanu-reeves.jpg";
+import keanuReeves from "/lovable-uploads/8507b3df-7d14-47b5-bf4e-fd10ef5508af.png";
 
 interface RoleModel {
   id: string;
