@@ -8,7 +8,7 @@ import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
 import originOfSpecies from "@/assets/books/origin-of-species.jpg";
 import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
 import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.jpg";
-import blackHolesHawking from "@/assets/books/black-holes-hawking.jpg";
+import dopamineDetox from "@/assets/books/dopamine-detox.jpg";
 
 interface Book {
   id: string;
@@ -78,12 +78,12 @@ const books: Book[] = [
   },
   {
     id: "7",
-    title: "Black Holes and Baby Universes",
-    author: "Stephen Hawking",
-    cover: blackHolesHawking,
-    genre: "Science",
+    title: "Dopamine Detox",
+    author: "Thibaut Meurisse",
+    cover: dopamineDetox,
+    genre: "Self-Help",
     status: "read",
-    summary: "A collection of Hawking's essays exploring the mysteries of black holes, the possibility of baby universes, and the search for a unified theory of everything. Combines deep scientific insights with personal reflections on life and the cosmos."
+    summary: "A practical guide to removing distractions and training your brain to focus on challenging tasks. Learn how to break free from instant gratification and develop the mental discipline needed to achieve your goals through strategic dopamine management."
   }
 ];
 
