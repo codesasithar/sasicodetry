@@ -241,13 +241,6 @@ const Hero = () => {
                 </span>
                 <div className="absolute inset-0 border border-primary/30 rounded-lg group-hover:border-primary/60 transition-colors duration-300"></div>
               </button>
-              <a
-                href="mailto:sasicodes@gmail.com"
-                className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors cursor-glow"
-              >
-                <Mail className="mr-2 h-5 w-5" />
-                Get In Touch
-              </a>
             </div>
 
             <div className="flex space-x-4 animate-fade-in" style={{ animationDelay: "1s" }}>
