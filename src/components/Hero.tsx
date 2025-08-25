@@ -230,10 +230,16 @@ const Hero = () => {
             <div className="mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
               <button
                 onClick={scrollToProjects}
-                className="btn-tech text-lg group mr-4 cursor-glow ripple-effect sparkle-hover"
+                className="btn-tech text-lg group mr-4 cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale"
               >
-                View My Work
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
+                <span className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
+                <span className="relative z-10 flex items-center">
+                  <span className="mr-2">🚀</span>
+                  View My Work
+                  <ArrowRight className="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
+                </span>
+                <div className="absolute inset-0 border border-primary/30 rounded-lg group-hover:border-primary/60 transition-colors duration-300"></div>
               </button>
               <a
                 href="mailto:sasicodes@gmail.com"
