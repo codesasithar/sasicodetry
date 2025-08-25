@@ -67,23 +67,37 @@ const AudioPlayerCompact = () => {
   return (
     <>
       {showAutoplayPrompt && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-background border border-primary/30 rounded-lg p-6 max-w-sm mx-4">
-            <h3 className="text-lg font-semibold mb-2 text-foreground">Enable Background Music?</h3>
-            <p className="text-muted-foreground mb-4">Hear me out !</p>
-            <div className="flex gap-2">
-              <button
-                onClick={handleUserEnableAudio}
-                className="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded hover:bg-primary/90 transition"
-              >
-                Enable Audio
-              </button>
-              <button
-                onClick={() => setShowAutoplayPrompt(false)}
-                className="flex-1 bg-secondary text-secondary-foreground px-4 py-2 rounded hover:bg-secondary/90 transition"
-              >
-                No Thanks
-              </button>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-fade-in">
+          <div className="bg-background/95 backdrop-blur-sm border border-primary/30 rounded-xl p-8 max-w-sm mx-4 shadow-2xl animate-scale-in transform-gpu">
+            <div className="text-center">
+              <div className="mb-4 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center mb-4 animate-pulse">
+                  <Volume2 className="h-8 w-8 text-primary" />
+                </div>
+              </div>
+              
+              <h3 className="text-xl font-bold mb-3 text-foreground animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+                Enable Background Music?
+              </h3>
+              
+              <p className="text-muted-foreground mb-6 text-lg font-medium animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+                Hear me out ! 🎵
+              </p>
+              
+              <div className="flex gap-3 animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
+                <button
+                  onClick={handleUserEnableAudio}
+                  className="flex-1 bg-gradient-to-r from-primary to-primary/90 text-primary-foreground px-6 py-3 rounded-lg hover:from-primary/90 hover:to-primary/80 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/25 font-medium"
+                >
+                  Enable Audio
+                </button>
+                <button
+                  onClick={() => setShowAutoplayPrompt(false)}
+                  className="flex-1 bg-secondary/80 backdrop-blur-sm text-secondary-foreground px-6 py-3 rounded-lg hover:bg-secondary/90 transition-all duration-300 transform hover:scale-105 font-medium"
+                >
+                  No Thanks
+                </button>
+              </div>
             </div>
           </div>
         </div>
