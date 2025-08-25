@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BookOpen, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import briefHistoryOfTime from "@/assets/books/brief-history-of-time-new.jpg";
+const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.png";
 import atomicHabits from "@/assets/books/atomic-habits.jpg";
 import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
 import originOfSpecies from "@/assets/books/origin-of-species.jpg";
