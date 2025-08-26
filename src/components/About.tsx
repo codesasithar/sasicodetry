@@ -73,9 +73,9 @@ const About = () => {
                 <h3 className="text-2xl font-bold">Technical Skills</h3>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 {skills.map((skill, index) => (
-                  <div key={skill} className="skill-tag" style={{animationDelay: `${index * 0.1}s`}}>
+                  <div key={skill} className="skill-tag animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
                     {skill}
                   </div>
                 ))}
