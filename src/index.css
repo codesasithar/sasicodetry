@@ -272,12 +272,13 @@
   }
 
   .skill-tag {
-    @apply inline-block px-4 py-2 bg-secondary text-secondary-foreground rounded-full text-sm font-medium;
-    @apply border border-border hover:border-primary/50 transition-all duration-300;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground rounded-lg text-sm font-semibold;
+    @apply border border-border hover:border-primary/50 transition-all duration-300 min-h-[44px] w-full;
+    @apply shadow-sm hover:shadow-md;
   }
 
   .skill-tag:hover {
-    @apply bg-primary/10 text-primary;
+    @apply bg-primary/10 text-primary transform scale-105;
   }
 
   .project-image {
