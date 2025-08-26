@@ -156,10 +156,16 @@ const Achievements = () => {
               const element = document.getElementById('contact');
               if (element) element.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-tech"
+            className="btn-tech group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale"
           >
-            <Target className="mr-2 h-5 w-5" />
-            Get In Touch
+            <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
+            <span className="absolute inset-0 bg-accent/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
+            <span className="relative z-10 flex items-center">
+              <Target className="mr-2 h-5 w-5 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12" />
+              <span className="mr-2">💬</span>
+              Get In Touch
+            </span>
+            <div className="absolute inset-0 border border-accent/30 rounded-lg group-hover:border-accent/60 transition-colors duration-300"></div>
           </button>
         </div>
       </div>
