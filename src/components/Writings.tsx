@@ -161,9 +161,15 @@ const Writings = () => {
                 placeholder="Enter your email address"
                 className="w-full px-4 py-3 bg-input border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
               />
-              <button className="btn-tech w-full">
-                Subscribe to Updates
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <button className="btn-tech w-full group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale">
+                <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
+                <span className="absolute inset-0 bg-accent/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
+                <span className="relative z-10 flex items-center justify-center">
+                  <span className="mr-2">📧</span>
+                  Subscribe to Updates
+                  <ArrowRight className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
+                </span>
+                <div className="absolute inset-0 border border-accent/30 rounded-lg group-hover:border-accent/60 transition-colors duration-300"></div>
               </button>
             </div>
           </div>
