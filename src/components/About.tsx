@@ -4,9 +4,14 @@ import Bookshelf from "./Bookshelf";
 const About = () => {
   const skills = [
     "Android Development",
+    "Java",
+    "Full Stack Development",
     "MuleSoft",
     "Python",
+    "SQL",
     "Unity",
+    "Spark AR",
+    "Vuforia",
     "Firebase",
     "API Integration",
     "AR/VR Development",
