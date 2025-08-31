@@ -12,10 +12,12 @@ import {
 } from "lucide-react";
 import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
 import iRobotBg from "@/assets/irobot-bg.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const Hero = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
   const developerTyping = useTypingEffect({
     text: "Developer.",
     speed: 150,
@@ -34,6 +36,16 @@ const Hero = () => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // Mouse tracking for robotic arm eyes
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   // Matrix rain effect
   useEffect(() => {
@@ -135,30 +147,53 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
-        {/* Arc Reactor Center */}
+        {/* Robotic Arm Center */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5">
-          <div className="arc-reactor">
-            <div className="arc-core"></div>
-            <div className="arc-ring arc-ring-1"></div>
-            <div className="arc-ring arc-ring-2"></div>
-            <div className="arc-ring arc-ring-3"></div>
-            <div className="arc-particles">
-              <div className="arc-particle"></div>
-              <div className="arc-particle"></div>
-              <div className="arc-particle"></div>
-              <div className="arc-particle"></div>
-              <div className="arc-particle"></div>
-              <div className="arc-particle"></div>
+          <div className="robotic-arm">
+            {/* Base */}
+            <div className="arm-base"></div>
+            
+            {/* First Segment */}
+            <div className="arm-segment arm-segment-1">
+              <div className="arm-joint arm-joint-1"></div>
             </div>
-            <div className="arc-sparks">
-              <div className="spark spark-1"></div>
-              <div className="spark spark-2"></div>
-              <div className="spark spark-3"></div>
-              <div className="spark spark-4"></div>
-              <div className="spark spark-5"></div>
-              <div className="spark spark-6"></div>
-              <div className="spark spark-7"></div>
-              <div className="spark spark-8"></div>
+            
+            {/* Second Segment */}
+            <div className="arm-segment arm-segment-2">
+              <div className="arm-joint arm-joint-2"></div>
+            </div>
+            
+            {/* Head with Eyes */}
+            <div className="arm-head">
+              <div className="robot-eye robot-eye-left">
+                <div 
+                  className="eye-pupil"
+                  style={{
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -3), 3)}px)`
+                  }}
+                ></div>
+              </div>
+              <div className="robot-eye robot-eye-right">
+                <div 
+                  className="eye-pupil"
+                  style={{
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -3), 3)}px)`
+                  }}
+                ></div>
+              </div>
+              
+              {/* LED indicators */}
+              <div className="led-indicator led-1"></div>
+              <div className="led-indicator led-2"></div>
+              <div className="led-indicator led-3"></div>
+            </div>
+            
+            {/* Energy particles around arm */}
+            <div className="arm-particles">
+              <div className="arm-particle"></div>
+              <div className="arm-particle"></div>
+              <div className="arm-particle"></div>
+              <div className="arm-particle"></div>
             </div>
           </div>
         </div>
