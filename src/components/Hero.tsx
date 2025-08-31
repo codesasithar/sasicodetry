@@ -16,10 +16,16 @@ import { useEffect } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const Hero = () => {
+  const developerTyping = useTypingEffect({
+    text: "Developer.",
+    speed: 150,
+    delay: 800
+  });
+
   const typingText = useTypingEffect({
     text: "I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions.",
     speed: 30,
-    delay: 1000
+    delay: 2500
   });
 
   const scrollToProjects = () => {
@@ -208,13 +214,25 @@ const Hero = () => {
             </div>
 
             <h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up relative"
               style={{ animationDelay: "0.2s" }}
             >
               <span className="text-foreground">Application</span>
               <br />
-              <span className="text-primary text-glow glitch-text" data-text="Developer.">
-                Developer.
+              <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
+                {developerTyping.displayedText}
+                {!developerTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
+                {/* Typing sparks */}
+                {!developerTyping.isComplete && (
+                  <div className="absolute -right-4 top-1/2 transform -translate-y-1/2">
+                    <div className="spark-burst">
+                      <div className="spark-particle spark-1"></div>
+                      <div className="spark-particle spark-2"></div>
+                      <div className="spark-particle spark-3"></div>
+                      <div className="spark-particle spark-4"></div>
+                    </div>
+                  </div>
+                )}
               </span>
             </h1>
 
