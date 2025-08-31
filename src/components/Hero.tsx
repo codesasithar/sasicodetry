@@ -13,8 +13,15 @@ import {
 import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
 import iRobotBg from "@/assets/irobot-bg.png";
 import { useEffect } from "react";
+import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const Hero = () => {
+  const typingText = useTypingEffect({
+    text: "I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions.",
+    speed: 30,
+    delay: 1000
+  });
+
   const scrollToProjects = () => {
     const element = document.getElementById("projects");
     if (element) {
@@ -211,9 +218,9 @@ const Hero = () => {
               </span>
             </h1>
 
-            <p className="text-xl text-muted-foreground mb-8 max-w-xl animate-fade-in" style={{ animationDelay: "0.4s" }}>
-              I like to craft solid and scalable mobile products with great user experiences.
-              Passionate about turning innovative ideas into working digital solutions.
+            <p className="text-xl text-muted-foreground mb-8 max-w-xl min-h-[4rem] animate-fade-in" style={{ animationDelay: "0.4s" }}>
+              {typingText.displayedText}
+              {!typingText.isComplete && <span className="animate-pulse">|</span>}
             </p>
 
             <div className="flex space-x-8 mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
