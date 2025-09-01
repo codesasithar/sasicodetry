@@ -147,53 +147,48 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
-        {/* Arc Reactor Center - Prominently positioned in front */}
+        {/* Arc Reactor Center - Iron Man Inspired Design */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <div className="arc-reactor-large">
-            {/* Outer Ring */}
-            <div className="arc-ring arc-ring-outer-large"></div>
-            
-            {/* Middle Ring */}
-            <div className="arc-ring arc-ring-middle-large"></div>
-            
-            {/* Inner Ring */}
-            <div className="arc-ring arc-ring-inner-large"></div>
-            
-            {/* Core */}
-            <div className="arc-core-large">
-              {/* Arc Reactor Eyes */}
-              <div className="arc-eye arc-eye-left-large">
+          <div className="arc-reactor-inspired">
+            {/* Segmented Outer Ring */}
+            <div className="arc-segments-outer">
+              {[...Array(12)].map((_, i) => (
                 <div 
-                  className="eye-pupil arc-pupil-large"
-                  style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 80, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 80, -3), 3)}px)`
-                  }}
+                  key={i} 
+                  className={`arc-segment ${i % 2 === 0 ? 'arc-segment-active' : 'arc-segment-inactive'}`}
+                  style={{ transform: `rotate(${i * 30}deg)` }}
                 ></div>
-              </div>
-              <div className="arc-eye arc-eye-right-large">
-                <div 
-                  className="eye-pupil arc-pupil-large"
-                  style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 80, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 80, -3), 3)}px)`
-                  }}
-                ></div>
-              </div>
-              
-              {/* Arc energy lines */}
-              <div className="arc-energy-line arc-line-1"></div>
-              <div className="arc-energy-line arc-line-2"></div>
-              <div className="arc-energy-line arc-line-3"></div>
-              <div className="arc-energy-line arc-line-4"></div>
+              ))}
             </div>
             
-            {/* Energy particles around reactor */}
-            <div className="arc-particles">
-              <div className="arc-particle arc-particle-1"></div>
-              <div className="arc-particle arc-particle-2"></div>
-              <div className="arc-particle arc-particle-3"></div>
-              <div className="arc-particle arc-particle-4"></div>
-              <div className="arc-particle arc-particle-5"></div>
-              <div className="arc-particle arc-particle-6"></div>
+            {/* Middle Ring with Pattern */}
+            <div className="arc-ring-pattern"></div>
+            
+            {/* Inner Glowing Ring */}
+            <div className="arc-ring-inner-glow"></div>
+            
+            {/* Central Core */}
+            <div className="arc-core-inspired">
+              {/* Core Glow */}
+              <div className="arc-core-center"></div>
+              
+              {/* Arc Reactor Eyes */}
+              <div className="arc-eye-inspired arc-eye-left-inspired">
+                <div 
+                  className="eye-pupil-inspired"
+                  style={{
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 60, -4), 4)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 60, -4), 4)}px)`
+                  }}
+                ></div>
+              </div>
+              <div className="arc-eye-inspired arc-eye-right-inspired">
+                <div 
+                  className="eye-pupil-inspired"
+                  style={{
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 60, -4), 4)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 60, -4), 4)}px)`
+                  }}
+                ></div>
+              </div>
             </div>
           </div>
         </div>

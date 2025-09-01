@@ -579,11 +579,52 @@
     filter: drop-shadow(0 0 50px hsl(var(--primary) / 0.8));
   }
 
-  .arc-ring {
+  .arc-reactor-inspired {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    animation: reactorFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 60px hsl(189 100% 50% / 0.8));
+  }
+
+  .arc-segments-outer {
     position: absolute;
-    border-radius: 50%;
-    border: 2px solid hsl(var(--primary));
-    animation: arc-pulse 3s ease-in-out infinite;
+    width: 240px;
+    height: 240px;
+    top: 0;
+    left: 0;
+  }
+
+  .arc-segment {
+    position: absolute;
+    width: 18px;
+    height: 60px;
+    top: 0;
+    left: 50%;
+    transform-origin: 50% 120px;
+    margin-left: -9px;
+    border-radius: 4px;
+    animation: segmentPulse 2s ease-in-out infinite;
+  }
+
+  .arc-segment-active {
+    background: linear-gradient(180deg, 
+      hsl(189 100% 50%) 0%,
+      hsl(189 100% 70%) 50%,
+      hsl(189 100% 50%) 100%
+    );
+    box-shadow: 
+      0 0 20px hsl(189 100% 50%),
+      inset 0 0 10px hsl(189 100% 80%);
+  }
+
+  .arc-segment-inactive {
+    background: linear-gradient(180deg, 
+      hsl(210 15% 25%) 0%,
+      hsl(210 15% 35%) 50%,
+      hsl(210 15% 25%) 100%
+    );
+    border: 1px solid hsl(189 50% 30%);
   }
 
   .arc-ring-outer {
@@ -621,46 +662,75 @@
       inset 0 0 10px hsl(var(--primary) / 0.3);
   }
 
-  .arc-ring-outer-large {
-    width: 200px;
-    height: 200px;
-    top: 0;
-    left: 0;
-    border-width: 5px;
-    border-color: hsl(var(--primary) / 0.9);
-    box-shadow: 
-      0 0 40px hsl(var(--primary)),
-      inset 0 0 30px hsl(var(--primary) / 0.4),
-      0 0 80px hsl(var(--primary) / 0.6);
-    animation: arc-spin 8s linear infinite;
-  }
-
-  .arc-ring-middle-large {
-    width: 140px;
-    height: 140px;
+  .arc-ring-pattern {
+    position: absolute;
+    width: 180px;
+    height: 180px;
     top: 30px;
     left: 30px;
-    border-width: 4px;
-    border-color: hsl(var(--accent) / 0.9);
-    animation-delay: 0.5s;
+    border: 2px solid hsl(189 100% 50% / 0.6);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      transparent 30%,
+      hsl(189 100% 50% / 0.1) 40%,
+      transparent 50%,
+      hsl(189 100% 50% / 0.1) 60%,
+      transparent 70%
+    );
     box-shadow: 
-      0 0 30px hsl(var(--accent)),
-      inset 0 0 25px hsl(var(--accent) / 0.4);
-    animation: arc-spin 6s linear infinite reverse;
+      0 0 30px hsl(189 100% 50% / 0.5),
+      inset 0 0 30px hsl(189 100% 50% / 0.2);
+    animation: arc-spin 12s linear infinite;
   }
 
-  .arc-ring-inner-large {
-    width: 80px;
-    height: 80px;
+  .arc-ring-inner-glow {
+    position: absolute;
+    width: 120px;
+    height: 120px;
     top: 60px;
     left: 60px;
-    border-width: 3px;
-    border-color: hsl(var(--primary));
-    animation-delay: 1s;
+    border: 3px solid hsl(189 100% 60%);
+    border-radius: 50%;
     box-shadow: 
-      0 0 25px hsl(var(--primary)),
-      inset 0 0 20px hsl(var(--primary) / 0.5);
-    animation: arc-spin 4s linear infinite;
+      0 0 40px hsl(189 100% 50%),
+      inset 0 0 25px hsl(189 100% 50% / 0.4);
+    animation: arc-spin 8s linear infinite reverse;
+  }
+
+  .arc-core-inspired {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 80px;
+    left: 80px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      hsl(189 100% 70%) 0%,
+      hsl(189 100% 50%) 30%,
+      hsl(189 80% 40%) 60%,
+      transparent 100%
+    );
+    box-shadow: 
+      0 0 50px hsl(189 100% 50%),
+      0 0 80px hsl(189 100% 50% / 0.7),
+      inset 0 0 30px hsl(189 100% 70%);
+    animation: arc-core-glow 2s ease-in-out infinite alternate;
+  }
+
+  .arc-core-center {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 20px;
+    left: 20px;
+    border-radius: 50%;
+    background: hsl(189 100% 80%);
+    box-shadow: 
+      0 0 30px hsl(189 100% 70%),
+      inset 0 0 15px hsl(189 100% 90%);
+    animation: corePulse 1.5s ease-in-out infinite alternate;
   }
 
   .arc-core {
@@ -683,73 +753,69 @@
     animation: arc-core-glow 2s ease-in-out infinite alternate;
   }
 
-  .arc-core-large {
+  .arc-eye-inspired {
     position: absolute;
-    width: 100px;
-    height: 100px;
-    top: 50px;
-    left: 50px;
-    background: radial-gradient(
-      circle,
-      hsl(var(--primary)) 0%,
-      hsl(var(--primary) / 0.9) 20%,
-      hsl(var(--accent)) 40%,
-      hsl(var(--primary) / 0.6) 70%,
-      transparent 100%
-    );
+    width: 16px;
+    height: 16px;
+    background: hsl(210 30% 8%);
+    border: 2px solid hsl(189 100% 50%);
     border-radius: 50%;
     box-shadow: 
-      0 0 60px hsl(var(--primary)),
-      0 0 100px hsl(var(--primary) / 0.7),
-      inset 0 0 40px hsl(var(--primary) / 0.8);
-    animation: arc-core-glow 2s ease-in-out infinite alternate;
+      0 0 20px hsl(189 100% 50%),
+      inset 0 0 8px hsl(189 100% 30%);
   }
 
-  .arc-eye {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: hsl(var(--primary));
+  .arc-eye-left-inspired {
+    top: 25px;
+    left: 20px;
+  }
+
+  .arc-eye-right-inspired {
+    top: 25px;
+    right: 20px;
+  }
+
+  .eye-pupil-inspired {
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, hsl(189 100% 70%), hsl(189 100% 50%));
     border-radius: 50%;
-    box-shadow: 0 0 8px hsl(var(--primary));
-  }
-
-  .arc-eye-left {
-    top: 20px;
-    left: 18px;
-  }
-
-  .arc-eye-right {
-    top: 20px;
-    right: 18px;
-  }
-
-  .arc-eye-left-large {
     position: absolute;
-    top: 35px;
-    left: 25px;
-    width: 14px;
-    height: 14px;
-    background: hsl(var(--background));
-    border: 2px solid hsl(var(--primary));
-    border-radius: 50%;
-    box-shadow: 
-      0 0 15px hsl(var(--primary)),
-      inset 0 0 8px hsl(var(--primary) / 0.3);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.06s ease-out;
+    box-shadow: 0 0 15px hsl(189 100% 60%);
+    animation: eyeGlow 2s ease-in-out infinite alternate;
   }
 
-  .arc-eye-right-large {
-    position: absolute;
-    top: 35px;
-    right: 25px;
-    width: 14px;
-    height: 14px;
-    background: hsl(var(--background));
-    border: 2px solid hsl(var(--primary));
-    border-radius: 50%;
-    box-shadow: 
-      0 0 15px hsl(var(--primary)),
-      inset 0 0 8px hsl(var(--primary) / 0.3);
+  @keyframes segmentPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes corePulse {
+    0% { 
+      transform: scale(1);
+      box-shadow: 
+        0 0 30px hsl(189 100% 70%),
+        inset 0 0 15px hsl(189 100% 90%);
+    }
+    100% { 
+      transform: scale(1.1);
+      box-shadow: 
+        0 0 40px hsl(189 100% 80%),
+        inset 0 0 20px hsl(189 100% 95%);
+    }
+  }
+
+  @keyframes eyeGlow {
+    0% { 
+      box-shadow: 0 0 15px hsl(189 100% 60%);
+    }
+    100% { 
+      box-shadow: 0 0 25px hsl(189 100% 70%);
+    }
   }
 
   .arc-pupil {
