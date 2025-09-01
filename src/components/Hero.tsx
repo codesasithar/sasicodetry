@@ -10,7 +10,7 @@ import {
   Instagram,
   Facebook,
 } from "lucide-react";
-import sasitharPortrait from "@/assets/sasithar-portrait.jpg";
+// Using uploaded profile image
 import iRobotBg from "@/assets/irobot-bg.png";
 import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
@@ -354,7 +354,7 @@ const Hero = () => {
 
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden border-4 border-primary/30">
                 <img
-                  src={sasitharPortrait}
+                  src="/lovable-uploads/d2579815-ad70-4405-af42-3e0f278e9d1e.png"
                   alt="Sasithar M - Application Developer"
                   className="w-full h-full object-cover"
                 />
