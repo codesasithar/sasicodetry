@@ -147,53 +147,53 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
-        {/* Robotic Arm Center */}
+        {/* Arc Reactor Center */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5">
-          <div className="robotic-arm">
-            {/* Base */}
-            <div className="arm-base"></div>
+          <div className="arc-reactor">
+            {/* Outer Ring */}
+            <div className="arc-ring arc-ring-outer"></div>
             
-            {/* First Segment */}
-            <div className="arm-segment arm-segment-1">
-              <div className="arm-joint arm-joint-1"></div>
-            </div>
+            {/* Middle Ring */}
+            <div className="arc-ring arc-ring-middle"></div>
             
-            {/* Second Segment */}
-            <div className="arm-segment arm-segment-2">
-              <div className="arm-joint arm-joint-2"></div>
-            </div>
+            {/* Inner Ring */}
+            <div className="arc-ring arc-ring-inner"></div>
             
-            {/* Head with Eyes */}
-            <div className="arm-head">
-              <div className="robot-eye robot-eye-left">
+            {/* Core */}
+            <div className="arc-core">
+              {/* Arc Reactor Eyes */}
+              <div className="arc-eye arc-eye-left">
                 <div 
-                  className="eye-pupil"
+                  className="eye-pupil arc-pupil"
                   style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -3), 3)}px)`
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -2), 2)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -2), 2)}px)`
                   }}
                 ></div>
               </div>
-              <div className="robot-eye robot-eye-right">
+              <div className="arc-eye arc-eye-right">
                 <div 
-                  className="eye-pupil"
+                  className="eye-pupil arc-pupil"
                   style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -3), 3)}px)`
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -2), 2)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -2), 2)}px)`
                   }}
                 ></div>
               </div>
               
-              {/* LED indicators */}
-              <div className="led-indicator led-1"></div>
-              <div className="led-indicator led-2"></div>
-              <div className="led-indicator led-3"></div>
+              {/* Arc energy lines */}
+              <div className="arc-energy-line arc-line-1"></div>
+              <div className="arc-energy-line arc-line-2"></div>
+              <div className="arc-energy-line arc-line-3"></div>
+              <div className="arc-energy-line arc-line-4"></div>
             </div>
             
-            {/* Energy particles around arm */}
-            <div className="arm-particles">
-              <div className="arm-particle"></div>
-              <div className="arm-particle"></div>
-              <div className="arm-particle"></div>
-              <div className="arm-particle"></div>
+            {/* Energy particles around reactor */}
+            <div className="arc-particles">
+              <div className="arc-particle arc-particle-1"></div>
+              <div className="arc-particle arc-particle-2"></div>
+              <div className="arc-particle arc-particle-3"></div>
+              <div className="arc-particle arc-particle-4"></div>
+              <div className="arc-particle arc-particle-5"></div>
+              <div className="arc-particle arc-particle-6"></div>
             </div>
           </div>
         </div>

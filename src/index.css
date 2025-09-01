@@ -563,41 +563,257 @@
     }
   }
 
-  /* Robotic Arm Styles */
-  .robotic-arm {
+  /* Arc Reactor Styles */
+  .arc-reactor {
     position: relative;
-    width: 200px;
-    height: 200px;
-    animation: armFloat 6s ease-in-out infinite;
+    width: 120px;
+    height: 120px;
+    animation: reactorFloat 4s ease-in-out infinite;
   }
 
-  .arm-base {
+  .arc-ring {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 2px solid hsl(var(--primary));
+    animation: arc-pulse 3s ease-in-out infinite;
+  }
+
+  .arc-ring-outer {
+    width: 120px;
+    height: 120px;
+    top: 0;
+    left: 0;
+    border-width: 3px;
+    box-shadow: 
+      0 0 20px hsl(var(--primary)),
+      inset 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .arc-ring-middle {
+    width: 80px;
+    height: 80px;
+    top: 20px;
+    left: 20px;
+    border-width: 2px;
+    animation-delay: 0.5s;
+    box-shadow: 
+      0 0 15px hsl(var(--primary)),
+      inset 0 0 15px hsl(var(--primary) / 0.3);
+  }
+
+  .arc-ring-inner {
     width: 40px;
-    height: 20px;
-    background: linear-gradient(145deg, hsl(var(--primary)), hsl(var(--primary-dark)));
-    border-radius: 20px 20px 5px 5px;
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+    height: 40px;
+    top: 40px;
+    left: 40px;
+    border-width: 2px;
+    animation-delay: 1s;
+    box-shadow: 
+      0 0 10px hsl(var(--primary)),
+      inset 0 0 10px hsl(var(--primary) / 0.3);
   }
 
-  .arm-segment {
+  .arc-core {
     position: absolute;
-    background: linear-gradient(145deg, #2a3441, #1a252f);
-    border: 2px solid hsl(var(--primary) / 0.3);
-    animation: armMove 4s ease-in-out infinite;
+    width: 60px;
+    height: 60px;
+    top: 30px;
+    left: 30px;
+    background: radial-gradient(
+      circle,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary) / 0.8) 30%,
+      hsl(var(--primary) / 0.4) 60%,
+      transparent 100%
+    );
+    border-radius: 50%;
+    box-shadow: 
+      0 0 30px hsl(var(--primary)),
+      inset 0 0 20px hsl(var(--primary) / 0.5);
+    animation: arc-core-glow 2s ease-in-out infinite alternate;
   }
 
-  .arm-segment-1 {
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%) rotate(15deg);
+  .arc-eye {
+    position: absolute;
     width: 8px;
-    height: 60px;
-    border-radius: 4px;
-    transform-origin: bottom center;
+    height: 8px;
+    background: hsl(var(--primary));
+    border-radius: 50%;
+    box-shadow: 0 0 8px hsl(var(--primary));
+  }
+
+  .arc-eye-left {
+    top: 20px;
+    left: 18px;
+  }
+
+  .arc-eye-right {
+    top: 20px;
+    right: 18px;
+  }
+
+  .arc-pupil {
+    width: 4px;
+    height: 4px;
+    background: hsl(var(--background));
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease-out;
+  }
+
+  .arc-energy-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+    border-radius: 2px;
+    animation: arc-energy-flow 2s linear infinite;
+  }
+
+  .arc-line-1 {
+    width: 30px;
+    height: 2px;
+    top: 15px;
+    left: 15px;
+    transform: rotate(0deg);
+  }
+
+  .arc-line-2 {
+    width: 30px;
+    height: 2px;
+    top: 15px;
+    right: 15px;
+    transform: rotate(90deg);
+    animation-delay: 0.5s;
+  }
+
+  .arc-line-3 {
+    width: 30px;
+    height: 2px;
+    bottom: 15px;
+    left: 15px;
+    transform: rotate(180deg);
+    animation-delay: 1s;
+  }
+
+  .arc-line-4 {
+    width: 30px;
+    height: 2px;
+    bottom: 15px;
+    right: 15px;
+    transform: rotate(270deg);
+    animation-delay: 1.5s;
+  }
+
+  .arc-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .arc-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: hsl(var(--accent));
+    border-radius: 50%;
+    box-shadow: 0 0 6px hsl(var(--accent));
+    animation: arc-particle-orbit 4s linear infinite;
+  }
+
+  .arc-particle-1 {
+    top: -10px;
+    left: 50%;
+    animation-delay: 0s;
+  }
+
+  .arc-particle-2 {
+    top: 50%;
+    right: -10px;
+    animation-delay: 0.67s;
+  }
+
+  .arc-particle-3 {
+    bottom: -10px;
+    left: 50%;
+    animation-delay: 1.33s;
+  }
+
+  .arc-particle-4 {
+    top: 50%;
+    left: -10px;
+    animation-delay: 2s;
+  }
+
+  .arc-particle-5 {
+    top: 20%;
+    right: 20%;
+    animation-delay: 2.67s;
+  }
+
+  .arc-particle-6 {
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 3.33s;
+  }
+
+  @keyframes reactorFloat {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(5deg);
+    }
+  }
+
+  @keyframes arc-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes arc-core-glow {
+    0% {
+      box-shadow: 
+        0 0 30px hsl(var(--primary)),
+        inset 0 0 20px hsl(var(--primary) / 0.5);
+    }
+    100% {
+      box-shadow: 
+        0 0 50px hsl(var(--primary)),
+        inset 0 0 30px hsl(var(--primary) / 0.7);
+    }
+  }
+
+  @keyframes arc-energy-flow {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+
+  @keyframes arc-particle-orbit {
+    0% {
+      transform: rotate(0deg) translateX(70px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(70px) rotate(-360deg);
+    }
+  }
     animation-delay: 0s;
   }
 
