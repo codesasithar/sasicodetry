@@ -147,34 +147,34 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
-        {/* Arc Reactor Center */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-5">
-          <div className="arc-reactor">
+        {/* Arc Reactor Center - Prominently positioned in front */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="arc-reactor-large">
             {/* Outer Ring */}
-            <div className="arc-ring arc-ring-outer"></div>
+            <div className="arc-ring arc-ring-outer-large"></div>
             
             {/* Middle Ring */}
-            <div className="arc-ring arc-ring-middle"></div>
+            <div className="arc-ring arc-ring-middle-large"></div>
             
             {/* Inner Ring */}
-            <div className="arc-ring arc-ring-inner"></div>
+            <div className="arc-ring arc-ring-inner-large"></div>
             
             {/* Core */}
-            <div className="arc-core">
+            <div className="arc-core-large">
               {/* Arc Reactor Eyes */}
-              <div className="arc-eye arc-eye-left">
+              <div className="arc-eye arc-eye-left-large">
                 <div 
-                  className="eye-pupil arc-pupil"
+                  className="eye-pupil arc-pupil-large"
                   style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -2), 2)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -2), 2)}px)`
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 80, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 80, -3), 3)}px)`
                   }}
                 ></div>
               </div>
-              <div className="arc-eye arc-eye-right">
+              <div className="arc-eye arc-eye-right-large">
                 <div 
-                  className="eye-pupil arc-pupil"
+                  className="eye-pupil arc-pupil-large"
                   style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 100, -2), 2)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 100, -2), 2)}px)`
+                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 80, -3), 3)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 80, -3), 3)}px)`
                   }}
                 ></div>
               </div>

@@ -571,6 +571,14 @@
     animation: reactorFloat 4s ease-in-out infinite;
   }
 
+  .arc-reactor-large {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    animation: reactorFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 50px hsl(var(--primary) / 0.8));
+  }
+
   .arc-ring {
     position: absolute;
     border-radius: 50%;
@@ -613,6 +621,48 @@
       inset 0 0 10px hsl(var(--primary) / 0.3);
   }
 
+  .arc-ring-outer-large {
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    border-width: 5px;
+    border-color: hsl(var(--primary) / 0.9);
+    box-shadow: 
+      0 0 40px hsl(var(--primary)),
+      inset 0 0 30px hsl(var(--primary) / 0.4),
+      0 0 80px hsl(var(--primary) / 0.6);
+    animation: arc-spin 8s linear infinite;
+  }
+
+  .arc-ring-middle-large {
+    width: 140px;
+    height: 140px;
+    top: 30px;
+    left: 30px;
+    border-width: 4px;
+    border-color: hsl(var(--accent) / 0.9);
+    animation-delay: 0.5s;
+    box-shadow: 
+      0 0 30px hsl(var(--accent)),
+      inset 0 0 25px hsl(var(--accent) / 0.4);
+    animation: arc-spin 6s linear infinite reverse;
+  }
+
+  .arc-ring-inner-large {
+    width: 80px;
+    height: 80px;
+    top: 60px;
+    left: 60px;
+    border-width: 3px;
+    border-color: hsl(var(--primary));
+    animation-delay: 1s;
+    box-shadow: 
+      0 0 25px hsl(var(--primary)),
+      inset 0 0 20px hsl(var(--primary) / 0.5);
+    animation: arc-spin 4s linear infinite;
+  }
+
   .arc-core {
     position: absolute;
     width: 60px;
@@ -630,6 +680,28 @@
     box-shadow: 
       0 0 30px hsl(var(--primary)),
       inset 0 0 20px hsl(var(--primary) / 0.5);
+    animation: arc-core-glow 2s ease-in-out infinite alternate;
+  }
+
+  .arc-core-large {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 50px;
+    left: 50px;
+    background: radial-gradient(
+      circle,
+      hsl(var(--primary)) 0%,
+      hsl(var(--primary) / 0.9) 20%,
+      hsl(var(--accent)) 40%,
+      hsl(var(--primary) / 0.6) 70%,
+      transparent 100%
+    );
+    border-radius: 50%;
+    box-shadow: 
+      0 0 60px hsl(var(--primary)),
+      0 0 100px hsl(var(--primary) / 0.7),
+      inset 0 0 40px hsl(var(--primary) / 0.8);
     animation: arc-core-glow 2s ease-in-out infinite alternate;
   }
 
@@ -652,6 +724,34 @@
     right: 18px;
   }
 
+  .arc-eye-left-large {
+    position: absolute;
+    top: 35px;
+    left: 25px;
+    width: 14px;
+    height: 14px;
+    background: hsl(var(--background));
+    border: 2px solid hsl(var(--primary));
+    border-radius: 50%;
+    box-shadow: 
+      0 0 15px hsl(var(--primary)),
+      inset 0 0 8px hsl(var(--primary) / 0.3);
+  }
+
+  .arc-eye-right-large {
+    position: absolute;
+    top: 35px;
+    right: 25px;
+    width: 14px;
+    height: 14px;
+    background: hsl(var(--background));
+    border: 2px solid hsl(var(--primary));
+    border-radius: 50%;
+    box-shadow: 
+      0 0 15px hsl(var(--primary)),
+      inset 0 0 8px hsl(var(--primary) / 0.3);
+  }
+
   .arc-pupil {
     width: 4px;
     height: 4px;
@@ -662,6 +762,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: transform 0.1s ease-out;
+  }
+
+  .arc-pupil-large {
+    width: 8px;
+    height: 8px;
+    background: hsl(var(--primary));
+    border: 1px solid hsl(var(--background));
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease-out;
+    box-shadow: 0 0 8px hsl(var(--primary));
   }
 
   .arc-energy-line {
@@ -812,6 +926,15 @@
     }
     100% {
       transform: rotate(360deg) translateX(70px) rotate(-360deg);
+    }
+  }
+
+  @keyframes arc-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
     animation-delay: 0s;
