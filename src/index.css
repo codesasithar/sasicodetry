@@ -579,182 +579,228 @@
     filter: drop-shadow(0 0 50px hsl(var(--primary) / 0.8));
   }
 
-  .arc-reactor-inspired {
+  /* Futuristic Arc Reactor Styles */
+  .arc-reactor-futuristic {
     position: relative;
-    width: 240px;
-    height: 240px;
-    animation: reactorFloat 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 60px hsl(189 100% 50% / 0.8));
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+      hsla(210, 100%, 8%, 0.9) 0%,
+      hsla(210, 100%, 5%, 0.8) 50%,
+      transparent 100%);
+    animation: arc-reactor-pulse 3s ease-in-out infinite alternate;
   }
 
-  .arc-segments-outer {
+  /* Outermost Tech Ring */
+  .arc-outer-tech-ring {
     position: absolute;
-    width: 240px;
-    height: 240px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
     top: 0;
     left: 0;
   }
 
-  .arc-segment {
+  .arc-tech-segment {
     position: absolute;
-    width: 18px;
-    height: 60px;
+    width: 4px;
+    height: 30px;
     top: 0;
     left: 50%;
-    transform-origin: 50% 120px;
-    margin-left: -9px;
-    border-radius: 4px;
-    animation: segmentPulse 2s ease-in-out infinite;
+    transform-origin: center 100px;
+    background: linear-gradient(to bottom,
+      hsl(195, 100%, 70%) 0%,
+      hsl(195, 100%, 50%) 50%,
+      transparent 100%);
+    border-radius: 2px;
+    animation: tech-segment-glow 2s ease-in-out infinite alternate;
   }
 
-  .arc-segment-active {
-    background: linear-gradient(180deg, 
-      hsl(189 100% 50%) 0%,
-      hsl(189 100% 70%) 50%,
-      hsl(189 100% 50%) 100%
-    );
+  .arc-tech-major {
+    height: 35px;
+    width: 5px;
+    background: linear-gradient(to bottom,
+      hsl(0, 100%, 70%) 0%,
+      hsl(195, 100%, 60%) 30%,
+      hsl(195, 100%, 50%) 70%,
+      transparent 100%);
+    box-shadow: 0 0 15px hsl(195, 100%, 50%);
+  }
+
+  .arc-tech-minor {
+    opacity: 0.7;
+  }
+
+  /* Secondary Ring */
+  .arc-secondary-ring {
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    top: 7.5%;
+    left: 7.5%;
+    border: 2px solid hsl(195, 100%, 50%);
     box-shadow: 
-      0 0 20px hsl(189 100% 50%),
-      inset 0 0 10px hsl(189 100% 80%);
+      0 0 20px hsl(195, 100%, 50%),
+      inset 0 0 20px hsl(195, 100%, 30%);
   }
 
-  .arc-segment-inactive {
-    background: linear-gradient(180deg, 
-      hsl(210 15% 25%) 0%,
-      hsl(210 15% 35%) 50%,
-      hsl(210 15% 25%) 100%
-    );
-    border: 1px solid hsl(189 50% 30%);
+  .arc-secondary-segment {
+    position: absolute;
+    width: 3px;
+    height: 15px;
+    top: -2px;
+    left: 50%;
+    transform-origin: center 85px;
+    background: hsl(195, 100%, 60%);
+    border-radius: 1px;
+    animation: secondary-segment-pulse 1.5s ease-in-out infinite;
   }
 
-  .arc-ring-outer {
-    width: 120px;
-    height: 120px;
+  /* Inner Glowing Ring */
+  .arc-inner-glow-ring {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    top: 15%;
+    left: 15%;
+    background: radial-gradient(circle,
+      transparent 60%,
+      hsl(195, 100%, 50%) 61%,
+      hsl(195, 100%, 70%) 65%,
+      transparent 66%);
+    box-shadow: 
+      0 0 30px hsl(195, 100%, 50%),
+      inset 0 0 30px hsl(195, 100%, 30%);
+    animation: inner-ring-pulse 2.5s ease-in-out infinite alternate;
+  }
+
+  /* Core Housing */
+  .arc-core-housing {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    top: 25%;
+    left: 25%;
+    background: radial-gradient(circle,
+      hsl(210, 100%, 10%) 0%,
+      hsl(210, 100%, 5%) 100%);
+    border: 3px solid hsl(195, 100%, 50%);
+    box-shadow: 
+      0 0 25px hsl(195, 100%, 50%),
+      inset 0 0 25px hsl(195, 100%, 20%);
+  }
+
+  /* Triangular Arc Reactor Core */
+  .arc-triangle-core {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+  }
+
+  .arc-triangle-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .arc-triangle-segments {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .triangle-segment {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  .triangle-top {
     top: 0;
-    left: 0;
-    border-width: 3px;
-    box-shadow: 
-      0 0 20px hsl(var(--primary)),
-      inset 0 0 20px hsl(var(--primary) / 0.3);
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 20px solid hsl(195, 100%, 60%);
+    filter: drop-shadow(0 0 10px hsl(195, 100%, 50%));
+    animation: triangle-segment-glow 2s ease-in-out infinite alternate;
   }
 
-  .arc-ring-middle {
-    width: 80px;
-    height: 80px;
-    top: 20px;
-    left: 20px;
-    border-width: 2px;
-    animation-delay: 0.5s;
-    box-shadow: 
-      0 0 15px hsl(var(--primary)),
-      inset 0 0 15px hsl(var(--primary) / 0.3);
+  .triangle-left {
+    bottom: 0;
+    left: 12%;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 20px solid hsl(195, 100%, 60%);
+    filter: drop-shadow(0 0 10px hsl(195, 100%, 50%));
+    animation: triangle-segment-glow 2s ease-in-out infinite alternate 0.7s;
   }
 
-  .arc-ring-inner {
-    width: 40px;
-    height: 40px;
-    top: 40px;
-    left: 40px;
-    border-width: 2px;
-    animation-delay: 1s;
-    box-shadow: 
-      0 0 10px hsl(var(--primary)),
-      inset 0 0 10px hsl(var(--primary) / 0.3);
+  .triangle-right {
+    bottom: 0;
+    right: 12%;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 20px solid hsl(195, 100%, 60%);
+    filter: drop-shadow(0 0 10px hsl(195, 100%, 50%));
+    animation: triangle-segment-glow 2s ease-in-out infinite alternate 1.4s;
   }
 
-  .arc-ring-pattern {
+  .arc-triangle-center {
     position: absolute;
-    width: 180px;
-    height: 180px;
-    top: 30px;
-    left: 30px;
-    border: 2px solid hsl(189 100% 50% / 0.6);
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle,
+      hsl(195, 100%, 90%) 0%,
+      hsl(195, 100%, 60%) 100%);
     border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      transparent 30%,
-      hsl(189 100% 50% / 0.1) 40%,
-      transparent 50%,
-      hsl(189 100% 50% / 0.1) 60%,
-      transparent 70%
-    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 
-      0 0 30px hsl(189 100% 50% / 0.5),
-      inset 0 0 30px hsl(189 100% 50% / 0.2);
-    animation: arc-spin 12s linear infinite;
+      0 0 15px hsl(195, 100%, 50%),
+      0 0 30px hsl(195, 100%, 30%);
+    animation: core-center-pulse 1s ease-in-out infinite alternate;
   }
 
-  .arc-ring-inner-glow {
+  /* Energy Pulse Rings */
+  .energy-pulse-ring {
     position: absolute;
-    width: 120px;
-    height: 120px;
-    top: 60px;
-    left: 60px;
-    border: 3px solid hsl(189 100% 60%);
+    border: 2px solid hsl(195, 100%, 50%);
     border-radius: 50%;
-    box-shadow: 
-      0 0 40px hsl(189 100% 50%),
-      inset 0 0 25px hsl(189 100% 50% / 0.4);
-    animation: arc-spin 8s linear infinite reverse;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
   }
 
-  .arc-core-inspired {
-    position: absolute;
-    width: 80px;
-    height: 80px;
-    top: 80px;
-    left: 80px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      hsl(189 100% 70%) 0%,
-      hsl(189 100% 50%) 30%,
-      hsl(189 80% 40%) 60%,
-      transparent 100%
-    );
-    box-shadow: 
-      0 0 50px hsl(189 100% 50%),
-      0 0 80px hsl(189 100% 50% / 0.7),
-      inset 0 0 30px hsl(189 100% 70%);
-    animation: arc-core-glow 2s ease-in-out infinite alternate;
+  .energy-pulse-1 {
+    width: 80%;
+    height: 80%;
+    animation: energy-pulse-wave 3s ease-out infinite;
   }
 
-  .arc-core-center {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    top: 20px;
-    left: 20px;
-    border-radius: 50%;
-    background: hsl(189 100% 80%);
-    box-shadow: 
-      0 0 30px hsl(189 100% 70%),
-      inset 0 0 15px hsl(189 100% 90%);
-    animation: corePulse 1.5s ease-in-out infinite alternate;
+  .energy-pulse-2 {
+    width: 90%;
+    height: 90%;
+    animation: energy-pulse-wave 3s ease-out infinite 1s;
   }
 
-  .arc-core {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    top: 30px;
-    left: 30px;
-    background: radial-gradient(
-      circle,
-      hsl(var(--primary)) 0%,
-      hsl(var(--primary) / 0.8) 30%,
-      hsl(var(--primary) / 0.4) 60%,
-      transparent 100%
-    );
-    border-radius: 50%;
-    box-shadow: 
-      0 0 30px hsl(var(--primary)),
-      inset 0 0 20px hsl(var(--primary) / 0.5);
-    animation: arc-core-glow 2s ease-in-out infinite alternate;
+  .energy-pulse-3 {
+    width: 100%;
+    height: 100%;
+    animation: energy-pulse-wave 3s ease-out infinite 2s;
   }
 
-  /* Electric Spark Effects */
-  .electric-sparks {
+  /* Electric Sparks */
+  .electric-sparks-container {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -762,42 +808,87 @@
     left: 0;
   }
 
-  .electric-spark {
+  .electric-spark-line {
     position: absolute;
     width: 2px;
     height: 40px;
-    background: linear-gradient(to top, 
-      transparent 0%, 
-      hsl(var(--primary)) 20%, 
-      hsl(var(--accent)) 50%, 
-      hsl(var(--primary)) 80%, 
+    background: linear-gradient(to top,
+      transparent 0%,
+      hsl(195, 100%, 70%) 30%,
+      hsl(195, 100%, 90%) 50%,
+      hsl(195, 100%, 70%) 70%,
       transparent 100%);
     top: 50%;
     left: 50%;
     transform-origin: center bottom;
-    animation: electric-spark 2s ease-in-out infinite;
+    border-radius: 1px;
+    animation: electric-spark-flicker 1.5s ease-in-out infinite;
     opacity: 0;
   }
 
-  .electric-spark:before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: inherit;
-    filter: blur(1px);
-    opacity: 0.7;
+  /* Animations */
+  @keyframes arc-reactor-pulse {
+    0% { 
+      box-shadow: 0 0 50px hsl(195, 100%, 50%), 0 0 100px hsl(195, 100%, 30%); 
+    }
+    100% { 
+      box-shadow: 0 0 80px hsl(195, 100%, 60%), 0 0 150px hsl(195, 100%, 40%); 
+    }
   }
 
-  /* Energy Pulse Rings */
-  .energy-pulse-1,
-  .energy-pulse-2,
-  .energy-pulse-3 {
-    position: absolute;
-    border: 1px solid hsl(var(--primary));
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
+  @keyframes tech-segment-glow {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; box-shadow: 0 0 10px hsl(195, 100%, 50%); }
+  }
+
+  @keyframes secondary-segment-pulse {
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleY(1); }
+    50% { opacity: 1; transform: translateX(-50%) scaleY(1.3); }
+  }
+
+  @keyframes inner-ring-pulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; filter: brightness(1.2); }
+  }
+
+  @keyframes triangle-segment-glow {
+    0% { opacity: 0.8; filter: brightness(1) drop-shadow(0 0 10px hsl(195, 100%, 50%)); }
+    100% { opacity: 1; filter: brightness(1.3) drop-shadow(0 0 20px hsl(195, 100%, 60%)); }
+  }
+
+  @keyframes core-center-pulse {
+    0% { 
+      transform: translate(-50%, -50%) scale(1); 
+      box-shadow: 0 0 15px hsl(195, 100%, 50%), 0 0 30px hsl(195, 100%, 30%); 
+    }
+    100% { 
+      transform: translate(-50%, -50%) scale(1.2); 
+      box-shadow: 0 0 25px hsl(195, 100%, 60%), 0 0 50px hsl(195, 100%, 40%); 
+    }
+  }
+
+  @keyframes energy-pulse-wave {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+  }
+
+  @keyframes electric-spark-flicker {
+    0%, 90%, 100% { opacity: 0; }
+    5%, 85% { opacity: 1; }
+    10%, 80% { opacity: 0.7; }
+    15%, 75% { opacity: 1; }
+    20%, 70% { opacity: 0.8; }
+  }
     transform: translate(-50%, -50%);
     opacity: 0;
   }

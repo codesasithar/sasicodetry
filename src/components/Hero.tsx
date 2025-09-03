@@ -137,49 +137,69 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
-        {/* Arc Reactor Center - Iron Man Inspired Design */}
+        {/* Arc Reactor Center - Futuristic Tech Design */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-          <div className="arc-reactor-inspired">
-            {/* Segmented Outer Ring */}
-            <div className="arc-segments-outer">
-              {[...Array(12)].map((_, i) => (
+          <div className="arc-reactor-futuristic">
+            {/* Outermost Ring with Tech Segments */}
+            <div className="arc-outer-tech-ring">
+              {[...Array(16)].map((_, i) => (
                 <div 
                   key={i} 
-                  className={`arc-segment ${i % 2 === 0 ? 'arc-segment-active' : 'arc-segment-inactive'}`}
-                  style={{ transform: `rotate(${i * 30}deg)` }}
+                  className={`arc-tech-segment ${i % 4 === 0 ? 'arc-tech-major' : 'arc-tech-minor'}`}
+                  style={{ transform: `rotate(${i * 22.5}deg)` }}
                 ></div>
               ))}
             </div>
             
-            {/* Middle Ring with Pattern */}
-            <div className="arc-ring-pattern"></div>
+            {/* Secondary Ring with Detailed Segments */}
+            <div className="arc-secondary-ring">
+              {[...Array(12)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="arc-secondary-segment"
+                  style={{ 
+                    transform: `rotate(${i * 30}deg)`,
+                    animationDelay: `${i * 0.1}s`
+                  }}
+                ></div>
+              ))}
+            </div>
             
             {/* Inner Glowing Ring */}
-            <div className="arc-ring-inner-glow"></div>
+            <div className="arc-inner-glow-ring"></div>
             
-            {/* Central Core */}
-            <div className="arc-core-inspired">
-              {/* Core Glow */}
-              <div className="arc-core-center"></div>
+            {/* Core Housing */}
+            <div className="arc-core-housing">
+              {/* Triangular Arc Reactor Core */}
+              <div className="arc-triangle-core">
+                <div className="arc-triangle-inner">
+                  <div className="arc-triangle-segments">
+                    <div className="triangle-segment triangle-top"></div>
+                    <div className="triangle-segment triangle-left"></div>
+                    <div className="triangle-segment triangle-right"></div>
+                  </div>
+                  <div className="arc-triangle-center"></div>
+                </div>
+              </div>
               
-              {/* Electric Spark Effects */}
-              <div className="electric-sparks">
-                {[...Array(8)].map((_, i) => (
+              {/* Pulsing Energy Rings */}
+              <div className="energy-pulse-ring energy-pulse-1"></div>
+              <div className="energy-pulse-ring energy-pulse-2"></div>
+              <div className="energy-pulse-ring energy-pulse-3"></div>
+              
+              {/* Electric Sparks */}
+              <div className="electric-sparks-container">
+                {[...Array(6)].map((_, i) => (
                   <div 
                     key={i} 
-                    className="electric-spark"
+                    className="electric-spark-line"
                     style={{ 
-                      transform: `rotate(${i * 45}deg)`,
-                      animationDelay: `${i * 0.2}s`
+                      transform: `rotate(${i * 60}deg)`,
+                      animationDelay: `${i * 0.3}s`
                     }}
                   ></div>
                 ))}
               </div>
-              
-              {/* Pulsing Energy Rings */}
-              <div className="energy-pulse-1"></div>
-              <div className="energy-pulse-2"></div>
-              <div className="energy-pulse-3"></div>
             </div>
           </div>
         </div>
