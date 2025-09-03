@@ -1173,8 +1173,6 @@
       transform: rotate(360deg);
     }
   }
-    animation-delay: 0s;
-  }
 
   .arm-segment-2 {
     bottom: 55px;
