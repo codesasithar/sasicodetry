@@ -241,7 +241,7 @@
   }
 
   .btn-tech {
-    @apply relative overflow-hidden px-8 py-3 rounded-lg font-medium transition-all duration-300;
+    @apply relative overflow-hidden px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-3 rounded-lg font-medium transition-all duration-300;
     @apply bg-primary text-primary-foreground hover:bg-primary-dark;
     box-shadow: var(--shadow-tech);
   }
@@ -262,7 +262,7 @@
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-6 py-20;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20;
   }
 
   .parallax-bg {
@@ -1880,4 +1880,69 @@
     transform: scaleY(0.1) scaleX(0.3);
     filter: drop-shadow(0 0 2px hsl(var(--primary)));
   }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  .tech-grid {
+    opacity: 0.2;
+    background-size: 15px 15px;
+  }
+  
+  .matrix-bg, .binary-rain {
+    opacity: 0.05;
+  }
+  
+  .glitch-text {
+    animation-duration: 3s;
+  }
+  
+  .interactive-orb {
+    opacity: 0.1;
+  }
+  
+  .particle-tech {
+    opacity: 0.5;
+  }
+  
+  .code-snippet {
+    font-size: 10px;
+  }
+}
+
+/* Improved hover effects for mobile */
+@media (hover: hover) and (pointer: fine) {
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+  
+  .tech-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Touch-friendly buttons */
+@media (max-width: 768px) {
+  .btn-tech {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .nav-link {
+    padding: 12px 0;
+    font-size: 16px;
+  }
+  
+  .tech-card {
+    padding: 16px;
+  }
+}
+
+/* Improved text sizing for mobile readability */
+@media (max-width: 640px) {
+  .section-container {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+}
 }

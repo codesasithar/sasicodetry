@@ -116,7 +116,7 @@ const Hero = () => {
       <img
         src={iRobotBg}
         alt="Futuristic humanoid robot"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend hidden md:block"
         style={{
           width: "45vw",
           maxWidth: "600px",
@@ -129,16 +129,16 @@ const Hero = () => {
 
       {/* Dynamic Tech Background */}
       <div className="absolute inset-0 gradient-hero">
-        <div className="matrix-bg"></div>
-        <div className="binary-rain"></div>
-        <div className="tech-grid absolute inset-0"></div>
-        <div className="circuit-pattern"></div>
-        <div className="interactive-orb top-20 left-20"></div>
-        <div className="interactive-orb bottom-32 right-32" style={{ animationDelay: "2s" }}></div>
-        <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
+        <div className="matrix-bg hidden sm:block"></div>
+        <div className="binary-rain hidden sm:block"></div>
+        <div className="tech-grid absolute inset-0 opacity-30 sm:opacity-100"></div>
+        <div className="circuit-pattern opacity-20 sm:opacity-100"></div>
+        <div className="interactive-orb top-20 left-20 hidden sm:block"></div>
+        <div className="interactive-orb bottom-32 right-32 hidden sm:block" style={{ animationDelay: "2s" }}></div>
+        <div className="interactive-orb top-1/2 left-1/4 hidden lg:block" style={{ animationDelay: "4s" }}></div>
 
         {/* Arc Reactor Center - Futuristic Tech Design */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 scale-75 sm:scale-90 lg:scale-100">
           <div className="arc-reactor-futuristic">
             {/* Outermost Ring with Tech Segments */}
             <div className="arc-outer-tech-ring">
@@ -205,12 +205,12 @@ const Hero = () => {
         </div>
 
         {/* Floating Code Snippets */}
-        <div className="absolute top-20 right-20 code-snippet overflow-hidden w-48">
+        <div className="absolute top-20 right-20 code-snippet overflow-hidden w-32 sm:w-48 hidden sm:block">
           <span className="text-accent">const</span>{" "}
           <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
         </div>
         <div
-          className="absolute bottom-40 left-20 code-snippet overflow-hidden w-40"
+          className="absolute bottom-40 left-20 code-snippet overflow-hidden w-28 sm:w-40 hidden sm:block"
           style={{ animationDelay: "1s" }}
         >
           <span className="text-primary">function</span>{" "}
@@ -218,7 +218,7 @@ const Hero = () => {
           ...{"}"}
         </div>
         <div
-          className="absolute top-1/3 right-1/4 code-snippet overflow-hidden w-32"
+          className="absolute top-1/3 right-1/4 code-snippet overflow-hidden w-24 sm:w-32 hidden lg:block"
           style={{ animationDelay: "2s" }}
         >
           <span className="text-accent">import</span> <span className="text-primary">React</span>{" "}
@@ -226,36 +226,36 @@ const Hero = () => {
         </div>
 
         {/* Particle Tech Elements */}
-        <div className="particle-tech top-32 left-32" style={{ animationDelay: "0s" }}></div>
-        <div className="particle-tech top-40 right-40" style={{ animationDelay: "1s" }}></div>
-        <div className="particle-tech bottom-32 left-1/3" style={{ animationDelay: "2s" }}></div>
-        <div className="particle-tech bottom-40 right-1/3" style={{ animationDelay: "3s" }}></div>
-        <div className="particle-tech top-1/2 left-1/2" style={{ animationDelay: "4s" }}></div>
-        <div className="particle-tech top-60 right-60" style={{ animationDelay: "5s" }}></div>
+        <div className="particle-tech top-32 left-32 hidden sm:block" style={{ animationDelay: "0s" }}></div>
+        <div className="particle-tech top-40 right-40 hidden sm:block" style={{ animationDelay: "1s" }}></div>
+        <div className="particle-tech bottom-32 left-1/3 hidden lg:block" style={{ animationDelay: "2s" }}></div>
+        <div className="particle-tech bottom-40 right-1/3 hidden lg:block" style={{ animationDelay: "3s" }}></div>
+        <div className="particle-tech top-1/2 left-1/2 hidden lg:block" style={{ animationDelay: "4s" }}></div>
+        <div className="particle-tech top-60 right-60 hidden lg:block" style={{ animationDelay: "5s" }}></div>
 
         {/* Animated Tech Icons */}
-        <div className="absolute top-24 left-1/3 text-primary/20 animate-float">
-          <Code className="w-8 h-8" />
+        <div className="absolute top-24 left-1/3 text-primary/20 animate-float hidden sm:block">
+          <Code className="w-6 h-6 sm:w-8 sm:h-8" />
         </div>
-        <div className="absolute bottom-24 right-1/3 text-accent/20 animate-float" style={{ animationDelay: "1.5s" }}>
-          <Terminal className="w-6 h-6" />
+        <div className="absolute bottom-24 right-1/3 text-accent/20 animate-float hidden sm:block" style={{ animationDelay: "1.5s" }}>
+          <Terminal className="w-4 h-4 sm:w-6 sm:h-6" />
         </div>
-        <div className="absolute top-1/3 right-20 text-primary/20 animate-float" style={{ animationDelay: "3s" }}>
-          <Zap className="w-7 h-7" />
+        <div className="absolute top-1/3 right-20 text-primary/20 animate-float hidden lg:block" style={{ animationDelay: "3s" }}>
+          <Zap className="w-5 h-5 sm:w-7 sm:h-7" />
         </div>
       </div>
 
       {/* Content Wrapper */}
-      <div className="section-container relative z-20">
-        <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+      <div className="section-container relative z-20 px-4 sm:px-6">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center max-w-6xl mx-auto">
           {/* Left Column - Text Content */}
-          <div className="text-left lg:text-left">
-            <div className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6 animate-slide-up">
+          <div className="text-center lg:text-left">
+            <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up">
               Welcome to my portfolio
             </div>
 
             <h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-slide-up relative"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-slide-up relative"
               style={{ animationDelay: "0.2s" }}
             >
               <span className="text-foreground">Application</span>
@@ -265,7 +265,7 @@ const Hero = () => {
                 {!developerTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
                 {/* Typing sparks */}
                 {!developerTyping.isComplete && (
-                  <div className="absolute -right-4 top-1/2 transform -translate-y-1/2">
+                  <div className="absolute -right-2 sm:-right-4 top-1/2 transform -translate-y-1/2">
                     <div className="spark-burst">
                       <div className="spark-particle spark-1"></div>
                       <div className="spark-particle spark-2"></div>
@@ -277,88 +277,88 @@ const Hero = () => {
               </span>
             </h1>
 
-            <p className="text-xl text-muted-foreground mb-8 max-w-xl min-h-[4rem] animate-fade-in" style={{ animationDelay: "0.4s" }}>
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[3rem] sm:min-h-[4rem] animate-fade-in mx-auto lg:mx-0" style={{ animationDelay: "0.4s" }}>
               {typingText.displayedText}
               {!typingText.isComplete && <span className="animate-pulse">|</span>}
             </p>
 
-            <div className="flex space-x-8 mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-              <div>
-                <div className="text-2xl font-bold text-accent">5+</div>
-                <div className="text-sm text-muted-foreground">Projects Built</div>
+            <div className="flex justify-center lg:justify-start space-x-6 sm:space-x-8 mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl font-bold text-accent">5+</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Projects Built</div>
               </div>
-              <div>
-                <div className="text-2xl font-bold text-primary">2+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
+              <div className="text-center">
+                <div className="text-xl sm:text-2xl font-bold text-primary">2+</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Years Experience</div>
               </div>
             </div>
 
-            <div className="mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
+            <div className="mb-6 sm:mb-8 animate-fade-in flex justify-center lg:justify-start" style={{ animationDelay: "0.8s" }}>
               <button
                 onClick={scrollToProjects}
-                className="btn-tech text-lg group mr-4 cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale"
+                className="btn-tech text-base sm:text-lg group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
                 <span className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
                 <span className="relative z-10 flex items-center">
                   <span className="mr-2">🚀</span>
                   View My Work
-                  <ArrowRight className="ml-2 h-5 w-5 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
+                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
                 </span>
                 <div className="absolute inset-0 border border-primary/30 rounded-lg group-hover:border-primary/60 transition-colors duration-300"></div>
               </button>
             </div>
 
-            <div className="flex space-x-4 animate-fade-in" style={{ animationDelay: "1s" }}>
+            <div className="flex justify-center lg:justify-start space-x-3 sm:space-x-4 animate-fade-in" style={{ animationDelay: "1s" }}>
               <a
                 href="https://linkedin.com/in/sasitharcodes"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href="https://github.com/codesasithar/Projects"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href="https://www.instagram.com/sasitharm/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
-                <Instagram className="h-5 w-5" />
+                <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href="https://www.facebook.com/snazzy.sasithar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
-                <Facebook className="h-5 w-5" />
+                <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
               <a
                 href="tel:+919443798476"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
               >
-                <Phone className="h-5 w-5" />
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
               </a>
             </div>
           </div>
 
           {/* Right Column - Profile Photo and Badge */}
-          <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <div className="flex flex-col items-center lg:items-end animate-fade-in order-first lg:order-last" style={{ animationDelay: "0.3s" }}>
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-vibrant rounded-3xl blur-lg opacity-30 animate-pulse"></div>
-              <div className="absolute -top-8 -right-8 w-32 h-32 border-2 border-accent/20 rounded-full"></div>
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-primary/20 rounded-2xl rotate-45"></div>
+              <div className="absolute -inset-2 sm:-inset-4 bg-gradient-vibrant rounded-2xl sm:rounded-3xl blur-lg opacity-30 animate-pulse"></div>
+              <div className="absolute -top-4 sm:-top-8 -right-4 sm:-right-8 w-16 h-16 sm:w-32 sm:h-32 border-2 border-accent/20 rounded-full"></div>
+              <div className="absolute -bottom-4 sm:-bottom-8 -left-4 sm:-left-8 w-12 h-12 sm:w-24 sm:h-24 bg-primary/20 rounded-xl sm:rounded-2xl rotate-45"></div>
 
-              <div className="relative w-80 h-80 lg:w-96 lg:h-96 rounded-3xl overflow-hidden border-4 border-primary/30">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
                 <img
                   src="/lovable-uploads/d2579815-ad70-4405-af42-3e0f278e9d1e.png"
                   alt="Sasithar M - Application Developer"
@@ -367,9 +367,9 @@ const Hero = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
               </div>
 
-              <div className="absolute -bottom-4 -right-4 bg-card border border-border rounded-2xl p-4 animate-float">
-                <div className="text-sm font-medium text-accent">Available for work</div>
-                <div className="text-xs text-muted-foreground">Based in India</div>
+              <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-card border border-border rounded-xl sm:rounded-2xl p-2 sm:p-4 animate-float">
+                <div className="text-xs sm:text-sm font-medium text-accent">Available for work</div>
+                <div className="text-[10px] sm:text-xs text-muted-foreground">Based in India</div>
               </div>
             </div>
           </div>

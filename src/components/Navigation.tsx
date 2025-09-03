@@ -46,12 +46,12 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">{" "}
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <Code2 className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-foreground">SasiCodes</span>
+            <Code2 className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <span className="text-lg sm:text-xl font-bold text-foreground">SasiCodes</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -74,7 +74,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Menu Button with AudioPlayer */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-2 sm:space-x-4">
             {/* Compact AudioPlayer in mobile navbar */}
             <div className="flex items-center">
               <AudioPlayerCompact />
