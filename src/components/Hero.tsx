@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const developerTyping = useTypingEffect({
     text: "Developer.",
@@ -37,15 +36,6 @@ const Hero = () => {
     }
   };
 
-  // Mouse tracking for robotic arm eyes
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   // Matrix rain effect
   useEffect(() => {
@@ -148,7 +138,7 @@ const Hero = () => {
         <div className="interactive-orb top-1/2 left-1/4" style={{ animationDelay: "4s" }}></div>
 
         {/* Arc Reactor Center - Iron Man Inspired Design */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
           <div className="arc-reactor-inspired">
             {/* Segmented Outer Ring */}
             <div className="arc-segments-outer">
@@ -172,23 +162,24 @@ const Hero = () => {
               {/* Core Glow */}
               <div className="arc-core-center"></div>
               
-              {/* Arc Reactor Eyes */}
-              <div className="arc-eye-inspired arc-eye-left-inspired">
-                <div 
-                  className="eye-pupil-inspired"
-                  style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 60, -4), 4)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 60, -4), 4)}px)`
-                  }}
-                ></div>
+              {/* Electric Spark Effects */}
+              <div className="electric-sparks">
+                {[...Array(8)].map((_, i) => (
+                  <div 
+                    key={i} 
+                    className="electric-spark"
+                    style={{ 
+                      transform: `rotate(${i * 45}deg)`,
+                      animationDelay: `${i * 0.2}s`
+                    }}
+                  ></div>
+                ))}
               </div>
-              <div className="arc-eye-inspired arc-eye-right-inspired">
-                <div 
-                  className="eye-pupil-inspired"
-                  style={{
-                    transform: `translate(${Math.min(Math.max((mousePosition.x - window.innerWidth / 2) / 60, -4), 4)}px, ${Math.min(Math.max((mousePosition.y - window.innerHeight / 2) / 60, -4), 4)}px)`
-                  }}
-                ></div>
-              </div>
+              
+              {/* Pulsing Energy Rings */}
+              <div className="energy-pulse-1"></div>
+              <div className="energy-pulse-2"></div>
+              <div className="energy-pulse-3"></div>
             </div>
           </div>
         </div>

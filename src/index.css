@@ -753,38 +753,117 @@
     animation: arc-core-glow 2s ease-in-out infinite alternate;
   }
 
-  .arc-eye-inspired {
+  /* Electric Spark Effects */
+  .electric-sparks {
     position: absolute;
-    width: 16px;
-    height: 16px;
-    background: hsl(210 30% 8%);
-    border: 2px solid hsl(189 100% 50%);
-    border-radius: 50%;
-    box-shadow: 
-      0 0 20px hsl(189 100% 50%),
-      inset 0 0 8px hsl(189 100% 30%);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
   }
 
-  .arc-eye-left-inspired {
-    top: 25px;
-    left: 20px;
-  }
-
-  .arc-eye-right-inspired {
-    top: 25px;
-    right: 20px;
-  }
-
-  .eye-pupil-inspired {
-    width: 10px;
-    height: 10px;
-    background: radial-gradient(circle, hsl(189 100% 70%), hsl(189 100% 50%));
-    border-radius: 50%;
+  .electric-spark {
     position: absolute;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to top, 
+      transparent 0%, 
+      hsl(var(--primary)) 20%, 
+      hsl(var(--accent)) 50%, 
+      hsl(var(--primary)) 80%, 
+      transparent 100%);
+    top: 50%;
+    left: 50%;
+    transform-origin: center bottom;
+    animation: electric-spark 2s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  .electric-spark:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(1px);
+    opacity: 0.7;
+  }
+
+  /* Energy Pulse Rings */
+  .energy-pulse-1,
+  .energy-pulse-2,
+  .energy-pulse-3 {
+    position: absolute;
+    border: 1px solid hsl(var(--primary));
+    border-radius: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: transform 0.06s ease-out;
+    opacity: 0;
+  }
+
+  .energy-pulse-1 {
+    width: 60px;
+    height: 60px;
+    animation: energy-pulse 2s ease-out infinite;
+  }
+
+  .energy-pulse-2 {
+    width: 80px;
+    height: 80px;
+    animation: energy-pulse 2s ease-out infinite 0.5s;
+  }
+
+  .energy-pulse-3 {
+    width: 100px;
+    height: 100px;
+    animation: energy-pulse 2s ease-out infinite 1s;
+  }
+
+  @keyframes electric-spark {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-50%) scaleY(0);
+    }
+    10% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-50%) scaleY(1);
+    }
+    20% {
+      opacity: 0.8;
+      transform: translateX(-50%) translateY(-50%) scaleY(0.8);
+    }
+    30% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-50%) scaleY(1.2);
+    }
+    50% {
+      opacity: 0.6;
+      transform: translateX(-50%) translateY(-50%) scaleY(0.9);
+    }
+    70% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-50%) scaleY(1.1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-50%) scaleY(0);
+    }
+  }
+
+  @keyframes energy-pulse {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.5);
+    }
     box-shadow: 0 0 15px hsl(189 100% 60%);
     animation: eyeGlow 2s ease-in-out infinite alternate;
   }
