@@ -755,19 +755,23 @@
 
   .arc-triangle-center {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 16px;
     background: radial-gradient(circle,
-      hsl(195, 100%, 90%) 0%,
+      hsl(195, 100%, 95%) 0%,
+      hsl(195, 100%, 80%) 40%,
       hsl(195, 100%, 60%) 100%);
     border-radius: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: 
-      0 0 15px hsl(195, 100%, 50%),
-      0 0 30px hsl(195, 100%, 30%);
-    animation: core-center-pulse 1s ease-in-out infinite alternate;
+      0 0 20px hsl(195, 100%, 70%),
+      0 0 35px hsl(195, 100%, 50%),
+      0 0 50px hsl(195, 100%, 30%),
+      inset 0 0 10px hsl(195, 100%, 90%);
+    animation: core-center-pulse 1.5s ease-in-out infinite alternate;
+    z-index: 10;
   }
 
   /* Energy Pulse Rings */
