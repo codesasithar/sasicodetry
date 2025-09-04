@@ -170,36 +170,8 @@ const Hero = () => {
             
             {/* Core Housing */}
             <div className="arc-core-housing">
-              {/* Triangular Arc Reactor Core */}
-              <div className="arc-triangle-core">
-                <div className="arc-triangle-inner">
-                  <div className="arc-triangle-segments">
-                    <div className="triangle-segment triangle-top"></div>
-                    <div className="triangle-segment triangle-left"></div>
-                    <div className="triangle-segment triangle-right"></div>
-                  </div>
-                  <div className="arc-triangle-center"></div>
-                </div>
-              </div>
-              
-              {/* Pulsing Energy Rings */}
-              <div className="energy-pulse-ring energy-pulse-1"></div>
-              <div className="energy-pulse-ring energy-pulse-2"></div>
-              <div className="energy-pulse-ring energy-pulse-3"></div>
-              
-              {/* Electric Sparks */}
-              <div className="electric-sparks-container">
-                {[...Array(6)].map((_, i) => (
-                  <div 
-                    key={i} 
-                    className="electric-spark-line"
-                    style={{ 
-                      transform: `rotate(${i * 60}deg)`,
-                      animationDelay: `${i * 0.3}s`
-                    }}
-                  ></div>
-                ))}
-              </div>
+              {/* Simple Glowing Ring */}
+              <div className="arc-glowing-ring"></div>
             </div>
           </div>
         </div>
