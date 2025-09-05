@@ -17,10 +17,16 @@ import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const Hero = () => {
 
+  const applicationTyping = useTypingEffect({
+    text: "Application",
+    speed: 120,
+    delay: 400
+  });
+
   const developerTyping = useTypingEffect({
     text: "Developer.",
     speed: 150,
-    delay: 800
+    delay: 1600
   });
 
   const typingText = useTypingEffect({
@@ -232,7 +238,10 @@ const Hero = () => {
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-slide-up relative"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="text-foreground">Application</span>
+                <span className="text-foreground relative inline-block">
+                  {applicationTyping.displayedText}
+                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
+                </span>
                 <br />
                 <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
                   {developerTyping.displayedText}
@@ -361,7 +370,10 @@ const Hero = () => {
                 className="text-3xl sm:text-4xl font-bold mb-4 animate-slide-up relative"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="text-foreground">Application</span>
+                <span className="text-foreground relative inline-block">
+                  {applicationTyping.displayedText}
+                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
+                </span>
                 <br />
                 <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
                   {developerTyping.displayedText}
