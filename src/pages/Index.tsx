@@ -6,6 +6,7 @@ import Services from "@/components/Services";
 import Writings from "@/components/Writings";
 import RoleModels from "@/components/RoleModels";
 import Bookshelf from "@/components/Bookshelf";
+import Movies from "@/components/Movies";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
@@ -28,6 +29,7 @@ const Index = () => {
         <Services />
         <Writings />
         <Bookshelf />
+        <Movies />
         <RoleModels />
         <Achievements />
         <Contact />
