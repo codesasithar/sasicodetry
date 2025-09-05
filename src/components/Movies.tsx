@@ -40,6 +40,15 @@ const Movies = () => {
       description: "A cyborg assassin sent back in time to kill the mother of humanity's savior."
     },
     {
+      title: "Transformers",
+      year: "2007",
+      genre: "Action/Sci-Fi",
+      rating: "7.0",
+      duration: "144 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMTQwNjU5MWMtNTkwNS00NDdlLThiODYtMGE2Y2ZjYWM5YzFhXkEyXkFqcGdeQXVyNjQ4ODE4MzQ@._V1_SX300.jpg",
+      description: "Ancient alien robots come to Earth as the fate of humanity hangs in the balance."
+    },
+    {
       title: "The Matrix",
       year: "1999",
       genre: "Sci-Fi/Action",
@@ -65,15 +74,6 @@ const Movies = () => {
       duration: "108 min",
       poster: "https://m.media-amazon.com/images/M/MV5BMTUxNzc0OTIxMV5BMl5BanBnXkFtZTgwNDI3NzU2NDE@._V1_SX300.jpg",
       description: "AI meets human consciousness in this thriller."
-    },
-    {
-      title: "Blade Runner 2049",
-      year: "2017",
-      genre: "Sci-Fi/Drama",
-      rating: "8.0",
-      duration: "164 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg",
-      description: "The future of artificial intelligence unfolds."
     }
   ];
 
