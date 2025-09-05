@@ -4,6 +4,42 @@ import { Card, CardContent } from "@/components/ui/card";
 const Movies = () => {
   const movies = [
     {
+      title: "I, Robot",
+      year: "2004",
+      genre: "Sci-Fi/Action",
+      rating: "7.1",
+      duration: "115 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMjE4NzY5NDAzOV5BMl5BanBnXkFtZTcwMTMxMDI0NQ@@._V1_SX300.jpg",
+      description: "In 2035, robots serve humanity under three laws of robotics."
+    },
+    {
+      title: "Interstellar",
+      year: "2014",
+      genre: "Sci-Fi/Drama",
+      rating: "8.6",
+      duration: "169 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+      description: "Humanity's last hope lies beyond the stars."
+    },
+    {
+      title: "Oppenheimer",
+      year: "2023",
+      genre: "Biography/Drama",
+      rating: "8.3",
+      duration: "180 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_SX300.jpg",
+      description: "The story of American scientist J. Robert Oppenheimer and his role in developing the atomic bomb."
+    },
+    {
+      title: "The Terminator",
+      year: "1984",
+      genre: "Sci-Fi/Action",
+      rating: "8.1",
+      duration: "107 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BYTViNzMxZjEtZGEwNy00MDNiLWIzNGQtZDY2MjQ1OWViZjFmXkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg",
+      description: "A cyborg assassin sent back in time to kill the mother of humanity's savior."
+    },
+    {
       title: "The Matrix",
       year: "1999",
       genre: "Sci-Fi/Action",
@@ -22,33 +58,6 @@ const Movies = () => {
       description: "Dream within a dream - the ultimate heist."
     },
     {
-      title: "Interstellar",
-      year: "2014",
-      genre: "Sci-Fi/Drama",
-      rating: "8.6",
-      duration: "169 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-      description: "Humanity's last hope lies beyond the stars."
-    },
-    {
-      title: "The Social Network",
-      year: "2010",
-      genre: "Biography/Drama",
-      rating: "7.7",
-      duration: "120 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BOGUyZDUxZjEtMmIzMC00MzlmLTg4MGItZWJmMzBhZjE0Mjc1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-      description: "The story behind Facebook's creation."
-    },
-    {
-      title: "Iron Man",
-      year: "2008",
-      genre: "Action/Sci-Fi",
-      rating: "7.9",
-      duration: "126 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
-      description: "Genius billionaire builds a high-tech suit."
-    },
-    {
       title: "Ex Machina",
       year: "2014",
       genre: "Sci-Fi/Thriller",
@@ -65,15 +74,6 @@ const Movies = () => {
       duration: "164 min",
       poster: "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg",
       description: "The future of artificial intelligence unfolds."
-    },
-    {
-      title: "Steve Jobs",
-      year: "2015",
-      genre: "Biography/Drama",
-      rating: "7.2",
-      duration: "122 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BMjE1MzU1MjUwM15BMl5BanBnXkFtZTgwMTA4MDU0NjE@._V1_SX300.jpg",
-      description: "The visionary behind Apple's revolution."
     }
   ];
 
