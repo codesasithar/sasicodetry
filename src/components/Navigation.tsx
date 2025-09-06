@@ -7,7 +7,6 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   const navItems = [
-    { id: "home", label: "Home" },
     { id: "about", label: "About" },
     { id: "projects", label: "Projects" },
     { id: "services", label: "Services" },
@@ -38,9 +37,13 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    if (sectionId === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setIsOpen(false);
   };
@@ -49,11 +52,14 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-18">
-          {/* Logo */}
-          <div className="flex items-center space-x-3 transition-all duration-300 hover:scale-105">
+          {/* Logo as Home Button */}
+          <button 
+            onClick={() => scrollToSection("home")}
+            className="flex items-center space-x-3 transition-all duration-300 hover:scale-105 cursor-pointer"
+          >
             <Code2 className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-primary transition-all duration-300" />
             <span className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground transition-all duration-300">SasiCodes</span>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
