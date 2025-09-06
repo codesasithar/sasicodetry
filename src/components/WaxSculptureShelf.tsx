@@ -48,159 +48,63 @@ const WaxSculptureShelf = () => {
           </p>
         </div>
 
-        {/* 3D Gallery Space */}
-        <div className="relative min-h-[500px]">
-          {/* Ambient Lighting */}
-          <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-accent/5 pointer-events-none"></div>
-          
-          {/* Gallery Floor */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-muted/20 to-transparent pointer-events-none"></div>
+        {/* Shelf Container */}
+        <div className="relative">
+          {/* Shelf Background */}
+          <div className="bg-gradient-to-b from-wood-light to-wood-dark rounded-lg p-8 shadow-2xl border border-wood-medium">
+            {/* Top Shelf Edge */}
+            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-wood-medium to-wood-dark rounded-t-lg"></div>
             
-        {/* 3D Floating Sculptures */}
-        <div className="relative h-96 perspective-1000">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 h-full items-center">
-            {sculptures.map((sculpture, index) => (
-              <div 
-                key={sculpture.id}
-                className="group relative h-full flex flex-col items-center justify-center"
-                style={{ animationDelay: `${index * 500}ms` }}
-              >
-                {/* 3D Floating Container */}
-                <div className="relative preserve-3d animate-float" style={{
-                  animation: `float 6s ease-in-out infinite ${index * 2}s, rotate3d 20s linear infinite ${index * 3}s`
-                }}>
-                  {/* 3D Model Container */}
-                  <div className="relative w-48 h-64 preserve-3d group-hover:animate-spin-slow">
-                    {/* Front Face */}
-                    <div className="absolute inset-0 backface-hidden">
-                      <div className="w-full h-full bg-gradient-to-b from-stone-100 to-stone-300 rounded-lg p-3 shadow-2xl border-2 border-stone-400">
-                        <img
-                          src={sculpture.image}
-                          alt={`3D wax model of ${sculpture.name}`}
-                          className="w-full h-48 object-cover object-center rounded-md shadow-lg"
-                        />
-                        <div className="mt-2 bg-gradient-to-r from-amber-100 to-amber-200 rounded px-2 py-1 text-center shadow-sm">
-                          <h3 className="font-bold text-amber-900 text-xs">{sculpture.name}</h3>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Back Face */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-180">
-                      <div className="w-full h-full bg-gradient-to-b from-stone-200 to-stone-400 rounded-lg p-3 shadow-2xl border-2 border-stone-500 flex flex-col justify-center items-center text-center">
-                        <h3 className="font-bold text-stone-800 text-lg mb-2">{sculpture.name}</h3>
-                        <p className="text-stone-600 text-sm mb-2">{sculpture.era}</p>
-                        <p className="text-stone-700 text-xs leading-relaxed">{sculpture.description}</p>
-                      </div>
-                    </div>
-
-                    {/* Side Faces for 3D Effect */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-90 translate-z-6">
-                      <div className="w-full h-full bg-gradient-to-b from-stone-300 to-stone-500 rounded-lg shadow-xl border border-stone-600"></div>
-                    </div>
-                    <div className="absolute inset-0 backface-hidden rotate-y-270 translate-z-6">
-                      <div className="w-full h-full bg-gradient-to-b from-stone-300 to-stone-500 rounded-lg shadow-xl border border-stone-600"></div>
-                    </div>
-
-                    {/* Top Face */}
-                    <div className="absolute inset-0 backface-hidden rotate-x-90 translate-z-32">
-                      <div className="w-full h-full bg-gradient-to-b from-stone-200 to-stone-400 rounded-lg shadow-lg border border-stone-500"></div>
-                    </div>
-
-                    {/* Bottom Face */}
-                    <div className="absolute inset-0 backface-hidden rotate-x-270 translate-z-32">
-                      <div className="w-full h-full bg-gradient-to-b from-stone-400 to-stone-600 rounded-lg shadow-lg border border-stone-700"></div>
-                    </div>
-                  </div>
-
-                  {/* Floating Particles */}
-                  <div className="absolute -inset-8 pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-2 h-2 bg-primary/30 rounded-full animate-pulse" style={{animationDelay: `${index * 0.5}s`}}></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 bg-accent/40 rounded-full animate-pulse" style={{animationDelay: `${index * 0.7}s`}}></div>
-                    <div className="absolute top-1/3 right-0 w-1 h-1 bg-secondary/50 rounded-full animate-pulse" style={{animationDelay: `${index * 0.3}s`}}></div>
-                  </div>
-
-                  {/* Holographic Base */}
-                  <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-gradient-radial from-primary/20 via-primary/10 to-transparent rounded-full animate-pulse"></div>
-                </div>
-
-                {/* 3D Shadow */}
+            {/* Sculptures Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              {sculptures.map((sculpture, index) => (
                 <div 
-                  className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-40 h-20 bg-black/20 rounded-full blur-xl animate-float"
-                  style={{
-                    animation: `float 6s ease-in-out infinite ${index * 2}s reverse`
-                  }}
-                ></div>
-              </div>
-            ))}
-          </div>
-        </div>
+                  key={sculpture.id}
+                  className="group relative transform transition-all duration-500 hover:scale-105 animate-fade-in"
+                  style={{ animationDelay: `${index * 200}ms` }}
+                >
+                  {/* Sculpture Pedestal */}
+                  <div className="bg-gradient-to-b from-stone-200 to-stone-400 rounded-lg p-4 mb-4 shadow-lg">
+                    {/* Sculpture Image */}
+                    <div className="relative overflow-hidden rounded-lg bg-gradient-to-b from-gray-100 to-gray-200 p-2">
+                      <img
+                        src={sculpture.image}
+                        alt={`Wax sculpture of ${sculpture.name}`}
+                        className="w-full h-64 object-cover object-center rounded-md shadow-md transform transition-transform duration-300 group-hover:scale-102"
+                      />
+                      {/* Glass Case Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/20 pointer-events-none rounded-md"></div>
+                    </div>
+                    
+                    {/* Nameplate */}
+                    <div className="mt-3 bg-gradient-to-r from-amber-100 to-amber-200 rounded px-3 py-2 text-center shadow-sm">
+                      <h3 className="font-bold text-amber-900 text-sm">{sculpture.name}</h3>
+                      <p className="text-amber-700 text-xs">{sculpture.era}</p>
+                    </div>
+                  </div>
 
+                  {/* Description Card */}
+                  <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-border/50 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2">
+                    <p className="text-sm text-muted-foreground text-center">
+                      {sculpture.description}
+                    </p>
+                  </div>
+
+                  {/* Spotlight Effect */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-radial from-yellow-200/30 via-yellow-100/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                </div>
+              ))}
+            </div>
+
+            {/* Shelf Support Brackets */}
+            <div className="absolute bottom-0 left-8 w-4 h-8 bg-gradient-to-b from-wood-medium to-wood-dark rounded-b-lg"></div>
+            <div className="absolute bottom-0 right-8 w-4 h-8 bg-gradient-to-b from-wood-medium to-wood-dark rounded-b-lg"></div>
+          </div>
+
+          {/* Shelf Shadow */}
+          <div className="absolute top-2 left-2 right-2 bottom-2 bg-black/10 rounded-lg -z-10"></div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotateX(0deg); }
-          50% { transform: translateY(-20px) rotateX(5deg); }
-        }
-        
-        @keyframes rotate3d {
-          0% { transform: rotateY(0deg) rotateX(0deg); }
-          25% { transform: rotateY(90deg) rotateX(5deg); }
-          50% { transform: rotateY(180deg) rotateX(0deg); }
-          75% { transform: rotateY(270deg) rotateX(-5deg); }
-          100% { transform: rotateY(360deg) rotateX(0deg); }
-        }
-
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .preserve-3d {
-          transform-style: preserve-3d;
-        }
-        
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-        
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-        
-        .rotate-y-90 {
-          transform: rotateY(90deg);
-        }
-        
-        .rotate-y-270 {
-          transform: rotateY(270deg);
-        }
-        
-        .rotate-x-90 {
-          transform: rotateX(90deg);
-        }
-        
-        .rotate-x-270 {
-          transform: rotateX(270deg);
-        }
-        
-        .translate-z-6 {
-          transform: translateZ(6px);
-        }
-        
-        .translate-z-32 {
-          transform: translateZ(32px);
-        }
-        
-        .animate-spin-slow {
-          animation: spin 8s linear infinite;
-        }
-        
-        .bg-gradient-radial {
-          background: radial-gradient(circle, var(--tw-gradient-stops));
-        }
-      `}</style>
     </section>
   );
 };
