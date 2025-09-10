@@ -95,6 +95,12 @@
     --wood-400: 30 40% 65%;
     --wood-500: 25 35% 45%;
     --wood-600: 20 30% 35%;
+
+    /* Brass colors for nameplates */
+    --brass-light: 45 100% 75%;
+    --brass-medium: 45 100% 60%;
+    --brass-dark: 45 80% 45%;
+    --brass-darker: 45 60% 30%;
   }
 
   .dark {
@@ -139,6 +145,12 @@
     --wood-400: 20 25% 20%;
     --wood-500: 15 20% 15%;
     --wood-600: 10 15% 10%;
+
+    /* Brass colors for nameplates - darker in dark mode */
+    --brass-light: 45 80% 55%;
+    --brass-medium: 45 70% 40%;
+    --brass-dark: 45 60% 25%;
+    --brass-darker: 45 50% 15%;
   }
 }
 

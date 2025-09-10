@@ -41,68 +41,92 @@ const WaxSculptureShelf = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-foreground">
-            Wax Sculpture Gallery
+            Collectible Doll Shelf
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            A collection of lifelike wax sculptures celebrating legendary figures who shaped our world
+            A wooden display shelf featuring miniature figurines of legendary icons
           </p>
         </div>
 
-        {/* Shelf Container */}
-        <div className="relative">
-          {/* Shelf Background */}
-          <div className="bg-gradient-to-b from-wood-light to-wood-dark rounded-lg p-8 shadow-2xl border border-wood-medium">
-            {/* Top Shelf Edge */}
-            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-wood-medium to-wood-dark rounded-t-lg"></div>
+        {/* Wooden Shelf */}
+        <div className="relative perspective-1000">
+          {/* Main Shelf Structure */}
+          <div className="relative bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 rounded-lg shadow-2xl border-2 border-amber-600">
+            {/* Shelf Top Surface */}
+            <div className="h-6 bg-gradient-to-b from-amber-600 to-amber-700 rounded-t-lg border-b-2 border-amber-800 relative">
+              {/* Wood Grain Lines */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent rounded-t-lg"></div>
+              <div className="absolute top-1 left-0 right-0 h-px bg-amber-500/30"></div>
+              <div className="absolute bottom-1 left-0 right-0 h-px bg-amber-900/50"></div>
+            </div>
             
-            {/* Sculptures Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-              {sculptures.map((sculpture, index) => (
-                <div 
-                  key={sculpture.id}
-                  className="group relative transform transition-all duration-500 hover:scale-105 animate-fade-in"
-                  style={{ animationDelay: `${index * 200}ms` }}
-                >
-                  {/* Sculpture Pedestal */}
-                  <div className="bg-gradient-to-b from-stone-200 to-stone-400 rounded-lg p-4 mb-4 shadow-lg">
-                    {/* Sculpture Image */}
-                    <div className="relative overflow-hidden rounded-lg bg-gradient-to-b from-gray-100 to-gray-200 p-2">
-                      <img
-                        src={sculpture.image}
-                        alt={`Wax sculpture of ${sculpture.name}`}
-                        className="w-full h-64 object-cover object-center rounded-md shadow-md transform transition-transform duration-300 group-hover:scale-102"
-                      />
-                      {/* Glass Case Effect */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/20 pointer-events-none rounded-md"></div>
+            {/* Shelf Interior */}
+            <div className="px-8 py-6 bg-gradient-to-b from-amber-100/10 to-amber-900/20">
+              {/* Dolls Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                {sculptures.map((sculpture, index) => (
+                  <div 
+                    key={sculpture.id}
+                    className="group relative transform transition-all duration-500 hover:scale-110 animate-fade-in"
+                    style={{ animationDelay: `${index * 200}ms` }}
+                  >
+                    {/* Doll Figure */}
+                    <div className="relative">
+                      {/* Doll Base/Stand */}
+                      <div className="w-20 h-6 bg-gradient-to-b from-stone-300 to-stone-500 rounded-full mx-auto mb-2 shadow-lg relative">
+                        {/* Base reflection */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent rounded-full"></div>
+                      </div>
+                      
+                      {/* Doll Image */}
+                      <div className="relative mx-auto w-32 h-40 overflow-hidden rounded-lg">
+                        <img
+                          src={sculpture.image}
+                          alt={`Collectible doll of ${sculpture.name}`}
+                          className="w-full h-full object-cover object-center transform transition-all duration-300 group-hover:scale-105 filter drop-shadow-lg"
+                        />
+                        {/* Doll shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/15 pointer-events-none"></div>
+                      </div>
+                      
+                      {/* Mini Nameplate */}
+                      <div className="mt-2 mx-auto w-fit bg-gradient-to-r from-brass-light to-brass-dark rounded px-2 py-1 text-center shadow-md border border-brass-medium">
+                        <h3 className="font-bold text-brass-dark text-xs">{sculpture.name}</h3>
+                        <p className="text-brass-darker text-[10px]">{sculpture.era}</p>
+                      </div>
                     </div>
-                    
-                    {/* Nameplate */}
-                    <div className="mt-3 bg-gradient-to-r from-amber-100 to-amber-200 rounded px-3 py-2 text-center shadow-sm">
-                      <h3 className="font-bold text-amber-900 text-sm">{sculpture.name}</h3>
-                      <p className="text-amber-700 text-xs">{sculpture.era}</p>
+
+                    {/* Hover Info Card */}
+                    <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-card/95 backdrop-blur-sm rounded-lg p-3 shadow-xl border border-border/50 transition-all duration-300 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 z-10 w-48">
+                      <p className="text-xs text-muted-foreground text-center">
+                        {sculpture.description}
+                      </p>
                     </div>
-                  </div>
 
-                  {/* Description Card */}
-                  <div className="bg-card/80 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-border/50 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2">
-                    <p className="text-sm text-muted-foreground text-center">
-                      {sculpture.description}
-                    </p>
+                    {/* Doll Shadow on Shelf */}
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-black/20 rounded-full blur-sm"></div>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  {/* Spotlight Effect */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-gradient-radial from-yellow-200/30 via-yellow-100/20 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                </div>
-              ))}
+            {/* Shelf Bottom Edge */}
+            <div className="h-4 bg-gradient-to-b from-amber-800 to-amber-900 rounded-b-lg border-t border-amber-700 relative">
+              {/* Wood grain on bottom */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-700/30 to-transparent rounded-b-lg"></div>
             </div>
 
             {/* Shelf Support Brackets */}
-            <div className="absolute bottom-0 left-8 w-4 h-8 bg-gradient-to-b from-wood-medium to-wood-dark rounded-b-lg"></div>
-            <div className="absolute bottom-0 right-8 w-4 h-8 bg-gradient-to-b from-wood-medium to-wood-dark rounded-b-lg"></div>
+            <div className="absolute -bottom-4 left-12 w-6 h-12 bg-gradient-to-b from-amber-700 to-amber-900 rounded-b-lg transform rotate-2 shadow-lg"></div>
+            <div className="absolute -bottom-4 right-12 w-6 h-12 bg-gradient-to-b from-amber-700 to-amber-900 rounded-b-lg transform -rotate-2 shadow-lg"></div>
+            
+            {/* Side Wood Grains */}
+            <div className="absolute left-0 top-6 bottom-4 w-1 bg-gradient-to-b from-amber-600 to-amber-800 rounded-l"></div>
+            <div className="absolute right-0 top-6 bottom-4 w-1 bg-gradient-to-b from-amber-600 to-amber-800 rounded-r"></div>
           </div>
 
           {/* Shelf Shadow */}
-          <div className="absolute top-2 left-2 right-2 bottom-2 bg-black/10 rounded-lg -z-10"></div>
+          <div className="absolute top-4 left-4 right-4 bottom-0 bg-black/15 rounded-lg -z-10 blur-sm"></div>
         </div>
       </div>
     </section>

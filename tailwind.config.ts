@@ -77,6 +77,12 @@ export default {
 					400: 'hsl(var(--wood-400))',
 					500: 'hsl(var(--wood-500))',
 					600: 'hsl(var(--wood-600))'
+				},
+				brass: {
+					light: 'hsl(var(--brass-light))',
+					medium: 'hsl(var(--brass-medium))',
+					dark: 'hsl(var(--brass-dark))',
+					darker: 'hsl(var(--brass-darker))'
 				}
 			},
 			borderRadius: {
