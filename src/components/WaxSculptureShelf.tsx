@@ -41,92 +41,165 @@ const WaxSculptureShelf = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-foreground">
-            Collectible Doll Shelf
+            Collectible Action Figures
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            A wooden display shelf featuring miniature figurines of legendary icons
+            Premium collectible action figures of legendary icons displayed on a wooden collector's shelf
           </p>
         </div>
 
-        {/* Wooden Shelf */}
-        <div className="relative perspective-1000">
+        {/* Wooden Collector's Shelf */}
+        <div className="relative max-w-4xl mx-auto">
           {/* Main Shelf Structure */}
-          <div className="relative bg-gradient-to-b from-amber-700 via-amber-800 to-amber-900 rounded-lg shadow-2xl border-2 border-amber-600">
-            {/* Shelf Top Surface */}
-            <div className="h-6 bg-gradient-to-b from-amber-600 to-amber-700 rounded-t-lg border-b-2 border-amber-800 relative">
-              {/* Wood Grain Lines */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/20 to-transparent rounded-t-lg"></div>
-              <div className="absolute top-1 left-0 right-0 h-px bg-amber-500/30"></div>
-              <div className="absolute bottom-1 left-0 right-0 h-px bg-amber-900/50"></div>
+          <div className="relative bg-gradient-to-b from-amber-600 via-amber-700 to-amber-800 rounded-xl shadow-2xl border border-amber-500/50 overflow-hidden">
+            
+            {/* Wood Grain Texture */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="h-full w-full bg-gradient-to-r from-transparent via-amber-900/30 to-transparent"></div>
+              <div className="absolute top-0 left-0 w-full h-1 bg-amber-500/40"></div>
+              <div className="absolute top-2 left-0 w-full h-px bg-amber-900/50"></div>
+              <div className="absolute top-4 left-0 w-full h-px bg-amber-500/30"></div>
             </div>
             
-            {/* Shelf Interior */}
-            <div className="px-8 py-6 bg-gradient-to-b from-amber-100/10 to-amber-900/20">
-              {/* Dolls Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                {sculptures.map((sculpture, index) => (
-                  <div 
-                    key={sculpture.id}
-                    className="group relative transform transition-all duration-500 hover:scale-110 animate-fade-in"
-                    style={{ animationDelay: `${index * 200}ms` }}
-                  >
-                    {/* Doll Figure */}
-                    <div className="relative">
-                      {/* Doll Base/Stand */}
-                      <div className="w-20 h-6 bg-gradient-to-b from-stone-300 to-stone-500 rounded-full mx-auto mb-2 shadow-lg relative">
-                        {/* Base reflection */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent rounded-full"></div>
-                      </div>
-                      
-                      {/* Doll Image */}
-                      <div className="relative mx-auto w-32 h-40 overflow-hidden rounded-lg">
+            {/* Shelf Top Edge */}
+            <div className="h-4 bg-gradient-to-b from-amber-500 to-amber-600 border-b border-amber-700 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 via-transparent to-amber-400/20"></div>
+            </div>
+            
+            {/* Shelf Interior with Dolls */}
+            <div className="px-8 py-8 bg-gradient-to-b from-amber-50/5 to-amber-900/10 relative">
+              
+              {/* Dolls Arrangement */}
+              <div className="relative h-32 flex items-end justify-center gap-6">
+                
+                {/* Einstein Doll - Standing upright */}
+                <div className="group relative animate-fade-in" style={{ animationDelay: '0ms' }}>
+                  <div className="relative transform hover:scale-110 transition-all duration-300">
+                    {/* Doll Body */}
+                    <div className="w-16 h-24 relative">
+                      {/* Head */}
+                      <div className="w-12 h-12 mx-auto mb-1 rounded-full overflow-hidden bg-gradient-to-b from-pink-100 to-pink-200 border border-pink-300/50 shadow-md">
                         <img
-                          src={sculpture.image}
-                          alt={`Collectible doll of ${sculpture.name}`}
-                          className="w-full h-full object-cover object-center transform transition-all duration-300 group-hover:scale-105 filter drop-shadow-lg"
+                          src={sculptures[0].image}
+                          alt="Einstein collectible figure"
+                          className="w-full h-full object-cover object-top"
                         />
-                        {/* Doll shine effect */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-white/15 pointer-events-none"></div>
                       </div>
                       
-                      {/* Mini Nameplate */}
-                      <div className="mt-2 mx-auto w-fit bg-gradient-to-r from-brass-light to-brass-dark rounded px-2 py-1 text-center shadow-md border border-brass-medium">
-                        <h3 className="font-bold text-brass-dark text-xs">{sculpture.name}</h3>
-                        <p className="text-brass-darker text-[10px]">{sculpture.era}</p>
+                      {/* Body */}
+                      <div className="w-10 h-11 mx-auto bg-gradient-to-b from-gray-600 to-gray-800 rounded-sm relative shadow-sm">
+                        {/* Arms */}
+                        <div className="absolute -left-1 top-1 w-2 h-6 bg-gradient-to-b from-pink-200 to-pink-300 rounded-full shadow-sm"></div>
+                        <div className="absolute -right-1 top-1 w-2 h-6 bg-gradient-to-b from-pink-200 to-pink-300 rounded-full shadow-sm"></div>
+                        {/* Legs */}
+                        <div className="absolute -bottom-2 left-2 w-2 h-4 bg-gradient-to-b from-gray-700 to-gray-900 rounded-full shadow-sm"></div>
+                        <div className="absolute -bottom-2 right-2 w-2 h-4 bg-gradient-to-b from-gray-700 to-gray-900 rounded-full shadow-sm"></div>
                       </div>
                     </div>
-
-                    {/* Hover Info Card */}
-                    <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-card/95 backdrop-blur-sm rounded-lg p-3 shadow-xl border border-border/50 transition-all duration-300 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 z-10 w-48">
-                      <p className="text-xs text-muted-foreground text-center">
-                        {sculpture.description}
-                      </p>
-                    </div>
-
-                    {/* Doll Shadow on Shelf */}
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-black/20 rounded-full blur-sm"></div>
+                    
+                    {/* Doll Base */}
+                    <div className="w-14 h-2 bg-gradient-to-b from-black to-gray-800 rounded-full mx-auto shadow-lg"></div>
                   </div>
-                ))}
+                  
+                  {/* Info Card */}
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-card/95 backdrop-blur-sm rounded px-2 py-1 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                    <p className="text-xs text-muted-foreground whitespace-nowrap">Einstein Figure</p>
+                  </div>
+                </div>
+
+                {/* Michael Jackson Doll - Slightly tilted */}
+                <div className="group relative animate-fade-in transform rotate-3" style={{ animationDelay: '200ms' }}>
+                  <div className="relative transform hover:scale-110 transition-all duration-300">
+                    {/* Doll Body */}
+                    <div className="w-16 h-24 relative">
+                      {/* Head */}
+                      <div className="w-12 h-12 mx-auto mb-1 rounded-full overflow-hidden bg-gradient-to-b from-amber-100 to-amber-200 border border-amber-300/50 shadow-md">
+                        <img
+                          src={sculptures[1].image}
+                          alt="Michael Jackson collectible figure"
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+                      
+                      {/* Body */}
+                      <div className="w-10 h-11 mx-auto bg-gradient-to-b from-red-600 to-red-800 rounded-sm relative shadow-sm">
+                        {/* Arms */}
+                        <div className="absolute -left-1 top-1 w-2 h-6 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full shadow-sm transform rotate-12"></div>
+                        <div className="absolute -right-1 top-1 w-2 h-6 bg-gradient-to-b from-amber-200 to-amber-300 rounded-full shadow-sm transform -rotate-6"></div>
+                        {/* Legs */}
+                        <div className="absolute -bottom-2 left-2 w-2 h-4 bg-gradient-to-b from-black to-gray-800 rounded-full shadow-sm"></div>
+                        <div className="absolute -bottom-2 right-2 w-2 h-4 bg-gradient-to-b from-black to-gray-800 rounded-full shadow-sm"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Doll Base */}
+                    <div className="w-14 h-2 bg-gradient-to-b from-black to-gray-800 rounded-full mx-auto shadow-lg"></div>
+                  </div>
+                  
+                  {/* Info Card */}
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-card/95 backdrop-blur-sm rounded px-2 py-1 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                    <p className="text-xs text-muted-foreground whitespace-nowrap">MJ Figure</p>
+                  </div>
+                </div>
+
+                {/* Bruce Lee Doll - In action pose */}
+                <div className="group relative animate-fade-in transform -rotate-2" style={{ animationDelay: '400ms' }}>
+                  <div className="relative transform hover:scale-110 transition-all duration-300">
+                    {/* Doll Body */}
+                    <div className="w-16 h-24 relative">
+                      {/* Head */}
+                      <div className="w-12 h-12 mx-auto mb-1 rounded-full overflow-hidden bg-gradient-to-b from-yellow-100 to-yellow-200 border border-yellow-300/50 shadow-md">
+                        <img
+                          src={sculptures[2].image}
+                          alt="Bruce Lee collectible figure"
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+                      
+                      {/* Body */}
+                      <div className="w-10 h-11 mx-auto bg-gradient-to-b from-yellow-600 to-yellow-800 rounded-sm relative shadow-sm">
+                        {/* Arms in action pose */}
+                        <div className="absolute -left-2 top-0 w-2 h-6 bg-gradient-to-b from-yellow-200 to-yellow-300 rounded-full shadow-sm transform rotate-45"></div>
+                        <div className="absolute -right-1 top-2 w-2 h-6 bg-gradient-to-b from-yellow-200 to-yellow-300 rounded-full shadow-sm transform -rotate-12"></div>
+                        {/* Legs in stance */}
+                        <div className="absolute -bottom-2 left-1 w-2 h-4 bg-gradient-to-b from-yellow-700 to-yellow-900 rounded-full shadow-sm transform rotate-12"></div>
+                        <div className="absolute -bottom-2 right-3 w-2 h-4 bg-gradient-to-b from-yellow-700 to-yellow-900 rounded-full shadow-sm transform -rotate-6"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Doll Base */}
+                    <div className="w-14 h-2 bg-gradient-to-b from-black to-gray-800 rounded-full mx-auto shadow-lg"></div>
+                  </div>
+                  
+                  {/* Info Card */}
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-card/95 backdrop-blur-sm rounded px-2 py-1 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
+                    <p className="text-xs text-muted-foreground whitespace-nowrap">Bruce Lee Figure</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Shelf Label */}
+              <div className="absolute bottom-2 right-4 bg-brass-light border border-brass-medium rounded px-2 py-1 shadow-sm">
+                <p className="text-xs font-bold text-brass-darker">Legends Collection</p>
               </div>
             </div>
 
             {/* Shelf Bottom Edge */}
-            <div className="h-4 bg-gradient-to-b from-amber-800 to-amber-900 rounded-b-lg border-t border-amber-700 relative">
-              {/* Wood grain on bottom */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-700/30 to-transparent rounded-b-lg"></div>
-            </div>
+            <div className="h-3 bg-gradient-to-b from-amber-700 to-amber-900 border-t border-amber-600"></div>
 
             {/* Shelf Support Brackets */}
-            <div className="absolute -bottom-4 left-12 w-6 h-12 bg-gradient-to-b from-amber-700 to-amber-900 rounded-b-lg transform rotate-2 shadow-lg"></div>
-            <div className="absolute -bottom-4 right-12 w-6 h-12 bg-gradient-to-b from-amber-700 to-amber-900 rounded-b-lg transform -rotate-2 shadow-lg"></div>
+            <div className="absolute -bottom-3 left-8 w-4 h-8 bg-gradient-to-b from-amber-600 to-amber-800 rounded-b shadow-lg transform rotate-1"></div>
+            <div className="absolute -bottom-3 right-8 w-4 h-8 bg-gradient-to-b from-amber-600 to-amber-800 rounded-b shadow-lg transform -rotate-1"></div>
             
-            {/* Side Wood Grains */}
-            <div className="absolute left-0 top-6 bottom-4 w-1 bg-gradient-to-b from-amber-600 to-amber-800 rounded-l"></div>
-            <div className="absolute right-0 top-6 bottom-4 w-1 bg-gradient-to-b from-amber-600 to-amber-800 rounded-r"></div>
+            {/* Shelf Front Edge Highlight */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-amber-400/50"></div>
           </div>
 
           {/* Shelf Shadow */}
-          <div className="absolute top-4 left-4 right-4 bottom-0 bg-black/15 rounded-lg -z-10 blur-sm"></div>
+          <div className="absolute top-3 left-3 right-3 bottom-0 bg-black/20 rounded-xl -z-10 blur-lg"></div>
+          
+          {/* Ambient Lighting */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-16 bg-gradient-radial from-yellow-200/20 via-yellow-100/10 to-transparent rounded-full"></div>
         </div>
       </div>
     </section>
