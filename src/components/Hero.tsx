@@ -343,7 +343,7 @@ const Hero = () => {
 
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
                   <img
-                    src="/lovable-uploads/d2579815-ad70-4405-af42-3e0f278e9d1e.png"
+                    src="/lovable-uploads/sasicodes_arc_reactor.png"
                     alt="Sasithar M - Application Developer"
                     className="w-full h-full object-cover"
                   />
@@ -423,7 +423,7 @@ const Hero = () => {
 
                 <div className="relative w-64 h-64 rounded-2xl overflow-hidden border-2 border-primary/30">
                   <img
-                    src="/lovable-uploads/d2579815-ad70-4405-af42-3e0f278e9d1e.png"
+                    src="/lovable-uploads/sasicodes_arc_reactor.png"
                     alt="Sasithar M - Application Developer"
                     className="w-full h-full object-cover"
                   />
