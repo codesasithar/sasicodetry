@@ -45,7 +45,7 @@ const Movies = () => {
       genre: "Action/Sci-Fi",
       rating: "7.0",
       duration: "144 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BMTQwNjU5MWMtNTkwNS00NDdlLThiODYtMGE2Y2ZjYWM5YzFhXkEyXkFqcGdeQXVyNjQ4ODE4MzQ@._V1_SX300.jpg",
+      poster: "https://i.pinimg.com/1200x/d1/a0/0e/d1a00e1ce397ac6ab5400a945225babc.jpg",
       description: "Ancient alien robots come to Earth as the fate of humanity hangs in the balance."
     },
     {
