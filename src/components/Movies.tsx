@@ -36,7 +36,7 @@ const Movies = () => {
       genre: "Sci-Fi/Action",
       rating: "8.1",
       duration: "107 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BYTViNzMxZjEtZGEwNy00MDNiLWIzNGQtZDY2MjQ1OWViZjFmXkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg",
+      poster: "https://alternativemovieposters.com/wp-content/uploads/2021/09/OSCARMARTINEZ_SHOP1-1.jpg",
       description: "A cyborg assassin sent back in time to kill the mother of humanity's savior."
     },
     {
