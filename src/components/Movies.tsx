@@ -9,7 +9,7 @@ const Movies = () => {
       genre: "Sci-Fi/Action",
       rating: "7.1",
       duration: "115 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BMjE4NzY5NDAzOV5BMl5BanBnXkFtZTcwMTMxMDI0NQ@@._V1_SX300.jpg",
+      poster: "https://cdn.kinocheck.com/i/anfyr4lfyo.jpg",
       description: "In 2035, robots serve humanity under three laws of robotics."
     },
     {
