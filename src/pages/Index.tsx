@@ -12,6 +12,7 @@ import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
 import MatrixBackground from "@/components/MatrixBackground";
+import WelcomeMarquee from "@/components/WelcomeMarquee";
 
 
 const Index = () => {
@@ -20,8 +21,11 @@ const Index = () => {
       {/* Matrix background - appears behind everything */}
       <MatrixBackground />
       
+      {/* Welcome Marquee - at the very top */}
+      <WelcomeMarquee />
+      
       {/* All your content with proper layering */}
-      <div className="min-h-screen relative z-10">
+      <div className="min-h-screen relative z-10 pt-10">
         <CursorEffects />
         <Navigation />
         <Hero />
