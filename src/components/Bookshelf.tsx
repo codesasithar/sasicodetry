@@ -109,20 +109,20 @@ const Bookshelf = () => {
   };
 
   return (
-    <section id="bookshelf" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+    <section id="bookshelf" className="py-16 sm:py-20 bg-background px-4 sm:px-6">
+      <div className="container mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center mb-4">
-            <BookOpen className="w-8 h-8 text-primary mr-3" />
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">Books That Inspire Me</h2>
+            <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-primary mr-2 sm:mr-3" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Books That Inspire Me</h2>
           </div>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             A curated collection of books that have shaped my thinking and inspired my journey
           </p>
         </div>
         
         <div className="w-full max-w-4xl mx-auto">
-          <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-4 md:p-6">
+          <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6">
             {/* Header */}
             <div className="flex items-center gap-2 mb-6">
               <BookOpen className="h-5 w-5 text-primary" />
@@ -134,7 +134,7 @@ const Bookshelf = () => {
 
             {/* Mobile: Grid Layout */}
             <div className="block md:hidden">
-              <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6">
                 {books.map((book) => (
                   <div
                     key={book.id}

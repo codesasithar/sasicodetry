@@ -78,24 +78,24 @@ const Movies = () => {
   ];
 
   return (
-    <section id="movies" className="section-padding bg-background">
+    <section id="movies" className="section-padding bg-background px-4 sm:px-6 lg:px-8">
       <div className="section-container">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-12 animate-fade-in">
-            <div className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="text-center mb-10 sm:mb-12 animate-fade-in">
+            <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4">
               🎬 Entertainment
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
               Movies I <span className="text-primary">Love</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
               A curated collection of films that inspire my creativity and fuel my passion for technology and innovation.
             </p>
           </div>
 
           {/* Movies Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {movies.map((movie, index) => (
               <Card 
                 key={movie.title}
@@ -128,12 +128,12 @@ const Movies = () => {
                   </div>
 
                   {/* Movie Info */}
-                  <div className="p-4">
-                    <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
+                  <div className="p-3 sm:p-4">
+                    <h3 className="font-bold text-sm sm:text-base md:text-lg mb-1 group-hover:text-primary transition-colors line-clamp-1">
                       {movie.title}
                     </h3>
                     
-                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
+                    <div className="flex items-center justify-between text-xs sm:text-sm text-muted-foreground mb-2">
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-3 w-3" />
                         <span>{movie.year}</span>

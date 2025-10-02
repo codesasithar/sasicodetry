@@ -30,36 +30,36 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="section-container">
+    <section id="services" className="section-container px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             What I Can Build <span className="text-primary">For You</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Specialized in creating high-quality Android applications from concept to deployment
           </p>
         </div>
 
         {/* Main Service */}
-        <div className="tech-card p-8 md:p-12 mb-12 text-center">
+        <div className="tech-card p-6 sm:p-8 md:p-12 mb-12 text-center">
           <div className="flex justify-center mb-6">
             <div className="p-4 bg-primary/10 rounded-2xl">
               <Smartphone className="h-16 w-16 text-primary" />
             </div>
           </div>
           
-          <h3 className="text-3xl font-bold mb-6">
+          <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
             Android Mobile Application Development
           </h3>
           
-          <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
             I create <span className="text-primary font-semibold">high-quality, user-centric Android mobile applications</span> from scratch. 
             From concept to deployment — I deliver sleek, performant apps that engage users and drive results.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 px-2">
             {[
               "Native Android Development",
               "UI/UX Design",
@@ -80,7 +80,7 @@ const Services = () => {
         </div>
 
         {/* Service Features */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {features.map((feature, index) => (
             <div 
               key={feature.title}

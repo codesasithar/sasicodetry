@@ -40,20 +40,20 @@ category: "AR/VR"
 ];
 
 return (
-<section id="projects" className="section-container">
+<section id="projects" className="section-container px-4 sm:px-6 lg:px-8">
 <div className="max-w-7xl mx-auto">
 {/* Section Header */}
-<div className="text-center mb-16">
-<h2 className="text-4xl md:text-5xl font-bold mb-6">
+<div className="text-center mb-12 sm:mb-16">
+<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
 Featured <span className="text-primary">Projects</span>
 </h2>
-<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+<p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
 Showcasing innovative solutions across mobile, web, AR/VR, and backend development
 </p>
 </div>
-
+ 
 {/* Projects Grid */}
-<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 {projects.map((project, index) => (
 <div
 key={project.title}

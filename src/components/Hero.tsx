@@ -224,10 +224,10 @@ const Hero = () => {
       </div>
 
       {/* Content Wrapper */}
-      <div className="section-container relative z-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
+      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           {/* Desktop Layout */}
-          <div className="hidden lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
               <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up">
@@ -359,15 +359,15 @@ const Hero = () => {
           </div>
 
           {/* Mobile Layout */}
-          <div className="lg:hidden flex flex-col items-center text-center space-y-8">
+          <div className="lg:hidden flex flex-col items-center text-center space-y-6 sm:space-y-8">
             {/* Text Content */}
-            <div>
-              <div className="inline-block bg-accent/20 text-accent px-3 py-2 rounded-full text-xs font-medium mb-4 animate-slide-up">
+            <div className="w-full max-w-lg">
+              <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up">
                 Welcome to my portfolio
               </div>
 
               <h1
-                className="text-3xl sm:text-4xl font-bold mb-4 animate-slide-up relative"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 animate-slide-up relative leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
                 <span className="text-foreground relative inline-block">
@@ -381,26 +381,26 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <p className="text-base text-muted-foreground mb-6 max-w-lg animate-fade-in" style={{ animationDelay: "0.4s" }}>
+              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed px-2" style={{ animationDelay: "0.4s" }}>
                 {typingText.displayedText}
                 {!typingText.isComplete && <span className="animate-pulse">|</span>}
               </p>
 
-              <div className="flex justify-center space-x-6 mb-6 animate-fade-in" style={{ animationDelay: "0.6s" }}>
+              <div className="flex justify-center space-x-8 sm:space-x-12 mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
                 <div className="text-center">
-                  <div className="text-xl font-bold text-accent">5+</div>
-                  <div className="text-xs text-muted-foreground">Projects Built</div>
+                  <div className="text-xl sm:text-2xl font-bold text-accent">5+</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Projects Built</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-bold text-primary">2+</div>
-                  <div className="text-xs text-muted-foreground">Years Experience</div>
+                  <div className="text-xl sm:text-2xl font-bold text-primary">2+</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">Years Experience</div>
                 </div>
               </div>
 
               <div className="mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
                 <button
                   onClick={scrollToProjects}
-                  className="btn-tech text-base group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale"
+                  className="btn-tech text-base sm:text-lg group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale min-h-[48px] px-6 sm:px-8"
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
                   <span className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
@@ -438,44 +438,44 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex justify-center space-x-3 animate-fade-in" style={{ animationDelay: "1s" }}>
+            <div className="flex justify-center flex-wrap gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "1s" }}>
               <a
                 href="https://linkedin.com/in/sasitharcodes"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
               >
-                <Linkedin className="h-4 w-4" />
+                <Linkedin className="h-5 w-5" />
               </a>
               <a
                 href="https://github.com/codesasithar/Projects"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
               >
-                <Github className="h-4 w-4" />
+                <Github className="h-5 w-5" />
               </a>
               <a
                 href="https://www.instagram.com/sasitharm/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
               >
-                <Instagram className="h-4 w-4" />
+                <Instagram className="h-5 w-5" />
               </a>
               <a
                 href="https://www.facebook.com/snazzy.sasithar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
               >
-                <Facebook className="h-4 w-4" />
+                <Facebook className="h-5 w-5" />
               </a>
               <a
                 href="tel:+919443798476"
-                className="p-2 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
+                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
               >
-                <Phone className="h-4 w-4" />
+                <Phone className="h-5 w-5" />
               </a>
             </div>
           </div>

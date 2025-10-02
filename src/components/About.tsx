@@ -19,19 +19,19 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-container">
+    <section id="about" className="section-container px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             About <span className="text-primary">Me</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Passionate coder turning ideas into digital reality
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Column - Bio */}
           <div className="space-y-8">
             <div className="tech-card">
@@ -69,11 +69,11 @@ const About = () => {
           <div className="space-y-8">
             <div className="tech-card">
               <div className="flex items-center mb-6">
-                <Code className="h-8 w-8 text-primary mr-3" />
-                <h3 className="text-2xl font-bold">Technical Skills</h3>
+                <Code className="h-6 h-6 sm:h-8 sm:w-8 text-primary mr-3" />
+                <h3 className="text-xl sm:text-2xl font-bold">Technical Skills</h3>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                 {skills.map((skill, index) => (
                   <div key={skill} className="skill-tag animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
                     {skill}

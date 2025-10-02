@@ -43,23 +43,23 @@ const Writings = () => {
   const categories = ["All", "Psychology & Tech", "Development", "Technology", "Psychology"];
 
   return (
-    <section id="writings" className="section-container">
+    <section id="writings" className="section-container px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
             Latest Thoughts
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             My <span className="text-primary">Writings</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Sharing insights on technology, psychology, and the intersection of human behavior with digital innovation
           </p>
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-10 sm:mb-12 px-2">
           {categories.map((category) => (
             <button
               key={category}
@@ -71,7 +71,7 @@ const Writings = () => {
         </div>
 
         {/* Writings Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10 sm:mb-12">
           {writings.map((writing, index) => (
             <article
               key={writing.id}
@@ -116,7 +116,7 @@ const Writings = () => {
         </div>
 
         {/* Writing Stats & CTA */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
           {/* Stats Card */}
           <div className="tech-card">
             <div className="flex items-center mb-6">

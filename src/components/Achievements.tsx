@@ -49,19 +49,19 @@ const Achievements = () => {
   ];
 
   return (
-    <section id="achievements" className="section-container">
+    <section id="achievements" className="section-container px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             Certifications & <span className="text-primary">Achievements</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Recognition of excellence in programming, development, and professional growth
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16">
           {/* Certifications */}
           <div>
             <div className="flex items-center mb-8">

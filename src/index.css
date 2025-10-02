@@ -163,6 +163,27 @@
   body {
     @apply bg-background text-foreground font-poppins;
     cursor: none; /* Hide default cursor */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Mobile optimization */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    html {
+      font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    /* Disable custom cursor on mobile */
+    * {
+      cursor: auto !important;
+    }
+    
+    body {
+      cursor: auto !important;
+    }
   }
 
   /* Custom Cursor Styles */
@@ -284,8 +305,8 @@
   }
 
   .skill-tag {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-secondary text-secondary-foreground rounded-lg text-sm font-semibold;
-    @apply border border-border hover:border-primary/50 transition-all duration-300 min-h-[44px] w-full;
+    @apply inline-flex items-center justify-center px-4 py-3 sm:px-6 bg-secondary text-secondary-foreground rounded-lg text-xs sm:text-sm font-semibold;
+    @apply border border-border hover:border-primary/50 transition-all duration-300 min-h-[44px] w-full touch-manipulation;
     @apply shadow-sm hover:shadow-md;
   }
 

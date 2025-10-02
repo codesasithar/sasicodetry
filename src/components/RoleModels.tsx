@@ -235,40 +235,40 @@ const RoleModels = () => {
   };
 
   return (
-    <section id="role-models" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+    <section id="role-models" className="py-16 sm:py-20 bg-background px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center mb-4">
-            <Lightbulb className="w-8 h-8 text-primary mr-3" />
-            <h2 className="text-4xl font-bold text-foreground">Role Models</h2>
+            <Lightbulb className="w-6 h-6 sm:w-8 sm:h-8 text-primary mr-2 sm:mr-3" />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Role Models</h2>
           </div>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             Extraordinary individuals who inspire through their achievements, character, and impact on humanity
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
           {roleModels.map((model) => (
             <Card 
               key={model.id}
               className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-card/50 backdrop-blur border-border/50"
               onClick={() => setSelectedModel(model)}
             >
-              <CardContent className="p-6">
-                <div className="relative mb-4 overflow-hidden rounded-lg">
+              <CardContent className="p-4 sm:p-6">
+                <div className="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
                   <img
                     src={model.image}
                     alt={model.name}
-                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 
                 <div className="text-center">
-                  <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {model.name}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-3">{model.title}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mb-3">{model.title}</p>
                   <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(model.category)}`}>
                     {model.category}
                   </span>
