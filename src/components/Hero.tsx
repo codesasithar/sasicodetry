@@ -116,7 +116,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 sm:pt-0"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
       {/* -- I, Robot-inspired visual layer -- */}
       <img
