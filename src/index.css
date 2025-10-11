@@ -21,23 +21,23 @@
     --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary Milky Blue #55A9DC */
-    --primary: 200 66% 60%;
+    /* Primary Blue #448EE4 */
+    --primary: 212 75% 58%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 200 70% 75%;
-    --primary-dark: 200 66% 45%;
+    --primary-glow: 212 80% 70%;
+    --primary-dark: 212 75% 45%;
 
-    /* Secondary Lighter Milky Blue */
-    --secondary: 200 60% 70%;
-    --secondary-foreground: 215 100% 10%;
+    /* Secondary Lighter Blue */
+    --secondary: 212 70% 68%;
+    --secondary-foreground: 0 0% 98%;
 
     /* Muted Colors */
     --muted: 215 25% 25%;
     --muted-foreground: 215 20% 70%;
 
-    /* Accent Bright Milky Blue */
-    --accent: 200 70% 65%;
-    --accent-foreground: 215 100% 10%;
+    /* Accent Bright Blue */
+    --accent: 212 80% 65%;
+    --accent-foreground: 0 0% 98%;
 
     /* Status Colors */
     --destructive: 0 84% 60%;
