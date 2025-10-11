@@ -21,23 +21,23 @@
     --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary Blue RGB(23, 67, 104) */
-    --primary: 207 64% 25%;
+    /* Primary Cool Blue */
+    --primary: 200 98% 39%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 207 64% 40%;
-    --primary-dark: 207 64% 18%;
+    --primary-glow: 200 98% 55%;
+    --primary-dark: 200 98% 25%;
 
-    /* Secondary Lighter Blue */
-    --secondary: 207 60% 35%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary Bright Cyan */
+    --secondary: 191 91% 36%;
+    --secondary-foreground: 215 100% 6%;
 
     /* Muted Colors */
     --muted: 215 25% 25%;
     --muted-foreground: 215 20% 70%;
 
-    /* Accent Bright Blue */
-    --accent: 207 70% 45%;
-    --accent-foreground: 0 0% 98%;
+    /* Accent Electric Blue */
+    --accent: 199 89% 48%;
+    --accent-foreground: 215 100% 6%;
 
     /* Status Colors */
     --destructive: 0 84% 60%;
