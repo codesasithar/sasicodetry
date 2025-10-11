@@ -547,6 +547,45 @@
       radial-gradient(circle at 20% 20%, hsl(var(--accent)) 2px, transparent 2px),
       radial-gradient(circle at 80% 80%, hsl(var(--primary)) 2px, transparent 2px),
       linear-gradient(45deg, transparent 48%, hsl(var(--accent) / 0.3) 50%, transparent 52%);
+
+  /* Animated Pencil Underline */
+  @keyframes draw-line {
+    0% {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes pencil-draw {
+    0% {
+      transform: translateX(-200%) translateY(-2px);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(0) translateY(-2px);
+      opacity: 0.8;
+    }
+  }
+
+  .animate-draw-line {
+    animation: draw-line 2.5s ease-in-out infinite;
+  }
+
+  .animate-pencil-draw {
+    animation: pencil-draw 2.5s ease-in-out infinite;
+  }
     background-size: 40px 40px, 60px 60px, 30px 30px;
     animation: circuit-pulse 8s ease-in-out infinite;
   }

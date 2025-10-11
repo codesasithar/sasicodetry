@@ -56,7 +56,32 @@ const Navigation = () => {
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div className="flex flex-col -space-y-1">
-              <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
+              <div className="relative">
+                <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
+                {/* Animated pencil underline */}
+                <svg className="absolute -bottom-1 left-0 w-full h-2 overflow-visible" viewBox="0 0 200 8" preserveAspectRatio="none">
+                  <path
+                    d="M0,4 Q50,2 100,4 T200,4"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    className="animate-draw-line"
+                  />
+                </svg>
+                {/* Pencil icon that follows the line */}
+                <div className="absolute -bottom-1 right-0 animate-pencil-draw">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary rotate-[-15deg]">
+                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                      fill="hsl(var(--primary))"
+                    />
+                  </svg>
+                </div>
+              </div>
               <span className="text-xs sm:text-sm text-primary/70 font-medium tracking-wider">DEVELOPER</span>
             </div>
           </div>
