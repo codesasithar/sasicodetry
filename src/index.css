@@ -21,22 +21,22 @@
     --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary Milky Blue */
-    --primary: 205 85% 75%;
-    --primary-foreground: 215 100% 10%;
-    --primary-glow: 205 90% 85%;
-    --primary-dark: 205 80% 60%;
+    /* Primary Milky Blue #55A9DC */
+    --primary: 200 66% 60%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 200 70% 75%;
+    --primary-dark: 200 66% 45%;
 
-    /* Secondary Soft Blue */
-    --secondary: 200 70% 80%;
+    /* Secondary Lighter Milky Blue */
+    --secondary: 200 60% 70%;
     --secondary-foreground: 215 100% 10%;
 
     /* Muted Colors */
     --muted: 215 25% 25%;
     --muted-foreground: 215 20% 70%;
 
-    /* Accent Light Blue */
-    --accent: 210 75% 70%;
+    /* Accent Bright Milky Blue */
+    --accent: 200 70% 65%;
     --accent-foreground: 215 100% 10%;
 
     /* Status Colors */
