@@ -21,14 +21,14 @@
     --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary Blue #448EE4 */
-    --primary: 212 75% 58%;
+    /* Primary Blue RGB(68, 114, 163) */
+    --primary: 211 41% 45%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 212 80% 70%;
-    --primary-dark: 212 75% 45%;
+    --primary-glow: 211 45% 60%;
+    --primary-dark: 211 41% 35%;
 
     /* Secondary Lighter Blue */
-    --secondary: 212 70% 68%;
+    --secondary: 211 40% 55%;
     --secondary-foreground: 0 0% 98%;
 
     /* Muted Colors */
@@ -36,7 +36,7 @@
     --muted-foreground: 215 20% 70%;
 
     /* Accent Bright Blue */
-    --accent: 212 80% 65%;
+    --accent: 211 50% 50%;
     --accent-foreground: 0 0% 98%;
 
     /* Status Colors */
