@@ -114,7 +114,7 @@ const Bookshelf = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center mb-4">
             <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-primary mr-2 sm:mr-3" />
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Books That Inspire Me</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">My Library</h2>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
             A curated collection of books that have shaped my thinking and inspired my journey
@@ -125,8 +125,6 @@ const Bookshelf = () => {
           <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6">
             {/* Header */}
             <div className="flex items-center gap-2 mb-6">
-              <BookOpen className="h-5 w-5 text-primary" />
-              <h3 className="text-base md:text-lg font-semibold text-foreground">My Library</h3>
               <Button size="sm" variant="outline" className="ml-auto">
                 <Plus className="h-4 w-4" />
               </Button>
