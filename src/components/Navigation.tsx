@@ -50,14 +50,14 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
-          <div className="flex items-center gap-4 transition-all duration-300 hover:scale-105 cursor-pointer group" onClick={() => scrollToSection('home')}>
+          <div className="flex items-center gap-2 sm:gap-3 transition-all duration-300 hover:scale-105 cursor-pointer group" onClick={() => scrollToSection('home')}>
             <div className="relative">
-              <Code2 className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 text-primary transition-all duration-300 group-hover:rotate-12" />
+              <Code2 className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-primary transition-all duration-300 group-hover:rotate-12" />
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div className="flex flex-col -space-y-1">
               <div className="relative">
-                <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
+                <span className="text-base sm:text-lg lg:text-xl font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
                 {/* Animated pencil underline */}
                 <svg className="absolute -bottom-1 left-0 w-full h-2 overflow-visible" viewBox="0 0 200 8" preserveAspectRatio="none">
                   <path
@@ -82,7 +82,7 @@ const Navigation = () => {
                   </svg>
                 </div>
               </div>
-              <span className="text-xs sm:text-sm text-primary/70 font-medium tracking-wider">DEVELOPER</span>
+              <span className="text-[10px] sm:text-xs text-primary/70 font-medium tracking-wider">DEVELOPER</span>
             </div>
           </div>
 
