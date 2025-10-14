@@ -1,5 +1,4 @@
 import { GraduationCap, Briefcase, Code, Brain, Smartphone, Database } from "lucide-react";
-import Bookshelf from "./Bookshelf";
 
 const About = () => {
   const skills = [
@@ -101,19 +100,6 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* My Library Section */}
-        <div className="mt-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
-              Books That <span className="text-primary">Inspire Me</span>
-            </h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A collection of books that have shaped my thinking and approach to technology, psychology, and life
-            </p>
-          </div>
-          <Bookshelf />
         </div>
       </div>
     </section>

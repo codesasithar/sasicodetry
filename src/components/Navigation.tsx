@@ -12,7 +12,6 @@ const Navigation = () => {
     { id: "services", label: "Services" },
     { id: "writings", label: "Writings" },
     { id: "achievements", label: "Achievements" },
-    { id: "bookshelf", label: "My Library" },
     { id: "movies", label: "Movies I Love" },
     { id: "role-models", label: "Role Models" },
     { id: "contact", label: "Contact" },
