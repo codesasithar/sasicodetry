@@ -7,7 +7,6 @@ import Writings from "@/components/Writings";
 import RoleModels from "@/components/RoleModels";
 import Bookshelf from "@/components/Bookshelf";
 import Movies from "@/components/Movies";
-import WaxSculptureShelf from "@/components/WaxSculptureShelf";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
@@ -31,7 +30,6 @@ const Index = () => {
         <Writings />
         <Bookshelf />
         <Movies />
-        <WaxSculptureShelf />
         <RoleModels />
         <Achievements />
         <Contact />
