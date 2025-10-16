@@ -46,17 +46,17 @@ const Navigation = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-20 lg:h-24">
+      <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-16">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <div className="flex items-center gap-2 sm:gap-3 transition-all duration-300 hover:scale-105 cursor-pointer group" onClick={() => scrollToSection('home')}>
+          <div className="flex items-center gap-2 transition-all duration-300 hover:scale-105 cursor-pointer group" onClick={() => scrollToSection('home')}>
             <div className="relative">
-              <Code2 className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-primary transition-all duration-300 group-hover:rotate-12" />
+              <Code2 className="h-5 w-5 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-primary transition-all duration-300 group-hover:rotate-12" />
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div className="flex flex-col -space-y-1">
               <div className="relative">
-                <span className="text-base sm:text-lg lg:text-xl font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
+                <span className="text-sm sm:text-base lg:text-lg font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
                 {/* Animated pencil underline */}
                 <svg className="absolute -bottom-1 left-0 w-full h-2 overflow-visible" viewBox="0 0 200 8" preserveAspectRatio="none">
                   <path
@@ -70,7 +70,7 @@ const Navigation = () => {
                 </svg>
                 {/* Pencil icon that follows the line */}
                 <div className="absolute -bottom-1 right-0 animate-pencil-draw">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary rotate-[-15deg]">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-primary rotate-[-15deg]">
                     <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
                       stroke="currentColor" 
                       strokeWidth="2" 
@@ -81,18 +81,18 @@ const Navigation = () => {
                   </svg>
                 </div>
               </div>
-              <span className="text-[10px] sm:text-xs text-primary/70 font-medium tracking-wider">DEVELOPER</span>
+              <span className="text-[9px] sm:text-[10px] text-primary/70 font-medium tracking-wider">DEVELOPER</span>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+          <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
             {navItems.map((item, index) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={`
-                  relative px-3 xl:px-4 py-2 text-sm xl:text-base font-medium rounded-lg
+                  relative px-4 xl:px-5 py-2.5 text-sm xl:text-base font-medium rounded-lg
                   transition-all duration-300 ease-in-out transform hover:scale-105
                   ${activeSection === item.id 
                     ? "text-primary bg-primary/10 shadow-sm" 
@@ -113,7 +113,7 @@ const Navigation = () => {
             ))}
 
             {/* Compact AudioPlayer inside desktop nav */}
-            <div className="ml-6 xl:ml-8 flex items-center border-l border-border pl-6 xl:pl-8">
+            <div className="ml-8 xl:ml-10 flex items-center border-l border-border pl-8 xl:pl-10">
               <div className="transform transition-all duration-300 hover:scale-105">
                 <AudioPlayerCompact />
               </div>
