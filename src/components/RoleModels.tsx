@@ -6,7 +6,7 @@ import { Lightbulb } from "lucide-react";
 import nikolaTesla from "@/assets/role-models/nikola-tesla.jpg";
 import albertEinstein from "@/assets/role-models/albert-einstein.jpg";
 import elonMusk from "@/assets/role-models/elon-musk.jpg";
-import kamalHassan from "/lovable-uploads/8a583bd8-8a7b-419c-98d4-819cef5329ac.png";
+import kamalHassan from "@/assets/role-models/kamal-hassan.jpg";
 import gandhi from "@/assets/role-models/gandhi.jpg";
 import bruceLee from "@/assets/role-models/bruce-lee.jpg";
 import muhammadAli from "@/assets/role-models/muhammad-ali.jpg";
@@ -17,14 +17,14 @@ import quentinTarantino from "@/assets/role-models/quentin-tarantino.jpg";
 import clintEastwood from "@/assets/role-models/clint-eastwood.jpg";
 import nelsonMandela from "@/assets/role-models/nelson-mandela.jpg";
 import morganFreeman from "@/assets/role-models/morgan-freeman.jpg";
-import apjAbdulKalam from "/lovable-uploads/51b56dc6-2991-43a3-a98b-7dc0de156dcc.png";
+import apjAbdulKalam from "@/assets/role-models/apj-abdul-kalam.jpg";
 import billGates from "@/assets/role-models/bill-gates.jpg";
 import steveJobs from "@/assets/role-models/steve-jobs.jpg";
 import vanGogh from "@/assets/role-models/van-gogh.jpg";
-import jackieChan from "/lovable-uploads/ccff2e08-9724-4120-871c-ad84e51771bc.png";
+import jackieChan from "@/assets/role-models/jackie-chan.jpg";
 import willSmith from "@/assets/role-models/will-smith.jpg";
 import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.jpg";
-import keanuReeves from "/lovable-uploads/8507b3df-7d14-47b5-bf4e-fd10ef5508af.png";
+import keanuReeves from "@/assets/role-models/keanu-reeves.jpg";
 
 interface RoleModel {
   id: string;
