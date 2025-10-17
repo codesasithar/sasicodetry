@@ -25,6 +25,7 @@ import jackieChan from "@/assets/role-models/jackie-chan.jpg";
 import willSmith from "@/assets/role-models/will-smith.jpg";
 import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.jpg";
 import keanuReeves from "@/assets/role-models/keanu-reeves.jpg";
+import danielCraig from "@/assets/role-models/daniel-craig.jpg";
 
 interface RoleModel {
   id: string;
@@ -211,6 +212,14 @@ const roleModels: RoleModel[] = [
     image: keanuReeves,
     category: "Humility",
     introduction: "An actor beloved not just for his performances but for his genuine kindness and humility. Reeves' generosity, down-to-earth nature, and resilience through personal tragedies demonstrate grace under pressure. His charitable acts, respect for others, and authentic personality show that true greatness comes from character, not just talent or fame."
+  },
+  {
+    id: "23",
+    name: "Daniel Craig",
+    title: "Actor & James Bond Icon",
+    image: danielCraig,
+    category: "Entertainment",
+    introduction: "A versatile actor who redefined the iconic James Bond character with depth and intensity. Craig's dedication to performing physically demanding stunts, his commitment to character authenticity, and his ability to bring emotional complexity to action roles demonstrate serious craftsmanship. His journey from theater to becoming one of cinema's most memorable action stars shows the power of skill and persistence."
   }
 ];
 
