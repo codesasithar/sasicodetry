@@ -424,7 +424,7 @@ const Hero = () => {
 
                 <div className="relative w-64 h-64 rounded-2xl overflow-hidden border-2 border-primary/30">
                   <img
-                    src="/lovable-uploads/d2579815-ad70-4405-af42-3e0f278e9d1e.png"
+                    src={profilePicture}
                     alt="Sasithar M - Application Developer"
                     className="w-full h-full object-cover"
                   />
