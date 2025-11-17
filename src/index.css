@@ -586,6 +586,20 @@
   .animate-pencil-draw {
     animation: pencil-draw 2.5s ease-in-out infinite;
   }
+
+  /* Gradient animation for logo */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .animate-gradient {
+    animation: gradient-shift 3s ease infinite;
+  }
+
+  .bg-size-200 {
+    background-size: 200% auto;
+  }
     background-size: 40px 40px, 60px 60px, 30px 30px;
     animation: circuit-pulse 8s ease-in-out infinite;
   }

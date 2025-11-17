@@ -49,31 +49,55 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-8 sm:px-10 lg:px-16">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <div className="flex items-center gap-2 transition-all duration-300 hover:scale-105 cursor-pointer group" onClick={() => scrollToSection('home')}>
+          <div className="flex items-center gap-3 transition-all duration-500 hover:scale-110 cursor-pointer group" onClick={() => scrollToSection('home')}>
             <div className="relative">
-              <Code2 className="h-5 w-5 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-primary transition-all duration-300 group-hover:rotate-12" />
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Hexagonal background */}
+              <div className="absolute inset-0 -m-2">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent rotate-12 transition-all duration-500 group-hover:rotate-45 group-hover:from-primary/30 group-hover:via-primary/20" 
+                  style={{clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'}}
+                />
+              </div>
+              
+              {/* Icon with glow effect */}
+              <div className="relative z-10 bg-background/50 backdrop-blur-sm rounded-xl p-2 lg:p-3 border border-primary/20 group-hover:border-primary/40 transition-all duration-500">
+                <Code2 className="h-7 w-7 sm:h-8 sm:w-8 lg:h-10 lg:w-10 text-primary transition-all duration-500 group-hover:rotate-12 group-hover:text-primary drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
+              </div>
+              
+              {/* Animated glow */}
+              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse"></div>
             </div>
+            
             <div className="flex flex-col -space-y-1">
               <div className="relative">
-                <span className="text-sm sm:text-base lg:text-lg font-bold text-foreground tracking-tight transition-all duration-300">SasiCodes</span>
-                {/* Animated pencil underline */}
-                <svg className="absolute -bottom-1 left-0 w-full h-2 overflow-visible" viewBox="0 0 200 8" preserveAspectRatio="none">
+                <span className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent bg-size-200 animate-gradient tracking-tight transition-all duration-300">
+                  SasiCodes
+                </span>
+                
+                {/* Animated underline with gradient */}
+                <svg className="absolute -bottom-1 left-0 w-full h-3 overflow-visible" viewBox="0 0 200 8" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                      <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="1" />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                    </linearGradient>
+                  </defs>
                   <path
                     d="M0,4 Q50,2 100,4 T200,4"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="2"
+                    stroke="url(#lineGradient)"
+                    strokeWidth="2.5"
                     fill="none"
                     strokeLinecap="round"
-                    className="animate-draw-line"
+                    className="animate-draw-line drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]"
                   />
                 </svg>
-                {/* Pencil icon that follows the line */}
+                
+                {/* Enhanced pencil icon */}
                 <div className="absolute -bottom-1 right-0 animate-pencil-draw">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-primary rotate-[-15deg]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary rotate-[-15deg] drop-shadow-[0_0_4px_hsl(var(--primary)/0.8)]">
                     <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" 
                       stroke="currentColor" 
-                      strokeWidth="2" 
+                      strokeWidth="2.5" 
                       strokeLinecap="round" 
                       strokeLinejoin="round"
                       fill="hsl(var(--primary))"
@@ -81,7 +105,7 @@ const Navigation = () => {
                   </svg>
                 </div>
               </div>
-              <span className="text-[9px] sm:text-[10px] text-primary/70 font-medium tracking-wider">DEVELOPER</span>
+              <span className="text-xs sm:text-sm lg:text-base text-primary/80 font-semibold tracking-[0.25em] uppercase">Developer</span>
             </div>
           </div>
 
