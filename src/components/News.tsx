@@ -23,11 +23,10 @@ const News = () => {
 
   // Your interests - easily customizable
   const interests = [
-    "AR/VR",
     "electronics",
+    "robotics",
+    "AR/VR",
     "software development",
-    "Android",
-    "iOS",
     "artificial intelligence",
     "machine learning"
   ];
