@@ -13,6 +13,51 @@ const Movies = () => {
       description: "In 2035, robots serve humanity under three laws of robotics."
     },
     {
+      title: "Hidden Figures",
+      year: "2016",
+      genre: "Biography/Drama",
+      rating: "7.8",
+      duration: "127 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMzg2Mzg4YmUtNDdkNy00NWY1LWE3NmEtZWMwNGNlMzE5YzU3XkEyXkFqcGdeQXVyMjA5MTIzMjQ@._V1_SX300.jpg",
+      description: "The untold story of African-American women mathematicians at NASA."
+    },
+    {
+      title: "A Beautiful Mind",
+      year: "2001",
+      genre: "Biography/Drama",
+      rating: "8.2",
+      duration: "135 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMzcwYWFkYzktZjAzNC00OGY1LWI4YTgtNzc5MzVjMDVmNjY0XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+      description: "The brilliant mathematician John Nash struggles with schizophrenia."
+    },
+    {
+      title: "Iron Man",
+      year: "2008",
+      genre: "Action/Sci-Fi",
+      rating: "7.9",
+      duration: "126 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg",
+      description: "Genius billionaire Tony Stark builds a high-tech suit of armor."
+    },
+    {
+      title: "The Dark Knight",
+      year: "2008",
+      genre: "Action/Crime",
+      rating: "9.0",
+      duration: "152 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg",
+      description: "Batman faces the Joker in an epic battle for Gotham's soul."
+    },
+    {
+      title: "World War Z",
+      year: "2013",
+      genre: "Action/Horror",
+      rating: "7.0",
+      duration: "116 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg",
+      description: "A global zombie pandemic threatens to end humanity."
+    },
+    {
       title: "Interstellar",
       year: "2014",
       genre: "Sci-Fi/Drama",
