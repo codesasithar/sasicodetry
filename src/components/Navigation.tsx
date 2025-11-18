@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X, Code2, User, Briefcase, Wrench, BookOpen, Library, Newspaper, Trophy, Film, Heart, Mail } from "lucide-react";
 import AudioPlayerCompact from "@/components/AudioPlayerCompact"; // Adjust path correctly
 
 const Navigation = () => {
@@ -7,16 +7,16 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState("home");
 
   const navItems = [
-    { id: "about", label: "About" },
-    { id: "projects", label: "Projects" },
-    { id: "services", label: "Services" },
-    { id: "writings", label: "Writings" },
-    { id: "bookshelf", label: "My Library" },
-    { id: "news", label: "Tech News" },
-    { id: "achievements", label: "Achievements" },
-    { id: "movies", label: "Movies I Love" },
-    { id: "role-models", label: "Role Models" },
-    { id: "contact", label: "Contact" },
+    { id: "about", label: "About", icon: User },
+    { id: "projects", label: "Projects", icon: Briefcase },
+    { id: "services", label: "Services", icon: Wrench },
+    { id: "writings", label: "Writings", icon: BookOpen },
+    { id: "bookshelf", label: "My Library", icon: Library },
+    { id: "news", label: "Tech News", icon: Newspaper },
+    { id: "achievements", label: "Achievements", icon: Trophy },
+    { id: "movies", label: "Movies I Love", icon: Film },
+    { id: "role-models", label: "Role Models", icon: Heart },
+    { id: "contact", label: "Contact", icon: Mail },
   ];
 
   useEffect(() => {
@@ -112,30 +112,36 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
-            {navItems.map((item, index) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`
-                  relative px-4 xl:px-5 py-2.5 text-sm xl:text-base font-medium rounded-lg
-                  transition-all duration-300 ease-in-out transform hover:scale-105
-                  ${activeSection === item.id 
-                    ? "text-primary bg-primary/10 shadow-sm" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                  }
-                  after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2
-                  after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300
-                  ${activeSection === item.id ? "after:w-full" : "hover:after:w-3/4"}
-                `}
-                style={{ 
-                  animationDelay: `${index * 50}ms`,
-                  animation: 'fade-in 0.6s ease-out forwards'
-                }}
-                type="button"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`
+                    group relative px-4 xl:px-5 py-2.5 text-sm xl:text-base font-medium rounded-lg
+                    transition-all duration-300 ease-in-out transform hover:scale-105
+                    ${activeSection === item.id 
+                      ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    }
+                    after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2
+                    after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300
+                    ${activeSection === item.id ? "after:w-full" : "hover:after:w-3/4"}
+                  `}
+                  style={{ 
+                    animationDelay: `${index * 50}ms`,
+                    animation: 'fade-in 0.6s ease-out forwards'
+                  }}
+                  type="button"
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon className={`h-4 w-4 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
+                    <span>{item.label}</span>
+                  </div>
+                </button>
+              );
+            })}
 
             {/* Compact AudioPlayer inside desktop nav */}
             <div className="ml-8 xl:ml-10 flex items-center border-l border-border pl-8 xl:pl-10">
@@ -147,23 +153,29 @@ const Navigation = () => {
 
           {/* Tablet Navigation (md-lg) */}
           <div className="hidden md:flex lg:hidden items-center space-x-1">
-            {navItems.slice(0, 6).map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`
-                  px-2 py-1.5 text-xs font-medium rounded-md
-                  transition-all duration-300 ease-in-out
-                  ${activeSection === item.id 
-                    ? "text-primary bg-primary/10" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                  }
-                `}
-                type="button"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.slice(0, 6).map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`
+                    group px-2 py-1.5 text-xs font-medium rounded-md
+                    transition-all duration-300 ease-in-out hover:scale-105
+                    ${activeSection === item.id 
+                      ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    }
+                  `}
+                  type="button"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <Icon className={`h-3.5 w-3.5 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
+                    <span>{item.label}</span>
+                  </div>
+                </button>
+              );
+            })}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="ml-2 p-2 text-foreground hover:text-primary transition-all duration-300 hover:scale-110"
@@ -205,27 +217,33 @@ const Navigation = () => {
         `}>
           <div className="py-4 border-t border-border bg-background/95 backdrop-blur-lg">
             <div className="flex flex-col space-y-1">
-              {navItems.map((item, index) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`
-                    text-left px-4 py-3 text-base font-medium rounded-lg mx-2
-                    transition-all duration-300 ease-in-out transform
-                    ${activeSection === item.id 
-                      ? "text-primary bg-primary/10 translate-x-2 shadow-sm" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50 hover:translate-x-1"
-                    }
-                  `}
-                  style={{ 
-                    animationDelay: `${index * 75}ms`,
-                    animation: isOpen ? 'slide-in-right 0.4s ease-out forwards' : undefined
-                  }}
-                  type="button"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {navItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`
+                      group text-left px-4 py-3 text-base font-medium rounded-lg mx-2
+                      transition-all duration-300 ease-in-out transform
+                      ${activeSection === item.id 
+                        ? "text-primary bg-primary/10 translate-x-2 shadow-sm shadow-primary/20" 
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50 hover:translate-x-1"
+                      }
+                    `}
+                    style={{ 
+                      animationDelay: `${index * 75}ms`,
+                      animation: isOpen ? 'slide-in-right 0.4s ease-out forwards' : undefined
+                    }}
+                    type="button"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Icon className={`h-5 w-5 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
+                      <span>{item.label}</span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -233,23 +251,29 @@ const Navigation = () => {
         {/* Tablet Dropdown for remaining items */}
         {isOpen && (
           <div className="hidden md:flex lg:hidden absolute top-full right-4 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-lg p-2 min-w-48 animate-fade-in">
-            {navItems.slice(6).map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`
-                  w-full text-left px-3 py-2 text-sm font-medium rounded-md
-                  transition-all duration-300 ease-in-out
-                  ${activeSection === item.id 
-                    ? "text-primary bg-primary/10" 
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                  }
-                `}
-                type="button"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.slice(6).map((item) => {
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`
+                    group w-full text-left px-3 py-2 text-sm font-medium rounded-md
+                    transition-all duration-300 ease-in-out hover:scale-105
+                    ${activeSection === item.id 
+                      ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    }
+                  `}
+                  type="button"
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon className={`h-4 w-4 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
+                    <span>{item.label}</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
