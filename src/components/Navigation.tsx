@@ -119,7 +119,7 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`
-                    group relative px-4 xl:px-5 py-2.5 text-sm xl:text-base font-medium rounded-lg
+                    group relative px-4 xl:px-5 py-2.5 text-xs xl:text-sm font-medium rounded-lg
                     transition-all duration-300 ease-in-out transform hover:scale-105
                     ${activeSection === item.id 
                       ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
@@ -136,7 +136,7 @@ const Navigation = () => {
                   type="button"
                 >
                   <div className="flex items-center gap-2">
-                    <Icon className={`h-4 w-4 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
+                    <Icon className={`h-5 w-5 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
                     <span>{item.label}</span>
                   </div>
                 </button>
@@ -160,7 +160,7 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`
-                    group px-2 py-1.5 text-xs font-medium rounded-md
+                    group px-2 py-1.5 text-[10px] font-medium rounded-md
                     transition-all duration-300 ease-in-out hover:scale-105
                     ${activeSection === item.id 
                       ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
@@ -170,7 +170,7 @@ const Navigation = () => {
                   type="button"
                 >
                   <div className="flex items-center gap-1.5">
-                    <Icon className={`h-3.5 w-3.5 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
+                    <Icon className={`h-4 w-4 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
                     <span>{item.label}</span>
                   </div>
                 </button>
@@ -224,7 +224,7 @@ const Navigation = () => {
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
                     className={`
-                      group text-left px-4 py-3 text-base font-medium rounded-lg mx-2
+                      group text-left px-4 py-3 text-sm font-medium rounded-lg mx-2
                       transition-all duration-300 ease-in-out transform
                       ${activeSection === item.id 
                         ? "text-primary bg-primary/10 translate-x-2 shadow-sm shadow-primary/20" 
@@ -238,7 +238,7 @@ const Navigation = () => {
                     type="button"
                   >
                     <div className="flex items-center gap-3">
-                      <Icon className={`h-5 w-5 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
+                      <Icon className={`h-6 w-6 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
                       <span>{item.label}</span>
                     </div>
                   </button>
@@ -258,7 +258,7 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`
-                    group w-full text-left px-3 py-2 text-sm font-medium rounded-md
+                    group w-full text-left px-3 py-2 text-xs font-medium rounded-md
                     transition-all duration-300 ease-in-out hover:scale-105
                     ${activeSection === item.id 
                       ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
@@ -268,7 +268,7 @@ const Navigation = () => {
                   type="button"
                 >
                   <div className="flex items-center gap-2">
-                    <Icon className={`h-4 w-4 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
+                    <Icon className={`h-5 w-5 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
                     <span>{item.label}</span>
                   </div>
                 </button>
