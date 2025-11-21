@@ -12,6 +12,7 @@ import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
 import MatrixBackground from "@/components/MatrixBackground";
+import ScrollToTop from "@/components/ScrollToTop";
 
 
 const Index = () => {
@@ -24,6 +25,7 @@ const Index = () => {
       <div className="min-h-screen relative z-10">
         <CursorEffects />
         <Navigation />
+        <ScrollToTop />
         <Hero />
         <About />
         <Projects />
