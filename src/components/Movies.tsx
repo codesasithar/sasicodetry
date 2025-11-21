@@ -119,6 +119,15 @@ const Movies = () => {
       duration: "108 min",
       poster: "https://m.media-amazon.com/images/M/MV5BMTUxNzc0OTIxMV5BMl5BanBnXkFtZTgwNDI3NzU2NDE@._V1_SX300.jpg",
       description: "AI meets human consciousness in this thriller."
+    },
+    {
+      title: "Real Steel",
+      year: "2011",
+      genre: "Sci-Fi/Action",
+      rating: "7.1",
+      duration: "127 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BMjEzMzEzNjg0N15BMl5BanBnXkFtZTcwNjAxMTUwNg@@._V1_SX300.jpg",
+      description: "In a future where human boxers are replaced by robots, a struggling promoter and his son build an unlikely champion."
     }
   ];
 
