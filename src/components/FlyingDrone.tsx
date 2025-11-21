@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Plane } from "lucide-react";
 
 const FlyingDrone = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -44,17 +43,55 @@ const FlyingDrone = () => {
 
   return (
     <div
-      className="fixed pointer-events-none z-30 transition-transform duration-100"
+      className="fixed pointer-events-none z-30"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
         transform: `translate(-50%, -50%) rotate(${angle}deg)`,
       }}
     >
-      <Plane 
-        className="h-8 w-8 text-primary drop-shadow-[0_0_8px_rgba(var(--primary),0.6)]" 
-        fill="currentColor"
-      />
+      <div className="relative w-24 h-24">
+        {/* Propeller animations at each corner */}
+        <div className="absolute -top-1 -left-1 w-6 h-6">
+          <div className="w-full h-full animate-spin" style={{ animationDuration: '0.1s' }}>
+            <div className="w-full h-0.5 bg-primary/60 absolute top-1/2 left-0 transform -translate-y-1/2"></div>
+            <div className="w-0.5 h-full bg-primary/60 absolute left-1/2 top-0 transform -translate-x-1/2"></div>
+          </div>
+        </div>
+        
+        <div className="absolute -top-1 -right-1 w-6 h-6">
+          <div className="w-full h-full animate-spin" style={{ animationDuration: '0.1s' }}>
+            <div className="w-full h-0.5 bg-primary/60 absolute top-1/2 left-0 transform -translate-y-1/2"></div>
+            <div className="w-0.5 h-full bg-primary/60 absolute left-1/2 top-0 transform -translate-x-1/2"></div>
+          </div>
+        </div>
+        
+        <div className="absolute -bottom-1 -left-1 w-6 h-6">
+          <div className="w-full h-full animate-spin" style={{ animationDuration: '0.1s' }}>
+            <div className="w-full h-0.5 bg-primary/60 absolute top-1/2 left-0 transform -translate-y-1/2"></div>
+            <div className="w-0.5 h-full bg-primary/60 absolute left-1/2 top-0 transform -translate-x-1/2"></div>
+          </div>
+        </div>
+        
+        <div className="absolute -bottom-1 -right-1 w-6 h-6">
+          <div className="w-full h-full animate-spin" style={{ animationDuration: '0.1s' }}>
+            <div className="w-full h-0.5 bg-primary/60 absolute top-1/2 left-0 transform -translate-y-1/2"></div>
+            <div className="w-0.5 h-full bg-primary/60 absolute left-1/2 top-0 transform -translate-x-1/2"></div>
+          </div>
+        </div>
+
+        {/* Drone arms */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-1 bg-primary/80 rotate-45"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-1 bg-primary/80 -rotate-45"></div>
+        
+        {/* Drone body */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="w-8 h-6 bg-primary rounded-lg shadow-[0_0_15px_rgba(var(--primary),0.6)]">
+            {/* Camera gimbal */}
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-primary/90 rounded-full"></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
