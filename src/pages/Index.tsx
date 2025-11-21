@@ -13,6 +13,7 @@ import Contact from "@/components/Contact";
 import CursorEffects from "@/components/CursorEffects";
 import MatrixBackground from "@/components/MatrixBackground";
 import ScrollToTop from "@/components/ScrollToTop";
+import FlyingDrone from "@/components/FlyingDrone";
 
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
       
       {/* All your content with proper layering */}
       <div className="min-h-screen relative z-10">
+        <FlyingDrone />
         <CursorEffects />
         <Navigation />
         <ScrollToTop />
