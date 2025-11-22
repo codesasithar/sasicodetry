@@ -120,7 +120,7 @@ const News = () => {
             {articles.map((article, index) => (
               <Card 
                 key={index}
-                className="group overflow-hidden hover:shadow-tech transition-all duration-500 hover:scale-[1.02] border border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm"
+                className="group overflow-hidden hover:shadow-tech transition-all duration-500 hover:scale-[1.02] border border-border/50 hover:border-primary/50 bg-card/90 backdrop-blur-sm"
               >
                 {/* Image */}
                 <div className="relative h-48 overflow-hidden bg-muted">
