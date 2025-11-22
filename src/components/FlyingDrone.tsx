@@ -3,6 +3,25 @@ import { useEffect, useState } from "react";
 const FlyingDrone = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [angle, setAngle] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cameraAngle, setCameraAngle] = useState(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    // Calculate camera angle to point at mouse
+    const dx = mousePosition.x - position.x;
+    const dy = mousePosition.y - position.y;
+    const angleToMouse = Math.atan2(dy, dx) * (180 / Math.PI);
+    setCameraAngle(angleToMouse - angle);
+  }, [mousePosition, position, angle]);
 
   useEffect(() => {
     let animationFrameId: number;
@@ -88,7 +107,12 @@ const FlyingDrone = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <div className="w-8 h-6 bg-primary rounded-lg shadow-[0_0_15px_rgba(var(--primary),0.6)]">
             {/* Camera gimbal */}
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-primary/90 rounded-full"></div>
+            <div 
+              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-primary/90 rounded-full transition-transform duration-100"
+              style={{ transform: `translateX(-50%) rotate(${cameraAngle}deg)` }}
+            >
+              <div className="w-1 h-2 bg-primary/70 absolute -bottom-1 left-1/2 transform -translate-x-1/2"></div>
+            </div>
           </div>
         </div>
       </div>
