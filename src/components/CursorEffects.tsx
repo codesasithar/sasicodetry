@@ -9,6 +9,7 @@ const CursorEffects = () => {
   const [showCursorText, setShowCursorText] = useState(false);
   const [clock, setClock] = useState(new Date());
   const [isMobile, setIsMobile] = useState(false);
+  const [touchRipples, setTouchRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
 
   useEffect(() => {
     // Check if device is mobile
@@ -115,6 +116,50 @@ const CursorEffects = () => {
     };
   }, []);
 
+  // Touch event handlers for mobile
+  useEffect(() => {
+    if (!isMobile) return;
+
+    let touchId = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      Array.from(e.touches).forEach((touch) => {
+        // Create ripple effect
+        const ripple = {
+          x: touch.clientX,
+          y: touch.clientY,
+          id: touchId++
+        };
+        setTouchRipples((prev) => [...prev, ripple]);
+
+        // Remove ripple after animation
+        setTimeout(() => {
+          setTouchRipples((prev) => prev.filter(r => r.id !== ripple.id));
+        }, 600);
+      });
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      Array.from(e.touches).forEach((touch) => {
+        // Create touch trail
+        const trail = {
+          x: touch.clientX,
+          y: touch.clientY,
+          id: touchId++
+        };
+        setTrails((prev) => [...prev.slice(-3), trail]);
+      });
+    };
+
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, [isMobile]);
+
   // Clean up old trails
   useEffect(() => {
     const interval = setInterval(() => {
@@ -185,6 +230,18 @@ const formatClock = (date: Date) => {
             top: trail.y,
             opacity: ((index + 1) / trails.length) * 0.5,
             transform: `scale(${(index + 1) / trails.length})`,
+          }}
+        />
+      ))}
+
+      {/* Touch Ripples for Mobile */}
+      {isMobile && touchRipples.map((ripple) => (
+        <div
+          key={ripple.id}
+          className="touch-ripple"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
           }}
         />
       ))}
