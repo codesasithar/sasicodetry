@@ -8,6 +8,19 @@ const CursorEffects = () => {
   const [cursorText, setCursorText] = useState('');
   const [showCursorText, setShowCursorText] = useState(false);
   const [clock, setClock] = useState(new Date());
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     let trailId = 0;
@@ -139,16 +152,18 @@ const formatClock = (date: Date) => {
         }}
       />
 
-      {/* Tech Clock near cursor */}
-      <div
-      className="cursor-clock"
-      style={{
-        left: mousePosition.x + 36,
-        top: mousePosition.y - 8,
-      }}
-    >
-      <span>{formatClock(clock)}</span>
-    </div>
+      {/* Tech Clock near cursor - Hidden on mobile */}
+      {!isMobile && (
+        <div
+          className="cursor-clock"
+          style={{
+            left: mousePosition.x + 36,
+            top: mousePosition.y - 8,
+          }}
+        >
+          <span>{formatClock(clock)}</span>
+        </div>
+      )}
       {/* Cursor Text */}
       <div
         className={`cursor-text ${showCursorText ? 'visible' : ''}`}
