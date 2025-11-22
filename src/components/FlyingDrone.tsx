@@ -5,6 +5,15 @@ const FlyingDrone = () => {
   const [angle, setAngle] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cameraAngle, setCameraAngle] = useState(0);
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -114,6 +123,10 @@ const FlyingDrone = () => {
             >
               <div className="w-1 h-2 bg-red-600 absolute -bottom-1 left-1/2 transform -translate-x-1/2"></div>
             </div>
+          </div>
+          {/* Clock display */}
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black/80 text-green-400 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap border border-green-500/30">
+            {time.toLocaleTimeString()}
           </div>
         </div>
       </div>
