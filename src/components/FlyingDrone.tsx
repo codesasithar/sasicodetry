@@ -105,13 +105,14 @@ const FlyingDrone = () => {
         
         {/* Drone body */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="w-8 h-6 bg-primary rounded-lg shadow-[0_0_15px_rgba(var(--primary),0.6)]">
+          <div className="w-8 h-6 bg-green-500 rounded-lg shadow-[0_0_15px_rgba(34,197,94,0.6)] flex items-center justify-center">
+            <span className="text-[8px] font-bold text-white">&lt;/&gt;</span>
             {/* Camera gimbal */}
             <div 
-              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-primary/90 rounded-full transition-transform duration-100"
+              className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-red-500 rounded-full transition-transform duration-100 shadow-[0_0_10px_rgba(239,68,68,0.6)]"
               style={{ transform: `translateX(-50%) rotate(${cameraAngle}deg)` }}
             >
-              <div className="w-1 h-2 bg-primary/70 absolute -bottom-1 left-1/2 transform -translate-x-1/2"></div>
+              <div className="w-1 h-2 bg-red-600 absolute -bottom-1 left-1/2 transform -translate-x-1/2"></div>
             </div>
           </div>
         </div>
