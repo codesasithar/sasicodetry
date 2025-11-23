@@ -250,7 +250,7 @@ const Navigation = () => {
 
         {/* Tablet Dropdown for remaining items */}
         {isOpen && (
-          <div className="hidden md:flex lg:hidden absolute top-full right-4 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-lg p-2 min-w-48 animate-fade-in">
+          <div className="hidden md:flex md:flex-col lg:hidden absolute top-full right-4 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-lg p-2 min-w-48 animate-fade-in z-50">
             {navItems.slice(6).map((item) => {
               const Icon = item.icon;
               return (
