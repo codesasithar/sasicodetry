@@ -128,6 +128,15 @@ const Movies = () => {
       duration: "127 min",
       poster: "https://m.media-amazon.com/images/M/MV5BMjEzMzEzNjg0N15BMl5BanBnXkFtZTcwNjAxMTUwNg@@._V1_SX300.jpg",
       description: "In a future where human boxers are replaced by robots, a struggling promoter and his son build an unlikely champion."
+    },
+    {
+      title: "Shutter Island",
+      year: "2010",
+      genre: "Mystery/Thriller",
+      rating: "8.2",
+      duration: "138 min",
+      poster: "https://m.media-amazon.com/images/M/MV5BYzhiNDkyNzktNTZmYS00ZTBkLTk2MDAtM2U0YjU1MzgxZjgzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+      description: "A U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane."
     }
   ];
 
