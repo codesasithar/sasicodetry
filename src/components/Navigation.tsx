@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2, User, Briefcase, Wrench, BookOpen, Library, Newspaper, Trophy, Film, Heart, Mail } from "lucide-react";
-import AudioPlayerCompact from "@/components/AudioPlayerCompact"; // Adjust path correctly
+import AudioPlayerCompact from "@/components/AudioPlayerCompact";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -143,8 +144,9 @@ const Navigation = () => {
               );
             })}
 
-            {/* Compact AudioPlayer inside desktop nav */}
-            <div className="ml-4 xl:ml-6 flex items-center border-l border-border pl-4 xl:pl-6">
+            {/* Theme Switcher and AudioPlayer in desktop nav */}
+            <div className="ml-4 xl:ml-6 flex items-center gap-3 border-l border-border pl-4 xl:pl-6">
+              <ThemeSwitcher />
               <div className="transform transition-all duration-300 hover:scale-105">
                 <AudioPlayerCompact />
               </div>
@@ -184,13 +186,17 @@ const Navigation = () => {
             >
               <Menu className="h-5 w-5" />
             </button>
-            <div className="ml-3 border-l border-border pl-3">
+            <div className="ml-3 flex items-center gap-2 border-l border-border pl-3">
+              <ThemeSwitcher />
               <AudioPlayerCompact />
             </div>
           </div>
 
-          {/* Mobile Menu Button with AudioPlayer */}
-          <div className="md:hidden flex items-center space-x-3 sm:space-x-4">
+          {/* Mobile Menu Button with Theme Switcher and AudioPlayer */}
+          <div className="md:hidden flex items-center gap-2 sm:gap-3">
+            {/* Theme Switcher */}
+            <ThemeSwitcher />
+            
             {/* Compact AudioPlayer in mobile navbar */}
             <div className="flex items-center transform transition-all duration-300 hover:scale-105">
               <AudioPlayerCompact />
@@ -210,13 +216,16 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation with Glass Effect */}
         <div className={`
           md:hidden overflow-hidden transition-all duration-500 ease-in-out
           ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
         `}>
-          <div className="py-4 border-t border-border bg-background/95 backdrop-blur-lg">
-            <div className="flex flex-col space-y-1">
+          <div className="py-4 border-t border-border backdrop-blur-xl bg-background/60 shadow-lg relative">
+            {/* Glassmorphism overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-card/40 to-card/20 backdrop-blur-xl" style={{ backdropFilter: 'blur(20px)' }} />
+            
+            <div className="relative z-10 flex flex-col space-y-1">
               {navItems.map((item, index) => {
                 const Icon = item.icon;
                 return (
