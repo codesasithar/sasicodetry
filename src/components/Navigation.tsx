@@ -112,7 +112,7 @@ const Navigation = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5">
             {navItems.map((item, index) => {
               const Icon = item.icon;
               return (
@@ -120,7 +120,7 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`
-                    group relative px-2 py-2 text-[11px] font-medium rounded-lg
+                    group relative px-1.5 py-1.5 text-[10px] font-medium rounded-md
                     transition-all duration-300 ease-in-out transform hover:scale-105
                     ${activeSection === item.id 
                       ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
@@ -136,8 +136,8 @@ const Navigation = () => {
                   }}
                   type="button"
                 >
-                  <div className="flex items-center gap-1">
-                    <Icon className={`h-3.5 w-3.5 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
+                  <div className="flex items-center gap-0.5">
+                    <Icon className={`h-3 w-3 transition-all duration-300 ${activeSection === item.id ? 'text-primary drop-shadow-[0_0_4px_hsl(var(--primary)/0.5)]' : 'group-hover:scale-110 group-hover:text-primary'}`} />
                     <span className="whitespace-nowrap">{item.label}</span>
                   </div>
                 </button>
@@ -145,7 +145,7 @@ const Navigation = () => {
             })}
 
             {/* Theme Switcher and AudioPlayer in desktop nav */}
-            <div className="ml-2 flex items-center gap-2 border-l border-border pl-2">
+            <div className="ml-1 flex items-center gap-1 border-l border-border pl-1">
               <ThemeSwitcher />
               <div className="transform transition-all duration-300 hover:scale-105">
                 <AudioPlayerCompact />
