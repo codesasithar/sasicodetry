@@ -1,5 +1,6 @@
 import { Play, Star, Calendar, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import realSteelPoster from "@/assets/movies/real-steel.jpg";
 
 const Movies = () => {
   const movies = [
@@ -126,7 +127,7 @@ const Movies = () => {
       genre: "Sci-Fi/Action",
       rating: "7.1",
       duration: "127 min",
-      poster: "https://m.media-amazon.com/images/M/MV5BMjEzMzEzNjg0N15BMl5BanBnXkFtZTcwNjAxMTUwNg@@._V1_SX300.jpg",
+      poster: realSteelPoster,
       description: "In a future where human boxers are replaced by robots, a struggling promoter and his son build an unlikely champion."
     },
     {
