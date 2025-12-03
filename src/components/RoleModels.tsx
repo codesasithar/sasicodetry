@@ -251,7 +251,7 @@ const RoleModels = () => {
             <Lightbulb className="w-6 h-6 sm:w-8 sm:h-8 text-primary mr-2 sm:mr-3" />
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">Role Models</h2>
           </div>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto px-4">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto glass-bg inline-block">
             Extraordinary individuals who inspire through their achievements, character, and impact on humanity
           </p>
         </div>

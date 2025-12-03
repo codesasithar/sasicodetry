@@ -153,7 +153,7 @@ const Movies = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
               Movies I <span className="text-primary">Love</span>
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
               A curated collection of films that inspire my creativity and fuel my passion for technology and innovation.
             </p>
           </div>

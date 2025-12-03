@@ -47,9 +47,9 @@ return (
 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
 Featured <span className="text-primary">Projects</span>
 </h2>
-<p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-Showcasing innovative solutions across mobile, web, AR/VR, and backend development
-</p>
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
+            Showcasing innovative solutions across mobile, web, AR/VR, and backend development
+          </p>
 </div>
  
 {/* Projects Grid */}
