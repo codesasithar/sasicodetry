@@ -33,7 +33,7 @@
 
     /* Muted Colors */
     --muted: 215 25% 25%;
-    --muted-foreground: 215 20% 70%;
+    --muted-foreground: 215 15% 82%;
 
     /* Accent Electric Blue */
     --accent: 199 89% 48%;
@@ -108,7 +108,7 @@
     --secondary: 191 91% 36%;
     --secondary-foreground: 215 100% 6%;
     --muted: 215 25% 25%;
-    --muted-foreground: 215 20% 70%;
+    --muted-foreground: 215 15% 82%;
     --accent: 199 89% 48%;
     --accent-foreground: 215 100% 6%;
     --destructive: 0 84% 60%;
