@@ -261,7 +261,7 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[3rem] sm:min-h-[4rem] animate-fade-in mx-auto lg:mx-0" style={{ animationDelay: "0.4s" }}>
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[3rem] sm:min-h-[4rem] animate-fade-in mx-auto lg:mx-0 glass-bg" style={{ animationDelay: "0.4s" }}>
                 {typingText.displayedText}
                 {!typingText.isComplete && <span className="animate-pulse">|</span>}
               </p>
@@ -382,7 +382,7 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed px-2" style={{ animationDelay: "0.4s" }}>
+              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg" style={{ animationDelay: "0.4s" }}>
                 {typingText.displayedText}
                 {!typingText.isComplete && <span className="animate-pulse">|</span>}
               </p>
