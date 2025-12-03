@@ -93,7 +93,7 @@ const News = () => {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent bg-size-200 animate-gradient">
             Tech News
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto glass-bg inline-block">
             Curated news based on my interests: {interests.slice(0, 3).join(", ")} and more
           </p>
         </div>

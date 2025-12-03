@@ -115,7 +115,7 @@ const Contact = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
             Let's Work <span className="text-primary">Together</span>
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
             Ready to bring your ideas to life? Get in touch and let's create something amazing together.
           </p>
         </div>
@@ -125,7 +125,7 @@ const Contact = () => {
           <div className="space-y-8">
             <div>
               <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Get In Touch</h3>
-              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 glass-bg">
                 I'm always excited to work on new projects and collaborate with fellow developers and innovators.
               </p>
             </div>
