@@ -175,12 +175,18 @@ const Movies = () => {
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
-                    {/* Play Button Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-primary/90 rounded-full p-3 hover:bg-primary transition-colors">
-                        <Play className="h-6 w-6 text-primary-foreground fill-current" />
+                    {/* Summary Overlay */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <div className="glass-bg text-center max-w-full">
+                        <h4 className="font-bold text-sm sm:text-base text-foreground mb-2">{movie.title}</h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                          {movie.description}
+                        </p>
+                      </div>
+                      <div className="mt-3 bg-primary/90 rounded-full p-2 hover:bg-primary transition-colors">
+                        <Play className="h-5 w-5 text-primary-foreground fill-current" />
                       </div>
                     </div>
 
