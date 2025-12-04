@@ -221,9 +221,14 @@ const Navigation = () => {
           md:hidden overflow-hidden transition-all duration-500 ease-in-out
           ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
         `}>
-          <div className="py-4 border-t border-border backdrop-blur-xl bg-background/60 shadow-lg relative">
+          <div className="py-4 mx-2 my-2 rounded-2xl border border-border/50 backdrop-blur-xl bg-background/70 shadow-lg shadow-primary/5 relative overflow-hidden">
             {/* Glassmorphism overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-card/40 to-card/20 backdrop-blur-xl" style={{ backdropFilter: 'blur(20px)' }} />
+            <div className="absolute inset-0 bg-gradient-to-b from-card/50 to-card/30 backdrop-blur-xl rounded-2xl" />
+            
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 overflow-hidden rounded-2xl">
+              <div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-primary/10 to-transparent animate-[glass-shine_4s_ease-in-out_infinite]" />
+            </div>
             
             <div className="relative z-10 flex flex-col space-y-1">
               {navItems.map((item, index) => {
@@ -233,7 +238,7 @@ const Navigation = () => {
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
                     className={`
-                      group text-left px-4 py-3 text-sm font-medium rounded-lg mx-2
+                      group text-left px-4 py-3 text-sm font-medium rounded-xl mx-2
                       transition-all duration-300 ease-in-out transform
                       ${activeSection === item.id 
                         ? "text-primary bg-primary/10 translate-x-2 shadow-sm shadow-primary/20" 
@@ -259,30 +264,37 @@ const Navigation = () => {
 
         {/* Tablet Dropdown for remaining items */}
         {isOpen && (
-          <div className="hidden md:flex md:flex-col lg:hidden absolute top-full right-4 mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-lg shadow-lg p-2 min-w-48 animate-fade-in z-50">
-            {navItems.slice(6).map((item) => {
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`
-                    group w-full text-left px-3 py-2 text-xs font-medium rounded-md
-                    transition-all duration-300 ease-in-out hover:scale-105
-                    ${activeSection === item.id 
-                      ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                    }
-                  `}
-                  type="button"
-                >
-                  <div className="flex items-center gap-2">
-                    <Icon className={`h-5 w-5 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
-                    <span>{item.label}</span>
-                  </div>
-                </button>
-              );
-            })}
+          <div className="hidden md:flex md:flex-col lg:hidden absolute top-full right-4 mt-2 backdrop-blur-xl bg-background/80 border border-border/50 rounded-2xl shadow-lg shadow-primary/10 p-3 min-w-48 animate-fade-in z-50 overflow-hidden">
+            {/* Glass shimmer effect */}
+            <div className="absolute inset-0 overflow-hidden rounded-2xl">
+              <div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-primary/10 to-transparent animate-[glass-shine_4s_ease-in-out_infinite]" />
+            </div>
+            
+            <div className="relative z-10">
+              {navItems.slice(6).map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`
+                      group w-full text-left px-3 py-2.5 text-xs font-medium rounded-xl
+                      transition-all duration-300 ease-in-out hover:scale-105
+                      ${activeSection === item.id 
+                        ? "text-primary bg-primary/10 shadow-sm shadow-primary/20" 
+                        : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                      }
+                    `}
+                    type="button"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Icon className={`h-5 w-5 transition-all duration-300 ${activeSection === item.id ? 'text-primary' : 'group-hover:scale-110'}`} />
+                      <span>{item.label}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>
