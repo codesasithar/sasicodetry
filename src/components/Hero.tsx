@@ -145,7 +145,7 @@ const Hero = () => {
         <div className="interactive-orb top-1/2 left-1/4 hidden lg:block" style={{ animationDelay: "4s" }}></div>
 
         {/* Arc Reactor Center - Futuristic Tech Design */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 scale-75 sm:scale-90 lg:scale-100">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 scale-75 sm:scale-90 lg:scale-100 hidden md:block">
           <div className="arc-reactor-futuristic">
             {/* Outermost Ring with Tech Segments */}
             <div className="arc-outer-tech-ring">
