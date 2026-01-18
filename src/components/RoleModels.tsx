@@ -313,7 +313,7 @@ const RoleModels = () => {
                   <img
                     src={model.image}
                     alt={model.name}
-                    className="w-full h-40 sm:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                    className="w-full h-56 sm:h-64 object-cover object-top transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
