@@ -26,6 +26,10 @@ import willSmith from "@/assets/role-models/will-smith.jpg";
 import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.jpg";
 import keanuReeves from "@/assets/role-models/keanu-reeves.jpg";
 import danielCraig from "@/assets/role-models/daniel-craig.jpg";
+import oppenheimer from "@/assets/role-models/oppenheimer.jpg";
+import nielsBohr from "@/assets/role-models/niels-bohr.jpg";
+import michioKaku from "@/assets/role-models/michio-kaku.jpg";
+import neilDeGrasseTyson from "@/assets/role-models/neil-degrasse-tyson.jpg";
 
 interface RoleModel {
   id: string;
@@ -220,6 +224,38 @@ const roleModels: RoleModel[] = [
     image: danielCraig,
     category: "Entertainment",
     introduction: "A versatile actor who redefined the iconic James Bond character with depth and intensity. Craig's dedication to performing physically demanding stunts, his commitment to character authenticity, and his ability to bring emotional complexity to action roles demonstrate serious craftsmanship. His journey from theater to becoming one of cinema's most memorable action stars shows the power of skill and persistence."
+  },
+  {
+    id: "24",
+    name: "J. Robert Oppenheimer",
+    title: "Theoretical Physicist",
+    image: oppenheimer,
+    category: "Science",
+    introduction: "The father of the atomic bomb who led the Manhattan Project during World War II. Oppenheimer's brilliant scientific mind, leadership of complex teams, and later moral reflections on the power of science demonstrate the profound responsibility that comes with knowledge. His famous quote 'Now I am become Death, the destroyer of worlds' reflects the deep ethical considerations that accompany groundbreaking discoveries."
+  },
+  {
+    id: "25",
+    name: "Niels Bohr",
+    title: "Quantum Physics Pioneer",
+    image: nielsBohr,
+    category: "Science",
+    introduction: "A Danish physicist who made foundational contributions to understanding atomic structure and quantum theory. Bohr's atomic model revolutionized physics and earned him the Nobel Prize. His collaborative spirit, philosophical approach to physics, and mentorship of the next generation of physicists demonstrate that great science is built on community and open dialogue."
+  },
+  {
+    id: "26",
+    name: "Michio Kaku",
+    title: "Theoretical Physicist & Futurist",
+    image: michioKaku,
+    category: "Science",
+    introduction: "A co-founder of string field theory and one of the most popular science communicators of our time. Kaku's ability to explain complex physics concepts to general audiences through books, TV shows, and lectures demonstrates that science can be accessible and exciting. His futuristic vision and optimism about humanity's technological potential inspire curiosity about the universe."
+  },
+  {
+    id: "27",
+    name: "Neil deGrasse Tyson",
+    title: "Astrophysicist & Science Communicator",
+    image: neilDeGrasseTyson,
+    category: "Science",
+    introduction: "An astrophysicist who has become one of the most influential science communicators in the world. Tyson's passion for making science accessible, his wit, and his ability to spark wonder about the cosmos have inspired millions to look up at the stars. His work as director of the Hayden Planetarium and host of Cosmos demonstrates dedication to public science education."
   }
 ];
 
