@@ -30,6 +30,7 @@ import oppenheimer from "@/assets/role-models/oppenheimer.jpg";
 import nielsBohr from "@/assets/role-models/niels-bohr.jpg";
 import michioKaku from "@/assets/role-models/michio-kaku.jpg";
 import neilDeGrasseTyson from "@/assets/role-models/neil-degrasse-tyson.jpg";
+import ramanujan from "@/assets/role-models/ramanujan.jpg";
 
 interface RoleModel {
   id: string;
@@ -256,6 +257,14 @@ const roleModels: RoleModel[] = [
     image: neilDeGrasseTyson,
     category: "Science",
     introduction: "An astrophysicist who has become one of the most influential science communicators in the world. Tyson's passion for making science accessible, his wit, and his ability to spark wonder about the cosmos have inspired millions to look up at the stars. His work as director of the Hayden Planetarium and host of Cosmos demonstrates dedication to public science education."
+  },
+  {
+    id: "28",
+    name: "Srinivasa Ramanujan",
+    title: "Mathematical Genius",
+    image: ramanujan,
+    category: "Science",
+    introduction: "A self-taught mathematical genius from India whose intuitive brilliance produced thousands of groundbreaking theorems. Despite having almost no formal training, Ramanujan's work on infinite series, number theory, and continued fractions stunned the mathematical world. His collaboration with G.H. Hardy at Cambridge and his tragically short life at 32 exemplify pure genius transcending all barriers of circumstance and education."
   }
 ];
 
