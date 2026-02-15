@@ -195,7 +195,18 @@ const formatClock = (date: Date) => {
           left: mousePosition.x,
           top: mousePosition.y,
         }}
-      />
+      >
+        {/* Nucleus */}
+        <div className="cursor-nucleus" />
+        {/* Orbit rings */}
+        <div className="cursor-orbit cursor-orbit-1" />
+        <div className="cursor-orbit cursor-orbit-2" />
+        <div className="cursor-orbit cursor-orbit-3" />
+        {/* Electrons */}
+        <div className="cursor-electron cursor-electron-1" />
+        <div className="cursor-electron cursor-electron-2" />
+        <div className="cursor-electron cursor-electron-3" />
+      </div>
 
       {/* Tech Clock near cursor - Hidden on mobile */}
       {!isMobile && (
