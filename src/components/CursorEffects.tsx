@@ -1,4 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+
+interface FissionExplosion {
+  x: number;
+  y: number;
+  id: number;
+  particles: Array<{ tx: number; ty: number; duration: number; type: 'cyan' | 'hot' | 'white' }>;
+}
 
 const CursorEffects = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -10,6 +17,29 @@ const CursorEffects = () => {
   const [clock, setClock] = useState(new Date());
   const [isMobile, setIsMobile] = useState(false);
   const [touchRipples, setTouchRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
+  const [explosions, setExplosions] = useState<FissionExplosion[]>([]);
+
+  const createExplosion = useCallback((x: number, y: number) => {
+    const particleCount = 10 + Math.floor(Math.random() * 6);
+    const particles = Array.from({ length: particleCount }, () => {
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 25 + Math.random() * 50;
+      const types: Array<'cyan' | 'hot' | 'white'> = ['cyan', 'hot', 'white'];
+      return {
+        tx: Math.cos(angle) * distance,
+        ty: Math.sin(angle) * distance,
+        duration: 0.35 + Math.random() * 0.3,
+        type: types[Math.floor(Math.random() * 3)],
+      };
+    });
+
+    const explosion: FissionExplosion = { x, y, id: Date.now() + Math.random(), particles };
+    setExplosions(prev => [...prev, explosion]);
+
+    setTimeout(() => {
+      setExplosions(prev => prev.filter(e => e.id !== explosion.id));
+    }, 700);
+  }, []);
 
   useEffect(() => {
     // Check if device is mobile
@@ -75,6 +105,9 @@ const CursorEffects = () => {
     };
 
     const handleClick = (e: MouseEvent) => {
+      // Fission explosion on every click
+      createExplosion(e.clientX, e.clientY);
+
       const target = e.target as HTMLElement;
       if (target.matches('.ripple-effect, button, .btn-tech')) {
         const rect = target.getBoundingClientRect();
@@ -88,7 +121,6 @@ const CursorEffects = () => {
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
 
-        // Only set position if not already relative or absolute
         const pos = getComputedStyle(target).position;
         if (pos !== 'absolute' && pos !== 'relative') {
           target.style.position = 'relative';
@@ -114,7 +146,7 @@ const CursorEffects = () => {
       document.removeEventListener('mouseout', handleMouseOut);
       document.removeEventListener('click', handleClick);
     };
-  }, []);
+  }, [createExplosion]);
 
   // Touch event handlers for mobile
   useEffect(() => {
@@ -255,6 +287,29 @@ const formatClock = (date: Date) => {
             top: ripple.y,
           }}
         />
+      ))}
+
+      {/* Fission Explosions */}
+      {explosions.map((exp) => (
+        <div
+          key={exp.id}
+          className="fission-explosion"
+          style={{ left: exp.x, top: exp.y }}
+        >
+          <div className="fission-flash" />
+          <div className="fission-shockwave" />
+          {exp.particles.map((p, i) => (
+            <div
+              key={i}
+              className={`fission-particle ${p.type === 'hot' ? 'hot' : p.type === 'white' ? 'white' : ''}`}
+              style={{
+                '--tx': `${p.tx}px`,
+                '--ty': `${p.ty}px`,
+                '--duration': `${p.duration}s`,
+              } as React.CSSProperties}
+            />
+          ))}
+        </div>
       ))}
     </>
   );

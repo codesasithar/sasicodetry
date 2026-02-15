@@ -223,3 +223,79 @@
   to { transform: scale(2.3); opacity: 0; }
 }
 
+/* === Fission Explosion on Click === */
+.fission-explosion {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10002;
+  transform: translate(-50%, -50%);
+}
+
+/* Central flash */
+.fission-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #ffdd00 30%, #ff6600 60%, transparent 100%);
+  transform: translate(-50%, -50%) scale(0);
+  animation: fission-flash-anim 0.45s ease-out forwards;
+}
+
+@keyframes fission-flash-anim {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  30%  { transform: translate(-50%, -50%) scale(4); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(7); opacity: 0; }
+}
+
+/* Shockwave ring */
+.fission-shockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 229, 255, 0.7);
+  background: transparent;
+  transform: translate(-50%, -50%) scale(0);
+  animation: fission-shockwave-anim 0.5s ease-out forwards;
+}
+
+@keyframes fission-shockwave-anim {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; border-width: 3px; }
+  100% { transform: translate(-50%, -50%) scale(10); opacity: 0; border-width: 0.5px; }
+}
+
+/* Flying particle fragments */
+.fission-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #00e5ff;
+  box-shadow: 0 0 4px 1px #00e5ffaa;
+  animation: fission-particle-fly var(--duration, 0.5s) ease-out forwards;
+  transform: translate(-50%, -50%);
+}
+
+.fission-particle.hot {
+  background: #ffaa00;
+  box-shadow: 0 0 4px 1px #ffaa00aa;
+}
+
+.fission-particle.white {
+  background: #fff;
+  box-shadow: 0 0 6px 2px #ffffffaa;
+  width: 3px;
+  height: 3px;
+}
+
+@keyframes fission-particle-fly {
+  0%   { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
+}
