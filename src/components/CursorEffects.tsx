@@ -36,6 +36,10 @@ const CursorEffects = () => {
     const explosion: FissionExplosion = { x, y, id: Date.now() + Math.random(), particles };
     setExplosions(prev => [...prev, explosion]);
 
+    // Screen shake
+    document.documentElement.classList.add('screen-shake');
+    setTimeout(() => document.documentElement.classList.remove('screen-shake'), 300);
+
     setTimeout(() => {
       setExplosions(prev => prev.filter(e => e.id !== explosion.id));
     }, 700);

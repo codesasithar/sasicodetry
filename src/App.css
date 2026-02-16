@@ -299,3 +299,16 @@
   0%   { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
   100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
 }
+
+/* Screen shake on fission */
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  15% { transform: translate(-2px, 1px); }
+  30% { transform: translate(2px, -1px); }
+  45% { transform: translate(-1px, 2px); }
+  60% { transform: translate(1px, -2px); }
+  75% { transform: translate(-1px, 1px); }
+}
+html.screen-shake {
+  animation: screen-shake 0.3s ease-out;
+}
