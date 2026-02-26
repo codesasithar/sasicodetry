@@ -188,7 +188,7 @@ const Hero = () => {
             <img
               src={profilePicture}
               alt="Sasithar M"
-              className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full object-cover border-2 border-primary/40"
+              className="relative w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover border-2 border-primary/40"
             />
           </div>
         </div>
@@ -364,10 +364,6 @@ const Hero = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
                 </div>
 
-                <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-card border border-border rounded-xl sm:rounded-2xl p-2 sm:p-4 animate-float">
-                  <div className="text-xs sm:text-sm font-medium text-accent">Available for work</div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground">Based in India</div>
-                </div>
               </div>
             </div>
           </div>
@@ -447,10 +443,6 @@ const Hero = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
                 </div>
 
-                <div className="absolute -bottom-2 -right-2 bg-card border border-border rounded-xl p-2 animate-float">
-                  <div className="text-xs font-medium text-accent">Available for work</div>
-                  <div className="text-[10px] text-muted-foreground">Based in India</div>
-                </div>
               </div>
             </div>
 
