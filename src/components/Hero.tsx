@@ -357,8 +357,8 @@ const Hero = () => {
                     src="/videos/skills-video.mp4"
                     autoPlay
                     loop
-                    muted
                     playsInline
+                    controls
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
@@ -436,8 +436,8 @@ const Hero = () => {
                     src="/videos/skills-video.mp4"
                     autoPlay
                     loop
-                    muted
                     playsInline
+                    controls
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
