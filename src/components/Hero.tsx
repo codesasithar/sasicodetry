@@ -181,8 +181,20 @@ const Hero = () => {
           </div>
         </div>
 
+        {/* Profile Picture - Top Right */}
+        <div className="absolute top-20 right-6 sm:top-24 sm:right-10 z-30 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-vibrant rounded-full blur-md opacity-40 animate-pulse"></div>
+            <img
+              src={profilePicture}
+              alt="Sasithar M"
+              className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full object-cover border-2 border-primary/40"
+            />
+          </div>
+        </div>
+
         {/* Floating Code Snippets */}
-        <div className="absolute top-20 right-20 code-snippet overflow-hidden w-32 sm:w-48 hidden sm:block">
+        <div className="absolute top-20 right-40 code-snippet overflow-hidden w-32 sm:w-48 hidden lg:block">
           <span className="text-accent">const</span>{" "}
           <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
         </div>
