@@ -333,20 +333,23 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Right Column - Profile Photo and Badge */}
+            {/* Right Column - Video Player */}
             <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="relative">
                 <div className="absolute -inset-2 sm:-inset-4 bg-gradient-vibrant rounded-2xl sm:rounded-3xl blur-lg opacity-30 animate-pulse"></div>
                 <div className="absolute -top-4 sm:-top-8 -right-4 sm:-right-8 w-16 h-16 sm:w-32 sm:h-32 border-2 border-accent/20 rounded-full"></div>
                 <div className="absolute -bottom-4 sm:-bottom-8 -left-4 sm:-left-8 w-12 h-12 sm:w-24 sm:h-24 bg-primary/20 rounded-xl sm:rounded-2xl rotate-45"></div>
 
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
-                  <img
-                    src={profilePicture}
-                    alt="Sasithar M - Application Developer"
+                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
+                  <video
+                    src="/videos/skills-video.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
                 </div>
 
                 <div className="absolute -bottom-2 sm:-bottom-4 -right-2 sm:-right-4 bg-card border border-border rounded-xl sm:rounded-2xl p-2 sm:p-4 animate-float">
@@ -420,13 +423,16 @@ const Hero = () => {
                 <div className="absolute -top-4 -right-4 w-16 h-16 border-2 border-accent/20 rounded-full"></div>
                 <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary/20 rounded-xl rotate-45"></div>
 
-                <div className="relative w-64 h-64 rounded-2xl overflow-hidden border-2 border-primary/30">
-                  <img
-                    src={profilePicture}
-                    alt="Sasithar M - Application Developer"
+                <div className="relative w-72 h-52 rounded-2xl overflow-hidden border-2 border-primary/30">
+                  <video
+                    src="/videos/skills-video.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
                 </div>
 
                 <div className="absolute -bottom-2 -right-2 bg-card border border-border rounded-xl p-2 animate-float">
