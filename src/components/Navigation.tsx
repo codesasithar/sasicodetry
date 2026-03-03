@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Code2, User, Briefcase, Wrench, BookOpen, Library, Newspaper, Trophy, Film, Heart, Mail } from "lucide-react";
-import AudioPlayerCompact from "@/components/AudioPlayerCompact";
+
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Navigation = () => {
@@ -144,12 +144,9 @@ const Navigation = () => {
               );
             })}
 
-            {/* Theme Switcher and AudioPlayer in desktop nav */}
+            {/* Theme Switcher in desktop nav */}
             <div className="ml-1 flex items-center gap-1 border-l border-border pl-1">
               <ThemeSwitcher />
-              <div className="transform transition-all duration-300 hover:scale-105">
-                <AudioPlayerCompact />
-              </div>
             </div>
           </div>
 
@@ -188,7 +185,6 @@ const Navigation = () => {
             </button>
             <div className="ml-3 flex items-center gap-2 border-l border-border pl-3">
               <ThemeSwitcher />
-              <AudioPlayerCompact />
             </div>
           </div>
 
@@ -196,11 +192,6 @@ const Navigation = () => {
           <div className="md:hidden flex items-center gap-2 sm:gap-3">
             {/* Theme Switcher */}
             <ThemeSwitcher />
-            
-            {/* Compact AudioPlayer in mobile navbar */}
-            <div className="flex items-center transform transition-all duration-300 hover:scale-105">
-              <AudioPlayerCompact />
-            </div>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
