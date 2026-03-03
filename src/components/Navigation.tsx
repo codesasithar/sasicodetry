@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Code2, User, Briefcase, Wrench, BookOpen, Library, Newspaper, Trophy, Film, Heart, Mail } from "lucide-react";
+import { Menu, X, Code2, User, Briefcase, Wrench, BookOpen, Library, Newspaper, Trophy, Film, Gamepad2, Heart, Mail } from "lucide-react";
 
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
@@ -16,6 +16,7 @@ const Navigation = () => {
     { id: "news", label: "Tech News", icon: Newspaper },
     { id: "achievements", label: "Achievements", icon: Trophy },
     { id: "movies", label: "Movies I Love", icon: Film },
+    { id: "games", label: "Games", icon: Gamepad2 },
     { id: "role-models", label: "Role Models", icon: Heart },
     { id: "contact", label: "Contact", icon: Mail },
   ];
