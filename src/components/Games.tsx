@@ -1,54 +1,63 @@
 import { Gamepad2, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
+import godOfWarImg from "@/assets/games/god-of-war-ragnarok.jpg";
+import spiderman2Img from "@/assets/games/spiderman-2.jpg";
+import forzaImg from "@/assets/games/forza-horizon-5.jpg";
+import horizonZDImg from "@/assets/games/horizon-zero-dawn.jpg";
+import horizonFWImg from "@/assets/games/horizon-forbidden-west.jpg";
+import uncharted4Img from "@/assets/games/uncharted-4.jpg";
+import prototype2Img from "@/assets/games/prototype-2.jpg";
+import flightSimImg from "@/assets/games/flight-simulator.jpg";
+
 const Games = () => {
   const games = [
     {
       title: "God of War Ragnarök",
       genre: "Action/Adventure",
-      poster: "https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png",
+      poster: godOfWarImg,
       description: "Kratos and Atreus embark on a mythic journey for answers before Ragnarök arrives.",
     },
     {
       title: "Spider-Man 2",
       genre: "Action/Adventure",
-      poster: "https://image.api.playstation.com/vulcan/ap/rnd/202306/1301/fdb2c9230ebf872e2944f2b68ede25c9bf0a257d41e3a1a6.png",
+      poster: spiderman2Img,
       description: "Peter Parker and Miles Morales team up against new threats in Marvel's New York.",
     },
     {
       title: "Forza Horizon 5",
       genre: "Racing/Open World",
-      poster: "https://store-images.s-microsoft.com/image/apps.41005.13718773309702837.b1bfa498-1e93-4224-952f-25308a75a85a.6e3f9b76-e150-4382-b714-312bf9e3217f",
+      poster: forzaImg,
       description: "Explore the vibrant open world landscapes of Mexico in the ultimate racing adventure.",
     },
     {
       title: "Horizon Zero Dawn",
       genre: "Action RPG",
-      poster: "https://image.api.playstation.com/vulcan/ap/rnd/202009/2820/h12URI7MdswtM1GnMFMetbVn.png",
+      poster: horizonZDImg,
       description: "Aloy uncovers the secrets of a world overrun by mysterious machines.",
     },
     {
       title: "Horizon Forbidden West",
       genre: "Action RPG",
-      poster: "https://image.api.playstation.com/vulcan/ap/rnd/202107/3100/HO8vkO9pfXhwbHi5WHECQJdN.png",
+      poster: horizonFWImg,
       description: "Aloy ventures into the Forbidden West to find the source of a mysterious plague.",
     },
     {
       title: "Uncharted 4",
       genre: "Action/Adventure",
-      poster: "https://image.api.playstation.com/vulcan/ap/rnd/202010/0222/niMUubpU9y1PkGFVTzEFMabi.png",
+      poster: uncharted4Img,
       description: "Nathan Drake's greatest adventure — a globetrotting journey of discovery.",
     },
     {
       title: "Prototype 2",
       genre: "Action/Open World",
-      poster: "https://upload.wikimedia.org/wikipedia/en/2/29/Prototype_2_cover.png",
+      poster: prototype2Img,
       description: "James Heller wields incredible shapeshifting powers to hunt down the man responsible for his family's death.",
     },
     {
       title: "Microsoft Flight Simulator",
       genre: "Simulation",
-      poster: "https://store-images.s-microsoft.com/image/apps.58289.14486259768498498.a]fa6e4e-7f26-4a7a-b0f7-6f0cb4c60b3d.ae8d29f4-f4a2-4dae-83f2-e66ed75f3543",
+      poster: flightSimImg,
       description: "Fly anywhere in the world with stunning real-world detail and weather simulation.",
     },
   ];
@@ -104,8 +113,7 @@ const Games = () => {
 
                     {/* Genre Badge */}
                     <div className="absolute top-3 right-3 bg-background/90 rounded-full px-2 py-1 flex items-center space-x-1">
-                      <Star className="h-3 w-3 text-yellow-500 fill-current" />
-                      <span className="text-xs font-medium">★</span>
+                      <Star className="h-3 w-3 fill-current text-primary" />
                     </div>
                   </div>
 
