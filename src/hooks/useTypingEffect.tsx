@@ -11,7 +11,7 @@ export const useTypingEffect = ({ text, speed = 50, delay = 0 }: UseTypingEffect
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
     
     const startTyping = () => {
       let currentIndex = 0;
