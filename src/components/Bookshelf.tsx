@@ -9,6 +9,7 @@ import originOfSpecies from "@/assets/books/origin-of-species.jpg";
 import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
 import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.jpg";
 import dopamineDetox from "@/assets/books/dopamine-detox.jpg";
+import lifeLessonsBrainSurgeon from "@/assets/books/life-lessons-brain-surgeon.jpg";
 
 interface Book {
   id: string;
