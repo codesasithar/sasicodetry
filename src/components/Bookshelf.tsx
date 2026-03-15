@@ -84,6 +84,15 @@ const books: Book[] = [
     genre: "Self-Help",
     status: "read",
     summary: "A practical guide to removing distractions and training your brain to focus on challenging tasks. Learn how to break free from instant gratification and develop the mental discipline needed to achieve your goals through strategic dopamine management."
+  },
+  {
+    id: "8",
+    title: "Life Lessons from a Brain Surgeon",
+    author: "Rahul Jandial",
+    cover: lifeLessonsBrainSurgeon,
+    genre: "Science",
+    status: "read",
+    summary: "Neurosurgeon Rahul Jandial draws on cutting-edge research and his own experience in the operating room to reveal the new science of the brain. From memory and creativity to dreaming and decision-making, this book offers practical insights into how we can optimize our brain's performance."
   }
 ];
 
