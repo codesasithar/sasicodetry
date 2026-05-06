@@ -33,6 +33,7 @@ import neilDeGrasseTyson from "@/assets/role-models/neil-degrasse-tyson.jpg";
 import ramanujan from "@/assets/role-models/ramanujan.jpg";
 import michaelFaraday from "@/assets/role-models/michael-faraday.jpg";
 import jamesClerkMaxwell from "@/assets/role-models/james-clerk-maxwell.jpg";
+import stephenHawking from "@/assets/role-models/stephen-hawking.jpg";
 
 interface RoleModel {
   id: string;
@@ -283,6 +284,14 @@ const roleModels: RoleModel[] = [
     image: jamesClerkMaxwell,
     category: "Science",
     introduction: "The Scottish physicist who unified electricity, magnetism, and light into a single elegant theory through his famous equations. Maxwell's work paved the way for Einstein's relativity and the entire field of modern physics, from radio waves to quantum theory. His ability to capture the deepest truths of nature in concise mathematical form represents the pinnacle of scientific elegance and inspires every physicist who follows."
+  },
+  {
+    id: "31",
+    name: "Stephen Hawking",
+    title: "Theoretical Physicist & Cosmologist",
+    image: stephenHawking,
+    category: "Science",
+    introduction: "A brilliant cosmologist who revolutionized our understanding of black holes, singularities, and the origins of the universe despite living with ALS for over five decades. Hawking's groundbreaking work on Hawking radiation and his ability to make complex physics accessible through 'A Brief History of Time' inspired millions. His indomitable spirit, wit, and refusal to let physical limitations define him exemplify the triumph of the human mind."
   }
 ];
 
