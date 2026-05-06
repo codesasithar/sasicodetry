@@ -31,6 +31,8 @@ import nielsBohr from "@/assets/role-models/niels-bohr.jpg";
 import michioKaku from "@/assets/role-models/michio-kaku.jpg";
 import neilDeGrasseTyson from "@/assets/role-models/neil-degrasse-tyson.jpg";
 import ramanujan from "@/assets/role-models/ramanujan.jpg";
+import michaelFaraday from "@/assets/role-models/michael-faraday.jpg";
+import jamesClerkMaxwell from "@/assets/role-models/james-clerk-maxwell.jpg";
 
 interface RoleModel {
   id: string;
@@ -265,6 +267,22 @@ const roleModels: RoleModel[] = [
     image: ramanujan,
     category: "Science",
     introduction: "A self-taught mathematical genius from India whose intuitive brilliance produced thousands of groundbreaking theorems. Despite having almost no formal training, Ramanujan's work on infinite series, number theory, and continued fractions stunned the mathematical world. His collaboration with G.H. Hardy at Cambridge and his tragically short life at 32 exemplify pure genius transcending all barriers of circumstance and education."
+  },
+  {
+    id: "29",
+    name: "Michael Faraday",
+    title: "Physicist & Chemist",
+    image: michaelFaraday,
+    category: "Science",
+    introduction: "A self-taught experimental genius whose discoveries in electromagnetism and electrochemistry laid the foundation for modern electrical technology. Faraday's invention of the electric motor, generator, and transformer principles transformed civilization. Rising from a bookbinder's apprentice to one of history's greatest scientists, his humility, tireless curiosity, and ability to visualize invisible fields exemplify the power of imagination paired with rigorous experimentation."
+  },
+  {
+    id: "30",
+    name: "James Clerk Maxwell",
+    title: "Mathematical Physicist",
+    image: jamesClerkMaxwell,
+    category: "Science",
+    introduction: "The Scottish physicist who unified electricity, magnetism, and light into a single elegant theory through his famous equations. Maxwell's work paved the way for Einstein's relativity and the entire field of modern physics, from radio waves to quantum theory. His ability to capture the deepest truths of nature in concise mathematical form represents the pinnacle of scientific elegance and inspires every physicist who follows."
   }
 ];
 
