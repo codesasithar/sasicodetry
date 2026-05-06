@@ -608,7 +608,7 @@ const RoleModels = () => {
                         <div className="pt-4 border-t border-border/30">
                           <h4 className="text-base sm:text-lg font-semibold text-foreground mb-3">Key Achievements</h4>
                           <ul className="space-y-2">
-                            {selectedModel.achievements.map((a, i) => (
+                            {selectedModel.achievements?.map((a, i) => (
                               <li key={i} className="flex items-start gap-2 text-sm sm:text-base text-muted-foreground">
                                 <span className="text-primary mt-1">▸</span>
                                 <span>{a}</span>
