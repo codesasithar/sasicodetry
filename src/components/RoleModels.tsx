@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Lightbulb } from "lucide-react";
 
@@ -549,7 +549,7 @@ const RoleModels = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
           {roleModels.map((model) => (
-            <Fragment key={model.id}>
+            <div key={model.id} className="contents">
               <Card 
                 className={`group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-card/50 backdrop-blur border-border/50 ${selectedModel?.id === model.id ? 'ring-2 ring-primary shadow-2xl shadow-primary/30' : ''}`}
                 onClick={() => setSelectedModel(selectedModel?.id === model.id ? null : model)}
@@ -621,7 +621,7 @@ const RoleModels = () => {
                   </CardContent>
                 </Card>
               )}
-            </Fragment>
+            </div>
           ))}
         </div>
       </div>
