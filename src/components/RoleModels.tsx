@@ -548,67 +548,58 @@ const RoleModels = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
-          {roleModels.map((model) => (
-            <div key={model.id} className="contents">
+          {roleModels.map((model) => {
+            const isSelected = selectedModel?.id === model.id;
+
+            return (
               <Card 
-                className={`group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-card/50 backdrop-blur border-border/50 ${selectedModel?.id === model.id ? 'ring-2 ring-primary shadow-2xl shadow-primary/30' : ''}`}
-                onClick={() => setSelectedModel(selectedModel?.id === model.id ? null : model)}
+                key={model.id}
+                className={`group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 bg-card/50 backdrop-blur border-border/50 ${isSelected ? 'sm:col-span-2 lg:col-span-3 ring-2 ring-primary shadow-2xl shadow-primary/30' : ''}`}
+                onClick={() => setSelectedModel(isSelected ? null : model)}
+                aria-expanded={isSelected}
               >
                 <CardContent className="p-4 sm:p-6">
-                  <div className="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
-                    <img
-                      src={model.image}
-                      alt={model.name}
-                      className="w-full h-56 sm:h-64 object-cover object-top transition-transform duration-300 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  
-                  <div className="text-center">
-                    <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {model.name}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground mb-3">{model.title}</p>
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(model.category)}`}>
-                      {model.category}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {selectedModel?.id === model.id && (
-                <Card className="col-span-full bg-card/80 backdrop-blur border-primary/30 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <CardContent className="p-6 sm:p-8">
-                    <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                      <div className="md:w-1/3">
+                  <div className={isSelected ? "grid gap-6 lg:grid-cols-[minmax(240px,320px)_1fr] lg:items-start" : ""}>
+                    <div>
+                      <div className="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
                         <img
-                          src={selectedModel.image}
-                          alt={selectedModel.name}
-                          className="w-full h-64 md:h-80 object-cover object-top rounded-lg shadow-lg"
+                          src={model.image}
+                          alt={model.name}
+                          className={`w-full object-cover object-top transition-transform duration-300 group-hover:scale-110 ${isSelected ? 'h-64 lg:h-80' : 'h-56 sm:h-64'}`}
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
-                      
-                      <div className="md:w-2/3">
+                    
+                      <div className="text-center">
+                        <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                          {model.name}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-3">{model.title}</p>
+                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(model.category)}`}>
+                          {model.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    {isSelected && (
+                      <div className="rounded-lg border border-primary/30 bg-background/40 p-5 sm:p-6 text-left animate-in fade-in slide-in-from-left-2 duration-300">
                         <div className="mb-4">
-                          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">{selectedModel.name}</h3>
-                          <p className="text-base sm:text-lg text-muted-foreground mb-1">{selectedModel.title}</p>
-                          <p className="text-sm text-primary/80 font-mono mb-3">{selectedModel.lifespan}</p>
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(selectedModel.category)}`}>
-                            {selectedModel.category}
-                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">{model.name}</h3>
+                          <p className="text-base sm:text-lg text-muted-foreground mb-1">{model.title}</p>
+                          <p className="text-sm text-primary/80 font-mono">{model.lifespan}</p>
                         </div>
                         
                         <div className="pt-4 border-t border-border/30 mb-5">
                           <h4 className="text-base sm:text-lg font-semibold text-foreground mb-2">Why They Inspire Me</h4>
                           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                            {selectedModel.introduction}
+                            {model.introduction}
                           </p>
                         </div>
 
                         <div className="pt-4 border-t border-border/30">
                           <h4 className="text-base sm:text-lg font-semibold text-foreground mb-3">Key Achievements</h4>
                           <ul className="space-y-2">
-                            {selectedModel.achievements?.map((a, i) => (
+                            {(model.achievements ?? []).map((a, i) => (
                               <li key={i} className="flex items-start gap-2 text-sm sm:text-base text-muted-foreground">
                                 <span className="text-primary mt-1">▸</span>
                                 <span>{a}</span>
@@ -617,12 +608,12 @@ const RoleModels = () => {
                           </ul>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-          ))}
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>
