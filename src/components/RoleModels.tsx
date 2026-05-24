@@ -581,34 +581,47 @@ const RoleModels = () => {
                       </div>
                     </div>
 
-                    {isSelected && (
-                      <div className="rounded-lg border border-primary/30 bg-background/40 p-5 sm:p-6 text-left animate-in fade-in slide-in-from-left-2 duration-300">
-                        <div className="mb-4">
-                          <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">{model.name}</h3>
-                          <p className="text-base sm:text-lg text-muted-foreground mb-1">{model.title}</p>
-                          <p className="text-sm text-primary/80 font-mono">{model.lifespan}</p>
-                        </div>
-                        
-                        <div className="pt-4 border-t border-border/30 mb-5">
-                          <h4 className="text-base sm:text-lg font-semibold text-foreground mb-2">Why They Inspire Me</h4>
-                          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                            {model.introduction}
-                          </p>
-                        </div>
+                    <div
+                      className={`grid transition-all duration-500 ease-in-out ${
+                        isSelected
+                          ? 'grid-rows-[1fr] opacity-100 mt-0'
+                          : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                      aria-hidden={!isSelected}
+                    >
+                      <div className="overflow-hidden">
+                        <div
+                          className={`rounded-lg border border-primary/30 bg-background/40 p-5 sm:p-6 text-left transition-transform duration-500 ease-out ${
+                            isSelected ? 'translate-y-0' : '-translate-y-2'
+                          }`}
+                        >
+                          <div className="mb-4">
+                            <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">{model.name}</h3>
+                            <p className="text-base sm:text-lg text-muted-foreground mb-1">{model.title}</p>
+                            <p className="text-sm text-primary/80 font-mono">{model.lifespan}</p>
+                          </div>
 
-                        <div className="pt-4 border-t border-border/30">
-                          <h4 className="text-base sm:text-lg font-semibold text-foreground mb-3">Key Achievements</h4>
-                          <ul className="space-y-2">
-                            {(model.achievements ?? []).map((a, i) => (
-                              <li key={i} className="flex items-start gap-2 text-sm sm:text-base text-muted-foreground">
-                                <span className="text-primary mt-1">▸</span>
-                                <span>{a}</span>
-                              </li>
-                            ))}
-                          </ul>
+                          <div className="pt-4 border-t border-border/30 mb-5">
+                            <h4 className="text-base sm:text-lg font-semibold text-foreground mb-2">Why They Inspire Me</h4>
+                            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                              {model.introduction}
+                            </p>
+                          </div>
+
+                          <div className="pt-4 border-t border-border/30">
+                            <h4 className="text-base sm:text-lg font-semibold text-foreground mb-3">Key Achievements</h4>
+                            <ul className="space-y-2">
+                              {(model.achievements ?? []).map((a, i) => (
+                                <li key={i} className="flex items-start gap-2 text-sm sm:text-base text-muted-foreground">
+                                  <span className="text-primary mt-1">▸</span>
+                                  <span>{a}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </div>
-                    )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
