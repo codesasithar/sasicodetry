@@ -211,9 +211,9 @@ const Navigation = () => {
         {/* Mobile Navigation with Glass Effect */}
         <div className={`
           md:hidden overflow-hidden transition-all duration-500 ease-in-out
-          ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+          ${isOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}
         `}>
-          <div className="py-4 mx-2 my-2 rounded-2xl border border-border/50 backdrop-blur-xl bg-background/70 shadow-lg shadow-primary/5 relative overflow-hidden">
+          <div className="py-4 mx-2 my-2 rounded-2xl border border-border/50 backdrop-blur-xl bg-background/70 shadow-lg shadow-primary/5 relative overflow-hidden max-h-[78vh] overflow-y-auto">
             {/* Glassmorphism overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-card/50 to-card/30 backdrop-blur-xl rounded-2xl" />
             
@@ -222,7 +222,7 @@ const Navigation = () => {
               <div className="absolute top-0 left-[-100%] w-1/2 h-full bg-gradient-to-r from-transparent via-primary/10 to-transparent animate-[glass-shine_4s_ease-in-out_infinite]" />
             </div>
             
-            <div className="relative z-10 flex flex-col space-y-1">
+            <div className="relative z-10 flex flex-col space-y-1 pb-2">
               {navItems.map((item, index) => {
                 const Icon = item.icon;
                 return (
