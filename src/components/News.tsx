@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Calendar, TrendingUp } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
 interface NewsArticle {
@@ -96,6 +98,18 @@ const News = () => {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto glass-bg inline-block">
             Curated news based on my interests: {interests.slice(0, 3).join(", ")} and more
           </p>
+          <div className="pt-2">
+            <Button
+              onClick={fetchNews}
+              disabled={isLoading}
+              variant="outline"
+              size="sm"
+              className="gap-2"
+            >
+              <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+              {isLoading ? "Refreshing..." : "Refresh News"}
+            </Button>
+          </div>
         </div>
 
         {/* Loading State */}
