@@ -9,6 +9,8 @@ import horizonFWImg from "@/assets/games/horizon-forbidden-west.jpg";
 import uncharted4Img from "@/assets/games/uncharted-4.jpg";
 import prototype2Img from "@/assets/games/prototype-2.jpg";
 import flightSimImg from "@/assets/games/flight-simulator.jpg";
+import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
+import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
 
 const Games = () => {
   const games = [
@@ -59,6 +61,18 @@ const Games = () => {
       genre: "Simulation",
       poster: flightSimImg,
       description: "Fly anywhere in the world with stunning real-world detail and weather simulation.",
+    },
+    {
+      title: "Rise of the Tomb Raider",
+      genre: "Action/Adventure",
+      poster: tombRaiderImg,
+      description: "Lara Croft's relentless journey to uncover an ancient immortal secret in treacherous Siberian wilderness.",
+    },
+    {
+      title: "Black Myth: Wukong",
+      genre: "Action RPG",
+      poster: blackMythImg,
+      description: "An epic action RPG rooted in Chinese mythology, playing as the Destined One on a perilous journey.",
     },
   ];
 
