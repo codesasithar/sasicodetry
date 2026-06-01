@@ -34,6 +34,9 @@ import ramanujan from "@/assets/role-models/ramanujan.jpg";
 import michaelFaraday from "@/assets/role-models/michael-faraday.jpg";
 import jamesClerkMaxwell from "@/assets/role-models/james-clerk-maxwell.jpg";
 import stephenHawking from "@/assets/role-models/stephen-hawking.jpg";
+import christopherNolan from "@/assets/role-models/christopher-nolan.jpg";
+import arnoldSchwarzenegger from "@/assets/role-models/arnold-schwarzenegger.jpg";
+import sundarPichai from "@/assets/role-models/sundar-pichai.jpg";
 
 interface RoleModel {
   id: string;
