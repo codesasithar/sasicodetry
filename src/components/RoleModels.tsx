@@ -34,6 +34,9 @@ import ramanujan from "@/assets/role-models/ramanujan.jpg";
 import michaelFaraday from "@/assets/role-models/michael-faraday.jpg";
 import jamesClerkMaxwell from "@/assets/role-models/james-clerk-maxwell.jpg";
 import stephenHawking from "@/assets/role-models/stephen-hawking.jpg";
+import christopherNolan from "@/assets/role-models/christopher-nolan.jpg";
+import arnoldSchwarzenegger from "@/assets/role-models/arnold-schwarzenegger.jpg";
+import sundarPichai from "@/assets/role-models/sundar-pichai.jpg";
 
 interface RoleModel {
   id: string;
@@ -510,6 +513,51 @@ const roleModels: RoleModel[] = [
       "Authored 'A Brief History of Time' (10M+ copies sold)",
       "Lucasian Professor of Mathematics at Cambridge (1979–2009)",
       "Presidential Medal of Freedom (2009) recipient"
+    ]
+  },
+  {
+    id: "32",
+    name: "Christopher Nolan",
+    title: "Film Director & Screenwriter",
+    image: christopherNolan,
+    category: "Cinema",
+    introduction: "A visionary filmmaker known for his mind-bending narratives, practical effects, and epic storytelling. Nolan's films like Inception, Interstellar, and the Dark Knight trilogy blend complex ideas with blockbuster entertainment. His commitment to practical filmmaking, IMAX photography, and original storytelling in an era of sequels inspires creators to push artistic boundaries while reaching mass audiences.",
+    lifespan: "1970 – Present",
+    achievements: [
+      "Directed The Dark Knight trilogy, grossing over $2.4 billion worldwide",
+      "Won 2 Academy Awards for Oppenheimer (Best Director, Best Picture)",
+      "Pioneered IMAX filmmaking in narrative cinema",
+      "Created Inception and Interstellar, blending science with spectacle"
+    ]
+  },
+  {
+    id: "33",
+    name: "Arnold Schwarzenegger",
+    title: "Bodybuilder, Actor & Politician",
+    image: arnoldSchwarzenegger,
+    category: "Resilience",
+    introduction: "An Austrian-American icon who conquered bodybuilding, Hollywood, and politics through sheer determination and discipline. Schwarzenegger's journey from a small Austrian village to becoming the world's greatest bodybuilder, a Hollywood action superstar, and the Governor of California demonstrates that relentless work ethic and self-belief can overcome any origin. His motivational philosophy continues to inspire millions worldwide.",
+    lifespan: "1947 – Present",
+    achievements: [
+      "7-time Mr. Olympia, the most prestigious bodybuilding title",
+      "Starred in iconic films: Terminator, Predator, Total Recall",
+      "38th Governor of California (2003–2011)",
+      "Inducted into the International Sports Hall of Fame"
+    ]
+  },
+  {
+    id: "34",
+    name: "Sundar Pichai",
+    title: "CEO of Google & Alphabet",
+    image: sundarPichai,
+    category: "Innovation",
+    introduction: "An Indian-American business executive who rose from humble beginnings in Chennai to lead one of the world's most influential technology companies. Pichai's calm leadership, engineering-first mindset, and ability to guide Google through AI transformation demonstrate the power of quiet competence. His journey from a modest home in India to the pinnacle of Silicon Valley inspires engineers and leaders across the globe.",
+    lifespan: "1972 – Present",
+    achievements: [
+      "CEO of Google since 2015 and Alphabet since 2019",
+      "Led development of Chrome, Chrome OS, and Android",
+      "Steered Google through its AI and cloud computing expansion",
+      "Honored with the Padma Bhushan, India's third-highest civilian award"
     ]
   }
 ];
