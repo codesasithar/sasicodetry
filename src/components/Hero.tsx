@@ -31,7 +31,7 @@ const Hero = () => {
   });
 
   const typingText = useTypingEffect({
-    text: "I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions.",
+    text: "I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions. Currently pursuing PG in AI/ML.",
     speed: 30,
     delay: 2500
   });
