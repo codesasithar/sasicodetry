@@ -391,7 +391,7 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg" style={{ animationDelay: "0.4s", fontFamily: "'Caveat', 'Patrick Hand', cursive" }}>
+              <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg" style={{ animationDelay: "0.4s", fontFamily: "'Caveat', 'Patrick Hand', cursive" }}>
                 {typingText.displayedText}
                 {!typingText.isComplete && <span className="animate-pulse">|</span>}
               </p>
