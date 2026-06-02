@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Patrick+Hand&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -2048,5 +2049,32 @@
   .section-container {
     padding-top: 48px;
     padding-bottom: 48px;
+  }
+}
+
+/* Handwritten, friendly typography on mobile only */
+@media (max-width: 768px) {
+  body {
+    font-family: 'Patrick Hand', 'Poppins', cursive, sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+  h1, h2, h3, h4, h5, h6,
+  .font-poppins {
+    font-family: 'Caveat', 'Patrick Hand', cursive !important;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+  h1 { line-height: 1.1; }
+  h2, h3 { line-height: 1.15; }
+  /* Keep monospace/code-like elements untouched */
+  code, pre, kbd, samp,
+  .cursor-text, .cursor-clock,
+  input, textarea, select, button {
+    font-family: inherit;
+  }
+  /* Preserve technical mono look where explicitly set */
+  .font-mono {
+    font-family: 'Roboto Mono', 'Fira Mono', monospace !important;
   }
 }
