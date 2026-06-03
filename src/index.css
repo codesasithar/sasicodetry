@@ -2078,3 +2078,51 @@
     font-family: 'Roboto Mono', 'Fira Mono', monospace !important;
   }
 }
+
+/* === Electric spark on typed letters === */
+.spark-letter {
+  display: inline-block;
+  position: relative;
+  white-space: pre;
+}
+.spark-letter-active {
+  animation: spark-letter-flash 0.55s ease-out;
+  color: #fff;
+  text-shadow:
+    0 0 6px #00eaff,
+    0 0 14px #00b3ff,
+    0 0 22px #7df9ff;
+}
+.spark-letter-active::before,
+.spark-letter-active::after {
+  content: "";
+  position: absolute;
+  top: 0.15em;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 2px #00eaff, 0 0 12px 4px #7df9ff;
+  pointer-events: none;
+  opacity: 0;
+  animation: spark-fly 0.55s ease-out forwards;
+}
+.spark-letter-active::after {
+  animation: spark-fly-alt 0.55s ease-out forwards;
+  background: #ffe066;
+  box-shadow: 0 0 6px 2px #ffb300, 0 0 12px 4px #ffd54f;
+}
+@keyframes spark-letter-flash {
+  0%   { filter: brightness(2.4) saturate(1.4); transform: translateY(-1px); }
+  40%  { filter: brightness(1.6); }
+  100% { filter: none; transform: translateY(0); text-shadow: none; color: inherit; }
+}
+@keyframes spark-fly {
+  0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-180%, -14px) scale(0.4); }
+}
+@keyframes spark-fly-alt {
+  0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(80%, -14px) scale(0.4); }
+}
