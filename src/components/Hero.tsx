@@ -15,6 +15,7 @@ import iRobotBg from "@/assets/irobot-bg.png";
 import profilePicture from "@/assets/profile-picture.png";
 import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
+import SparkText from "@/components/SparkText";
 
 const Hero = () => {
 
@@ -272,7 +273,7 @@ const Hero = () => {
               </h1>
 
               <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg" style={{ animationDelay: "0.4s", fontFamily: "'Caveat', 'Patrick Hand', cursive" }}>
-                {typingText.displayedText}
+                <SparkText text={typingText.displayedText} />
                 {!typingText.isComplete && <span className="animate-pulse">|</span>}
               </p>
 
@@ -392,7 +393,7 @@ const Hero = () => {
               </h1>
 
               <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg" style={{ animationDelay: "0.4s", fontFamily: "'Caveat', 'Patrick Hand', cursive" }}>
-                {typingText.displayedText}
+                <SparkText text={typingText.displayedText} />
                 {!typingText.isComplete && <span className="animate-pulse">|</span>}
               </p>
 
