@@ -7,30 +7,39 @@ interface SparkTextProps {
 }
 
 /**
- * Renders text one character at a time with a brief electric-spark
- * thunder/lightning text explosion effect calibrated for desktop and mobile.
+ * Renders text with an electric-spark text explosion effect,
+ * completely bypassed if the text is "Application Developer".
  */
 const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
-  const chars = Array.from(text);
-  const lastIdx = chars.length - 1;
 
   useEffect(() => {
+    // Only run screen checks if we aren't bypassing the component
+    if (text === "Application Developer") return;
+
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [text]);
 
-  // Responsive fine-tuning parameters
-  const shardCount = isMobile ? 6 : 10;      // Fewer particles on mobile saves CPU/GPU
-  const explosionScale = isMobile ? "1.2" : "1.5"; // Prevents text clipping on small displays
-  const particleSpread = isMobile ? "30px" : "60px"; // Tighter radius for smaller viewports
-  const effectDuration = isMobile ? "0.3s" : "0.5s"; // Snappier animations on mobile
+  // --- EXCLUSION GUARD ---
+  // If the text is exactly "Application Developer", skip the processing entirely
+  if (text === "Application Developer") {
+    return <span className={className} style={style}>{text}</span>;
+  }
+
+  const chars = Array.from(text);
+  const lastIdx = chars.length - 1;
+
+  // Responsive fine-tuning parameters for standard text
+  const shardCount = isMobile ? 6 : 10;
+  const explosionScale = isMobile ? "1.2" : "1.5";
+  const particleSpread = isMobile ? "30px" : "60px";
+  const effectDuration = isMobile ? "0.3s" : "0.5s";
 
   return (
     <span className={className} style={{ ...style, position: "relative" }}>
-      {/* Dynamic Embedded Styles to handle the responsive physics */}
       <style>{`
         .spark-letter {
           display: inline-block;
@@ -56,7 +65,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           z-index: 20;
         }
 
-        /* Lightning Flash Component */
         .spark-flash {
           position: absolute;
           width: calc(${explosionScale} * 20px);
@@ -71,7 +79,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
         }
 
-        /* Expanding Shockwave Ring */
         .spark-ring {
           position: absolute;
           width: 10px;
@@ -88,7 +95,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           100% { width: calc(${particleSpread} * 2); height: calc(${particleSpread} * 2); opacity: 0; }
         }
 
-        /* Flying Particle Shards */
         .spark-shard {
           position: absolute;
           width: ${isMobile ? "3px" : "4px"};
@@ -113,20 +119,15 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
               <span className="spark-explosion" aria-hidden="true">
                 <span className="spark-flash" />
                 <span className="spark-ring" />
-                {Array.from({ length: shardCount }).map((_, k) => {
-                  // Calculate dynamic angles so particles explode in a neat radius evenly
-                  const angle = (k * 360) / shardCount;
-                  return (
-                    <span 
-                      key={k} 
-                      className="spark-shard" 
-                      style={{
-                        animation: `shard-fly-${k} ${effectDuration} cubic-bezier(0.25, 1, 0.5, 1) forwards`,
-                      }}
-                    />
-                  );
-                })}
-                {/* Dynamically register custom particle directions per index */}
+                {Array.from({ length: shardCount }).map((_, k) => (
+                  <span 
+                    key={k} 
+                    className="spark-shard" 
+                    style={{
+                      animation: `shard-fly-${k} ${effectDuration} cubic-bezier(0.25, 1, 0.5, 1) forwards`,
+                    }}
+                  />
+                ))}
                 <style>{`
                   ${Array.from({ length: shardCount }).map((_, k) => {
                     const angle = (k * 360) / shardCount + Math.random() * 15;
@@ -138,16 +139,3 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
                         0% { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
                         100% { transform: translate(-50%, -50%) translate(${x}px, ${y}px) scale(0.2); opacity: 0; }
                       }
-                    `;
-                  }).join("\n")}
-                `}</style>
-              </span>
-            )}
-          </span>
-        );
-      })}
-    </span>
-  );
-};
-
-export default SparkText;
