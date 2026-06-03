@@ -10,7 +10,8 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (text === "Application Developer") return;
+    // Exact match bypass for "Application developer"
+    if (text === "Application developer") return;
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -18,14 +19,15 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, [text]);
 
-  if (text === "Application Developer") {
+  // --- EXCLUSION GUARD ---
+  // If the text matches "Application developer", skip processing and render plain text
+  if (text === "Application developer") {
     return <span className={className} style={style}>{text}</span>;
   }
 
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
-  // Realism constraints: Tight limits keep performance high while remaining chaotic
   const strikeCount = isMobile ? 5 : 9; 
   const lightningRadius = isMobile ? 35 : 70; 
 
@@ -38,7 +40,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           will-change: transform;
         }
         
-        /* Filament activation - mimics real plasma ionization */
         .spark-letter-active {
           animation: letter-lightning-shock 0.25s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
         }
@@ -60,7 +61,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           will-change: transform;
         }
 
-        /* 1. Hot Plasma Core Glow */
         .spark-flash {
           position: absolute;
           width: 40px;
@@ -78,25 +78,22 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
         }
 
-        /* 2. Realistic Jagged Lightning SVGs */
         .realistic-bolt {
           position: absolute;
           width: calc(var(--rad) * 2px);
           height: calc(var(--rad) * 2px);
           transform: translate(-50%, -50%);
           fill: none;
-          stroke: #ffffff; /* Brilliant white core */
+          stroke: #ffffff;
           stroke-width: 1.2px;
           stroke-linecap: round;
           stroke-linejoin: round;
-          /* Dual-layer drop shadow replicates real high-intensity exposure glow */
           filter: drop-shadow(0 0 2px #00f0ff) drop-shadow(0 0 5px #3b82f6);
           opacity: 0;
           animation: bolt-crackle var(--duration, 0.28s) steps(4, end) forwards;
           will-change: opacity, filter;
         }
 
-        /* Real arcs flicker instantly instead of expanding smoothly */
         @keyframes bolt-crackle {
           0% { opacity: 0; stroke-dasharray: 300; stroke-dashoffset: 300; }
           10% { opacity: 1; stroke-dashoffset: 120; }
@@ -128,17 +125,12 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
               >
                 <span className="spark-flash" />
                 
-                {/* Procedural Generation of Realistic Lightning Paths */}
                 {Array.from({ length: strikeCount }).map((_, k) => {
-                  // 1. Establish an organic, non-uniform angle distribution
                   const baseAngle = (k * 360) / strikeCount;
                   const randomAngle = baseAngle + (Math.random() * 40 - 20);
                   const rads = (randomAngle * Math.PI) / 180;
-
-                  // 2. Build out realistic variations in length for each filament path
                   const maxReach = lightningRadius * (0.5 + Math.random() * 0.6);
                   
-                  // 3. Create a multi-segment jagged path array manually
                   const segments = 4;
                   let currentX = 0;
                   let currentY = 0;
@@ -146,6 +138,51 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
                   for (let s = 1; s <= segments; s++) {
                     const progress = s / segments;
-                    // Target trajectory line
                     const targetX = Math.cos(rads) * maxReach * progress;
-                    const targetY = Math.sin(rads) * maxReach * progress
+                    const targetY = Math.sin(rads) * maxReach * progress;
+
+                    const driftFactor = isMobile ? 6 : 12;
+                    const perpAngle = randomAngle + 90;
+                    const perpRads = (perpAngle * Math.PI) / 180;
+                    const displacement = (Math.random() * driftFactor - driftFactor / 2) * (1 - progress * 0.4);
+
+                    currentX = targetX + Math.cos(perpRads) * displacement;
+                    currentY = targetY + Math.sin(perpRads) * displacement;
+
+                    pathSegments.push(`L ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
+
+                    if (s === 2 && Math.random() > 0.4) {
+                      const forkAngle = randomAngle + (Math.random() * 60 - 30);
+                      const forkRads = (forkAngle * Math.PI) / 180;
+                      const forkX = currentX + Math.cos(forkRads) * (maxReach * 0.4);
+                      const forkY = currentY + Math.sin(forkRads) * (maxReach * 0.4);
+                      
+                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)} L ${forkX.toFixed(1)} ${forkY.toFixed(1)}`);
+                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
+                    }
+                  }
+
+                  return (
+                    <svg 
+                      key={k} 
+                      className="realistic-bolt" 
+                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${(Math.random() * 14 - 7).toFixed(1)}deg)`,
+                        animationDelay: `${Math.random() * 0.04}s`
+                      }}
+                    >
+                      <path d={pathSegments.join(" ")} />
+                    </svg>
+                  );
+                })}
+              </span>
+            )}
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
+export default SparkText;
