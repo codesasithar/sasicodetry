@@ -23,6 +23,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   if (isMinimalWord) {
     return (
       <>
+        {/* Importing a clean, architectural architectural font for the minimal view */}
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -30,17 +31,16 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
             font-family: 'Montserrat', sans-serif;
             display: inline-block;
             font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            letter-spacing: 0.07em;
             color: #ffffff;
             position: relative;
             animation: minimal-glow 4s ease-in-out infinite alternate;
           }
 
           @keyframes minimal-glow {
-            0% { text-shadow: 0 0 6px rgba(0, 240, 255, 0.2); }
+            0% { text-shadow: 0 0 4px rgba(0, 240, 255, 0.2); }
             100% {
-              text-shadow: 0 0 16px rgba(0, 240, 255, 0.7), 0 0 24px rgba(59, 130, 246, 0.4);
+              text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
               color: #f8fafc;
             }
           }
@@ -59,15 +59,12 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const strikeCount = isMobile ? 6 : 12; 
   const lightningRadius = isMobile ? 40 : 85; 
 
-  const precalculatedLayout = useMemo(() => {
+  const precalculatedBolts = useMemo(() => {
     const segments = 5;
     const driftFactor = isMobile ? 8 : 16;
 
     return Array.from({ length: Math.max(chars.length, 50) }).map(() => {
-      const charTilt = (Math.random() * 1.6 - 0.8).toFixed(1); 
-      const verticalNudge = (Math.random() * 0.8 - 0.4).toFixed(1);
-
-      const bolts = Array.from({ length: strikeCount }).map((_, k) => {
+      return Array.from({ length: strikeCount }).map((_, k) => {
         const baseAngle = (k * 360) / strikeCount;
         const randomAngle = baseAngle + (Math.random() * 30 - 15);
         const rads = (randomAngle * Math.PI) / 180;
@@ -108,57 +105,42 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           delay: `${Math.random() * 0.03}s`
         };
       });
-
-      return { bolts, charTilt, verticalNudge };
     });
   }, [strikeCount, lightningRadius, isMobile, chars.length]);
 
   return (
     <span className={className} style={{ ...style, position: "relative", display: "inline-block" }}>
+      {/* Imported 'Caveat' for an authentic, fluid handwritten touch */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 
-        .spark-container-premium-hand {
-          font-family: 'Sacramento', cursive;
-          font-size: 2.4em; 
-          font-weight: 400;
-          color: #f8fafc;
-          word-spacing: 0.3em;
-          text-shadow: 0 0 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.15);
-          -webkit-font-smoothing: antialiased;
-          white-space: nowrap;
-          overflow: visible; /* Guarantees layout containers don't mask text edges */
+        .spark-container-handwritten {
+          font-family: 'Caveat', cursive;
+          font-size: 1.35em; /* Handwriting fonts often render smaller, bumped up scale to offset */
+          letter-spacing: 0.02em;
         }
 
         .spark-letter {
-          display: inline-block; /* Changed back to block safely due to padding/margin mitigation */
+          display: inline-block;
           position: relative;
           will-change: transform;
           cursor: pointer;
-          
-          /* CRITICAL FIX: Side padding prevents cursive swashes from being clipped by the bounding box, 
-             while matching negative margins pull the adjacent letters back into a true continuous flow */
-          padding: 0 0.12em 0 0.08em;
-          margin: 0 -0.14em 0 -0.06em;
-          
-          transition: color 0.25s ease;
         }
         
         .spark-letter-active {
-          animation: letter-lightning-shock 0.25s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
-          z-index: 20;
+          animation: letter-lightning-shock 0.22s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
         }
 
         @keyframes letter-lightning-shock {
-          0% { transform: scale(1) rotate(var(--tilt)); color: #fff; text-shadow: 0 0 10px #00f0ff, 0 0 20px #3b82f6; }
-          15% { transform: scale(var(--exp-scale, 1.2)) rotate(var(--tilt)); color: #fff; text-shadow: 0 0 35px #00f0ff, 0 0 60px #fff; }
-          45% { color: #22d3ee; }
-          100% { transform: scale(1) rotate(var(--tilt)); color: #e2e8f0; }
+          0% { transform: scale(1); color: #fff; text-shadow: 0 0 10px #00f0ff, 0 0 20px #3b82f6; }
+          15% { transform: scale(var(--exp-scale, 1.25)); color: #fff; text-shadow: 0 0 30px #00f0ff, 0 0 60px #fff; }
+          35% { color: #00f0ff; }
+          100% { transform: scale(1); }
         }
 
         .spark-explosion {
           position: absolute;
-          top: 45%;
+          top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
           pointer-events: none;
@@ -170,9 +152,9 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         .spark-flash {
           position: absolute;
-          width: 65px;
-          height: 65px;
-          background: radial-gradient(circle, #ffffff 25%, rgba(0, 240, 255, 0.8) 55%, rgba(59, 130, 246, 0.2) 80%, transparent 100%);
+          width: 60px;
+          height: 60px;
+          background: radial-gradient(circle, #ffffff 20%, rgba(0, 240, 255, 0.85) 50%, rgba(59, 130, 246, 0.3) 75%, transparent 100%);
           transform: translate(-50%, -50%) scale(0);
           animation: core-discharge var(--duration, 0.3s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
           will-change: transform, opacity;
@@ -181,8 +163,8 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
         @keyframes core-discharge {
           0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; filter: brightness(2); }
           20% { opacity: 0.95; }
-          50% { filter: brightness(1.3); }
-          100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; }
+          50% { filter: brightness(1.2); }
+          100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
         }
 
         .realistic-bolt {
@@ -193,10 +175,10 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           overflow: visible !important;
           fill: none;
           stroke: #ffffff;
-          stroke-width: 2px;
+          stroke-width: 1.8px;
           stroke-linecap: round;
           stroke-linejoin: round;
-          filter: drop-shadow(0 0 5px #00f0ff) drop-shadow(0 0 12px #3b82f6);
+          filter: drop-shadow(0 0 4px #00f0ff) drop-shadow(0 0 10px #3b82f6);
           opacity: 0;
           animation: bolt-crackle var(--duration, 0.3s) steps(5, end) forwards;
           will-change: opacity, filter;
@@ -204,29 +186,24 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         @keyframes bolt-crackle {
           0% { opacity: 0; stroke-dasharray: 400; stroke-dashoffset: 400; }
-          10% { opacity: 1; stroke-dashoffset: 160; }
+          10% { opacity: 1; stroke-dashoffset: 150; }
           25% { opacity: 0.6; filter: brightness(1.8) drop-shadow(0 0 6px #00f0ff); }
           45% { opacity: 1; stroke-dashoffset: 0; }
-          65% { opacity: 0.7; }
+          65% { opacity: 0.8; }
           100% { opacity: 0; }
         }
       `}</style>
 
-      <span className="spark-container-premium-hand">
+      <span className="spark-container-handwritten">
         {chars.map((ch, i) => {
           const isActive = i === lastIdx || hoveredIndex === i;
-          const config = precalculatedLayout[i] || precalculatedLayout[0];
+          const boltSet = precalculatedBolts[i] || precalculatedBolts[0];
           
           return (
             <span
               key={`${i}-${ch}`}
               className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
-              style={{ 
-                "--exp-scale": isMobile ? "1.12" : "1.25",
-                "--tilt": `${config.charTilt}deg`,
-                zIndex: isActive ? 30 : i,
-                transform: `rotate(${config.charTilt}deg) translateY(${config.verticalNudge}px)`
-              } as React.CSSProperties}
+              style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -243,7 +220,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
                 >
                   <span className="spark-flash" />
                   
-                  {config.bolts.map((bolt, k) => (
+                  {boltSet.map((bolt, k) => (
                     <svg 
                       key={k} 
                       className="realistic-bolt" 
