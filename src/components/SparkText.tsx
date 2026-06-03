@@ -10,8 +10,8 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Exact match bypass for "Application developer"
-    if (text === "Application developer") return;
+    // Normalizing check to catch variations like "Application Developer" or "Application developer"
+    if (text.trim().toLowerCase() === "application developer") return;
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -19,12 +19,39 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, [text]);
 
-  // --- EXCLUSION GUARD ---
-  // If the text matches "Application developer", skip processing and render plain text
-  if (text === "Application developer") {
-    return <span className={className} style={style}>{text}</span>;
+  // --- MINIMALISTIC DESIGN FOR APPLICATION DEVELOPER ---
+  if (text.trim().toLowerCase() === "application developer") {
+    return (
+      <>
+        <style>{`
+          .minimal-dev-text {
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            position: relative;
+            /* Smooth ambient pulse rather than a violent flash */
+            animation: minimal-glow 4s ease-in-out infinite alternate;
+          }
+
+          @keyframes minimal-glow {
+            0% {
+              text-shadow: 0 0 4px rgba(0, 240, 255, 0.2);
+            }
+            100% {
+              text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
+              color: #f8fafc;
+            }
+          }
+        `}</style>
+        <span className={`${className || ""} minimal-dev-text`} style={style}>
+          {text}
+        </span>
+      </>
+    );
   }
 
+  // --- STANDARD REALISTIC LIGHTNING EFFECT FOR OTHER TEXTS ---
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
@@ -183,6 +210,3 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
       })}
     </span>
   );
-};
-
-export default SparkText;
