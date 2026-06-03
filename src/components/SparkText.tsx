@@ -6,11 +6,6 @@ interface SparkTextProps {
   style?: React.CSSProperties;
 }
 
-/**
- * Renders text with a sharp, electric blue lightning shock explosion
- * on whichever character is currently active. Bypasses for
- * specific technical job titles.
- */
 const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -19,11 +14,10 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    window.addEventListener("resize", checkMobile);
+    window.addEventListener("resize", checkMobile, { passive: true });
     return () => window.removeEventListener("resize", checkMobile);
   }, [text]);
 
-  // --- EXCLUSION GUARD ---
   if (text === "Application Developer") {
     return <span className={className} style={style}>{text}</span>;
   }
@@ -31,32 +25,32 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
-  // Responsive parameters for the clean lightning strike
-  const shardCount = isMobile ? 5 : 8; // Slightly fewer shards for a cleaner "zap" look
-  const explosionScale = isMobile ? "1.15" : "1.35";
-  const particleSpread = isMobile ? "20px" : "45px"; // Slightly tighter for high voltage look
-  const effectDuration = isMobile ? "0.2s" : "0.35s"; // Snappier duration for lightning speed
+  // Optimized configuration limits
+  const shardCount = isMobile ? 4 : 8; // Kept low for mobile GPU safety
+  const particleSpread = isMobile ? 22 : 45; 
 
   return (
     <span className={className} style={{ ...style, position: "relative" }}>
+      {/* PERFORMANCE OPTIMIZATION: One static style block. 
+        Using hardware-accelerated transforms and opacity avoids layout thrashing.
+      */}
       <style>{`
         .spark-letter {
           display: inline-block;
           position: relative;
+          will-change: transform;
         }
         
-        /* The character flashes instantly to pure white/cyan like a neon filament */
         .spark-letter-active {
-          animation: letter-shock ${effectDuration} cubic-bezier(0.19, 1, 0.22, 1);
+          animation: letter-shock-opt 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes letter-shock {
-          0% { transform: scale(1); color: #fff; filter: drop-shadow(0 0 15px #00f0ff); }
-          15% { transform: scale(${explosionScale}); color: #00f0ff; }
-          100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+        @keyframes letter-shock-opt {
+          0% { transform: scale(1); color: #fff; }
+          20% { transform: scale(var(--exp-scale, 1.3)); color: #00f0ff; }
+          100% { transform: scale(1); }
         }
 
-        /* Lightning Explosion Center */
         .spark-explosion {
           position: absolute;
           top: 50%;
@@ -64,45 +58,58 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           transform: translate(-50%, -50%);
           pointer-events: none;
           z-index: 20;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          will-change: transform;
         }
 
-        /* 1. Electrical Core Zap */
         .spark-flash {
           position: absolute;
-          width: calc(${explosionScale} * 15px);
-          height: calc(${explosionScale} * 15px);
-          /* Shifted completely to white and intense electric blues */
+          width: 25px;
+          height: 25px;
           background: radial-gradient(circle, #ffffff 0%, rgba(0, 240, 255, 0.9) 45%, rgba(59, 130, 246, 0) 70%);
-          transform: translate(-50%, -50%);
-          animation: flash-zap ${effectDuration} ease-out forwards;
+          transform: translate(-50%, -50%) scale(0);
+          animation: flash-zap-opt 0.3s ease-out forwards;
+          will-change: transform, opacity;
         }
 
-        @keyframes flash-zap {
+        @keyframes flash-zap-opt {
           0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
-          50% { opacity: 1; }
-          100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+          100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
         }
 
-        /* 2. Sharp Cyan Shockwave Arc */
         .spark-ring {
           position: absolute;
-          width: 6px;
-          height: 6px;
+          width: 80px;
+          height: 80px;
           border: 1.5px solid #00f0ff;
           border-radius: 50%;
-          transform: translate(-50%, -50%);
-          /* Standard exponential bezier for a realistic "snapping" expansion */
-          animation: shock-ring ${effectDuration} cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
+          transform: translate(-50%, -50%) scale(0);
+          animation: shock-ring-opt 0.35s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
+          will-change: transform, opacity;
         }
 
-        @keyframes shock-ring {
-          0% { width: 2px; height: 2px; opacity: 1; border-color: #fff; }
-          100% { width: calc(${particleSpread} * 2); height: calc(${particleSpread} * 2); opacity: 0; border-color: #3b82f6; }
+        @keyframes shock-ring-opt {
+          0% { transform: translate(-50%, -50%) scale(0.05); opacity: 1; }
+          100% { transform: translate(-50%, -50%) scale(var(--ring-scale, 1)); opacity: 0; }
         }
 
-        /* 3. Plasma Shards/Sparks */
         .spark-shard {
-          position
+          position: absolute;
+          width: 3px;
+          height: 3px;
+          background-color: #ffffff;
+          box-shadow: 0 0 4px #00f0ff; /* Simplified shadow to avoid pixel fill rate limits */
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          animation: shard-zap-opt 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          will-change: transform, opacity;
+        }
+
+        @keyframes shard-zap-opt {
+          0% { transform: translate(-50%, -50%) translate(0, 0) scale(1.2); opacity: 1; }
+          100% { transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(0.1); opacity: 0; }
+        }
+      `}</style>
+
+      {chars.map((ch, i) => {
+        const isActive = i === lastIdx;
+        return (
