@@ -10,7 +10,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Keep check active but don't early return inside hook to preserve reactivity
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile, { passive: true });
@@ -19,7 +18,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
   const isMinimalWord = text.trim().toLowerCase() === "application developer";
 
-  // --- 1. MINIMALISTIC DESIGN FOR APPLICATION DEVELOPER ---
+  // --- 1. MINIMALISTIC DESIGN FOR TARGET WORDS ---
   if (isMinimalWord) {
     return (
       <>
@@ -34,9 +33,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           }
 
           @keyframes minimal-glow {
-            0% {
-              text-shadow: 0 0 4px rgba(0, 240, 255, 0.2);
-            }
+            0% { text-shadow: 0 0 4px rgba(0, 240, 255, 0.2); }
             100% {
               text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
               color: #f8fafc;
@@ -50,12 +47,12 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
     );
   }
 
-  // --- 2. STANDARD REALISTIC LIGHTNING EFFECT FOR OTHER TEXTS ---
+  // --- 2. DYNAMIC PLASMA LIGHTNING EFFECT FOR POPPING LETTERS ---
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
-  const strikeCount = isMobile ? 5 : 9; 
-  const lightningRadius = isMobile ? 35 : 70; 
+  const strikeCount = isMobile ? 6 : 12; 
+  const lightningRadius = isMobile ? 40 : 85; 
 
   return (
     <span className={className} style={{ ...style, position: "relative" }}>
@@ -67,13 +64,13 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
         }
         
         .spark-letter-active {
-          animation: letter-lightning-shock 0.25s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
+          animation: letter-lightning-shock 0.22s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
         }
 
         @keyframes letter-lightning-shock {
-          0% { transform: scale(1); color: #fff; text-shadow: 0 0 8px #00f0ff, 0 0 15px #3b82f6; }
-          12% { transform: scale(var(--exp-scale, 1.25)); color: #fff; text-shadow: 0 0 25px #00f0ff, 0 0 50px #fff; }
-          30% { color: #00f0ff; }
+          0% { transform: scale(1); color: #fff; text-shadow: 0 0 10px #00f0ff, 0 0 20px #3b82f6; }
+          15% { transform: scale(var(--exp-scale, 1.25)); color: #fff; text-shadow: 0 0 30px #00f0ff, 0 0 60px #fff; }
+          35% { color: #00f0ff; }
           100% { transform: scale(1); }
         }
 
@@ -89,19 +86,19 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         .spark-flash {
           position: absolute;
-          width: 40px;
-          height: 40px;
-          background: radial-gradient(circle, #ffffff 15%, rgba(0, 240, 255, 0.8) 45%, rgba(59, 130, 246, 0.2) 70%, transparent 90%);
+          width: 50px;
+          height: 50px;
+          background: radial-gradient(circle, #ffffff 20%, rgba(0, 240, 255, 0.85) 50%, rgba(59, 130, 246, 0.3) 75%, transparent 100%);
           transform: translate(-50%, -50%) scale(0);
-          animation: core-discharge var(--duration, 0.28s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+          animation: core-discharge var(--duration, 0.3s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
           will-change: transform, opacity;
         }
 
         @keyframes core-discharge {
           0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; filter: brightness(2); }
-          15% { opacity: 0.9; }
-          45% { filter: brightness(1); }
-          100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+          20% { opacity: 0.95; }
+          50% { filter: brightness(1.2); }
+          100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
         }
 
         .realistic-bolt {
@@ -111,62 +108,17 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           transform: translate(-50%, -50%);
           fill: none;
           stroke: #ffffff;
-          stroke-width: 1.2px;
+          stroke-width: 1.5px;
           stroke-linecap: round;
           stroke-linejoin: round;
-          filter: drop-shadow(0 0 2px #00f0ff) drop-shadow(0 0 5px #3b82f6);
+          filter: drop-shadow(0 0 3px #00f0ff) drop-shadow(0 0 8px #3b82f6) drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
           opacity: 0;
-          animation: bolt-crackle var(--duration, 0.28s) steps(4, end) forwards;
+          animation: bolt-crackle var(--duration, 0.3s) steps(5, end) forwards;
           will-change: opacity, filter;
         }
 
         @keyframes bolt-crackle {
-          0% { opacity: 0; stroke-dasharray: 300; stroke-dashoffset: 300; }
-          10% { opacity: 1; stroke-dashoffset: 120; }
-          25% { opacity: 0.4; filter: brightness(1.5) drop-shadow(0 0 4px #00f0ff); }
-          40% { opacity: 1; stroke-dashoffset: 0; }
-          65% { opacity: 0.7; }
-          100% { opacity: 0; }
-        }
-      `}</style>
-
-      {chars.map((ch, i) => {
-        const isActive = i === lastIdx;
-        return (
-          <span
-            key={i}
-            className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
-            style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
-          >
-            {ch === " " ? "\u00A0" : ch}
-            
-            {isActive && ch !== " " && (
-              <span 
-                className="spark-explosion" 
-                aria-hidden="true"
-                style={{ 
-                  "--rad": lightningRadius.toString(),
-                  "--duration": isMobile ? "0.22s" : "0.28s"
-                } as React.CSSProperties}
-              >
-                <span className="spark-flash" />
-                
-                {Array.from({ length: strikeCount }).map((_, k) => {
-                  const baseAngle = (k * 360) / strikeCount;
-                  const randomAngle = baseAngle + (Math.random() * 40 - 20);
-                  const rads = (randomAngle * Math.PI) / 180;
-                  const maxReach = lightningRadius * (0.5 + Math.random() * 0.6);
-                  
-                  const segments = 4;
-                  let currentX = 0;
-                  let currentY = 0;
-                  const pathSegments = ["M 0 0"];
-
-                  for (let s = 1; s <= segments; s++) {
-                    const progress = s / segments;
-                    const targetX = Math.cos(rads) * maxReach * progress;
-                    const targetY = Math.sin(rads) * maxReach * progress;
-
-                    const driftFactor = isMobile ? 6 : 12;
-                    const perpAngle = randomAngle + 90;
-                    const perpRads = (perpAngle * Math.PI) / 180
+          0% { opacity: 0; stroke-dasharray: 400; stroke-dashoffset: 400; }
+          8% { opacity: 1; stroke-dashoffset: 150; }
+          22% { opacity: 0.5; filter: brightness(1.8) drop-shadow(0 0 5px #00f0ff); }
+          3
