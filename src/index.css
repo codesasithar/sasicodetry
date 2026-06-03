@@ -1648,7 +1648,41 @@
   transition: opacity 0.25s, transform 0.2s;
   will-change: opacity, transform;
 }
+/* Optimized CSS-driven Pointer Trails */
+.cursor-trail-optimized {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: hsl(var(--primary) / 0.4);
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  /* Instead of rendering individual trace nodes, CSS shifts them dynamically with a hardware hardware transform */
+  transform: translate3d(var(--raw-x), var(--raw-y), 0);
+  transition: transform var(--delay) cubic-bezier(0.1, 0.8, 0.2, 1);
+  pointer-events: none;
+}
 
+/* Global Core Positions mapped smoothly through parent */
+.custom-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(var(--cx), var(--cy), 0);
+  pointer-events: none;
+}
+.cursor-clock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(calc(var(--raw-x) + 36px), calc(var(--raw-y) - 8px), 0);
+}
+.cursor-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(var(--raw-x), var(--raw-y), 0);
+}
 /* Touch Ripple Effects for Mobile */
 .touch-ripple {
   position: fixed;
