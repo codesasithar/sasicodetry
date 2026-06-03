@@ -16,7 +16,6 @@ const SparkText: React.FC<SparkTextProps> = ({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // If it's a minimal or text-only variant, bypass resize event tracking
     if (variant !== "standard") return;
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -25,7 +24,7 @@ const SparkText: React.FC<SparkTextProps> = ({
     return () => window.removeEventListener("resize", checkMobile);
   }, [variant]);
 
-  // --- 1. TEXT ONLY VARIANT (For Descriptions/Paragraphs) ---
+  // --- 1. TEXT ONLY VARIANT ---
   if (variant === "text-only") {
     return (
       <span className={className} style={style}>
@@ -34,7 +33,7 @@ const SparkText: React.FC<SparkTextProps> = ({
     );
   }
 
-  // --- 2. MINIMALISTIC DESIGN VARIANT (For Sleek Web Theme Title Words) ---
+  // --- 2. MINIMALISTIC DESIGN VARIANT ---
   if (variant === "minimal") {
     return (
       <>
@@ -140,3 +139,4 @@ const SparkText: React.FC<SparkTextProps> = ({
           65% { opacity: 0.7; }
           100% { opacity: 0; }
         }
+      `}</style>
