@@ -4,54 +4,65 @@ interface SparkTextProps {
   text: string;
   className?: string;
   style?: React.CSSProperties;
+  variant?: "standard" | "minimal" | "text-only";
 }
 
-const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
+const SparkText: React.FC<SparkTextProps> = ({ 
+  text, 
+  className, 
+  style, 
+  variant = "standard" 
+}) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Normalizing check to catch variations like "Application Developer" or "Application developer"
-    if (text.trim().toLowerCase() === "application developer") return;
+    // If it's a minimal or text-only variant, bypass resize event tracking
+    if (variant !== "standard") return;
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile, { passive: true });
     return () => window.removeEventListener("resize", checkMobile);
-  }, [text]);
+  }, [variant]);
 
-  // --- MINIMALISTIC DESIGN FOR APPLICATION DEVELOPER ---
-  if (text.trim().toLowerCase() === "application developer") {
+  // --- 1. TEXT ONLY VARIANT (For Descriptions/Paragraphs) ---
+  if (variant === "text-only") {
+    return (
+      <span className={className} style={style}>
+        {text}
+      </span>
+    );
+  }
+
+  // --- 2. MINIMALISTIC DESIGN VARIANT (For Sleek Web Theme Title Words) ---
+  if (variant === "minimal") {
     return (
       <>
         <style>{`
-          .minimal-dev-text {
+          .minimal-tech-glow {
             display: inline-block;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            color: #ffffff;
             position: relative;
-            /* Smooth ambient pulse rather than a violent flash */
-            animation: minimal-glow 4s ease-in-out infinite alternate;
+            animation: minimal-pulse-glow 3.5s ease-in-out infinite alternate;
+            will-change: text-shadow;
           }
 
-          @keyframes minimal-glow {
+          @keyframes minimal-pulse-glow {
             0% {
-              text-shadow: 0 0 4px rgba(0, 240, 255, 0.2);
+              text-shadow: 0 0 8px rgba(0, 240, 255, 0.25);
             }
             100% {
-              text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
-              color: #f8fafc;
+              text-shadow: 0 0 15px rgba(0, 240, 255, 0.55), 0 0 25px rgba(59, 130, 246, 0.25);
             }
           }
         `}</style>
-        <span className={`${className || ""} minimal-dev-text`} style={style}>
+        <span className={`${className || ""} minimal-tech-glow`} style={style}>
           {text}
         </span>
       </>
     );
   }
 
-  // --- STANDARD REALISTIC LIGHTNING EFFECT FOR OTHER TEXTS ---
+  // --- 3. STANDARD REALISTIC LIGHTNING EFFECT VARIANT ---
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
@@ -129,84 +140,3 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           65% { opacity: 0.7; }
           100% { opacity: 0; }
         }
-      `}</style>
-
-      {chars.map((ch, i) => {
-        const isActive = i === lastIdx;
-        return (
-          <span
-            key={i}
-            className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
-            style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
-          >
-            {ch === " " ? "\u00A0" : ch}
-            
-            {isActive && ch !== " " && (
-              <span 
-                className="spark-explosion" 
-                aria-hidden="true"
-                style={{ 
-                  "--rad": lightningRadius.toString(),
-                  "--duration": isMobile ? "0.22s" : "0.28s"
-                } as React.CSSProperties}
-              >
-                <span className="spark-flash" />
-                
-                {Array.from({ length: strikeCount }).map((_, k) => {
-                  const baseAngle = (k * 360) / strikeCount;
-                  const randomAngle = baseAngle + (Math.random() * 40 - 20);
-                  const rads = (randomAngle * Math.PI) / 180;
-                  const maxReach = lightningRadius * (0.5 + Math.random() * 0.6);
-                  
-                  const segments = 4;
-                  let currentX = 0;
-                  let currentY = 0;
-                  let pathSegments = ["M 0 0"];
-
-                  for (let s = 1; s <= segments; s++) {
-                    const progress = s / segments;
-                    const targetX = Math.cos(rads) * maxReach * progress;
-                    const targetY = Math.sin(rads) * maxReach * progress;
-
-                    const driftFactor = isMobile ? 6 : 12;
-                    const perpAngle = randomAngle + 90;
-                    const perpRads = (perpAngle * Math.PI) / 180;
-                    const displacement = (Math.random() * driftFactor - driftFactor / 2) * (1 - progress * 0.4);
-
-                    currentX = targetX + Math.cos(perpRads) * displacement;
-                    currentY = targetY + Math.sin(perpRads) * displacement;
-
-                    pathSegments.push(`L ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
-
-                    if (s === 2 && Math.random() > 0.4) {
-                      const forkAngle = randomAngle + (Math.random() * 60 - 30);
-                      const forkRads = (forkAngle * Math.PI) / 180;
-                      const forkX = currentX + Math.cos(forkRads) * (maxReach * 0.4);
-                      const forkY = currentY + Math.sin(forkRads) * (maxReach * 0.4);
-                      
-                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)} L ${forkX.toFixed(1)} ${forkY.toFixed(1)}`);
-                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
-                    }
-                  }
-
-                  return (
-                    <svg 
-                      key={k} 
-                      className="realistic-bolt" 
-                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
-                      style={{
-                        transform: `translate(-50%, -50%) rotate(${(Math.random() * 14 - 7).toFixed(1)}deg)`,
-                        animationDelay: `${Math.random() * 0.04}s`
-                      }}
-                    >
-                      <path d={pathSegments.join(" ")} />
-                    </svg>
-                  );
-                })}
-              </span>
-            )}
-          </span>
-        );
-      })}
-    </span>
-  );
