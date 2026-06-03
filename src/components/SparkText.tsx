@@ -140,3 +140,86 @@ const SparkText: React.FC<SparkTextProps> = ({
           100% { opacity: 0; }
         }
       `}</style>
+
+      {chars.map((ch, i) => {
+        const isActive = i === lastIdx;
+        return (
+          <span
+            key={i}
+            className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
+            style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
+          >
+            {ch === " " ? "\u00A0" : ch}
+            
+            {isActive && ch !== " " && (
+              <span 
+                className="spark-explosion" 
+                aria-hidden="true"
+                style={{ 
+                  "--rad": lightningRadius.toString(),
+                  "--duration": isMobile ? "0.22s" : "0.28s"
+                } as React.CSSProperties}
+              >
+                <span className="spark-flash" />
+                
+                {Array.from({ length: strikeCount }).map((_, k) => {
+                  const baseAngle = (k * 360) / strikeCount;
+                  const randomAngle = baseAngle + (Math.random() * 40 - 20);
+                  const rads = (randomAngle * Math.PI) / 180;
+                  const maxReach = lightningRadius * (0.5 + Math.random() * 0.6);
+                  
+                  const segments = 4;
+                  let currentX = 0;
+                  let currentY = 0;
+                  const pathSegments = ["M 0 0"];
+
+                  for (let s = 1; s <= segments; s++) {
+                    const progress = s / segments;
+                    const targetX = Math.cos(rads) * maxReach * progress;
+                    const targetY = Math.sin(rads) * maxReach * progress;
+
+                    const driftFactor = isMobile ? 6 : 12;
+                    const perpAngle = randomAngle + 90;
+                    const perpRads = (perpAngle * Math.PI) / 180;
+                    const displacement = (Math.random() * driftFactor - driftFactor / 2) * (1 - progress * 0.4);
+
+                    currentX = targetX + Math.cos(perpRads) * displacement;
+                    currentY = targetY + Math.sin(perpRads) * displacement;
+
+                    pathSegments.push(`L ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
+
+                    if (s === 2 && Math.random() > 0.4) {
+                      const forkAngle = randomAngle + (Math.random() * 60 - 30);
+                      const forkRads = (forkAngle * Math.PI) / 180;
+                      const forkX = currentX + Math.cos(forkRads) * (maxReach * 0.4);
+                      const forkY = currentY + Math.sin(forkRads) * (maxReach * 0.4);
+                      
+                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)} L ${forkX.toFixed(1)} ${forkY.toFixed(1)}`);
+                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
+                    }
+                  }
+
+                  return (
+                    <svg 
+                      key={k} 
+                      className="realistic-bolt" 
+                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${(Math.random() * 14 - 7).toFixed(1)}deg)`,
+                        animationDelay: `${Math.random() * 0.04}s`
+                      }}
+                    >
+                      <path d={pathSegments.join(" ")} />
+                    </svg>
+                  );
+                })}
+              </span>
+            )}
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
+export default SparkText;
