@@ -4,64 +4,53 @@ interface SparkTextProps {
   text: string;
   className?: string;
   style?: React.CSSProperties;
-  variant?: "standard" | "minimal" | "text-only";
 }
 
-const SparkText: React.FC<SparkTextProps> = ({ 
-  text, 
-  className, 
-  style, 
-  variant = "standard" 
-}) => {
+const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (variant !== "standard") return;
-
+    // Keep check active but don't early return inside hook to preserve reactivity
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile, { passive: true });
     return () => window.removeEventListener("resize", checkMobile);
-  }, [variant]);
+  }, []);
 
-  // --- 1. TEXT ONLY VARIANT ---
-  if (variant === "text-only") {
-    return (
-      <span className={className} style={style}>
-        {text}
-      </span>
-    );
-  }
+  const isMinimalWord = text.trim().toLowerCase() === "application developer";
 
-  // --- 2. MINIMALISTIC DESIGN VARIANT ---
-  if (variant === "minimal") {
+  // --- 1. MINIMALISTIC DESIGN FOR APPLICATION DEVELOPER ---
+  if (isMinimalWord) {
     return (
       <>
         <style>{`
-          .minimal-tech-glow {
+          .minimal-dev-text {
             display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #ffffff;
             position: relative;
-            animation: minimal-pulse-glow 3.5s ease-in-out infinite alternate;
-            will-change: text-shadow;
+            animation: minimal-glow 4s ease-in-out infinite alternate;
           }
 
-          @keyframes minimal-pulse-glow {
+          @keyframes minimal-glow {
             0% {
-              text-shadow: 0 0 8px rgba(0, 240, 255, 0.25);
+              text-shadow: 0 0 4px rgba(0, 240, 255, 0.2);
             }
             100% {
-              text-shadow: 0 0 15px rgba(0, 240, 255, 0.55), 0 0 25px rgba(59, 130, 246, 0.25);
+              text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
+              color: #f8fafc;
             }
           }
         `}</style>
-        <span className={`${className || ""} minimal-tech-glow`} style={style}>
+        <span className={`${className || ""} minimal-dev-text`} style={style}>
           {text}
         </span>
       </>
     );
   }
 
-  // --- 3. STANDARD REALISTIC LIGHTNING EFFECT VARIANT ---
+  // --- 2. STANDARD REALISTIC LIGHTNING EFFECT FOR OTHER TEXTS ---
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
@@ -180,46 +169,4 @@ const SparkText: React.FC<SparkTextProps> = ({
 
                     const driftFactor = isMobile ? 6 : 12;
                     const perpAngle = randomAngle + 90;
-                    const perpRads = (perpAngle * Math.PI) / 180;
-                    const displacement = (Math.random() * driftFactor - driftFactor / 2) * (1 - progress * 0.4);
-
-                    currentX = targetX + Math.cos(perpRads) * displacement;
-                    currentY = targetY + Math.sin(perpRads) * displacement;
-
-                    pathSegments.push(`L ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
-
-                    if (s === 2 && Math.random() > 0.4) {
-                      const forkAngle = randomAngle + (Math.random() * 60 - 30);
-                      const forkRads = (forkAngle * Math.PI) / 180;
-                      const forkX = currentX + Math.cos(forkRads) * (maxReach * 0.4);
-                      const forkY = currentY + Math.sin(forkRads) * (maxReach * 0.4);
-                      
-                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)} L ${forkX.toFixed(1)} ${forkY.toFixed(1)}`);
-                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
-                    }
-                  }
-
-                  return (
-                    <svg 
-                      key={k} 
-                      className="realistic-bolt" 
-                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
-                      style={{
-                        transform: `translate(-50%, -50%) rotate(${(Math.random() * 14 - 7).toFixed(1)}deg)`,
-                        animationDelay: `${Math.random() * 0.04}s`
-                      }}
-                    >
-                      <path d={pathSegments.join(" ")} />
-                    </svg>
-                  );
-                })}
-              </span>
-            )}
-          </span>
-        );
-      })}
-    </span>
-  );
-};
-
-export default SparkText;
+                    const perpRads = (perpAngle * Math.PI) / 180
