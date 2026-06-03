@@ -247,34 +247,26 @@ const Hero = () => {
               </div>
 
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-slide-up relative"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-slide-up relative leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="text-foreground relative inline-block">
-                  <SparkText text={applicationTyping.displayedText} />
-                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
+                {/* --- RENDER APPLICATION TEXT WITH MINIMALISTIC TECH DESIGN --- */}
+                <span className="text-foreground relative inline-block tracking-wide">
+                  <SparkText text={applicationTyping.displayedText} variant="minimal" />
+                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
                 <br />
-                <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
-                  <SparkText text={developerTyping.displayedText} />
-                  {!developerTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
-                  {/* Typing sparks */}
-                  {!developerTyping.isComplete && (
-                    <div className="absolute -right-2 sm:-right-4 top-1/2 transform -translate-y-1/2">
-                      <div className="spark-burst">
-                        <div className="spark-particle spark-1"></div>
-                        <div className="spark-particle spark-2"></div>
-                        <div className="spark-particle spark-3"></div>
-                        <div className="spark-particle spark-4"></div>
-                      </div>
-                    </div>
-                  )}
+                {/* --- RENDER DEVELOPER TEXT WITH MINIMALISTIC TECH DESIGN --- */}
+                <span className="text-primary relative inline-block tracking-wide font-extrabold">
+                  <SparkText text={developerTyping.displayedText} variant="minimal" />
+                  {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg" style={{ animationDelay: "0.4s", fontFamily: "'Caveat', 'Patrick Hand', cursive" }}>
-                <SparkText text={typingText.displayedText} />
-                {!typingText.isComplete && <span className="animate-pulse">|</span>}
+              {/* --- DESCRIPTION PARAGRAPH WITH CLEAN TYPEWRITER FLOW --- */}
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4.s" }}>
+                <SparkText text={typingText.displayedText} variant="text-only" />
+                {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
               </p>
 
               <div className="flex justify-center lg:justify-start space-x-6 sm:space-x-8 mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
@@ -356,7 +348,6 @@ const Hero = () => {
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
                   <video
                     src="/videos/skills-video.mp4"
-                    
                     loop
                     playsInline
                     controls
@@ -381,20 +372,20 @@ const Hero = () => {
                 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 animate-slide-up relative leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="text-foreground relative inline-block">
-                  <SparkText text={applicationTyping.displayedText} />
-                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
+                <span className="text-foreground relative inline-block tracking-wide">
+                  <SparkText text={applicationTyping.displayedText} variant="minimal" />
+                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
                 <br />
-                <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
-                  <SparkText text={developerTyping.displayedText} />
-                  {!developerTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
+                <span className="text-primary relative inline-block tracking-wide font-extrabold">
+                  <SparkText text={developerTyping.displayedText} variant="minimal" />
+                  {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg" style={{ animationDelay: "0.4s", fontFamily: "'Caveat', 'Patrick Hand', cursive" }}>
-                <SparkText text={typingText.displayedText} />
-                {!typingText.isComplete && <span className="animate-pulse">|</span>}
+              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
+                <SparkText text={typingText.displayedText} variant="text-only" />
+                {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
               </p>
 
               <div className="flex justify-center space-x-8 sm:space-x-12 mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
@@ -425,7 +416,7 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Profile Photo - Now below the button */}
+            {/* Profile Photo */}
             <div className="flex flex-col items-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="relative">
                 <div className="absolute -inset-2 bg-gradient-vibrant rounded-2xl blur-lg opacity-30 animate-pulse"></div>
@@ -435,7 +426,6 @@ const Hero = () => {
                 <div className="relative w-72 h-52 rounded-2xl overflow-hidden border-2 border-primary/30">
                   <video
                     src="/videos/skills-video.mp4"
-                    
                     loop
                     playsInline
                     controls
