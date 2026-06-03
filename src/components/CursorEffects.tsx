@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface FissionExplosion {
   x: number;
@@ -8,304 +8,221 @@ interface FissionExplosion {
 }
 
 const CursorEffects = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-  const [trails, setTrails] = useState<Array<{ x: number; y: number; id: number }>>([]);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [cursorText, setCursorText] = useState('');
   const [showCursorText, setShowCursorText] = useState(false);
-  const [clock, setClock] = useState(new Date());
-  const [isMobile, setIsMobile] = useState(false);
-  const [touchRipples, setTouchRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
   const [explosions, setExplosions] = useState<FissionExplosion[]>([]);
+  const [clockText, setClockText] = useState('');
 
-  const createExplosion = useCallback((x: number, y: number) => {
-    const particleCount = 10 + Math.floor(Math.random() * 6);
-    const particles = Array.from({ length: particleCount }, () => {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 25 + Math.random() * 50;
-      const types: Array<'cyan' | 'hot' | 'white'> = ['cyan', 'hot', 'white'];
-      return {
-        tx: Math.cos(angle) * distance,
-        ty: Math.sin(angle) * distance,
-        duration: 0.35 + Math.random() * 0.3,
-        type: types[Math.floor(Math.random() * 3)],
-      };
-    });
+  const containerRef = useRef<HTMLDivElement>(null);
+  const coordsRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-    const explosion: FissionExplosion = { x, y, id: Date.now() + Math.random(), particles };
-    setExplosions(prev => [...prev, explosion]);
-
-    // Screen shake
-    document.documentElement.classList.add('screen-shake');
-    setTimeout(() => document.documentElement.classList.remove('screen-shake'), 300);
-
-    setTimeout(() => {
-      setExplosions(prev => prev.filter(e => e.id !== explosion.id));
-    }, 700);
-  }, []);
-
+  // 1. Device detection ran only once safely post-mount
   useEffect(() => {
-    // Check if device is mobile
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
+    window.addEventListener('resize', checkMobile, { passive: true });
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // 2. High performance frame loop for smoothing coordinates (LERP)
   useEffect(() => {
-    let trailId = 0;
+    if (isMobile !== false) return;
 
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    let animationFrameId: number;
+    
+    const updateLoop = () => {
+      const coords = coordsRef.current;
+      // Linear interpolation creates an ultra-smooth glide trail natively
+      coords.x += (coords.targetX - coords.x) * 0.2;
+      coords.y += (coords.targetY - coords.y) * 0.2;
 
-      // Add trail effect
-      const newTrail = { x: e.clientX, y: e.clientY, id: trailId++ };
-      setTrails((prev) => [...prev.slice(-6), newTrail]);
+      if (containerRef.current) {
+        containerRef.current.style.setProperty('--cx', `${coords.x}px`);
+        containerRef.current.style.setProperty('--cy', `${coords.y}px`);
+        containerRef.current.style.setProperty('--raw-x', `${coords.targetX}px`);
+        containerRef.current.style.setProperty('--raw-y', `${coords.targetY}px`);
+      }
+      animationFrameId = requestAnimationFrame(updateLoop);
+    };
+    
+    animationFrameId = requestAnimationFrame(updateLoop);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isMobile]);
+
+  // 3. Isolated Clock state engine updating strictly outside tracking layouts
+  useEffect(() => {
+    if (isMobile !== false) return;
+
+    const updateClock = () => {
+      setClockText(new Date().toLocaleTimeString('en-US', {
+        hour12: true,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      }));
+    };
+    
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
+  }, [isMobile]);
+
+  // 4. Central Event Handler (Event Delegation Loop)
+  useEffect(() => {
+    if (isMobile !== false) return;
+
+    const onMouseMove = (e: MouseEvent) => {
+      coordsRef.current.targetX = e.clientX;
+      coordsRef.current.targetY = e.clientY;
     };
 
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    const onMouseDown = () => setIsClicking(true);
+    const onMouseUp = () => setIsClicking(false);
 
-    const handleMouseOver = (e: MouseEvent) => {
+    const onMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
+      if (!target) return;
 
-      if (target.matches('button, a, .btn-tech, .nav-link, .tech-card, .interactive-orb')) {
+      // Compound evaluation minimizes layout calls
+      const matchConfig = target.closest?.('button, a, .btn-tech, .nav-link, .tech-card, .interactive-orb');
+      
+      if (matchConfig) {
         setIsHovering(true);
-
         if (target.matches('button, .btn-tech')) setCursorText('Click');
         else if (target.matches('a')) setCursorText('Link');
         else if (target.matches('.nav-link')) setCursorText('Navigate');
         else if (target.matches('.tech-card')) setCursorText('Explore');
         else if (target.matches('.interactive-orb')) setCursorText('Interact');
-
         setShowCursorText(true);
       } else {
         setIsHovering(false);
         setShowCursorText(false);
       }
 
-      if (target.matches('.cursor-magnetic')) {
-        const rect = target.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const deltaX = (e.clientX - centerX) * 0.1;
-        const deltaY = (e.clientY - centerY) * 0.1;
-        target.style.setProperty('--cursor-x', `${deltaX}px`);
-        target.style.setProperty('--cursor-y', `${deltaY}px`);
+      // Magnetic Core styling elements
+      const magnetic = target.closest('.cursor-magnetic') as HTMLElement;
+      if (magnetic) {
+        const rect = magnetic.getBoundingClientRect();
+        const deltaX = (e.clientX - (rect.left + rect.width / 2)) * 0.1;
+        const deltaY = (e.clientY - (rect.top + rect.height / 2)) * 0.1;
+        magnetic.style.setProperty('--cursor-x', `${deltaX}px`);
+        magnetic.style.setProperty('--cursor-y', `${deltaY}px`);
       }
     };
 
-    const handleMouseOut = (e: MouseEvent) => {
+    const onMouseOut = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.matches('.cursor-magnetic')) {
+      if (target?.matches?.('.cursor-magnetic')) {
         target.style.setProperty('--cursor-x', '0px');
         target.style.setProperty('--cursor-y', '0px');
       }
     };
 
-    const handleClick = (e: MouseEvent) => {
-      // Fission explosion on every click
-      createExplosion(e.clientX, e.clientY);
+    const onClick = (e: MouseEvent) => {
+      // Exploded Particle Generation
+      const particleCount = 12;
+      const particles = Array.from({ length: particleCount }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 25 + Math.random() * 40;
+        return {
+          tx: Math.cos(angle) * distance,
+          ty: Math.sin(angle) * distance,
+          duration: 0.3 + Math.random() * 0.2,
+          type: (['cyan', 'hot', 'white'] as const)[Math.floor(Math.random() * 3)],
+        };
+      });
 
+      const expId = Date.now() + Math.random();
+      setExplosions(prev => [...prev, { x: e.clientX, y: e.clientY, id: expId, particles }]);
+
+      document.documentElement.classList.add('screen-shake');
+      setTimeout(() => document.documentElement.classList.remove('screen-shake'), 150);
+      setTimeout(() => setExplosions(prev => prev.filter(exp => exp.id !== expId)), 500);
+
+      // Clean inline CSS ripple inject mechanics
       const target = e.target as HTMLElement;
-      if (target.matches('.ripple-effect, button, .btn-tech')) {
-        const rect = target.getBoundingClientRect();
-        const ripple = document.createElement('div');
+      const rippleBtn = target?.closest('.ripple-effect, button, .btn-tech');
+      if (rippleBtn) {
+        const rect = rippleBtn.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-
+        const ripple = document.createElement('div');
         ripple.className = 'ripple';
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
 
-        const pos = getComputedStyle(target).position;
-        if (pos !== 'absolute' && pos !== 'relative') {
-          target.style.position = 'relative';
+        if (!['absolute', 'relative', 'fixed'].includes(getComputedStyle(rippleBtn).position)) {
+          rippleBtn.style.position = 'relative';
         }
-
-        target.appendChild(ripple);
+        rippleBtn.appendChild(ripple);
         setTimeout(() => ripple.remove(), 400);
       }
     };
 
-    document.addEventListener('mousemove', updateMousePosition);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('mouseout', handleMouseOut);
-    document.addEventListener('click', handleClick);
+    document.addEventListener('mousemove', onMouseMove, { passive: true });
+    document.addEventListener('mousedown', onMouseDown, { passive: true });
+    document.addEventListener('mouseup', onMouseUp, { passive: true });
+    document.addEventListener('mouseover', onMouseOver, { passive: true });
+    document.addEventListener('mouseout', onMouseOut, { passive: true });
+    document.addEventListener('click', onClick);
 
     return () => {
-      document.removeEventListener('mousemove', updateMousePosition);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('mouseout', handleMouseOut);
-      document.removeEventListener('click', handleClick);
-    };
-  }, [createExplosion]);
-
-  // Touch event handlers for mobile
-  useEffect(() => {
-    if (!isMobile) return;
-
-    let touchId = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      Array.from(e.touches).forEach((touch) => {
-        // Create ripple effect
-        const ripple = {
-          x: touch.clientX,
-          y: touch.clientY,
-          id: touchId++
-        };
-        setTouchRipples((prev) => [...prev, ripple]);
-
-        // Remove ripple after animation
-        setTimeout(() => {
-          setTouchRipples((prev) => prev.filter(r => r.id !== ripple.id));
-        }, 600);
-      });
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      Array.from(e.touches).forEach((touch) => {
-        // Create touch trail
-        const trail = {
-          x: touch.clientX,
-          y: touch.clientY,
-          id: touchId++
-        };
-        setTrails((prev) => [...prev.slice(-3), trail]);
-      });
-    };
-
-    document.addEventListener('touchstart', handleTouchStart, { passive: true });
-    document.addEventListener('touchmove', handleTouchMove, { passive: true });
-
-    return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mousedown', onMouseDown);
+      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mouseover', onMouseOver);
+      document.removeEventListener('mouseout', onMouseOut);
+      document.removeEventListener('click', onClick);
     };
   }, [isMobile]);
 
-  // Clean up old trails
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTrails((prev) => prev.slice(1));
-    }, 50);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Update clock every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setClock(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-const formatClock = (date: Date) => {
-  return date
-    .toLocaleTimeString('en-US', {
-      hour12: true,       // 12-hour format
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
-};
+  // Drop processing completely for mobile screens
+  if (isMobile !== false) return null;
 
   return (
-    <>
-      {/* Custom white cursor */}
-      <div
-        className={`custom-cursor ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}
-        style={{
-          left: mousePosition.x,
-          top: mousePosition.y,
-        }}
-      >
-        {/* Nucleus */}
+    <div ref={containerRef} className="cursor-effects-wrapper pointer-events-none fixed inset-0 z-[9999]">
+      {/* Custom Core Cursor Component */}
+      <div className={`custom-cursor ${isHovering ? 'hovering' : ''} ${isClicking ? 'clicking' : ''}`}>
         <div className="cursor-nucleus" />
-        {/* Orbit rings */}
         <div className="cursor-orbit cursor-orbit-1" />
         <div className="cursor-orbit cursor-orbit-2" />
         <div className="cursor-orbit cursor-orbit-3" />
-        {/* Electrons */}
         <div className="cursor-electron cursor-electron-1" />
         <div className="cursor-electron cursor-electron-2" />
         <div className="cursor-electron cursor-electron-3" />
       </div>
 
-      {/* Tech Clock near cursor - Hidden on mobile */}
-      {!isMobile && (
-        <div
-          className="cursor-clock"
-          style={{
-            left: mousePosition.x + 36,
-            top: mousePosition.y - 8,
-          }}
-        >
-          <span>{formatClock(clock)}</span>
-        </div>
-      )}
-      {/* Cursor Text */}
-      <div
-        className={`cursor-text ${showCursorText ? 'visible' : ''}`}
-        style={{
-          left: mousePosition.x,
-          top: mousePosition.y,
-        }}
-      >
+      {/* Floating System Clock */}
+      <div className="cursor-clock">
+        <span>{clockText}</span>
+      </div>
+
+      {/* Dynamic Action Helper Text */}
+      <div className={`cursor-text ${showCursorText ? 'visible' : ''}`}>
         {cursorText}
       </div>
 
-      {/* Cursor Trails */}
-      {trails.map((trail, index) => (
+      {/* Pure CSS Tail Trails mapped to hardware coordinates */}
+      {[...Array(6)].map((_, i) => (
         <div
-          key={trail.id}
-          className="cursor-trail"
-          style={{
-            left: trail.x,
-            top: trail.y,
-            opacity: ((index + 1) / trails.length) * 0.5,
-            transform: `scale(${(index + 1) / trails.length})`,
-          }}
+          key={i}
+          className="cursor-trail-optimized"
+          style={{ '--delay': `${i * 25}ms` } as React.CSSProperties}
         />
       ))}
 
-      {/* Touch Ripples for Mobile */}
-      {isMobile && touchRipples.map((ripple) => (
-        <div
-          key={ripple.id}
-          className="touch-ripple"
-          style={{
-            left: ripple.x,
-            top: ripple.y,
-          }}
-        />
-      ))}
-
-      {/* Fission Explosions */}
+      {/* Optimized Explosions Node Pool */}
       {explosions.map((exp) => (
-        <div
-          key={exp.id}
-          className="fission-explosion"
-          style={{ left: exp.x, top: exp.y }}
-        >
+        <div key={exp.id} className="fission-explosion" style={{ left: exp.x, top: exp.y }}>
           <div className="fission-flash" />
           <div className="fission-shockwave" />
           {exp.particles.map((p, i) => (
             <div
               key={i}
-              className={`fission-particle ${p.type === 'hot' ? 'hot' : p.type === 'white' ? 'white' : ''}`}
+              className={`fission-particle ${p.type}`}
               style={{
                 '--tx': `${p.tx}px`,
                 '--ty': `${p.ty}px`,
@@ -315,7 +232,7 @@ const formatClock = (date: Date) => {
           ))}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
