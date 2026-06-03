@@ -2079,50 +2079,96 @@
   }
 }
 
-/* === Electric spark on typed letters === */
+/* === Electric spark EXPLOSION on typed letters === */
 .spark-letter {
   display: inline-block;
   position: relative;
   white-space: pre;
 }
 .spark-letter-active {
-  animation: spark-letter-flash 0.55s ease-out;
+  animation: spark-letter-flash 0.6s ease-out;
   color: #fff;
   text-shadow:
     0 0 6px #00eaff,
     0 0 14px #00b3ff,
-    0 0 22px #7df9ff;
-}
-.spark-letter-active::before,
-.spark-letter-active::after {
-  content: "";
-  position: absolute;
-  top: 0.15em;
-  left: 50%;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 6px 2px #00eaff, 0 0 12px 4px #7df9ff;
-  pointer-events: none;
-  opacity: 0;
-  animation: spark-fly 0.55s ease-out forwards;
-}
-.spark-letter-active::after {
-  animation: spark-fly-alt 0.55s ease-out forwards;
-  background: #ffe066;
-  box-shadow: 0 0 6px 2px #ffb300, 0 0 12px 4px #ffd54f;
+    0 0 22px #7df9ff,
+    0 0 30px #ffd54f;
 }
 @keyframes spark-letter-flash {
-  0%   { filter: brightness(2.4) saturate(1.4); transform: translateY(-1px); }
-  40%  { filter: brightness(1.6); }
-  100% { filter: none; transform: translateY(0); text-shadow: none; color: inherit; }
+  0%   { filter: brightness(2.6) saturate(1.5); transform: translateY(-1px) scale(1.08); }
+  40%  { filter: brightness(1.6); transform: translateY(0) scale(1.02); }
+  100% { filter: none; transform: none; text-shadow: none; color: inherit; }
 }
-@keyframes spark-fly {
-  0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
-  100% { opacity: 0; transform: translate(-180%, -14px) scale(0.4); }
+
+.spark-explosion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 5;
 }
-@keyframes spark-fly-alt {
-  0%   { opacity: 1; transform: translate(-50%, 0) scale(1); }
-  100% { opacity: 0; transform: translate(80%, -14px) scale(0.4); }
+
+/* Central white flash */
+.spark-flash {
+  position: absolute;
+  top: 0; left: 0;
+  width: 14px; height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #ffe066 35%, #00eaff 70%, transparent 100%);
+  transform: scale(0);
+  animation: spark-flash-anim 0.55s ease-out forwards;
+}
+@keyframes spark-flash-anim {
+  0%   { transform: scale(0); opacity: 1; }
+  35%  { transform: scale(2.4); opacity: 0.95; }
+  100% { transform: scale(4.5); opacity: 0; }
+}
+
+/* Expanding shockwave ring */
+.spark-ring {
+  position: absolute;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  border: 2px solid #7df9ff;
+  box-shadow: 0 0 8px #00eaff, inset 0 0 6px #00eaff;
+  transform: scale(0);
+  animation: spark-ring-anim 0.6s ease-out forwards;
+}
+@keyframes spark-ring-anim {
+  0%   { transform: scale(0); opacity: 1; border-width: 2px; }
+  100% { transform: scale(7); opacity: 0; border-width: 0.5px; }
+}
+
+/* Flying shards/particles */
+.spark-shard {
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+  background: #00eaff;
+  box-shadow: 0 0 4px 1px #00eaff, 0 0 8px 2px #7df9ff;
+  opacity: 0;
+  animation: spark-shard-fly 0.6s ease-out forwards;
+}
+.spark-shard-0 { --tx:  22px; --ty: -18px; }
+.spark-shard-1 { --tx:  28px; --ty:   2px; background:#ffe066; box-shadow:0 0 4px 1px #ffb300,0 0 8px 2px #ffd54f; }
+.spark-shard-2 { --tx:  18px; --ty:  20px; }
+.spark-shard-3 { --tx:  -4px; --ty:  26px; background:#fff; box-shadow:0 0 6px 2px #fff,0 0 10px 3px #7df9ff; }
+.spark-shard-4 { --tx: -22px; --ty:  16px; }
+.spark-shard-5 { --tx: -28px; --ty:  -4px; background:#ffe066; box-shadow:0 0 4px 1px #ffb300,0 0 8px 2px #ffd54f; }
+.spark-shard-6 { --tx: -20px; --ty: -20px; }
+.spark-shard-7 { --tx:  -2px; --ty: -28px; background:#fff; box-shadow:0 0 6px 2px #fff,0 0 10px 3px #7df9ff; }
+.spark-shard-8 { --tx:  14px; --ty: -10px; --dur: 0.7s; }
+.spark-shard-9 { --tx: -14px; --ty:   8px; --dur: 0.7s; background:#ffe066; box-shadow:0 0 4px 1px #ffb300,0 0 8px 2px #ffd54f; }
+
+@keyframes spark-shard-fly {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1.2); }
+  60%  { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
 }
