@@ -25,15 +25,12 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
-  // Optimized configuration limits for lightning tendrils
-  const tendrilCount = isMobile ? 6 : 12; // More tendrils for a denser, more realistic fractal look
-  const tendrilSpread = isMobile ? 25 : 50; // Distance of lightning branching
+  // Realism constraints: Tight limits keep performance high while remaining chaotic
+  const strikeCount = isMobile ? 5 : 9; 
+  const lightningRadius = isMobile ? 35 : 70; 
 
   return (
     <span className={className} style={{ ...style, position: "relative" }}>
-      {/* PERFORMANCE OPTIMIZATION: One static style block. 
-        Using hardware-accelerated transforms and opacity avoids layout thrashing.
-      */}
       <style>{`
         .spark-letter {
           display: inline-block;
@@ -41,14 +38,15 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           will-change: transform;
         }
         
-        /* The character flashes bright white/blue instantly */
+        /* Filament activation - mimics real plasma ionization */
         .spark-letter-active {
-          animation: letter-lightning-pop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: letter-lightning-shock 0.25s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
         }
 
-        @keyframes letter-lightning-pop {
-          0% { transform: scale(1); color: #fff; text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff; }
-          20% { transform: scale(var(--exp-scale, 1.3)); color: #3b82f6; text-shadow: 0 0 20px #00f0ff, 0 0 40px #00f0ff; }
+        @keyframes letter-lightning-shock {
+          0% { transform: scale(1); color: #fff; text-shadow: 0 0 8px #00f0ff, 0 0 15px #3b82f6; }
+          12% { transform: scale(var(--exp-scale, 1.25)); color: #fff; text-shadow: 0 0 25px #00f0ff, 0 0 50px #fff; }
+          30% { color: #00f0ff; }
           100% { transform: scale(1); }
         }
 
@@ -62,60 +60,50 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           will-change: transform;
         }
 
-        /* 1. Intensive lightning flash core (brighter, more focused gradient) */
+        /* 1. Hot Plasma Core Glow */
         .spark-flash {
           position: absolute;
-          width: 30px;
-          height: 30px;
-          background: radial-gradient(circle, #ffffff 10%, rgba(59, 130, 246, 0.9) 40%, rgba(0, 240, 255, 0.8) 60%, transparent 80%);
+          width: 40px;
+          height: 40px;
+          background: radial-gradient(circle, #ffffff 15%, rgba(0, 240, 255, 0.8) 45%, rgba(59, 130, 246, 0.2) 70%, transparent 90%);
           transform: translate(-50%, -50%) scale(0);
-          animation: flash-lightning-zap 0.3s ease-out forwards;
+          animation: core-discharge var(--duration, 0.28s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
           will-change: transform, opacity;
         }
 
-        @keyframes flash-lightning-zap {
-          0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
-          100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+        @keyframes core-discharge {
+          0% { transform: translate(-50%, -50%) scale(0.2); opacity: 1; filter: brightness(2); }
+          15% { opacity: 0.9; }
+          45% { filter: brightness(1); }
+          100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
         }
 
-        /* 2. Focused Blue Shockwave Ring (like in image_4.png) */
-        .spark-ring {
+        /* 2. Realistic Jagged Lightning SVGs */
+        .realistic-bolt {
           position: absolute;
-          width: 80px;
-          height: 80px;
-          border: 2px solid #00f0ff;
-          border-radius: 50%;
-          transform: translate(-50%, -50%) scale(0);
-          animation: shock-lightning-ring 0.35s cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
-          will-change: transform, opacity;
-        }
-
-        @keyframes shock-lightning-ring {
-          0% { transform: translate(-50%, -50%) scale(0.05); opacity: 1; border-color: #ffffff; }
-          100% { transform: translate(-50%, -50%) scale(var(--ring-scale, 1.1)); opacity: 0; border-color: #3b82f6; }
-        }
-
-        /* 3. Intricate branching lightning tendrils (like image_4.png) */
-        .spark-tendril {
-          position: absolute;
-          /* Each tendril is an SVG path for realistic forking */
-          width: 100%;
-          height: 100%;
+          width: calc(var(--rad) * 2px);
+          height: calc(var(--rad) * 2px);
+          transform: translate(-50%, -50%);
           fill: none;
-          stroke: #ffffff; /* Brighter tendrils */
-          stroke-width: 0.8px;
+          stroke: #ffffff; /* Brilliant white core */
+          stroke-width: 1.2px;
           stroke-linecap: round;
-          filter: drop-shadow(0 0 3px #3b82f6) drop-shadow(0 0 6px #00f0ff);
+          stroke-linejoin: round;
+          /* Dual-layer drop shadow replicates real high-intensity exposure glow */
+          filter: drop-shadow(0 0 2px #00f0ff) drop-shadow(0 0 5px #3b82f6);
           opacity: 0;
-          animation: tendril-lightning-zap 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          will-change: transform, opacity;
-          transform-origin: center;
+          animation: bolt-crackle var(--duration, 0.28s) steps(4, end) forwards;
+          will-change: opacity, filter;
         }
 
-        @keyframes tendril-lightning-zap {
-          0% { transform: scale(0); opacity: 1; stroke-dasharray: 200; stroke-dashoffset: 200; }
-          50% { opacity: 1; }
-          100% { transform: scale(var(--tendril-final-scale, 1)); opacity: 0; stroke-dashoffset: 0; }
+        /* Real arcs flicker instantly instead of expanding smoothly */
+        @keyframes bolt-crackle {
+          0% { opacity: 0; stroke-dasharray: 300; stroke-dashoffset: 300; }
+          10% { opacity: 1; stroke-dashoffset: 120; }
+          25% { opacity: 0.4; filter: brightness(1.5) drop-shadow(0 0 4px #00f0ff); }
+          40% { opacity: 1; stroke-dashoffset: 0; }
+          65% { opacity: 0.7; }
+          100% { opacity: 0; }
         }
       `}</style>
 
@@ -125,7 +113,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           <span
             key={i}
             className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
-            style={{ "--exp-scale": isMobile ? "1.15" : "1.35" } as React.CSSProperties}
+            style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
           >
             {ch === " " ? "\u00A0" : ch}
             
@@ -133,63 +121,31 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
               <span 
                 className="spark-explosion" 
                 aria-hidden="true"
-                style={{
-                  "--ring-scale": isMobile ? "0.6" : "1.1",
-                  "--tendril-final-scale": isMobile ? "1.0" : "1.2",
+                style={{ 
+                  "--rad": lightningRadius.toString(),
+                  "--duration": isMobile ? "0.22s" : "0.28s"
                 } as React.CSSProperties}
               >
                 <span className="spark-flash" />
-                <span className="spark-ring" />
                 
-                {/* Dynamically create intricate lightning tendrils using SVG paths */}
-                {Array.from({ length: tendrilCount }).map((_, k) => {
-                  // Calculate dynamic angles to create a complex branching effect
-                  const baseAngle = (k * 360) / tendrilCount;
-                  const branchAngle1 = baseAngle + (Math.random() * 20 - 10);
-                  const branchAngle2 = branchAngle1 + (Math.random() * 20 - 10);
-                  
-                  // Trigonometry to define path segments that branch fractal-style
-                  const radians1 = (branchAngle1 * Math.PI) / 180;
-                  const radians2 = (branchAngle2 * Math.PI) / 180;
-                  
-                  // Use particleSpread as the maximum extent for the path
-                  const segmentLength = tendrilSpread;
-                  const pathExt1 = segmentLength * 0.5; // distance of first branch point
-                  const pathExt2 = segmentLength; // final extent
-                  
-                  const x1 = (Math.cos(radians1) * pathExt1).toFixed(1);
-                  const y1 = (Math.sin(radians1) * pathExt1).toFixed(1);
-                  
-                  const x2a = (Math.cos(radians2) * pathExt2).toFixed(1); // main continuation
-                  const y2a = (Math.sin(radians2) * pathExt2).toFixed(1);
+                {/* Procedural Generation of Realistic Lightning Paths */}
+                {Array.from({ length: strikeCount }).map((_, k) => {
+                  // 1. Establish an organic, non-uniform angle distribution
+                  const baseAngle = (k * 360) / strikeCount;
+                  const randomAngle = baseAngle + (Math.random() * 40 - 20);
+                  const rads = (randomAngle * Math.PI) / 180;
 
-                  const radians2b = ((branchAngle2 + (Math.random()*40-20)) * Math.PI) / 180;
-                  const x2b = (Math.cos(radians2b) * (pathExt2 * 1.1)).toFixed(1); // sub-fork
-                  const y2b = (Math.sin(radians2b) * (pathExt2 * 1.1)).toFixed(1);
-
-                  // Complex SVG path to simulate lightning forking like image_4.png
-                  const pathData = `M 0 0 L ${x1} ${y1} C ${x1} ${y1}, ${x2a} ${y2a}, ${x2a} ${y2a} L ${x2b} ${y2b}`;
+                  // 2. Build out realistic variations in length for each filament path
+                  const maxReach = lightningRadius * (0.5 + Math.random() * 0.6);
                   
-                  return (
-                    <svg 
-                      key={k} 
-                      className="spark-tendril" 
-                      viewBox={`-${segmentLength} -${segmentLength} ${segmentLength * 2} ${segmentLength * 2}`} 
-                      style={{
-                        animationDelay: `${k * 0.015}s`,
-                      }}
-                    >
-                      <path d={pathData} />
-                    </svg>
-                  );
-                })}
-              </span>
-            )}
-          </span>
-        );
-      })}
-    </span>
-  );
-};
+                  // 3. Create a multi-segment jagged path array manually
+                  const segments = 4;
+                  let currentX = 0;
+                  let currentY = 0;
+                  let pathSegments = ["M 0 0"];
 
-export default SparkText;
+                  for (let s = 1; s <= segments; s++) {
+                    const progress = s / segments;
+                    // Target trajectory line
+                    const targetX = Math.cos(rads) * maxReach * progress;
+                    const targetY = Math.sin(rads) * maxReach * progress
