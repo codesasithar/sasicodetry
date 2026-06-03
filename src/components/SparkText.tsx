@@ -64,8 +64,8 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
     const driftFactor = isMobile ? 8 : 16;
 
     return Array.from({ length: Math.max(chars.length, 50) }).map(() => {
-      const charTilt = (Math.random() * 2 - 1).toFixed(1); // Reduced tilt slightly to preserve script connectivity
-      const verticalNudge = (Math.random() * 1 - 0.5).toFixed(1);
+      const charTilt = (Math.random() * 1.6 - 0.8).toFixed(1); 
+      const verticalNudge = (Math.random() * 0.8 - 0.4).toFixed(1);
 
       const bolts = Array.from({ length: strikeCount }).map((_, k) => {
         const baseAngle = (k * 360) / strikeCount;
@@ -120,28 +120,33 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         .spark-container-premium-hand {
           font-family: 'Sacramento', cursive;
-          font-size: 2.3em; 
+          font-size: 2.4em; 
           font-weight: 400;
           color: #f8fafc;
-          word-spacing: 0.25em;
+          word-spacing: 0.3em;
           text-shadow: 0 0 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.15);
           -webkit-font-smoothing: antialiased;
-          white-space: nowrap; /* Prevents awkward mid-word script wrapping */
+          white-space: nowrap;
+          overflow: visible; /* Guarantees layout containers don't mask text edges */
         }
 
         .spark-letter {
-          display: inline; /* Crucial fix: elements must be inline to keep cursive loops connected */
+          display: inline-block; /* Changed back to block safely due to padding/margin mitigation */
           position: relative;
           will-change: transform;
           cursor: pointer;
-          margin: 0 -0.04em; /* Tightens the spacing box layout so lines visually merge */
+          
+          /* CRITICAL FIX: Side padding prevents cursive swashes from being clipped by the bounding box, 
+             while matching negative margins pull the adjacent letters back into a true continuous flow */
+          padding: 0 0.12em 0 0.08em;
+          margin: 0 -0.14em 0 -0.06em;
+          
           transition: color 0.25s ease;
         }
         
         .spark-letter-active {
-          display: inline-block; /* Becomes block momentarily during pop so scaling transforms compute smoothly */
           animation: letter-lightning-shock 0.25s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
-          z-index: 10;
+          z-index: 20;
         }
 
         @keyframes letter-lightning-shock {
@@ -153,7 +158,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         .spark-explosion {
           position: absolute;
-          top: 40%;
+          top: 45%;
           left: 50%;
           transform: translate(-50%, -50%);
           pointer-events: none;
@@ -219,9 +224,8 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
               style={{ 
                 "--exp-scale": isMobile ? "1.12" : "1.25",
                 "--tilt": `${config.charTilt}deg`,
-                // Applying structural layouts inline while maintaining a neat stacking order
-                zIndex: isActive ? 10 : i,
-                transform: isActive ? undefined : `rotate(${config.charTilt}deg) translateY(${config.verticalNudge}px)`
+                zIndex: isActive ? 30 : i,
+                transform: `rotate(${config.charTilt}deg) translateY(${config.verticalNudge}px)`
               } as React.CSSProperties}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
