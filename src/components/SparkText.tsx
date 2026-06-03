@@ -21,6 +21,15 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           className={`spark-letter${i === lastIdx ? " spark-letter-active" : ""}`}
         >
           {ch === " " ? "\u00A0" : ch}
+          {i === lastIdx && ch !== " " && (
+            <span className="spark-explosion" aria-hidden="true">
+              <span className="spark-flash" />
+              <span className="spark-ring" />
+              {Array.from({ length: 10 }).map((_, k) => (
+                <span key={k} className={`spark-shard spark-shard-${k}`} />
+              ))}
+            </span>
+          )}
         </span>
       ))}
     </span>
