@@ -7,7 +7,7 @@ interface SparkTextProps {
 }
 
 /**
- * Renders text with an energetic, small electric spark explosion
+ * Renders text with a sharp, electric blue lightning shock explosion
  * on whichever character is currently active. Bypasses for
  * specific technical job titles.
  */
@@ -15,7 +15,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Only run screen checks if we aren't bypassing the component
     if (text === "Application Developer") return;
 
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -25,7 +24,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   }, [text]);
 
   // --- EXCLUSION GUARD ---
-  // If the text matches exactly, render as standard text.
   if (text === "Application Developer") {
     return <span className={className} style={style}>{text}</span>;
   }
@@ -33,34 +31,32 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const chars = Array.from(text);
   const lastIdx = chars.length - 1;
 
-  // Responsive fine-tuning parameters for the small explosion
-  // Fewer particles and tighter spread on mobile
-  const shardCount = isMobile ? 6 : 10;
-  const explosionScale = isMobile ? "1.15" : "1.4"; // Controls text letter scale
-  const particleSpread = isMobile ? "25px" : "55px"; // Controls particle explosion radius
-  const effectDuration = isMobile ? "0.3s" : "0.5s";
+  // Responsive parameters for the clean lightning strike
+  const shardCount = isMobile ? 5 : 8; // Slightly fewer shards for a cleaner "zap" look
+  const explosionScale = isMobile ? "1.15" : "1.35";
+  const particleSpread = isMobile ? "20px" : "45px"; // Slightly tighter for high voltage look
+  const effectDuration = isMobile ? "0.2s" : "0.35s"; // Snappier duration for lightning speed
 
   return (
     <span className={className} style={{ ...style, position: "relative" }}>
       <style>{`
-        /* The container for the entire effect */
         .spark-letter {
           display: inline-block;
           position: relative;
         }
         
-        /* The character itself flashes bright white and scales up slightly on pop */
+        /* The character flashes instantly to pure white/cyan like a neon filament */
         .spark-letter-active {
-          animation: letter-pop ${effectDuration} ease-out;
+          animation: letter-shock ${effectDuration} cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        @keyframes letter-pop {
-          0% { transform: scale(1); color: #fff; opacity: 1; }
-          20% { transform: scale(${explosionScale}); color: #3b82f6; text-shadow: 0 0 10px #3b82f6, 0 0 20px #fff; }
-          100% { transform: scale(1); }
+        @keyframes letter-shock {
+          0% { transform: scale(1); color: #fff; filter: drop-shadow(0 0 15px #00f0ff); }
+          15% { transform: scale(${explosionScale}); color: #00f0ff; }
+          100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
         }
 
-        /* Explosion Wrapper */
+        /* Lightning Explosion Center */
         .spark-explosion {
           position: absolute;
           top: 50%;
@@ -73,83 +69,40 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           align-items: center;
         }
 
-        /* 1. Core Lightning Flash/Arc (Static visual representation of code) */
+        /* 1. Electrical Core Zap */
         .spark-flash {
           position: absolute;
-          width: calc(${explosionScale} * 18px);
-          height: calc(${explosionScale} * 18px);
-          background: radial-gradient(circle, #fff 10%, rgba(59, 130, 246, 0.9) 50%, rgba(168, 85, 247, 0) 70%);
+          width: calc(${explosionScale} * 15px);
+          height: calc(${explosionScale} * 15px);
+          /* Shifted completely to white and intense electric blues */
+          background: radial-gradient(circle, #ffffff 0%, rgba(0, 240, 255, 0.9) 45%, rgba(59, 130, 246, 0) 70%);
           transform: translate(-50%, -50%);
-          animation: flash-burn ${effectDuration} ease-out forwards;
+          animation: flash-zap ${effectDuration} ease-out forwards;
         }
 
-        @keyframes flash-burn {
-          0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
-          100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+        @keyframes flash-zap {
+          0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+          50% { opacity: 1; }
+          100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
         }
 
-        /* 2. Concentric Shockwave Ring */
+        /* 2. Sharp Cyan Shockwave Arc */
         .spark-ring {
           position: absolute;
-          width: 8px;
-          height: 8px;
-          border: 2px solid #3b82f6;
+          width: 6px;
+          height: 6px;
+          border: 1.5px solid #00f0ff;
           border-radius: 50%;
           transform: translate(-50%, -50%);
-          animation: ring-expand ${effectDuration} cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+          /* Standard exponential bezier for a realistic "snapping" expansion */
+          animation: shock-ring ${effectDuration} cubic-bezier(0.1, 0.8, 0.1, 1) forwards;
         }
 
-        @keyframes ring-expand {
-          0% { width: 4px; height: 4px; opacity: 1; border-color: #fff; }
-          40% { border-color: #a855f7; }
-          100% { width: calc(${particleSpread} * 2); height: calc(${particleSpread} * 2); opacity: 0; }
+        @keyframes shock-ring {
+          0% { width: 2px; height: 2px; opacity: 1; border-color: #fff; }
+          100% { width: calc(${particleSpread} * 2); height: calc(${particleSpread} * 2); opacity: 0; border-color: #3b82f6; }
         }
 
-        /* 3. Small, flying shards/particles with blue and purple trace */
+        /* 3. Plasma Shards/Sparks */
         .spark-shard {
-          position: absolute;
-          width: ${isMobile ? "3px" : "4px"};
-          height: ${isMobile ? "3px" : "4px"};
-          background-color: #fff;
-          box-shadow: 0 0 6px #3b82f6, 0 0 10px #a855f7;
-          border-radius: 50%;
-          transform: translate(-50%, -50%);
-        }
-      `}</style>
-
-      {chars.map((ch, i) => {
-        const isActive = i === lastIdx;
-        return (
-          <span
-            key={i}
-            className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
-          >
-            {ch === " " ? "\u00A0" : ch}
-            
-            {isActive && ch !== " " && (
-              <span className="spark-explosion" aria-hidden="true">
-                <span className="spark-flash" />
-                <span className="spark-ring" />
-                
-                {/* Dynamically generate shards with trigonometric trajectories */}
-                {Array.from({ length: shardCount }).map((_, k) => (
-                  <span 
-                    key={k} 
-                    className="spark-shard" 
-                    style={{
-                      animation: `shard-fly-${k} ${effectDuration} cubic-bezier(0.25, 1, 0.5, 1) forwards`,
-                    }}
-                  />
-                ))}
-
-                {/* Inline style block to register the per-particle trajectories */}
-                <style>{`
-                  ${Array.from({ length: shardCount }).map((_, k) => {
-                    const angle = (k * 360) / shardCount + Math.random() * 10;
-                    const radians = (angle * Math.PI) / 180;
-                    const x = (Math.cos(radians) * parseFloat(particleSpread)).toFixed(1);
-                    const y = (Math.sin(radians) * parseFloat(particleSpread)).toFixed(1);
-                    return `
-                      @keyframes shard-fly-${k} {
-                        0% { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
-                        100% { transform
+          position
