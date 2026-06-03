@@ -8,6 +8,7 @@ interface SparkTextProps {
 
 const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -55,12 +56,13 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const lightningRadius = isMobile ? 40 : 85; 
 
   return (
-    <span className={className} style={{ ...style, position: "relative" }}>
+    <span className={className} style={{ ...style, position: "relative", display: "inline-block" }}>
       <style>{`
         .spark-letter {
           display: inline-block;
           position: relative;
           will-change: transform;
+          cursor: pointer;
         }
         
         .spark-letter-active {
@@ -80,14 +82,16 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           left: 50%;
           transform: translate(-50%, -50%);
           pointer-events: none;
-          z-index: 20;
-          will-change: transform;
+          z-index: 50;
+          width: 0;
+          height: 0;
+          display: block;
         }
 
         .spark-flash {
           position: absolute;
-          width: 50px;
-          height: 50px;
+          width: 60px;
+          height: 60px;
           background: radial-gradient(circle, #ffffff 20%, rgba(0, 240, 255, 0.85) 50%, rgba(59, 130, 246, 0.3) 75%, transparent 100%);
           transform: translate(-50%, -50%) scale(0);
           animation: core-discharge var(--duration, 0.3s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
@@ -106,12 +110,13 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           width: calc(var(--rad) * 2px);
           height: calc(var(--rad) * 2px);
           transform: translate(-50%, -50%);
+          overflow: visible !important;
           fill: none;
           stroke: #ffffff;
-          stroke-width: 1.5px;
+          stroke-width: 1.8px;
           stroke-linecap: round;
           stroke-linejoin: round;
-          filter: drop-shadow(0 0 3px #00f0ff) drop-shadow(0 0 8px #3b82f6) drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
+          filter: drop-shadow(0 0 4px #00f0ff) drop-shadow(0 0 10px #3b82f6);
           opacity: 0;
           animation: bolt-crackle var(--duration, 0.3s) steps(5, end) forwards;
           will-change: opacity, filter;
@@ -119,6 +124,97 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         @keyframes bolt-crackle {
           0% { opacity: 0; stroke-dasharray: 400; stroke-dashoffset: 400; }
-          8% { opacity: 1; stroke-dashoffset: 150; }
-          22% { opacity: 0.5; filter: brightness(1.8) drop-shadow(0 0 5px #00f0ff); }
-          3
+          10% { opacity: 1; stroke-dashoffset: 150; }
+          25% { opacity: 0.6; filter: brightness(1.8) drop-shadow(0 0 6px #00f0ff); }
+          45% { opacity: 1; stroke-dashoffset: 0; }
+          65% { opacity: 0.8; }
+          100% { opacity: 0; }
+        }
+      `}</style>
+
+      {chars.map((ch, i) => {
+        // Triggers effect during typewriter text updates OR on active hover layout
+        const isActive = i === lastIdx || hoveredIndex === i;
+        
+        return (
+          <span
+            key={i}
+            className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
+            style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {ch === " " ? "\u00A0" : ch}
+            
+            {isActive && ch !== " " && (
+              <span 
+                className="spark-explosion" 
+                aria-hidden="true"
+                style={{ 
+                  "--rad": lightningRadius.toString(),
+                  "--duration": isMobile ? "0.24s" : "0.32s"
+                } as React.CSSProperties}
+              >
+                <span className="spark-flash" />
+                
+                {Array.from({ length: strikeCount }).map((_, k) => {
+                  const baseAngle = (k * 360) / strikeCount;
+                  const randomAngle = baseAngle + (Math.random() * 30 - 15);
+                  const rads = (randomAngle * Math.PI) / 180;
+                  const maxReach = lightningRadius * (0.6 + Math.random() * 0.5);
+                  
+                  const segments = 5;
+                  let currentX = 0;
+                  let currentY = 0;
+                  const pathSegments = ["M 0 0"];
+
+                  for (let s = 1; s <= segments; s++) {
+                    const progress = s / segments;
+                    const targetX = Math.cos(rads) * maxReach * progress;
+                    const targetY = Math.sin(rads) * maxReach * progress;
+
+                    const driftFactor = isMobile ? 8 : 16;
+                    const perpAngle = randomAngle + 90;
+                    const perpRads = (perpAngle * Math.PI) / 180;
+                    const displacement = (Math.random() * driftFactor - driftFactor / 2) * (1 - progress * 0.3);
+
+                    currentX = targetX + Math.cos(perpRads) * displacement;
+                    currentY = targetY + Math.sin(perpRads) * displacement;
+
+                    pathSegments.push(`L ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
+
+                    if (s === 2 && Math.random() > 0.35) {
+                      const forkAngle = randomAngle + (Math.random() * 50 - 25);
+                      const forkRads = (forkAngle * Math.PI) / 180;
+                      const forkX = currentX + Math.cos(forkRads) * (maxReach * 0.35);
+                      const forkY = currentY + Math.sin(forkRads) * (maxReach * 0.35);
+                      
+                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)} L ${forkX.toFixed(1)} ${forkY.toFixed(1)}`);
+                      pathSegments.push(`M ${currentX.toFixed(1)} ${currentY.toFixed(1)}`);
+                    }
+                  }
+
+                  return (
+                    <svg 
+                      key={k} 
+                      className="realistic-bolt" 
+                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${(Math.random() * 10 - 5).toFixed(1)}deg)`,
+                        animationDelay: `${Math.random() * 0.03}s`
+                      }}
+                    >
+                      <path d={pathSegments.join(" ")} />
+                    </svg>
+                  );
+                })}
+              </span>
+            )}
+          </span>
+        );
+      })}
+    </span>
+  );
+};
+
+export default SparkText;
