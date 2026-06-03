@@ -2144,31 +2144,56 @@
   100% { transform: scale(7); opacity: 0; border-width: 0.5px; }
 }
 
-/* Flying shards/particles */
+/* Lightning bolts shooting outward */
 .spark-shard {
   position: absolute;
   top: 0; left: 0;
-  width: 3px; height: 3px;
-  margin: -1.5px 0 0 -1.5px;
-  border-radius: 50%;
-  background: #00eaff;
-  box-shadow: 0 0 4px 1px #00eaff, 0 0 8px 2px #7df9ff;
+  width: 4px;
+  height: 22px;
+  margin: -11px 0 0 -2px;
+  background: linear-gradient(180deg, #ffffff 0%, #b3f0ff 40%, #00eaff 100%);
+  /* Jagged lightning bolt shape */
+  clip-path: polygon(50% 0%, 70% 28%, 55% 38%, 78% 60%, 45% 72%, 65% 100%, 30% 70%, 48% 58%, 25% 40%, 42% 28%);
+  filter: drop-shadow(0 0 3px #00eaff) drop-shadow(0 0 6px #7df9ff) drop-shadow(0 0 10px #ffffff);
   opacity: 0;
-  animation: spark-shard-fly 0.6s ease-out forwards;
+  transform-origin: 50% 0%;
+  animation: spark-bolt-fly 0.55s ease-out forwards;
 }
-.spark-shard-0 { --tx:  22px; --ty: -18px; }
-.spark-shard-1 { --tx:  28px; --ty:   2px; background:#ffe066; box-shadow:0 0 4px 1px #ffb300,0 0 8px 2px #ffd54f; }
-.spark-shard-2 { --tx:  18px; --ty:  20px; }
-.spark-shard-3 { --tx:  -4px; --ty:  26px; background:#fff; box-shadow:0 0 6px 2px #fff,0 0 10px 3px #7df9ff; }
-.spark-shard-4 { --tx: -22px; --ty:  16px; }
-.spark-shard-5 { --tx: -28px; --ty:  -4px; background:#ffe066; box-shadow:0 0 4px 1px #ffb300,0 0 8px 2px #ffd54f; }
-.spark-shard-6 { --tx: -20px; --ty: -20px; }
-.spark-shard-7 { --tx:  -2px; --ty: -28px; background:#fff; box-shadow:0 0 6px 2px #fff,0 0 10px 3px #7df9ff; }
-.spark-shard-8 { --tx:  14px; --ty: -10px; --dur: 0.7s; }
-.spark-shard-9 { --tx: -14px; --ty:   8px; --dur: 0.7s; background:#ffe066; box-shadow:0 0 4px 1px #ffb300,0 0 8px 2px #ffd54f; }
+/* Yellow-hot variant */
+.spark-shard.spark-shard-hot {
+  background: linear-gradient(180deg, #ffffff 0%, #ffe066 40%, #ffb300 100%);
+  filter: drop-shadow(0 0 3px #ffb300) drop-shadow(0 0 6px #ffd54f) drop-shadow(0 0 10px #ffffff);
+}
 
-@keyframes spark-shard-fly {
-  0%   { opacity: 1; transform: translate(0, 0) scale(1.2); }
-  60%  { opacity: 0.9; }
-  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.2); }
+/* 10 bolts radiating in different directions (angle in deg) */
+.spark-shard-0 { --angle:   0deg; --dist: 30px; }
+.spark-shard-1 { --angle:  36deg; --dist: 34px; }
+.spark-shard-2 { --angle:  72deg; --dist: 28px; }
+.spark-shard-3 { --angle: 108deg; --dist: 32px; }
+.spark-shard-4 { --angle: 144deg; --dist: 30px; }
+.spark-shard-5 { --angle: 180deg; --dist: 34px; }
+.spark-shard-6 { --angle: 216deg; --dist: 28px; }
+.spark-shard-7 { --angle: 252deg; --dist: 32px; }
+.spark-shard-8 { --angle: 288deg; --dist: 30px; }
+.spark-shard-9 { --angle: 324deg; --dist: 34px; }
+
+/* Alternate every other bolt to hot/yellow tone */
+.spark-shard-1, .spark-shard-3, .spark-shard-5, .spark-shard-7, .spark-shard-9 {
+  background: linear-gradient(180deg, #ffffff 0%, #ffe066 40%, #ffb300 100%);
+  filter: drop-shadow(0 0 3px #ffb300) drop-shadow(0 0 6px #ffd54f) drop-shadow(0 0 10px #ffffff);
+}
+
+@keyframes spark-bolt-fly {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(0) scale(0.4);
+  }
+  40% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -0.55)) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -1)) scale(0.6);
+  }
 }
