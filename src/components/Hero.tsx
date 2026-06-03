@@ -251,12 +251,12 @@ const Hero = () => {
                 style={{ animationDelay: "0.2s" }}
               >
                 <span className="text-foreground relative inline-block">
-                  {applicationTyping.displayedText}
+                  <SparkText text={applicationTyping.displayedText} />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
                 </span>
                 <br />
                 <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
-                  {developerTyping.displayedText}
+                  <SparkText text={developerTyping.displayedText} />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
                   {/* Typing sparks */}
                   {!developerTyping.isComplete && (
@@ -382,12 +382,12 @@ const Hero = () => {
                 style={{ animationDelay: "0.2s" }}
               >
                 <span className="text-foreground relative inline-block">
-                  {applicationTyping.displayedText}
+                  <SparkText text={applicationTyping.displayedText} />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
                 </span>
                 <br />
                 <span className="text-primary text-glow glitch-text relative inline-block" data-text="Developer.">
-                  {developerTyping.displayedText}
+                  <SparkText text={developerTyping.displayedText} />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent">|</span>}
                 </span>
               </h1>
