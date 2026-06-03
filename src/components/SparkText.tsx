@@ -23,11 +23,15 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   if (isMinimalWord) {
     return (
       <>
+        {/* Importing a clean, architectural architectural font for the minimal view */}
         <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
           .minimal-dev-text {
+            font-family: 'Montserrat', sans-serif;
             display: inline-block;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+            font-weight: 500;
+            letter-spacing: 0.07em;
             color: #ffffff;
             position: relative;
             animation: minimal-glow 4s ease-in-out infinite alternate;
@@ -55,7 +59,6 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const strikeCount = isMobile ? 6 : 12; 
   const lightningRadius = isMobile ? 40 : 85; 
 
-  // Stable procedural generation of lightning paths per indices to prevent shifting paths mid-render
   const precalculatedBolts = useMemo(() => {
     const segments = 5;
     const driftFactor = isMobile ? 8 : 16;
@@ -107,7 +110,16 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
   return (
     <span className={className} style={{ ...style, position: "relative", display: "inline-block" }}>
+      {/* Imported 'Caveat' for an authentic, fluid handwritten touch */}
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+        .spark-container-handwritten {
+          font-family: 'Caveat', cursive;
+          font-size: 1.35em; /* Handwriting fonts often render smaller, bumped up scale to offset */
+          letter-spacing: 0.02em;
+        }
+
         .spark-letter {
           display: inline-block;
           position: relative;
@@ -182,25 +194,53 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
         }
       `}</style>
 
-      {chars.map((ch, i) => {
-        // Triggers effect during typewriter text updates OR on active hover layout
-        const isActive = i === lastIdx || hoveredIndex === i;
-        const boltSet = precalculatedBolts[i] || precalculatedBolts[0];
-        
-        return (
-          <span
-            key={`${i}-${ch}`} // Dynamic composite key stops render glitches during text progression
-            className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
-            style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            {ch === " " ? "\u00A0" : ch}
-            
-            {isActive && ch !== " " && (
-              <span 
-                className="spark-explosion" 
-                aria-hidden="true"
-                style={{ 
-                  "--rad": lightningRadius.toString(),
-                  "--duration
+      <span className="spark-container-handwritten">
+        {chars.map((ch, i) => {
+          const isActive = i === lastIdx || hoveredIndex === i;
+          const boltSet = precalculatedBolts[i] || precalculatedBolts[0];
+          
+          return (
+            <span
+              key={`${i}-${ch}`}
+              className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
+              style={{ "--exp-scale": isMobile ? "1.12" : "1.28" } as React.CSSProperties}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {ch === " " ? "\u00A0" : ch}
+              
+              {isActive && ch !== " " && (
+                <span 
+                  className="spark-explosion" 
+                  aria-hidden="true"
+                  style={{ 
+                    "--rad": lightningRadius.toString(),
+                    "--duration": isMobile ? "0.24s" : "0.32s"
+                  } as React.CSSProperties}
+                >
+                  <span className="spark-flash" />
+                  
+                  {boltSet.map((bolt, k) => (
+                    <svg 
+                      key={k} 
+                      className="realistic-bolt" 
+                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${bolt.rotation}deg)`,
+                        animationDelay: bolt.delay
+                      }}
+                    >
+                      <path d={bolt.path} />
+                    </svg>
+                  ))}
+                </span>
+              )}
+            </span>
+          );
+        })}
+      </span>
+    </span>
+  );
+};
+
+export default SparkText;
