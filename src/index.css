@@ -2086,18 +2086,27 @@
   white-space: pre;
 }
 .spark-letter-active {
-  animation: spark-letter-flash 0.6s ease-out;
+  animation: spark-letter-flash 0.7s ease-out, spark-letter-shake 0.35s ease-out;
   color: #fff;
   text-shadow:
-    0 0 6px #00eaff,
-    0 0 14px #00b3ff,
-    0 0 22px #7df9ff,
-    0 0 30px #ffd54f;
+    0 0 4px #fff,
+    0 0 10px #7df9ff,
+    0 0 18px #00eaff,
+    0 0 28px #00b3ff,
+    0 0 40px #ffd54f;
 }
 @keyframes spark-letter-flash {
-  0%   { filter: brightness(2.6) saturate(1.5); transform: translateY(-1px) scale(1.08); }
-  40%  { filter: brightness(1.6); transform: translateY(0) scale(1.02); }
+  0%   { filter: brightness(3) saturate(1.6) contrast(1.2); transform: translateY(-2px) scale(1.15); }
+  25%  { filter: brightness(2.2); transform: translateY(0) scale(1.05); }
+  55%  { filter: brightness(1.4); }
   100% { filter: none; transform: none; text-shadow: none; color: inherit; }
+}
+@keyframes spark-letter-shake {
+  0%, 100% { transform: translate(0,0); }
+  20% { transform: translate(1px, -1px); }
+  40% { transform: translate(-1px, 1px); }
+  60% { transform: translate(1px, 1px); }
+  80% { transform: translate(-1px, -1px); }
 }
 
 .spark-explosion {
@@ -2110,72 +2119,97 @@
   z-index: 5;
 }
 
-/* Central white flash */
+/* Central white-hot thunder flash */
 .spark-flash {
   position: absolute;
   top: 0; left: 0;
-  width: 14px; height: 14px;
-  margin: -7px 0 0 -7px;
+  width: 24px; height: 24px;
+  margin: -12px 0 0 -12px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff 0%, #ffe066 35%, #00eaff 70%, transparent 100%);
+  background: radial-gradient(circle, #ffffff 0%, #ffffff 20%, #ffe066 45%, #00eaff 70%, rgba(0,234,255,0) 100%);
+  mix-blend-mode: screen;
   transform: scale(0);
-  animation: spark-flash-anim 0.55s ease-out forwards;
+  animation: spark-flash-anim 0.7s ease-out forwards;
 }
 @keyframes spark-flash-anim {
   0%   { transform: scale(0); opacity: 1; }
-  35%  { transform: scale(2.4); opacity: 0.95; }
-  100% { transform: scale(4.5); opacity: 0; }
+  20%  { transform: scale(3.2); opacity: 1; }
+  50%  { transform: scale(5); opacity: 0.7; }
+  100% { transform: scale(8); opacity: 0; }
 }
 
-/* Expanding shockwave ring */
+/* Expanding shockwave ring (double ring for thunder feel) */
 .spark-ring {
   position: absolute;
   top: 0; left: 0;
-  width: 8px; height: 8px;
-  margin: -4px 0 0 -4px;
+  width: 10px; height: 10px;
+  margin: -5px 0 0 -5px;
   border-radius: 50%;
-  border: 2px solid #7df9ff;
-  box-shadow: 0 0 8px #00eaff, inset 0 0 6px #00eaff;
+  border: 2px solid #ffffff;
+  box-shadow:
+    0 0 12px #00eaff,
+    0 0 24px #7df9ff,
+    inset 0 0 8px #00eaff;
   transform: scale(0);
-  animation: spark-ring-anim 0.6s ease-out forwards;
+  animation: spark-ring-anim 0.7s ease-out forwards;
+}
+.spark-ring::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid #ffe066;
+  box-shadow: 0 0 10px #ffb300;
+  animation: spark-ring-anim 0.7s ease-out 0.08s forwards;
+  opacity: 0;
 }
 @keyframes spark-ring-anim {
-  0%   { transform: scale(0); opacity: 1; border-width: 2px; }
-  100% { transform: scale(7); opacity: 0; border-width: 0.5px; }
+  0%   { transform: scale(0); opacity: 1; border-width: 2.5px; }
+  60%  { opacity: 0.8; }
+  100% { transform: scale(9); opacity: 0; border-width: 0.5px; }
 }
 
-/* Lightning bolts shooting outward */
+/* Jagged lightning bolts shooting outward */
 .spark-shard {
   position: absolute;
   top: 0; left: 0;
-  width: 4px;
-  height: 22px;
-  margin: -11px 0 0 -2px;
-  background: linear-gradient(180deg, #ffffff 0%, #b3f0ff 40%, #00eaff 100%);
-  /* Jagged lightning bolt shape */
-  clip-path: polygon(50% 0%, 70% 28%, 55% 38%, 78% 60%, 45% 72%, 65% 100%, 30% 70%, 48% 58%, 25% 40%, 42% 28%);
-  filter: drop-shadow(0 0 3px #00eaff) drop-shadow(0 0 6px #7df9ff) drop-shadow(0 0 10px #ffffff);
+  width: 8px;
+  height: 38px;
+  margin: -19px 0 0 -4px;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 15%, #b3f0ff 45%, #00eaff 100%);
+  /* Highly jagged, branched lightning bolt */
+  clip-path: polygon(
+    50% 0%,
+    62% 12%, 54% 18%, 68% 26%,
+    58% 34%, 72% 44%, 56% 50%,
+    74% 60%, 60% 66%, 80% 78%,
+    62% 86%, 70% 100%,
+    48% 88%, 56% 80%, 42% 74%,
+    52% 66%, 38% 58%, 50% 50%,
+    34% 42%, 46% 34%, 30% 26%,
+    42% 18%, 36% 10%
+  );
+  filter:
+    drop-shadow(0 0 2px #ffffff)
+    drop-shadow(0 0 5px #00eaff)
+    drop-shadow(0 0 10px #7df9ff)
+    drop-shadow(0 0 16px #00b3ff);
   opacity: 0;
   transform-origin: 50% 0%;
-  animation: spark-bolt-fly 0.55s ease-out forwards;
-}
-/* Yellow-hot variant */
-.spark-shard.spark-shard-hot {
-  background: linear-gradient(180deg, #ffffff 0%, #ffe066 40%, #ffb300 100%);
-  filter: drop-shadow(0 0 3px #ffb300) drop-shadow(0 0 6px #ffd54f) drop-shadow(0 0 10px #ffffff);
+  animation: spark-bolt-fly 0.65s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
 }
 
 /* 10 bolts radiating in different directions (angle in deg) */
-.spark-shard-0 { --angle:   0deg; --dist: 30px; }
-.spark-shard-1 { --angle:  36deg; --dist: 34px; }
-.spark-shard-2 { --angle:  72deg; --dist: 28px; }
-.spark-shard-3 { --angle: 108deg; --dist: 32px; }
-.spark-shard-4 { --angle: 144deg; --dist: 30px; }
-.spark-shard-5 { --angle: 180deg; --dist: 34px; }
-.spark-shard-6 { --angle: 216deg; --dist: 28px; }
-.spark-shard-7 { --angle: 252deg; --dist: 32px; }
-.spark-shard-8 { --angle: 288deg; --dist: 30px; }
-.spark-shard-9 { --angle: 324deg; --dist: 34px; }
+.spark-shard-0 { --angle:   0deg; --dist: 46px; }
+.spark-shard-1 { --angle:  36deg; --dist: 52px; }
+.spark-shard-2 { --angle:  72deg; --dist: 44px; }
+.spark-shard-3 { --angle: 108deg; --dist: 50px; }
+.spark-shard-4 { --angle: 144deg; --dist: 46px; }
+.spark-shard-5 { --angle: 180deg; --dist: 52px; }
+.spark-shard-6 { --angle: 216deg; --dist: 44px; }
+.spark-shard-7 { --angle: 252deg; --dist: 50px; }
+.spark-shard-8 { --angle: 288deg; --dist: 46px; }
+.spark-shard-9 { --angle: 324deg; --dist: 52px; }
 
 /* Alternate every other bolt to hot/yellow tone */
 .spark-shard-1, .spark-shard-3, .spark-shard-5, .spark-shard-7, .spark-shard-9 {
@@ -2185,15 +2219,23 @@
 
 @keyframes spark-bolt-fly {
   0% {
-    opacity: 1;
-    transform: rotate(var(--angle)) translateY(0) scale(0.4);
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(0) scale(0.3, 0.2);
   }
-  40% {
+  15% {
     opacity: 1;
-    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -0.55)) scale(1.2);
+    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -0.3)) scale(1.3, 1.4);
+  }
+  45% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -0.65)) scale(1.1, 1.2);
+  }
+  75% {
+    opacity: 0.7;
+    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -0.9)) scale(0.9, 1);
   }
   100% {
     opacity: 0;
-    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -1)) scale(0.6);
+    transform: rotate(var(--angle)) translateY(calc(var(--dist) * -1)) scale(0.5, 0.4);
   }
 }
