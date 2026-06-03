@@ -59,15 +59,13 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
   const strikeCount = isMobile ? 6 : 12; 
   const lightningRadius = isMobile ? 40 : 85; 
 
-  // Precalculating bolts and subtle character rotations for organic handwriting asymmetry
   const precalculatedLayout = useMemo(() => {
     const segments = 5;
     const driftFactor = isMobile ? 8 : 16;
 
     return Array.from({ length: Math.max(chars.length, 50) }).map(() => {
-      // Small random tilts (-1.5 to +1.5 deg) so text feels organically drawn, not computed
-      const charTilt = (Math.random() * 3 - 1.5).toFixed(1);
-      const verticalNudge = (Math.random() * 2 - 1).toFixed(1);
+      const charTilt = (Math.random() * 2 - 1).toFixed(1); // Reduced tilt slightly to preserve script connectivity
+      const verticalNudge = (Math.random() * 1 - 0.5).toFixed(1);
 
       const bolts = Array.from({ length: strikeCount }).map((_, k) => {
         const baseAngle = (k * 360) / strikeCount;
@@ -117,32 +115,33 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
   return (
     <span className={className} style={{ ...style, position: "relative", display: "inline-block" }}>
-      {/* Imported 'Sacramento' for an elegant script layout */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
         .spark-container-premium-hand {
           font-family: 'Sacramento', cursive;
-          font-size: 2.1em; /* Cursive scripts scale much thinner, this returns parity with standard font sizing */
+          font-size: 2.3em; 
           font-weight: 400;
           color: #f8fafc;
-          word-spacing: 0.15em;
-          /* Micro text shadow simulates rich ink density and slight bleeding on screen */
+          word-spacing: 0.25em;
           text-shadow: 0 0 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.15);
           -webkit-font-smoothing: antialiased;
+          white-space: nowrap; /* Prevents awkward mid-word script wrapping */
         }
 
         .spark-letter {
-          display: inline-block;
+          display: inline; /* Crucial fix: elements must be inline to keep cursive loops connected */
           position: relative;
           will-change: transform;
           cursor: pointer;
-          padding: 0 1px; /* Stops cursive flourishes from clipping on boundary limits */
+          margin: 0 -0.04em; /* Tightens the spacing box layout so lines visually merge */
           transition: color 0.25s ease;
         }
         
         .spark-letter-active {
+          display: inline-block; /* Becomes block momentarily during pop so scaling transforms compute smoothly */
           animation: letter-lightning-shock 0.25s cubic-bezier(0.15, 0.85, 0.3, 1) forwards;
+          z-index: 10;
         }
 
         @keyframes letter-lightning-shock {
@@ -154,7 +153,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
         .spark-explosion {
           position: absolute;
-          top: 45%; /* Shifted slightly up to align beautifully with script loop midpoints */
+          top: 40%;
           left: 50%;
           transform: translate(-50%, -50%);
           pointer-events: none;
@@ -219,3 +218,48 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
               className={`spark-letter${isActive ? " spark-letter-active" : ""}`}
               style={{ 
                 "--exp-scale": isMobile ? "1.12" : "1.25",
+                "--tilt": `${config.charTilt}deg`,
+                // Applying structural layouts inline while maintaining a neat stacking order
+                zIndex: isActive ? 10 : i,
+                transform: isActive ? undefined : `rotate(${config.charTilt}deg) translateY(${config.verticalNudge}px)`
+              } as React.CSSProperties}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {ch === " " ? "\u00A0" : ch}
+              
+              {isActive && ch !== " " && (
+                <span 
+                  className="spark-explosion" 
+                  aria-hidden="true"
+                  style={{ 
+                    "--rad": lightningRadius.toString(),
+                    "--duration": isMobile ? "0.24s" : "0.32s"
+                  } as React.CSSProperties}
+                >
+                  <span className="spark-flash" />
+                  
+                  {config.bolts.map((bolt, k) => (
+                    <svg 
+                      key={k} 
+                      className="realistic-bolt" 
+                      viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
+                      style={{
+                        transform: `translate(-50%, -50%) rotate(${bolt.rotation}deg)`,
+                        animationDelay: bolt.delay
+                      }}
+                    >
+                      <path d={bolt.path} />
+                    </svg>
+                  ))}
+                </span>
+              )}
+            </span>
+          );
+        })}
+      </span>
+    </span>
+  );
+};
+
+export default SparkText;
