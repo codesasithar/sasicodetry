@@ -1,23 +1,39 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Code2 } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  Code2, 
+  User, 
+  Briefcase, 
+  Cpu, 
+  PenTool, 
+  BookOpen, 
+  Newspaper, 
+  Trophy, 
+  Film, 
+  Gamepad2, 
+  Flame, 
+  Mail 
+} from "lucide-react";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  // Nav items array mapped with clean, semantic modern icons
   const navItems = [
-    { id: "about", label: "About" },
-    { id: "projects", label: "Projects" },
-    { id: "services", label: "Services" },
-    { id: "writings", label: "Writings" },
-    { id: "bookshelf", label: "Library" },
-    { id: "news", label: "News" },
-    { id: "achievements", label: "Awards" },
-    { id: "movies", label: "Movies" },
-    { id: "games", label: "Games" },
-    { id: "role-models", label: "Inspiration" },
-    { id: "contact", label: "Contact" },
+    { id: "about", label: "About", icon: User },
+    { id: "projects", label: "Projects", icon: Briefcase },
+    { id: "services", label: "Services", icon: Cpu },
+    { id: "writings", label: "Writings", icon: PenTool },
+    { id: "bookshelf", label: "Library", icon: BookOpen },
+    { id: "news", label: "News", icon: Newspaper },
+    { id: "achievements", label: "Awards", icon: Trophy },
+    { id: "movies", label: "Movies", icon: Film },
+    { id: "games", label: "Games", icon: Gamepad2 },
+    { id: "role-models", label: "Inspiration", icon: Flame },
+    { id: "contact", label: "Contact", icon: Mail },
   ];
 
   // Global body scroll lock when open
@@ -39,42 +55,42 @@ const Navigation = () => {
   };
 
   return (
-    /* CRITICAL FIX: 
-      - Set z-[99999] to ensure it stays on top of video wrappers, canvases, and grids.
-      - Removed conditional backdrop blur filters on the bar itself in case a parent context overrides filters.
-    */
     <nav className="fixed top-0 left-0 right-0 w-full h-16 bg-background border-b border-border z-[99999] block clear-both">
       <div className="w-full max-w-7xl mx-auto h-full px-4 flex items-center justify-between relative z-[100000]">
         
-        {/* Brand Header Logo (Always Visible) */}
+        {/* Brand Header Logo */}
         <div 
-          className="flex items-center gap-2 cursor-pointer text-foreground"
+          className="flex items-center gap-2 cursor-pointer text-foreground group"
           onClick={() => scrollToSection('home')}
         >
-          <Code2 className="h-5 w-5 text-primary" />
+          <Code2 className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
           <span className="font-semibold text-md text-foreground">SasiCodes</span>
         </div>
 
         {/* Desktop Links Panel */}
         <div className="hidden lg:flex items-center gap-1">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                activeSection === item.id ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground"
-              }`}
-              type="button"
-            >
-              {item.label}
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const IconComponent = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors flex items-center gap-1.5 ${
+                  activeSection === item.id ? "text-primary bg-primary/10 font-semibold" : "text-muted-foreground hover:text-foreground"
+                }`}
+                type="button"
+              >
+                <IconComponent className="h-3.5 w-3.5" />
+                <span>{item.label}</span>
+              </button>
+            );
+          })}
           <div className="ml-2 pl-2 border-l border-border">
             <ThemeSwitcher />
           </div>
         </div>
 
-        {/* Mobile Shell Controls (Forces block/flex on screens below 1024px) */}
+        {/* Mobile Shell Controls */}
         <div className="flex lg:hidden items-center gap-3 relative z-[100001]">
           <ThemeSwitcher />
           <button
@@ -91,7 +107,7 @@ const Navigation = () => {
       {/* Mobile Drawer Structural Block */}
       {isOpen && (
         <div className="lg:hidden fixed inset-0 top-16 left-0 w-screen h-[calc(100vh-4rem)] z-[99998] overflow-hidden block">
-          {/* Opaque Background Layer to separate from text underneath */}
+          {/* Opaque Background Layer */}
           <div 
             className="absolute inset-0 bg-background/95 w-full h-full" 
             onClick={() => setIsOpen(false)}
@@ -100,23 +116,29 @@ const Navigation = () => {
           {/* Scrollable Navigation Grid Link Block */}
           <div className="absolute top-0 left-0 right-0 w-full bg-background border-b border-border shadow-2xl overflow-y-auto max-h-full pb-8 relative z-[99999]">
             <div className="px-4 py-4 space-y-1">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`w-full text-left px-4 py-3.5 text-sm font-semibold rounded-xl transition-all border flex items-center justify-between ${
-                    activeSection === item.id 
-                      ? "text-primary bg-primary/10 border-primary/20" 
-                      : "text-muted-foreground bg-transparent border-transparent"
-                  }`}
-                  type="button"
-                >
-                  <span>{item.label}</span>
-                  {activeSection === item.id && (
-                    <span className="h-2 w-2 rounded-full bg-primary" />
-                  )}
-                </button>
-              ))}
+              {navItems.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`w-full text-left px-4 py-3.5 text-sm font-semibold rounded-xl transition-all border flex items-center justify-between ${
+                      activeSection === item.id 
+                        ? "text-primary bg-primary/10 border-primary/20" 
+                        : "text-muted-foreground bg-transparent border-transparent"
+                    }`}
+                    type="button"
+                  >
+                    <div className="flex items-center gap-3">
+                      <IconComponent className={`h-4 w-4 ${activeSection === item.id ? "text-primary" : "text-muted-foreground"}`} />
+                      <span>{item.label}</span>
+                    </div>
+                    {activeSection === item.id && (
+                      <span className="h-2 w-2 rounded-full bg-primary" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
