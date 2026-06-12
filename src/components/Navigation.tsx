@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Code2 } from "lucide-react";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const isScrollingRef = useRef(false);
 
   const navItems = [
     { id: "about", label: "About" },
@@ -21,122 +20,94 @@ const Navigation = () => {
     { id: "contact", label: "Contact" },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isScrollingRef.current) return;
-      const scrollPosition = window.scrollY + 120;
-      
-      if (window.scrollY < 100) {
-        setActiveSection("home");
-        return;
-      }
-
-      for (let i = navItems.length - 1; i >= 0; i--) {
-        const el = document.getElementById(navItems[i].id);
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i].id);
-          return;
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    setIsOpen(false);
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-
-    setActiveSection(sectionId);
-    isScrollingRef.current = true;
-    element.scrollIntoView({ behavior: "smooth" });
-
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 800);
-  };
-
+  // Global body scroll lock when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
+  const scrollToSection = (sectionId: string) => {
+    setIsOpen(false);
+    const element = document.getElementById(sectionId);
+    if (!element) return;
+    setActiveSection(sectionId);
+    element.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[9999] w-full bg-background border-b border-border/40 block">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative z-[10000]">
+    /* CRITICAL FIX: 
+      - Set z-[99999] to ensure it stays on top of video wrappers, canvases, and grids.
+      - Removed conditional backdrop blur filters on the bar itself in case a parent context overrides filters.
+    */
+    <nav className="fixed top-0 left-0 right-0 w-full h-16 bg-background border-b border-border z-[99999] block clear-both">
+      <div className="w-full max-w-7xl mx-auto h-full px-4 flex items-center justify-between relative z-[100000]">
         
-        {/* Minimal Brand Logo */}
+        {/* Brand Header Logo (Always Visible) */}
         <div 
-          className="flex items-center gap-2 cursor-pointer text-foreground hover:text-primary transition-colors group" 
+          className="flex items-center gap-2 cursor-pointer text-foreground"
           onClick={() => scrollToSection('home')}
         >
           <Code2 className="h-5 w-5 text-primary" />
-          <span className="font-semibold tracking-tight text-md">SasiCodes</span>
+          <span className="font-semibold text-md text-foreground">SasiCodes</span>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Links Panel */}
         <div className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
-                activeSection === item.id 
-                  ? "text-primary bg-primary/5 font-semibold" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+              className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
+                activeSection === item.id ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground"
               }`}
               type="button"
             >
               {item.label}
             </button>
           ))}
-          <div className="ml-2 pl-2 border-l border-border/60">
+          <div className="ml-2 pl-2 border-l border-border">
             <ThemeSwitcher />
           </div>
         </div>
 
-        {/* Mobile Menu Action Block */}
-        <div className="lg:hidden flex items-center gap-4 relative z-[10001]">
+        {/* Mobile Shell Controls (Forces block/flex on screens below 1024px) */}
+        <div className="flex lg:hidden items-center gap-3 relative z-[100001]">
           <ThemeSwitcher />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-foreground hover:text-primary transition-colors focus:outline-none"
-            aria-label="Toggle Menu"
+            className="p-2 border border-border rounded-md text-foreground bg-muted/20 hover:bg-muted/50 active:scale-95 transition-all"
+            aria-label="Toggle Navigation Grid"
             type="button"
           >
-            {isOpen ? <X className="h-6 w-6 block" /> : <Menu className="h-6 w-6 block" />}
+            {isOpen ? <X className="h-5 w-5 stroke-[2.5]" /> : <Menu className="h-5 w-5 stroke-[2.5]" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay Elements */}
+      {/* Mobile Drawer Structural Block */}
       {isOpen && (
-        <>
-          {/* Background Backdrop Layer */}
-          <div
-            className="lg:hidden fixed inset-0 top-16 left-0 right-0 bottom-0 z-[999] w-screen h-screen bg-black/60 backdrop-blur-sm block"
+        <div className="lg:hidden fixed inset-0 top-16 left-0 w-screen h-[calc(100vh-4rem)] z-[99998] overflow-hidden block">
+          {/* Opaque Background Layer to separate from text underneath */}
+          <div 
+            className="absolute inset-0 bg-background/95 w-full h-full" 
             onClick={() => setIsOpen(false)}
           />
           
-          {/* Standard CSS Responsive Fallback Container */}
-          <div className="lg:hidden fixed inset-x-0 top-16 left-0 right-0 z-[1000] w-full bg-background border-b border-border shadow-2xl block opacity-100 visible max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <div className="px-6 py-4 space-y-1 bg-background relative z-[1001]">
+          {/* Scrollable Navigation Grid Link Block */}
+          <div className="absolute top-0 left-0 right-0 w-full bg-background border-b border-border shadow-2xl overflow-y-auto max-h-full pb-8 relative z-[99999]">
+            <div className="px-4 py-4 space-y-1">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`w-full text-left px-4 py-3 text-sm rounded-xl font-medium flex items-center justify-between transition-colors ${
+                  className={`w-full text-left px-4 py-3.5 text-sm font-semibold rounded-xl transition-all border flex items-center justify-between ${
                     activeSection === item.id 
-                      ? "text-primary bg-primary/10 font-bold" 
-                      : "text-muted-foreground hover:bg-muted/40"
+                      ? "text-primary bg-primary/10 border-primary/20" 
+                      : "text-muted-foreground bg-transparent border-transparent"
                   }`}
                   type="button"
                 >
@@ -148,7 +119,7 @@ const Navigation = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       )}
     </nav>
   );
