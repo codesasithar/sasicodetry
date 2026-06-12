@@ -24,7 +24,6 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (isScrollingRef.current) return;
-
       const scrollPosition = window.scrollY + 120;
       
       if (window.scrollY < 100) {
@@ -52,7 +51,6 @@ const Navigation = () => {
 
     setActiveSection(sectionId);
     isScrollingRef.current = true;
-
     element.scrollIntoView({ behavior: "smooth" });
 
     setTimeout(() => {
@@ -60,7 +58,6 @@ const Navigation = () => {
     }, 800);
   };
 
-  // Prevent background document scrolling when mobile navigation panel overlay drawer is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -73,20 +70,19 @@ const Navigation = () => {
   }, [isOpen]);
 
   return (
-    // Explicit high z-index tier layout block
-    <nav className="fixed top-0 left-0 right-0 z-[100] w-full bg-background/90 backdrop-blur-md border-b border-border/40 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative z-[110]">
+    <nav className="fixed top-0 left-0 right-0 z-[9999] w-full bg-background border-b border-border/40 block">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between relative z-[10000]">
         
         {/* Minimal Brand Logo */}
         <div 
           className="flex items-center gap-2 cursor-pointer text-foreground hover:text-primary transition-colors group" 
           onClick={() => scrollToSection('home')}
         >
-          <Code2 className="h-5 w-5 text-primary transition-transform group-hover:scale-105" />
+          <Code2 className="h-5 w-5 text-primary" />
           <span className="font-semibold tracking-tight text-md">SasiCodes</span>
         </div>
 
-        {/* Clean Desktop Navigation */}
+        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
             <button
@@ -102,53 +98,51 @@ const Navigation = () => {
               {item.label}
             </button>
           ))}
-
           <div className="ml-2 pl-2 border-l border-border/60">
             <ThemeSwitcher />
           </div>
         </div>
 
-        {/* Mobile / Tablet Menu Button */}
-        <div className="lg:hidden flex items-center gap-4">
+        {/* Mobile Menu Action Block */}
+        <div className="lg:hidden flex items-center gap-4 relative z-[10001]">
           <ThemeSwitcher />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors focus:outline-none relative z-[120]"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className="p-2 text-foreground hover:text-primary transition-colors focus:outline-none"
+            aria-label="Toggle Menu"
             type="button"
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isOpen ? <X className="h-6 w-6 block" /> : <Menu className="h-6 w-6 block" />}
           </button>
         </div>
       </div>
 
-      {/* Modern, Simple Mobile Dropdown Overlays */}
+      {/* Mobile Drawer Overlay Elements */}
       {isOpen && (
         <>
-          {/* Backdrop Blur Layer - Absolute Viewport Coverage */}
+          {/* Background Backdrop Layer */}
           <div
-            className="lg:hidden fixed inset-0 top-16 left-0 right-0 bottom-0 z-[90] w-screen h-screen bg-background/60 backdrop-blur-md"
+            className="lg:hidden fixed inset-0 top-16 left-0 right-0 bottom-0 z-[999] w-screen h-screen bg-black/60 backdrop-blur-sm block"
             onClick={() => setIsOpen(false)}
-            aria-hidden="true"
           />
           
-          {/* Mobile Panel Drawer Dropdown */}
-          <div className="lg:hidden fixed inset-x-0 top-16 left-0 right-0 z-[100] w-full bg-background border-b border-border shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200 max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <div className="px-6 py-4 space-y-1">
+          {/* Standard CSS Responsive Fallback Container */}
+          <div className="lg:hidden fixed inset-x-0 top-16 left-0 right-0 z-[1000] w-full bg-background border-b border-border shadow-2xl block opacity-100 visible max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="px-6 py-4 space-y-1 bg-background relative z-[1001]">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`w-full text-left px-4 py-3 text-sm rounded-xl transition-colors font-medium flex items-center justify-between ${
+                  className={`w-full text-left px-4 py-3 text-sm rounded-xl font-medium flex items-center justify-between transition-colors ${
                     activeSection === item.id 
                       ? "text-primary bg-primary/10 font-bold" 
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      : "text-muted-foreground hover:bg-muted/40"
                   }`}
                   type="button"
                 >
                   <span>{item.label}</span>
                   {activeSection === item.id && (
-                    <span className="h-2 w-2 rounded-full bg-primary shadow-sm shadow-primary/50" />
+                    <span className="h-2 w-2 rounded-full bg-primary" />
                   )}
                 </button>
               ))}
