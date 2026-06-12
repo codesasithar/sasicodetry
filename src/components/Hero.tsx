@@ -53,7 +53,6 @@ const Hero = () => {
     }
   };
 
-
   // Matrix rain effect
   useEffect(() => {
     const matrixContainer = document.querySelector(".matrix-bg");
@@ -191,20 +190,20 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Profile Picture - Blended Model Shot */}
+        {/* Profile Picture Elegant Top Left Corner Placement */}
         <div
-          className="absolute top-16 right-2 sm:top-20 sm:right-6 lg:top-16 lg:right-12 z-0 animate-fade-in pointer-events-none"
+          className="absolute top-6 left-6 sm:top-12 sm:left-12 z-30 animate-fade-in pointer-events-none"
           style={{ animationDelay: "0.5s" }}
         >
           <div className="relative">
-            {/* Ambient cyan/blue glow blending into the dark bg */}
+            {/* Ambient cyan/blue glow */}
             <div
-              className="absolute -inset-10 rounded-full"
+              className="absolute -inset-6 rounded-full"
               style={{
                 background:
                   "radial-gradient(closest-side, rgba(0,240,255,0.35), rgba(59,130,246,0.18) 45%, transparent 75%)",
                 opacity: glowOpacity,
-                filter: `blur(${glowBlur}px)`,
+                filter: `blur(${glowBlur * 0.6}px)`, // Adjusted blur for smaller corner container
                 transition: "opacity 0.2s ease, filter 0.2s ease",
               }}
             />
@@ -217,7 +216,7 @@ const Hero = () => {
                 background:
                   "conic-gradient(from 0deg, transparent 0deg, rgba(0,240,255,0.5) 20deg, transparent 40deg, transparent 120deg, rgba(168,85,247,0.4) 140deg, transparent 160deg, transparent 240deg, rgba(0,240,255,0.5) 260deg, transparent 280deg, transparent 360deg)",
                 mixBlendMode: "screen",
-                filter: `blur(${4 + sparkIntensity * 0.1}px)`,
+                filter: `blur(${2 + sparkIntensity * 0.05}px)`,
                 animation: "spin 6s linear infinite",
                 transition: "opacity 0.2s ease, transform 0.2s ease",
               }}
@@ -225,13 +224,13 @@ const Hero = () => {
             <img
               src={profilePicture}
               alt="Sasithar M"
-              className="relative w-44 h-44 sm:w-60 sm:h-60 lg:w-80 lg:h-80 object-contain object-bottom select-none"
+              className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain object-bottom select-none border border-primary/20 rounded-full p-1 bg-background/40 backdrop-blur-sm shadow-lg"
               style={{
                 WebkitMaskImage:
-                  "radial-gradient(ellipse 75% 85% at 50% 40%, #000 55%, rgba(0,0,0,0.7) 75%, transparent 100%)",
+                  "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
                 maskImage:
-                  "radial-gradient(ellipse 75% 85% at 50% 40%, #000 55%, rgba(0,0,0,0.7) 75%, transparent 100%)",
-                filter: `drop-shadow(0 18px 30px rgba(0,0,0,0.55)) drop-shadow(0 0 ${glowStrength * 0.3}px rgba(0,240,255,${glowOpacity * 0.6})) contrast(1.02)`,
+                  "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+                filter: `drop-shadow(0 8px 16px rgba(0,0,0,0.45)) drop-shadow(0 0 ${glowStrength * 0.2}px rgba(0,240,255,${glowOpacity * 0.5})) contrast(1.02)`,
                 transition: "filter 0.2s ease",
               }}
             />
@@ -279,8 +278,8 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Content Wrapper */}
-      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8">
+      {/* Content Wrapper - Padded to clean layout away from top-left DP */}
+      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-0">
         <div className="max-w-7xl mx-auto">
           {/* Desktop Layout */}
           <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
@@ -294,21 +293,18 @@ const Hero = () => {
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-slide-up relative leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                {/* --- RENDER APPLICATION TEXT WITH MINIMALISTIC TECH DESIGN --- */}
                 <span className="text-foreground relative inline-block tracking-wide">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
                 <br />
-                {/* --- RENDER DEVELOPER TEXT WITH MINIMALISTIC TECH DESIGN --- */}
                 <span className="text-primary relative inline-block tracking-wide font-extrabold">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
               </h1>
 
-              {/* --- DESCRIPTION PARAGRAPH WITH CLEAN TYPEWRITER FLOW --- */}
-              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4.s" }}>
+              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
                 <SparkText text={typingText.displayedText} variant="text-only" />
                 {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
               </p>
@@ -399,7 +395,6 @@ const Hero = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -460,7 +455,7 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Profile Photo */}
+            {/* Showcase Video Player */}
             <div className="flex flex-col items-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="relative">
                 <div className="absolute -inset-2 bg-gradient-vibrant rounded-2xl blur-lg opacity-30 animate-pulse"></div>
@@ -477,7 +472,6 @@ const Hero = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
                 </div>
-
               </div>
             </div>
 
