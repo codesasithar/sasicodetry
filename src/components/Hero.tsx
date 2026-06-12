@@ -126,7 +126,7 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
-      {/* -- Visual layer -- */}
+      {/* -- I, Robot-inspired visual layer -- */}
       <img
         src={iRobotBg}
         alt="Futuristic humanoid robot"
@@ -214,7 +214,7 @@ const Hero = () => {
             />
             <img
               src={profilePicture}
-              alt="Developer"
+              alt="Sasithar M"
               className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain object-bottom select-none border border-primary/20 rounded-full p-1 bg-background/40 backdrop-blur-sm shadow-lg"
               style={{
                 WebkitMaskImage:
@@ -280,16 +280,16 @@ const Hero = () => {
                 Welcome to my portfolio
               </div>
 
-              {/* REFINED: Minimalistic, elegant typography scale for desktop */}
+              {/* CRITICAL FIX: Made sizes downscaled, tracking tighter, line height adjusted for elegance */}
               <h1
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extralight tracking-tight mb-6 animate-slide-up leading-relaxed text-foreground/85"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight font-light mb-5 animate-slide-up leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="block font-thin tracking-widest text-xs uppercase mb-2 opacity-70 text-muted-foreground">
+                <span className="text-foreground/90 block font-light tracking-wide mb-1 opacity-90">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <span className="text-primary block font-medium tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl subpixel-antialiased">
+                <span className="text-primary block font-semibold tracking-normal text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
@@ -397,16 +397,16 @@ const Hero = () => {
                 Welcome to my portfolio
               </div>
 
-              {/* REFINED: Balanced, clean typography scale for mobile devices */}
+              {/* CRITICAL FIX: Elegant Mobile Typography Scale */}
               <h1
-                className="text-lg sm:text-xl md:text-2xl font-extralight tracking-tight mb-4 animate-slide-up leading-relaxed text-foreground/85"
+                className="text-2xl sm:text-3xl md:text-4xl tracking-tight font-light mb-4 animate-slide-up leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="block font-thin tracking-widest text-[10px] uppercase mb-1.5 opacity-70 text-muted-foreground">
+                <span className="text-foreground/90 block font-light tracking-wide mb-0.5">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <span className="text-primary block font-medium text-xl sm:text-2xl md:text-3xl subpixel-antialiased">
+                <span className="text-primary block font-semibold text-3xl sm:text-4xl md:text-5xl">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
