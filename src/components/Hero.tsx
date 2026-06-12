@@ -18,6 +18,15 @@ import { useTypingEffect } from "@/hooks/useTypingEffect";
 import SparkText from "@/components/SparkText";
 
 const Hero = () => {
+  // Controls for lightning intensity & glow strength on the hero image
+  const [sparkIntensity, setSparkIntensity] = useState(70); // 0-100
+  const [glowStrength, setGlowStrength] = useState(60); // 0-100
+  const [controlsOpen, setControlsOpen] = useState(false);
+
+  const glowOpacity = glowStrength / 100;
+  const glowBlur = 24 + glowStrength * 0.6; // 24px-84px
+  const sparkOpacity = sparkIntensity / 100;
+  const sparkScale = 0.7 + (sparkIntensity / 100) * 0.6; // 0.7-1.3
 
   const applicationTyping = useTypingEffect({
     text: "Application",
@@ -184,16 +193,33 @@ const Hero = () => {
 
         {/* Profile Picture - Blended Model Shot */}
         <div
-          className="absolute top-16 right-2 sm:top-20 sm:right-6 lg:top-16 lg:right-12 z-30 animate-fade-in pointer-events-none"
+          className="absolute top-16 right-2 sm:top-20 sm:right-6 lg:top-16 lg:right-12 z-0 animate-fade-in pointer-events-none"
           style={{ animationDelay: "0.5s" }}
         >
           <div className="relative">
             {/* Ambient cyan/blue glow blending into the dark bg */}
             <div
-              className="absolute -inset-10 rounded-full blur-3xl opacity-50"
+              className="absolute -inset-10 rounded-full"
               style={{
                 background:
                   "radial-gradient(closest-side, rgba(0,240,255,0.35), rgba(59,130,246,0.18) 45%, transparent 75%)",
+                opacity: glowOpacity,
+                filter: `blur(${glowBlur}px)`,
+                transition: "opacity 0.2s ease, filter 0.2s ease",
+              }}
+            />
+            {/* Electric spark ring overlay */}
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                opacity: sparkOpacity,
+                transform: `scale(${sparkScale})`,
+                background:
+                  "conic-gradient(from 0deg, transparent 0deg, rgba(0,240,255,0.5) 20deg, transparent 40deg, transparent 120deg, rgba(168,85,247,0.4) 140deg, transparent 160deg, transparent 240deg, rgba(0,240,255,0.5) 260deg, transparent 280deg, transparent 360deg)",
+                mixBlendMode: "screen",
+                filter: `blur(${4 + sparkIntensity * 0.1}px)`,
+                animation: "spin 6s linear infinite",
+                transition: "opacity 0.2s ease, transform 0.2s ease",
               }}
             />
             <img
@@ -205,7 +231,8 @@ const Hero = () => {
                   "radial-gradient(ellipse 75% 85% at 50% 40%, #000 55%, rgba(0,0,0,0.7) 75%, transparent 100%)",
                 maskImage:
                   "radial-gradient(ellipse 75% 85% at 50% 40%, #000 55%, rgba(0,0,0,0.7) 75%, transparent 100%)",
-                filter: "drop-shadow(0 18px 30px rgba(0,0,0,0.55)) contrast(1.02)",
+                filter: `drop-shadow(0 18px 30px rgba(0,0,0,0.55)) drop-shadow(0 0 ${glowStrength * 0.3}px rgba(0,240,255,${glowOpacity * 0.6})) contrast(1.02)`,
+                transition: "filter 0.2s ease",
               }}
             />
           </div>
@@ -497,6 +524,55 @@ const Hero = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Floating Controls: Lightning intensity + Glow strength */}
+      <div className="fixed bottom-4 right-4 z-40 select-none">
+        {controlsOpen ? (
+          <div className="w-64 rounded-xl border border-primary/30 bg-background/80 backdrop-blur-md p-4 shadow-xl animate-fade-in">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-semibold tracking-wide text-primary uppercase">Hero FX</span>
+              <button
+                onClick={() => setControlsOpen(false)}
+                className="text-muted-foreground hover:text-foreground text-sm"
+                aria-label="Close controls"
+              >
+                ✕
+              </button>
+            </div>
+            <label className="block text-[11px] text-muted-foreground mb-1">
+              Lightning intensity: <span className="text-foreground">{sparkIntensity}%</span>
+            </label>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={sparkIntensity}
+              onChange={(e) => setSparkIntensity(Number(e.target.value))}
+              className="w-full accent-primary mb-3"
+            />
+            <label className="block text-[11px] text-muted-foreground mb-1">
+              Glow strength: <span className="text-foreground">{glowStrength}%</span>
+            </label>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={glowStrength}
+              onChange={(e) => setGlowStrength(Number(e.target.value))}
+              className="w-full accent-accent"
+            />
+          </div>
+        ) : (
+          <button
+            onClick={() => setControlsOpen(true)}
+            className="flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 backdrop-blur-md px-3 py-2 text-xs text-foreground hover:bg-background shadow-md"
+            aria-label="Open hero effect controls"
+          >
+            <Zap className="h-3.5 w-3.5 text-primary" />
+            FX
+          </button>
+        )}
       </div>
     </section>
   );
