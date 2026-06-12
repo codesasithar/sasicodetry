@@ -10,7 +10,6 @@ import {
   Instagram,
   Facebook,
 } from "lucide-react";
-// Using uploaded profile image
 import iRobotBg from "@/assets/irobot-bg.png";
 import profilePicture from "@/assets/profile-hero.png";
 import { useEffect, useState } from "react";
@@ -18,15 +17,14 @@ import { useTypingEffect } from "@/hooks/useTypingEffect";
 import SparkText from "@/components/SparkText";
 
 const Hero = () => {
-  // Controls for lightning intensity & glow strength on the hero image
-  const [sparkIntensity, setSparkIntensity] = useState(70); // 0-100
-  const [glowStrength, setGlowStrength] = useState(60); // 0-100
+  const [sparkIntensity, setSparkIntensity] = useState(70);
+  const [glowStrength, setGlowStrength] = useState(60);
   const [controlsOpen, setControlsOpen] = useState(false);
 
   const glowOpacity = glowStrength / 100;
-  const glowBlur = 24 + glowStrength * 0.6; // 24px-84px
+  const glowBlur = 24 + glowStrength * 0.6;
   const sparkOpacity = sparkIntensity / 100;
-  const sparkScale = 0.7 + (sparkIntensity / 100) * 0.6; // 0.7-1.3
+  const sparkScale = 0.7 + (sparkIntensity / 100) * 0.6;
 
   const applicationTyping = useTypingEffect({
     text: "Application",
@@ -151,10 +149,9 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32 hidden sm:block" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4 hidden lg:block" style={{ animationDelay: "4s" }}></div>
 
-        {/* Arc Reactor Center - Futuristic Tech Design */}
+        {/* Arc Reactor Center */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 scale-75 sm:scale-90 lg:scale-100 hidden md:block">
           <div className="arc-reactor-futuristic">
-            {/* Outermost Ring with Tech Segments */}
             <div className="arc-outer-tech-ring">
               {[...Array(16)].map((_, i) => (
                 <div 
@@ -165,7 +162,6 @@ const Hero = () => {
               ))}
             </div>
             
-            {/* Secondary Ring with Detailed Segments */}
             <div className="arc-secondary-ring">
               {[...Array(12)].map((_, i) => (
                 <div 
@@ -179,35 +175,30 @@ const Hero = () => {
               ))}
             </div>
             
-            {/* Inner Glowing Ring */}
             <div className="arc-inner-glow-ring"></div>
             
-            {/* Core Housing */}
             <div className="arc-core-housing">
-              {/* Simple Glowing Ring */}
               <div className="arc-glowing-ring"></div>
             </div>
           </div>
         </div>
 
-        {/* Profile Picture Elegant Top Left Corner Placement */}
+        {/* Profile Picture Elegant Placement */}
         <div
           className="absolute top-6 left-6 sm:top-12 sm:left-12 z-30 animate-fade-in pointer-events-none"
           style={{ animationDelay: "0.5s" }}
         >
           <div className="relative">
-            {/* Ambient cyan/blue glow */}
             <div
               className="absolute -inset-6 rounded-full"
               style={{
                 background:
                   "radial-gradient(closest-side, rgba(0,240,255,0.35), rgba(59,130,246,0.18) 45%, transparent 75%)",
                 opacity: glowOpacity,
-                filter: `blur(${glowBlur * 0.6}px)`, // Adjusted blur for smaller corner container
+                filter: `blur(${glowBlur * 0.6}px)`,
                 transition: "opacity 0.2s ease, filter 0.2s ease",
               }}
             />
-            {/* Electric spark ring overlay */}
             <div
               className="absolute inset-0 rounded-full pointer-events-none"
               style={{
@@ -285,27 +276,26 @@ const Hero = () => {
           <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              {/* Centered badge style by changing margin properties to mx-auto */}
-              <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto">
+              <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto lg:mx-0">
                 Welcome to my portfolio
               </div>
 
+              {/* CRITICAL FIX: Made sizes downscaled, tracking tighter, line height adjusted for elegance */}
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 animate-slide-up relative leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight font-light mb-5 animate-slide-up leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="text-foreground relative inline-block tracking-wide">
+                <span className="text-foreground/90 block font-light tracking-wide mb-1 opacity-90">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <br />
-                <span className="text-primary relative inline-block tracking-wide font-extrabold">
+                <span className="text-primary block font-semibold tracking-normal text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg lg:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
+              <p className="text-base sm:text-md text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
                 <SparkText text={typingText.displayedText} variant="text-only" />
                 {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
               </p>
@@ -402,29 +392,27 @@ const Hero = () => {
 
           {/* Mobile Layout */}
           <div className="lg:hidden flex flex-col items-center text-center space-y-6 sm:space-y-8">
-            {/* Text Content */}
             <div className="w-full max-w-lg">
-              {/* Keeping badge styled completely in center */}
               <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto">
                 Welcome to my portfolio
               </div>
 
+              {/* CRITICAL FIX: Elegant Mobile Typography Scale */}
               <h1
-                className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 animate-slide-up relative leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl tracking-tight font-light mb-4 animate-slide-up leading-tight"
                 style={{ animationDelay: "0.2s" }}
               >
-                <span className="text-foreground relative inline-block tracking-wide">
+                <span className="text-foreground/90 block font-light tracking-wide mb-0.5">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <br />
-                <span className="text-primary relative inline-block tracking-wide font-extrabold">
+                <span className="text-primary block font-semibold text-3xl sm:text-4xl md:text-5xl">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
+              <p className="text-base sm:text-md text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
                 <SparkText text={typingText.displayedText} variant="text-only" />
                 {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
               </p>
@@ -522,7 +510,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Floating Controls: Lightning intensity + Glow strength */}
+      {/* Floating Controls */}
       <div className="fixed bottom-4 right-4 z-40 select-none">
         {controlsOpen ? (
           <div className="w-64 rounded-xl border border-primary/30 bg-background/80 backdrop-blur-md p-4 shadow-xl animate-fade-in">
