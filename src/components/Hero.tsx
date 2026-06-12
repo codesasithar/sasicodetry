@@ -183,9 +183,9 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Profile Picture Elegant Placement */}
+        {/* Profile Picture & Welcome Badge Elegant Placement */}
         <div
-          className="absolute top-6 left-6 sm:top-12 sm:left-12 z-30 animate-fade-in pointer-events-none"
+          className="absolute top-6 left-6 sm:top-12 sm:left-12 z-30 animate-fade-in pointer-events-none flex items-center gap-4"
           style={{ animationDelay: "0.5s" }}
         >
           <div className="relative">
@@ -225,6 +225,11 @@ const Hero = () => {
                 transition: "filter 0.2s ease",
               }}
             />
+          </div>
+
+          {/* Badge position directly next to the display picture */}
+          <div className="bg-accent/20 text-accent px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium backdrop-blur-md border border-accent/30 shadow-sm animate-slide-up h-fit whitespace-nowrap">
+            Welcome to my portfolio
           </div>
         </div>
 
@@ -276,13 +281,9 @@ const Hero = () => {
           <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto lg:mx-0">
-                Welcome to my portfolio
-              </div>
-
-              {/* CRITICAL FIX: Made sizes downscaled, tracking tighter, line height adjusted for elegance */}
+              {/* Top typography edits for precision typography scale */}
               <h1
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight font-light mb-5 animate-slide-up leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight font-light mb-5 animate-slide-up leading-tight pt-12 lg:pt-0"
                 style={{ animationDelay: "0.2s" }}
               >
                 <span className="text-foreground/90 block font-light tracking-wide mb-1 opacity-90">
@@ -393,13 +394,9 @@ const Hero = () => {
           {/* Mobile Layout */}
           <div className="lg:hidden flex flex-col items-center text-center space-y-6 sm:space-y-8">
             <div className="w-full max-w-lg">
-              <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto">
-                Welcome to my portfolio
-              </div>
-
-              {/* CRITICAL FIX: Elegant Mobile Typography Scale */}
+              {/* Mobile heading wrapper has an extra margin adjustments to give space to top DP position */}
               <h1
-                className="text-2xl sm:text-3xl md:text-4xl tracking-tight font-light mb-4 animate-slide-up leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl tracking-tight font-light mb-4 animate-slide-up leading-tight pt-16"
                 style={{ animationDelay: "0.2s" }}
               >
                 <span className="text-foreground/90 block font-light tracking-wide mb-0.5">
