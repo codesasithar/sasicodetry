@@ -278,14 +278,15 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Content Wrapper - Padded to clean layout away from top-left DP */}
+      {/* Content Wrapper */}
       <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-0">
         <div className="max-w-7xl mx-auto">
           {/* Desktop Layout */}
           <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
             {/* Left Column - Text Content */}
             <div className="text-center lg:text-left">
-              <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up">
+              {/* Centered badge style by changing margin properties to mx-auto */}
+              <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto">
                 Welcome to my portfolio
               </div>
 
@@ -403,7 +404,8 @@ const Hero = () => {
           <div className="lg:hidden flex flex-col items-center text-center space-y-6 sm:space-y-8">
             {/* Text Content */}
             <div className="w-full max-w-lg">
-              <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up">
+              {/* Keeping badge styled completely in center */}
+              <div className="block w-fit bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-slide-up mx-auto">
                 Welcome to my portfolio
               </div>
 
