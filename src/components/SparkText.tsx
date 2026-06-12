@@ -197,9 +197,21 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
 
       <span className="spark-container-handwritten">
         {chars.map((ch, i) => {
+          if (ch === " ") {
+            return (
+              <span
+                key={`${i}-space`}
+                className="spark-space"
+                style={{ display: "inline", whiteSpace: "normal", paddingRight: "0.2em" }}
+              >
+                {" "}
+              </span>
+            );
+          }
+
           const isActive = i === lastIdx || hoveredIndex === i;
           const boltSet = precalculatedBolts[i] || precalculatedBolts[0];
-          
+
           return (
             <span
               key={`${i}-${ch}`}
@@ -208,23 +220,23 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              {ch === " " ? "\u00A0" : ch}
-              
+              {ch}
+
               {isActive && ch !== " " && (
-                <span 
-                  className="spark-explosion" 
+                <span
+                  className="spark-explosion"
                   aria-hidden="true"
-                  style={{ 
+                  style={{
                     "--rad": lightningRadius.toString(),
                     "--duration": isMobile ? "0.24s" : "0.32s"
                   } as React.CSSProperties}
                 >
                   <span className="spark-flash" />
-                  
+
                   {boltSet.map((bolt, k) => (
-                    <svg 
-                      key={k} 
-                      className="realistic-bolt" 
+                    <svg
+                      key={k}
+                      className="realistic-bolt"
                       viewBox={`-${lightningRadius} -${lightningRadius} ${lightningRadius * 2} ${lightningRadius * 2}`}
                       style={{
                         transform: `translate(-50%, -50%) rotate(${bolt.rotation}deg)`,
