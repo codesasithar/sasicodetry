@@ -116,8 +116,15 @@ const Navigation = () => {
 
       {/* Modern, Simple Mobile Dropdown Overlays */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-16 bg-background border-b border-border shadow-xl animate-in fade-in slide-in-from-top-4 duration-200 max-h-[calc(100vh-4rem)] overflow-y-auto">
-          <div className="px-4 py-4 space-y-1">
+        <>
+          {/* Backdrop to close on outside tap */}
+          <div
+            className="lg:hidden fixed inset-0 top-16 z-40 bg-background/40 backdrop-blur-sm"
+            onClick={() => setIsOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="lg:hidden fixed inset-x-0 top-16 z-50 bg-background border-b border-border shadow-xl animate-in fade-in slide-in-from-top-4 duration-200 max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="px-4 py-4 space-y-1">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -135,8 +142,9 @@ const Navigation = () => {
                 )}
               </button>
             ))}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );
