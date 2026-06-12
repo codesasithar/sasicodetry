@@ -144,7 +144,7 @@ const CursorEffects = () => {
 
       // Clean inline CSS ripple inject mechanics
       const target = e.target as HTMLElement;
-      const rippleBtn = target?.closest('.ripple-effect, button, .btn-tech');
+      const rippleBtn = target?.closest('.ripple-effect, button, .btn-tech') as HTMLElement | null;
       if (rippleBtn) {
         const rect = rippleBtn.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);

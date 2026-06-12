@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 // Using uploaded profile image
 import iRobotBg from "@/assets/irobot-bg.png";
-import profilePicture from "@/assets/profile-picture.png";
+import profilePicture from "@/assets/profile-hero.png";
 import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 import SparkText from "@/components/SparkText";
@@ -182,14 +182,31 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Profile Picture - Top Right */}
-        <div className="absolute top-20 right-6 sm:top-24 sm:right-10 z-30 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+        {/* Profile Picture - Blended Model Shot */}
+        <div
+          className="absolute top-16 right-2 sm:top-20 sm:right-6 lg:top-16 lg:right-12 z-30 animate-fade-in pointer-events-none"
+          style={{ animationDelay: "0.5s" }}
+        >
           <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-vibrant rounded-full blur-md opacity-40 animate-pulse"></div>
+            {/* Ambient cyan/blue glow blending into the dark bg */}
+            <div
+              className="absolute -inset-10 rounded-full blur-3xl opacity-50"
+              style={{
+                background:
+                  "radial-gradient(closest-side, rgba(0,240,255,0.35), rgba(59,130,246,0.18) 45%, transparent 75%)",
+              }}
+            />
             <img
               src={profilePicture}
               alt="Sasithar M"
-              className="relative w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 rounded-full object-cover border-2 border-primary/40"
+              className="relative w-44 h-44 sm:w-60 sm:h-60 lg:w-80 lg:h-80 object-contain object-bottom select-none"
+              style={{
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 75% 85% at 50% 40%, #000 55%, rgba(0,0,0,0.7) 75%, transparent 100%)",
+                maskImage:
+                  "radial-gradient(ellipse 75% 85% at 50% 40%, #000 55%, rgba(0,0,0,0.7) 75%, transparent 100%)",
+                filter: "drop-shadow(0 18px 30px rgba(0,0,0,0.55)) contrast(1.02)",
+              }}
             />
           </div>
         </div>
