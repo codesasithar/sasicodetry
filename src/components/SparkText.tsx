@@ -4,6 +4,7 @@ interface SparkTextProps {
   text: string;
   className?: string;
   style?: React.CSSProperties;
+  variant?: string;
 }
 
 const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
