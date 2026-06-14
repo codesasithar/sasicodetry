@@ -12,8 +12,8 @@ import flightSimImg from "@/assets/games/flight-simulator.jpg";
 import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
 import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
 import tekken8Img from "@/assets/games/tekken-8.jpg";
-import goldeneyeImg from "@/assets/games/goldeneye-007.jpg";
-import infamousFLImg from "@/assets/games/infamous-first-light.jpg";
+import firstLight007Asset from "@/assets/games/007-first-light.png.asset.json";
+const firstLight007Img = firstLight007Asset.url;
 
 const Games = () => {
   const games = [
@@ -84,16 +84,10 @@ const Games = () => {
       description: "The latest chapter in the legendary fighting saga with stunning visuals and aggressive new gameplay mechanics.",
     },
     {
-      title: "GoldenEye 007",
-      genre: "First-Person Shooter",
-      poster: goldeneyeImg,
-      description: "The iconic James Bond shooter that defined console FPS — stealth, espionage, and legendary multiplayer.",
-    },
-    {
-      title: "Infamous: First Light",
+      title: "007 First Light",
       genre: "Action/Adventure",
-      poster: infamousFLImg,
-      description: "Unleash neon superpowers in this standalone origin story set in the stunning open world of Seattle.",
+      poster: firstLight007Img,
+      description: "A fresh origin story for James Bond — the young agent earns his 00 status in a globe-trotting cinematic adventure.",
     },
   ];
 
