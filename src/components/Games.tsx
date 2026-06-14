@@ -11,6 +11,9 @@ import prototype2Img from "@/assets/games/prototype-2.jpg";
 import flightSimImg from "@/assets/games/flight-simulator.jpg";
 import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
 import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
+import tekken8Img from "@/assets/games/tekken-8.jpg";
+import goldeneyeImg from "@/assets/games/goldeneye-007.jpg";
+import infamousFLImg from "@/assets/games/infamous-first-light.jpg";
 
 const Games = () => {
   const games = [
