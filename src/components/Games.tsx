@@ -77,6 +77,24 @@ const Games = () => {
       poster: blackMythImg,
       description: "An epic action RPG rooted in Chinese mythology, playing as the Destined One on a perilous journey.",
     },
+    {
+      title: "Tekken 8",
+      genre: "Fighting",
+      poster: tekken8Img,
+      description: "The latest chapter in the legendary fighting saga with stunning visuals and aggressive new gameplay mechanics.",
+    },
+    {
+      title: "GoldenEye 007",
+      genre: "First-Person Shooter",
+      poster: goldeneyeImg,
+      description: "The iconic James Bond shooter that defined console FPS — stealth, espionage, and legendary multiplayer.",
+    },
+    {
+      title: "Infamous: First Light",
+      genre: "Action/Adventure",
+      poster: infamousFLImg,
+      description: "Unleash neon superpowers in this standalone origin story set in the stunning open world of Seattle.",
+    },
   ];
 
   return (
