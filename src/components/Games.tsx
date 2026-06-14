@@ -11,6 +11,9 @@ import prototype2Img from "@/assets/games/prototype-2.jpg";
 import flightSimImg from "@/assets/games/flight-simulator.jpg";
 import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
 import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
+import tekken8Img from "@/assets/games/tekken-8.jpg";
+import goldeneyeImg from "@/assets/games/goldeneye-007.jpg";
+import infamousFLImg from "@/assets/games/infamous-first-light.jpg";
 
 const Games = () => {
   const games = [
@@ -73,6 +76,24 @@ const Games = () => {
       genre: "Action RPG",
       poster: blackMythImg,
       description: "An epic action RPG rooted in Chinese mythology, playing as the Destined One on a perilous journey.",
+    },
+    {
+      title: "Tekken 8",
+      genre: "Fighting",
+      poster: tekken8Img,
+      description: "The latest chapter in the legendary fighting saga with stunning visuals and aggressive new gameplay mechanics.",
+    },
+    {
+      title: "GoldenEye 007",
+      genre: "First-Person Shooter",
+      poster: goldeneyeImg,
+      description: "The iconic James Bond shooter that defined console FPS — stealth, espionage, and legendary multiplayer.",
+    },
+    {
+      title: "Infamous: First Light",
+      genre: "Action/Adventure",
+      poster: infamousFLImg,
+      description: "Unleash neon superpowers in this standalone origin story set in the stunning open world of Seattle.",
     },
   ];
 
