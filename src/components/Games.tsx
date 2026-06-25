@@ -12,6 +12,12 @@ import flightSimImg from "@/assets/games/flight-simulator.jpg";
 import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
 import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
 import tekken8Img from "@/assets/games/tekken-8.jpg";
+import batmanArkhamKnightImg from "@/assets/games/batman-arkham-knight.jpg";
+import cyberpunk2077Img from "@/assets/games/cyberpunk-2077.jpg";
+import itTakesTwoImg from "@/assets/games/it-takes-two.jpg";
+import redDeadRedemptionImg from "@/assets/games/red-dead-redemption.jpg";
+import skyrimImg from "@/assets/games/skyrim.jpg";
+import eldenRingImg from "@/assets/games/elden-ring.jpg";
 import firstLight007Asset from "@/assets/games/007-first-light.png.asset.json";
 const firstLight007Img = firstLight007Asset.url;
 
