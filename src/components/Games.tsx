@@ -12,6 +12,12 @@ import flightSimImg from "@/assets/games/flight-simulator.jpg";
 import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
 import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
 import tekken8Img from "@/assets/games/tekken-8.jpg";
+import batmanArkhamKnightImg from "@/assets/games/batman-arkham-knight.jpg";
+import cyberpunk2077Img from "@/assets/games/cyberpunk-2077.jpg";
+import itTakesTwoImg from "@/assets/games/it-takes-two.jpg";
+import redDeadRedemptionImg from "@/assets/games/red-dead-redemption.jpg";
+import skyrimImg from "@/assets/games/skyrim.jpg";
+import eldenRingImg from "@/assets/games/elden-ring.jpg";
 import firstLight007Asset from "@/assets/games/007-first-light.png.asset.json";
 const firstLight007Img = firstLight007Asset.url;
 
@@ -82,6 +88,42 @@ const Games = () => {
       genre: "Fighting",
       poster: tekken8Img,
       description: "The latest chapter in the legendary fighting saga with stunning visuals and aggressive new gameplay mechanics.",
+    },
+    {
+      title: "Batman: Arkham Knight",
+      genre: "Action/Adventure",
+      poster: batmanArkhamKnightImg,
+      description: "Gotham's Dark Knight faces the ultimate threat as the city is transformed into a criminal battleground.",
+    },
+    {
+      title: "Cyberpunk 2077",
+      genre: "Action RPG",
+      poster: cyberpunk2077Img,
+      description: "A mercenary fighting for survival in the neon-drenched, dangerous megalopolis of Night City.",
+    },
+    {
+      title: "It Takes Two",
+      genre: "Co-op Adventure",
+      poster: itTakesTwoImg,
+      description: "A magical journey where two players must cooperate to heal a fractured relationship in a whimsical toy world.",
+    },
+    {
+      title: "Red Dead Redemption",
+      genre: "Action/Adventure",
+      poster: redDeadRedemptionImg,
+      description: "An epic tale of loyalty, survival, and redemption set across the dying days of the American frontier.",
+    },
+    {
+      title: "The Elder Scrolls V: Skyrim",
+      genre: "Action RPG",
+      poster: skyrimImg,
+      description: "A legendary open-world fantasy where the Dragonborn must rise to face an ancient returning threat.",
+    },
+    {
+      title: "Elden Ring",
+      genre: "Action RPG",
+      poster: eldenRingImg,
+      description: "A haunting open-world masterpiece of dark fantasy exploration, mythic combat, and grim discovery.",
     },
     {
       title: "007 First Light",
