@@ -215,7 +215,7 @@ const Hero = () => {
             <img
               src={profilePicture}
               alt="Sasithar M"
-              className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain object-bottom select-none border border-primary/20 rounded-full p-1 bg-background/40 backdrop-blur-sm shadow-lg"
+              className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain object-bottom select-none border border-primary/20 rounded-full p-1 bg-background/40 backdrop-blur-sm shadow-lg animate-cartoon-wiggle hover:animate-cartoon-pop"
               style={{
                 WebkitMaskImage:
                   "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
