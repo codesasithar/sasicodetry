@@ -312,3 +312,25 @@
 html.screen-shake {
   animation: screen-shake 0.3s ease-out;
 }
+
+/* === Cartoon avatar animations === */
+@keyframes cartoon-wiggle {
+  0%, 100% { transform: translateY(0) rotate(-2deg) scale(1); }
+  25%      { transform: translateY(-6px) rotate(2deg) scale(1.03); }
+  50%      { transform: translateY(0) rotate(-1deg) scale(1); }
+  75%      { transform: translateY(-3px) rotate(1.5deg) scale(1.02); }
+}
+.animate-cartoon-wiggle {
+  animation: cartoon-wiggle 3.6s ease-in-out infinite;
+  transform-origin: 50% 80%;
+}
+
+@keyframes cartoon-pop {
+  0%   { transform: scale(1) rotate(0deg); }
+  30%  { transform: scale(1.15) rotate(-6deg); }
+  60%  { transform: scale(0.96) rotate(4deg); }
+  100% { transform: scale(1.08) rotate(-2deg); }
+}
+.hover\:animate-cartoon-pop:hover {
+  animation: cartoon-pop 0.6s ease-in-out both;
+}
