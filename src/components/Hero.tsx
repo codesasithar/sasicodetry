@@ -459,22 +459,29 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Showcase Video Player */}
+            {/* Showcase Profile Card */}
             <div className="flex flex-col items-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
-              <div className="relative">
+              <div className="relative group">
                 <div className="absolute -inset-2 bg-gradient-vibrant rounded-2xl blur-lg opacity-30 animate-pulse"></div>
                 <div className="absolute -top-4 -right-4 w-16 h-16 border-2 border-accent/20 rounded-full"></div>
                 <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary/20 rounded-xl rotate-45"></div>
 
-                <div className="relative w-72 h-52 rounded-2xl overflow-hidden border-2 border-primary/30">
-                  <video
-                    src="/videos/skills-video.mp4"
-                    loop
-                    playsInline
-                    controls
-                    className="w-full h-full object-cover"
+                <div className="relative w-72 h-52 rounded-2xl overflow-hidden border-2 border-primary/30 bg-card/60 backdrop-blur-md flex flex-col items-center justify-center gap-3">
+                  <img
+                    src={profilePicture}
+                    alt="Sasithar M"
+                    className="w-24 h-24 object-contain object-bottom rounded-full p-1.5 bg-background/40 border border-primary/20 shadow-lg animate-cartoon-wiggle hover:animate-cartoon-pop"
+                    style={{
+                      WebkitMaskImage:
+                        "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+                      maskImage:
+                        "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+                      filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.45))",
+                    }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
+                  <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary animate-gradient bg-[length:200%_auto]">
+                    Hi!
+                  </div>
                 </div>
               </div>
             </div>
