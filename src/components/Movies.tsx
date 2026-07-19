@@ -1,8 +1,18 @@
-import { Play, Star, Calendar, Clock } from "lucide-react";
+import { Play, Star, Calendar, Clock, ExternalLink, Clapperboard } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import realSteelPoster from "@/assets/movies/real-steel.jpg";
 import tetrisPoster from "@/assets/movies/tetris.jpg";
 import goodWillHuntingPoster from "@/assets/movies/good-will-hunting.jpg";
+
 
 
 const Movies = () => {
