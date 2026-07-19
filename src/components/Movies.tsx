@@ -141,6 +141,24 @@ const Movies = () => {
       duration: "138 min",
       poster: "https://m.media-amazon.com/images/M/MV5BYzhiNDkyNzktNTZmYS00ZTBkLTk2MDAtM2U0YjU1MzgxZjgzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
       description: "A U.S. Marshal investigates the disappearance of a murderer who escaped from a hospital for the criminally insane."
+    },
+    {
+      title: "Tetris",
+      year: "2023",
+      genre: "Biography/Thriller",
+      rating: "7.4",
+      duration: "118 min",
+      poster: tetrisPoster,
+      description: "The true story of how the addictive video game became a Cold War battleground between rights holders and the Soviet Union."
+    },
+    {
+      title: "Good Will Hunting",
+      year: "1997",
+      genre: "Drama/Romance",
+      rating: "8.3",
+      duration: "126 min",
+      poster: goodWillHuntingPoster,
+      description: "A troubled janitor at MIT with a genius-level IQ is guided by a therapist to confront his past and realize his potential."
     }
   ];
 
