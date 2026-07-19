@@ -18,6 +18,9 @@ import itTakesTwoImg from "@/assets/games/it-takes-two.jpg";
 import redDeadRedemptionImg from "@/assets/games/red-dead-redemption.jpg";
 import skyrimImg from "@/assets/games/skyrim.jpg";
 import eldenRingImg from "@/assets/games/elden-ring.jpg";
+import forza6Img from "@/assets/games/forza-6.jpg";
+import redDeadRedemption2Img from "@/assets/games/red-dead-redemption-2.jpg";
+import farCry5Img from "@/assets/games/far-cry-5.jpg";
 import firstLight007Asset from "@/assets/games/007-first-light.png.asset.json";
 const firstLight007Img = firstLight007Asset.url;
 
@@ -130,6 +133,24 @@ const Games = () => {
       genre: "Action/Adventure",
       poster: firstLight007Img,
       description: "A fresh origin story for James Bond — the young agent earns his 00 status in a globe-trotting cinematic adventure.",
+    },
+    {
+      title: "Forza Motorsport 6",
+      genre: "Racing/Simulation",
+      poster: forza6Img,
+      description: "The ultimate simulation racing experience with over 450 cars, wet-weather racing, and stunning track visuals.",
+    },
+    {
+      title: "Red Dead Redemption 2",
+      genre: "Action/Adventure",
+      poster: redDeadRedemption2Img,
+      description: "An epic western tale of outlaws, loyalty, and survival across a breathtaking, living American frontier.",
+    },
+    {
+      title: "Far Cry 5",
+      genre: "FPS/Open World",
+      poster: farCry5Img,
+      description: "Liberate the scenic Montana countryside from a fanatical doomsday cult in explosive open-world action.",
     },
   ];
 
