@@ -1,6 +1,9 @@
 import { Play, Star, Calendar, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import realSteelPoster from "@/assets/movies/real-steel.jpg";
+import tetrisPoster from "@/assets/movies/tetris.jpg";
+import goodWillHuntingPoster from "@/assets/movies/good-will-hunting.jpg";
+
 
 const Movies = () => {
   const movies = [
