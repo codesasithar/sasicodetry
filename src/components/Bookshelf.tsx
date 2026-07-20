@@ -24,7 +24,6 @@ interface Book {
 }
 
 const books: Book[] = [
-  // ... (Your existing books array stays exactly the same)
   {
     id: "1",
     title: "A Brief History of Time",
@@ -120,7 +119,6 @@ const Bookshelf = () => {
     }
   };
 
-  // Reusable component for the 3D Animated Book Item
   const AnimatedBook = ({ book, sizeClasses }: { book: Book; sizeClasses: string }) => {
     const isOpen = selectedBook?.id === book.id;
 
@@ -130,55 +128,64 @@ const Bookshelf = () => {
         style={{ perspective: "1000px" }}
         onClick={() => setSelectedBook(isOpen ? null : book)}
       >
-        {/* 3D Wrapper */}
+        {/* 3D Wrapper with multi-stage transition for hover and open states */}
         <div
-          className="relative w-full h-full transition-transform duration-700 ease-in-out"
+          className="relative w-full h-full transition-all duration-500 ease-out combine-3d-transforms"
           style={{
             transformStyle: "preserve-3d",
-            transform: isOpen ? "rotateY(-140deg) scale(1.05)" : "rotateY(0deg)",
-            transformOrigin: "left center"
+            transformOrigin: "left center",
+            transform: isOpen 
+              ? "rotateY(-140deg) scale(1.05)" 
+              : "rotateY(0deg) translateZ(0px) rotateX(0deg)"
           }}
+          // Dynamic styles applying tailwind group hover states combined with 3D parameters
+          data-is-open={isOpen}
         >
-          {/* Front Cover Layer */}
-          <div
-            className="absolute inset-0 w-full h-full rounded-r shadow-lg overflow-hidden border border-border/20 z-20 bg-gradient-to-b from-background to-muted"
-            style={{ backfaceVisibility: "hidden" }}
+          {/* Internal wrapper applying custom hover styling via CSS custom variables or standard class transitions */}
+          <div 
+            className="w-full h-full transition-transform duration-300 ease-out group-hover:[transform:rotateY(-10deg)_translateZ(15px)] group-data-[is-open=true]:[transform:none]"
+            style={{ transformStyle: "preserve-3d" }}
           >
-            <img
-              src={book.cover}
-              alt={book.title}
-              className="w-full h-full object-cover"
-            />
-            {/* Spine Shadow Depth Overlay */}
-            <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/40 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
-          </div>
-
-          {/* Inside Page Layer (Visible when opened) */}
-          <div
-            className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col justify-between"
-            style={{
-              backfaceVisibility: "hidden",
-              transform: "rotateY(180deg)",
-            }}
-          >
-            {/* Faux Text Lines mimicking book text */}
-            <div className="space-y-1.5 opacity-60">
-              <div className="h-2 bg-amber-900/20 rounded w-5/6" />
-              <div className="h-2 bg-amber-900/20 rounded w-full" />
-              <div className="h-2 bg-amber-900/20 rounded w-4/5" />
-              <div className="h-2 bg-amber-900/20 rounded w-11/12" />
-              <div className="h-2 bg-amber-900/20 rounded w-3/4" />
+            {/* Front Cover Layer */}
+            <div
+              className="absolute inset-0 w-full h-full rounded-r shadow-lg overflow-hidden border border-border/20 z-20 bg-gradient-to-b from-background to-muted transition-shadow duration-300 group-hover:shadow-xl"
+              style={{ backfaceVisibility: "hidden" }}
+            >
+              <img
+                src={book.cover}
+                alt={book.title}
+                className="w-full h-full object-cover"
+              />
+              {/* Spine Shadow Depth Overlay */}
+              <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
             </div>
-            <div className="text-[10px] text-amber-800 font-serif font-semibold truncate text-center select-none">
-              {book.title}
+
+            {/* Inside Page Layer (Visible when opened) */}
+            <div
+              className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col justify-between"
+              style={{
+                backfaceVisibility: "hidden",
+                transform: "rotateY(180deg)",
+              }}
+            >
+              <div className="space-y-1.5 opacity-60">
+                <div className="h-2 bg-amber-900/20 rounded w-5/6" />
+                <div className="h-2 bg-amber-900/20 rounded w-full" />
+                <div className="h-2 bg-amber-900/20 rounded w-4/5" />
+                <div className="h-2 bg-amber-900/20 rounded w-11/12" />
+                <div className="h-2 bg-amber-900/20 rounded w-3/4" />
+              </div>
+              <div className="text-[10px] text-amber-800 font-serif font-semibold truncate text-center select-none">
+                {book.title}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Outer Glow Highlight Effect on Hover */}
-        <div className="absolute -inset-1 bg-primary/20 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm pointer-events-none" />
-        <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 z-30 pointer-events-none" />
+        <div className="absolute -inset-2 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-md pointer-events-none" />
+        <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 z-30 pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
       </div>
     );
   };
