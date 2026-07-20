@@ -48,6 +48,7 @@ const Games = () => {
       platforms: "PS5, PC",
       poster: spiderman2Img,
       description: "Peter Parker and Miles Morales team up against new threats in Marvel's New York.",
+      trailer: "https://www.youtube.com/results?search_query=Marvel+Spider-Man+2+trailer",
     },
     {
       title: "Forza Horizon 5",
