@@ -330,6 +330,16 @@ const Games = () => {
                       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                         {game.description}
                       </p>
+
+                      <a
+                        href={game.trailer}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 self-start bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-2 rounded-full text-sm font-medium mt-1"
+                      >
+                        <Play className="h-4 w-4 fill-current" />
+                        Watch Trailer / Gameplay
+                      </a>
                     </div>
                   </div>
                 </DialogContent>
