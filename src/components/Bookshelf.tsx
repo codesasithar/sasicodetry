@@ -12,6 +12,9 @@ import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
 import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.jpg";
 import dopamineDetox from "@/assets/books/dopamine-detox.jpg";
 import lifeLessonsBrainSurgeon from "@/assets/books/life-lessons-brain-surgeon.jpg";
+// New asset imports
+import ikigai from "@/assets/books/ikigai.jpg";
+import theWhiteTiger from "@/assets/books/the-white-tiger.jpg";
 
 interface Book {
   id: string;
@@ -95,6 +98,24 @@ const books: Book[] = [
     genre: "Science",
     status: "read",
     summary: "Neurosurgeon Rahul Jandial draws on cutting-edge research to reveal the new science of the brain."
+  },
+  {
+    id: "9",
+    title: "Ikigai",
+    author: "Héctor García and Francesc Miralles",
+    cover: ikigai,
+    genre: "Philosophy",
+    status: "read",
+    summary: "An examination of the Japanese secret to a long, happy, and purposeful life."
+  },
+  {
+    id: "10",
+    title: "The White Tiger",
+    author: "Aravind Adiga",
+    cover: theWhiteTiger,
+    genre: "Fiction",
+    status: "read",
+    summary: "A darkly comic and visceral journey tracking a driver's rise through the social hierarchies of modern India."
   }
 ];
 
@@ -128,7 +149,6 @@ const Bookshelf = () => {
         style={{ perspective: "1000px" }}
         onClick={() => setSelectedBook(isOpen ? null : book)}
       >
-        {/* 3D Wrapper with multi-stage transition for hover and open states */}
         <div
           className="relative w-full h-full transition-all duration-500 ease-out combine-3d-transforms"
           style={{
@@ -138,10 +158,8 @@ const Bookshelf = () => {
               ? "rotateY(-140deg) scale(1.05)" 
               : "rotateY(0deg) translateZ(0px) rotateX(0deg)"
           }}
-          // Dynamic styles applying tailwind group hover states combined with 3D parameters
           data-is-open={isOpen}
         >
-          {/* Internal wrapper applying custom hover styling via CSS custom variables or standard class transitions */}
           <div 
             className="w-full h-full transition-transform duration-300 ease-out group-hover:[transform:rotateY(-10deg)_translateZ(15px)] group-data-[is-open=true]:[transform:none]"
             style={{ transformStyle: "preserve-3d" }}
@@ -156,12 +174,11 @@ const Bookshelf = () => {
                 alt={book.title}
                 className="w-full h-full object-cover"
               />
-              {/* Spine Shadow Depth Overlay */}
               <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
             </div>
 
-            {/* Inside Page Layer (Visible when opened) */}
+            {/* Inside Page Layer */}
             <div
               className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col justify-between"
               style={{
@@ -183,12 +200,17 @@ const Bookshelf = () => {
           </div>
         </div>
 
-        {/* Outer Glow Highlight Effect on Hover */}
+        {/* Hover Accents */}
         <div className="absolute -inset-2 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-md pointer-events-none" />
         <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 z-30 pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
       </div>
     );
   };
+
+  // Dynamically split books so shelves remain balanced as you grow the list
+  const halfPoint = Math.ceil(books.length / 2);
+  const shelfOneBooks = books.slice(0, halfPoint);
+  const shelfTwoBooks = books.slice(halfPoint);
 
   return (
     <section id="bookshelf" className="py-16 sm:py-20 bg-background px-4 sm:px-6">
@@ -229,7 +251,7 @@ const Bookshelf = () => {
               {/* Shelf 1 */}
               <div className="relative">
                 <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
-                  {books.slice(0, 4).map((book) => (
+                  {shelfOneBooks.map((book) => (
                     <AnimatedBook 
                       key={book.id} 
                       book={book} 
@@ -243,7 +265,7 @@ const Bookshelf = () => {
               {/* Shelf 2 */}
               <div className="relative">
                 <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
-                  {books.slice(4).map((book) => (
+                  {shelfTwoBooks.map((book) => (
                     <AnimatedBook 
                       key={book.id} 
                       book={book} 
