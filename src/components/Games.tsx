@@ -1,4 +1,4 @@
-import { Gamepad2, Star, Calendar } from "lucide-react";
+import { Gamepad2, Star, Calendar, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -39,6 +39,7 @@ const Games = () => {
       platforms: "PS4, PS5, PC",
       poster: godOfWarImg,
       description: "Kratos and Atreus embark on a mythic journey for answers before Ragnarök arrives.",
+      trailer: "https://www.youtube.com/results?search_query=God+of+War+Ragnarok+trailer",
     },
     {
       title: "Spider-Man 2",
@@ -47,6 +48,7 @@ const Games = () => {
       platforms: "PS5, PC",
       poster: spiderman2Img,
       description: "Peter Parker and Miles Morales team up against new threats in Marvel's New York.",
+      trailer: "https://www.youtube.com/results?search_query=Marvel+Spider-Man+2+trailer",
     },
     {
       title: "Forza Horizon 5",
@@ -55,6 +57,7 @@ const Games = () => {
       platforms: "Xbox Series X|S, Xbox One, PC",
       poster: forzaImg,
       description: "Explore the vibrant open world landscapes of Mexico in the ultimate racing adventure.",
+      trailer: "https://www.youtube.com/results?search_query=Forza+Horizon+5+trailer",
     },
     {
       title: "Horizon Zero Dawn",
@@ -63,6 +66,7 @@ const Games = () => {
       platforms: "PS4, PC",
       poster: horizonZDImg,
       description: "Aloy uncovers the secrets of a world overrun by mysterious machines.",
+      trailer: "https://www.youtube.com/results?search_query=Horizon+Zero+Dawn+trailer",
     },
     {
       title: "Horizon Forbidden West",
@@ -71,6 +75,7 @@ const Games = () => {
       platforms: "PS4, PS5, PC",
       poster: horizonFWImg,
       description: "Aloy ventures into the Forbidden West to find the source of a mysterious plague.",
+      trailer: "https://www.youtube.com/results?search_query=Horizon+Forbidden+West+trailer",
     },
     {
       title: "Uncharted 4",
@@ -79,6 +84,7 @@ const Games = () => {
       platforms: "PS4, PC",
       poster: uncharted4Img,
       description: "Nathan Drake's greatest adventure — a globetrotting journey of discovery.",
+      trailer: "https://www.youtube.com/results?search_query=Uncharted+4+trailer",
     },
     {
       title: "Prototype 2",
@@ -87,6 +93,7 @@ const Games = () => {
       platforms: "PS3, Xbox 360, PC",
       poster: prototype2Img,
       description: "James Heller wields incredible shapeshifting powers to hunt down the man responsible for his family's death.",
+      trailer: "https://www.youtube.com/results?search_query=Prototype+2+gameplay+trailer",
     },
     {
       title: "Microsoft Flight Simulator",
@@ -95,6 +102,7 @@ const Games = () => {
       platforms: "PC, Xbox Series X|S",
       poster: flightSimImg,
       description: "Fly anywhere in the world with stunning real-world detail and weather simulation.",
+      trailer: "https://www.youtube.com/results?search_query=Microsoft+Flight+Simulator+trailer",
     },
     {
       title: "Rise of the Tomb Raider",
@@ -103,6 +111,7 @@ const Games = () => {
       platforms: "Xbox One, Xbox 360, PS4, PC",
       poster: tombRaiderImg,
       description: "Lara Croft's relentless journey to uncover an ancient immortal secret in treacherous Siberian wilderness.",
+      trailer: "https://www.youtube.com/results?search_query=Rise+of+the+Tomb+Raider+trailer",
     },
     {
       title: "Black Myth: Wukong",
@@ -111,6 +120,7 @@ const Games = () => {
       platforms: "PS5, PC",
       poster: blackMythImg,
       description: "An epic action RPG rooted in Chinese mythology, playing as the Destined One on a perilous journey.",
+      trailer: "https://www.youtube.com/results?search_query=Black+Myth+Wukong+trailer",
     },
     {
       title: "Tekken 8",
@@ -119,6 +129,7 @@ const Games = () => {
       platforms: "PS5, Xbox Series X|S, PC",
       poster: tekken8Img,
       description: "The latest chapter in the legendary fighting saga with stunning visuals and aggressive new gameplay mechanics.",
+      trailer: "https://www.youtube.com/results?search_query=Tekken+8+trailer",
     },
     {
       title: "Batman: Arkham Knight",
@@ -127,6 +138,7 @@ const Games = () => {
       platforms: "PS4, Xbox One, PC",
       poster: batmanArkhamKnightImg,
       description: "Gotham's Dark Knight faces the ultimate threat as the city is transformed into a criminal battleground.",
+      trailer: "https://www.youtube.com/results?search_query=Batman+Arkham+Knight+trailer",
     },
     {
       title: "Cyberpunk 2077",
@@ -135,6 +147,7 @@ const Games = () => {
       platforms: "PS4, PS5, Xbox One, Xbox Series X|S, PC",
       poster: cyberpunk2077Img,
       description: "A mercenary fighting for survival in the neon-drenched, dangerous megalopolis of Night City.",
+      trailer: "https://www.youtube.com/results?search_query=Cyberpunk+2077+trailer",
     },
     {
       title: "It Takes Two",
@@ -143,6 +156,7 @@ const Games = () => {
       platforms: "PS4, PS5, Xbox One, Xbox Series X|S, PC, Switch",
       poster: itTakesTwoImg,
       description: "A magical journey where two players must cooperate to heal a fractured relationship in a whimsical toy world.",
+      trailer: "https://www.youtube.com/results?search_query=It+Takes+Two+gameplay+trailer",
     },
     {
       title: "Red Dead Redemption",
@@ -151,6 +165,7 @@ const Games = () => {
       platforms: "PS3, Xbox 360, Switch, PC",
       poster: redDeadRedemptionImg,
       description: "An epic tale of loyalty, survival, and redemption set across the dying days of the American frontier.",
+      trailer: "https://www.youtube.com/results?search_query=Red+Dead+Redemption+trailer",
     },
     {
       title: "The Elder Scrolls V: Skyrim",
@@ -159,6 +174,7 @@ const Games = () => {
       platforms: "PS3, Xbox 360, PC, Switch, PS4, Xbox One",
       poster: skyrimImg,
       description: "A legendary open-world fantasy where the Dragonborn must rise to face an ancient returning threat.",
+      trailer: "https://www.youtube.com/results?search_query=Skyrim+trailer",
     },
     {
       title: "Elden Ring",
@@ -167,6 +183,7 @@ const Games = () => {
       platforms: "PS4, PS5, Xbox One, Xbox Series X|S, PC",
       poster: eldenRingImg,
       description: "A haunting open-world masterpiece of dark fantasy exploration, mythic combat, and grim discovery.",
+      trailer: "https://www.youtube.com/results?search_query=Elden+Ring+trailer",
     },
     {
       title: "007 First Light",
@@ -175,6 +192,7 @@ const Games = () => {
       platforms: "PC, PS5, Xbox Series X|S",
       poster: firstLight007Img,
       description: "A fresh origin story for James Bond — the young agent earns his 00 status in a globe-trotting cinematic adventure.",
+      trailer: "https://www.youtube.com/results?search_query=James+Bond+007+game+trailer",
     },
     {
       title: "Forza Motorsport 6",
@@ -183,6 +201,7 @@ const Games = () => {
       platforms: "Xbox One, PC",
       poster: forza6Img,
       description: "The ultimate simulation racing experience with over 450 cars, wet-weather racing, and stunning track visuals.",
+      trailer: "https://www.youtube.com/results?search_query=Forza+Motorsport+6+trailer",
     },
     {
       title: "Red Dead Redemption 2",
@@ -191,6 +210,7 @@ const Games = () => {
       platforms: "PS4, Xbox One, PC, Stadia",
       poster: redDeadRedemption2Img,
       description: "An epic western tale of outlaws, loyalty, and survival across a breathtaking, living American frontier.",
+      trailer: "https://www.youtube.com/results?search_query=Red+Dead+Redemption+2+trailer",
     },
     {
       title: "Far Cry 5",
@@ -199,6 +219,7 @@ const Games = () => {
       platforms: "PS4, Xbox One, PC",
       poster: farCry5Img,
       description: "Liberate the scenic Montana countryside from a fanatical doomsday cult in explosive open-world action.",
+      trailer: "https://www.youtube.com/results?search_query=Far+Cry+5+trailer",
     },
   ];
 
@@ -309,6 +330,16 @@ const Games = () => {
                       <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                         {game.description}
                       </p>
+
+                      <a
+                        href={game.trailer}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 self-start bg-primary text-primary-foreground hover:bg-primary/90 transition-colors px-4 py-2 rounded-full text-sm font-medium mt-1"
+                      >
+                        <Play className="h-4 w-4 fill-current" />
+                        Watch Trailer / Gameplay
+                      </a>
                     </div>
                   </div>
                 </DialogContent>
