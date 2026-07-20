@@ -39,6 +39,7 @@ const Games = () => {
       platforms: "PS4, PS5, PC",
       poster: godOfWarImg,
       description: "Kratos and Atreus embark on a mythic journey for answers before Ragnarök arrives.",
+      trailer: "https://www.youtube.com/results?search_query=God+of+War+Ragnarok+trailer",
     },
     {
       title: "Spider-Man 2",
