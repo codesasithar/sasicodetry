@@ -275,11 +275,6 @@ const Games = () => {
                 </DialogTrigger>
 
                 <DialogContent className="sm:max-w-xl bg-card/95 backdrop-blur-xl border-border/60">
-                  <DialogHeader className="sr-only">
-                    <DialogTitle>{game.title}</DialogTitle>
-                    <DialogDescription>{game.description}</DialogDescription>
-                  </DialogHeader>
-
                   <div className="grid gap-6 sm:grid-cols-5 items-start">
                     {/* Modal Poster */}
                     <div className="sm:col-span-2 aspect-[2/3] rounded-lg overflow-hidden border border-border/50">
@@ -294,7 +289,9 @@ const Games = () => {
                     {/* Modal Details */}
                     <div className="sm:col-span-3 flex flex-col gap-4">
                       <div>
-                        <h3 className="text-2xl font-bold text-foreground mb-1">{game.title}</h3>
+                        <DialogTitle asChild>
+                          <h3 className="text-2xl font-bold text-foreground mb-1">{game.title}</h3>
+                        </DialogTitle>
                         <p className="text-sm text-muted-foreground">{game.year} • {game.genre}</p>
                       </div>
 
