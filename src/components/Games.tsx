@@ -1,4 +1,4 @@
-import { Gamepad2, Star, Calendar } from "lucide-react";
+import { Gamepad2, Star, Calendar, Play } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
