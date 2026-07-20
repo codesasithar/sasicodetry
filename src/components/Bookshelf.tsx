@@ -2,6 +2,8 @@ import { useState } from "react";
 import { BookOpen, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+
+// (Keep your existing asset imports here)
 const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.png";
 import atomicHabits from "@/assets/books/atomic-habits.jpg";
 import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
@@ -22,6 +24,7 @@ interface Book {
 }
 
 const books: Book[] = [
+  // ... (Your existing books array stays exactly the same)
   {
     id: "1",
     title: "A Brief History of Time",
@@ -29,7 +32,7 @@ const books: Book[] = [
     cover: briefHistoryOfTime,
     genre: "Science",
     status: "read",
-    summary: "Hawking's masterpiece explores the nature of time, space, and the universe in accessible language. From the Big Bang to black holes, this book reveals the fundamental principles governing our cosmos and challenges our understanding of reality itself."
+    summary: "Hawking's masterpiece explores the nature of time, space, and the universe in accessible language."
   },
   {
     id: "2",
@@ -38,7 +41,7 @@ const books: Book[] = [
     cover: atomicHabits,
     genre: "Self-Help",
     status: "read",
-    summary: "A practical guide to building good habits and breaking bad ones. Clear reveals how small changes compound into remarkable results, providing a proven framework for improving every day through the power of atomic habits."
+    summary: "A practical guide to building good habits and breaking bad ones."
   },
   {
     id: "3",
@@ -47,7 +50,7 @@ const books: Book[] = [
     cover: richDadPoorDad,
     genre: "Finance",
     status: "read",
-    summary: "Kiyosaki challenges conventional wisdom about money and investing through the contrasting philosophies of his 'rich dad' and 'poor dad'. A foundational book on financial literacy that emphasizes assets over liabilities and financial education."
+    summary: "Kiyosaki challenges conventional wisdom about money and investing."
   },
   {
     id: "4",
@@ -56,7 +59,7 @@ const books: Book[] = [
     cover: originOfSpecies,
     genre: "Science",
     status: "read",
-    summary: "Darwin's groundbreaking work that introduced the theory of evolution by natural selection. This revolutionary text fundamentally changed our understanding of life on Earth and remains one of the most influential scientific works ever written."
+    summary: "Darwin's groundbreaking work that introduced the theory of evolution by natural selection."
   },
   {
     id: "5",
@@ -65,7 +68,7 @@ const books: Book[] = [
     cover: mindIsYourBusiness,
     genre: "Philosophy",
     status: "read",
-    summary: "Sadhguru explores the nature of the mind and consciousness, offering practical wisdom for achieving mental clarity and inner peace. A profound guide to understanding the mechanics of the mind and transcending its limitations."
+    summary: "Sadhguru explores the nature of the mind and consciousness."
   },
   {
     id: "6",
@@ -74,7 +77,7 @@ const books: Book[] = [
     cover: powerOfSubconsciousMind,
     genre: "Self-Help",
     status: "read",
-    summary: "Murphy reveals how to harness the incredible power of your subconscious mind to transform your life. This classic explores techniques for programming your mind for success, health, and happiness through positive thinking and visualization."
+    summary: "Murphy reveals how to harness the incredible power of your subconscious mind."
   },
   {
     id: "7",
@@ -83,7 +86,7 @@ const books: Book[] = [
     cover: dopamineDetox,
     genre: "Self-Help",
     status: "read",
-    summary: "A practical guide to removing distractions and training your brain to focus on challenging tasks. Learn how to break free from instant gratification and develop the mental discipline needed to achieve your goals through strategic dopamine management."
+    summary: "A practical guide to removing distractions and training your brain to focus."
   },
   {
     id: "8",
@@ -92,7 +95,7 @@ const books: Book[] = [
     cover: lifeLessonsBrainSurgeon,
     genre: "Science",
     status: "read",
-    summary: "Neurosurgeon Rahul Jandial draws on cutting-edge research and his own experience in the operating room to reveal the new science of the brain. From memory and creativity to dreaming and decision-making, this book offers practical insights into how we can optimize our brain's performance."
+    summary: "Neurosurgeon Rahul Jandial draws on cutting-edge research to reveal the new science of the brain."
   }
 ];
 
@@ -117,6 +120,69 @@ const Bookshelf = () => {
     }
   };
 
+  // Reusable component for the 3D Animated Book Item
+  const AnimatedBook = ({ book, sizeClasses }: { book: Book; sizeClasses: string }) => {
+    const isOpen = selectedBook?.id === book.id;
+
+    return (
+      <div
+        className={`relative group cursor-pointer ${sizeClasses}`}
+        style={{ perspective: "1000px" }}
+        onClick={() => setSelectedBook(isOpen ? null : book)}
+      >
+        {/* 3D Wrapper */}
+        <div
+          className="relative w-full h-full transition-transform duration-700 ease-in-out"
+          style={{
+            transformStyle: "preserve-3d",
+            transform: isOpen ? "rotateY(-140deg) scale(1.05)" : "rotateY(0deg)",
+            transformOrigin: "left center"
+          }}
+        >
+          {/* Front Cover Layer */}
+          <div
+            className="absolute inset-0 w-full h-full rounded-r shadow-lg overflow-hidden border border-border/20 z-20 bg-gradient-to-b from-background to-muted"
+            style={{ backfaceVisibility: "hidden" }}
+          >
+            <img
+              src={book.cover}
+              alt={book.title}
+              className="w-full h-full object-cover"
+            />
+            {/* Spine Shadow Depth Overlay */}
+            <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
+          </div>
+
+          {/* Inside Page Layer (Visible when opened) */}
+          <div
+            className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col justify-between"
+            style={{
+              backfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+            }}
+          >
+            {/* Faux Text Lines mimicking book text */}
+            <div className="space-y-1.5 opacity-60">
+              <div className="h-2 bg-amber-900/20 rounded w-5/6" />
+              <div className="h-2 bg-amber-900/20 rounded w-full" />
+              <div className="h-2 bg-amber-900/20 rounded w-4/5" />
+              <div className="h-2 bg-amber-900/20 rounded w-11/12" />
+              <div className="h-2 bg-amber-900/20 rounded w-3/4" />
+            </div>
+            <div className="text-[10px] text-amber-800 font-serif font-semibold truncate text-center select-none">
+              {book.title}
+            </div>
+          </div>
+        </div>
+
+        {/* Outer Glow Highlight Effect on Hover */}
+        <div className="absolute -inset-1 bg-primary/20 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm pointer-events-none" />
+        <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 z-30 pointer-events-none" />
+      </div>
+    );
+  };
+
   return (
     <section id="bookshelf" className="py-16 sm:py-20 bg-background px-4 sm:px-6">
       <div className="container mx-auto">
@@ -131,58 +197,37 @@ const Bookshelf = () => {
         </div>
         
         <div className="w-full max-w-4xl mx-auto">
-          <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6">
+          <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden">
             <div className="flex items-center gap-2 mb-6">
               <Button size="sm" variant="outline" className="ml-auto">
                 <Plus className="h-4 w-4" />
               </Button>
             </div>
 
-            {/* Mobile: Grid Layout */}
+            {/* Mobile Layout */}
             <div className="block md:hidden">
-              <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="grid grid-cols-3 gap-y-6 gap-x-4 mb-4 sm:mb-6 px-2">
                 {books.map((book) => (
-                  <div
-                    key={book.id}
-                    className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
-                    onClick={() => setSelectedBook(selectedBook?.id === book.id ? null : book)}
-                  >
-                    <div className="aspect-[2/3] bg-gradient-to-b from-background to-muted rounded shadow-lg overflow-hidden border border-border/20">
-                      <img
-                        src={book.cover}
-                        alt={book.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent rounded pointer-events-none" />
-                    <div className="absolute -inset-1 bg-primary/20 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm" />
-                    <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400" />
-                  </div>
+                  <AnimatedBook 
+                    key={book.id} 
+                    book={book} 
+                    sizeClasses="aspect-[2/3] w-full" 
+                  />
                 ))}
               </div>
             </div>
 
             {/* Desktop: Bookshelf Layout */}
-            <div className="hidden md:block space-y-8">
+            <div className="hidden md:block space-y-12 pt-4">
               {/* Shelf 1 */}
               <div className="relative">
-                <div className="flex gap-4 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-4 pt-4 rounded-t-sm">
+                <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
                   {books.slice(0, 4).map((book) => (
-                    <div
-                      key={book.id}
-                      className="relative group cursor-pointer transform hover:scale-110 transition-all duration-300"
-                      onClick={() => setSelectedBook(selectedBook?.id === book.id ? null : book)}
-                    >
-                      <div className="w-20 lg:w-24 h-28 lg:h-32 bg-gradient-to-b from-background to-muted rounded-sm shadow-xl overflow-hidden border border-border/20">
-                        <img
-                          src={book.cover}
-                          alt={book.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent rounded-sm pointer-events-none" />
-                      <div className="absolute -inset-1 bg-primary/20 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm" />
-                    </div>
+                    <AnimatedBook 
+                      key={book.id} 
+                      book={book} 
+                      sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                    />
                   ))}
                 </div>
                 <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
@@ -190,32 +235,22 @@ const Bookshelf = () => {
 
               {/* Shelf 2 */}
               <div className="relative">
-                <div className="flex gap-4 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-4 pt-4 rounded-t-sm min-h-[8rem]">
+                <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
                   {books.slice(4).map((book) => (
-                    <div
-                      key={book.id}
-                      className="relative group cursor-pointer transform hover:scale-110 transition-all duration-300"
-                      onClick={() => setSelectedBook(selectedBook?.id === book.id ? null : book)}
-                    >
-                      <div className="w-20 lg:w-24 h-28 lg:h-32 bg-gradient-to-b from-background to-muted rounded-sm shadow-xl overflow-hidden border border-border/20">
-                        <img
-                          src={book.cover}
-                          alt={book.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent rounded-sm pointer-events-none" />
-                      <div className="absolute -inset-1 bg-primary/20 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm" />
-                    </div>
+                    <AnimatedBook 
+                      key={book.id} 
+                      book={book} 
+                      sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                    />
                   ))}
                 </div>
                 <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
               </div>
             </div>
 
-            {/* Book Details */}
+            {/* Book Details Pane */}
             {selectedBook && (
-              <div className="mt-6 p-4 bg-muted/50 rounded-lg animate-fade-in">
+              <div className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30">
                 <h4 className="font-semibold text-foreground text-base md:text-lg">{selectedBook.title}</h4>
                 <p className="text-muted-foreground text-sm md:text-base">{selectedBook.author}</p>
                 <div className="flex items-center gap-2 mt-2 flex-wrap">
@@ -235,7 +270,7 @@ const Bookshelf = () => {
               </div>
             )}
 
-            {/* Stats */}
+            {/* Stats Footer */}
             <div className="mt-6 pt-4 border-t border-border/50">
               <div className="flex justify-between text-sm text-muted-foreground">
                 <span>Books Read: {books.filter(b => b.status === "read").length}</span>
