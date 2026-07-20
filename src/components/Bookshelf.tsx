@@ -3,7 +3,7 @@ import { BookOpen, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
-// (Keep your existing asset imports here)
+// Existing asset imports
 const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.png";
 import atomicHabits from "@/assets/books/atomic-habits.jpg";
 import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
@@ -12,6 +12,7 @@ import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
 import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.jpg";
 import dopamineDetox from "@/assets/books/dopamine-detox.jpg";
 import lifeLessonsBrainSurgeon from "@/assets/books/life-lessons-brain-surgeon.jpg";
+
 // New asset imports
 import ikigai from "@/assets/books/ikigai.jpg";
 import theWhiteTiger from "@/assets/books/the-white-tiger.jpg";
@@ -106,7 +107,7 @@ const books: Book[] = [
     cover: ikigai,
     genre: "Philosophy",
     status: "read",
-    summary: "An examination of the Japanese secret to a long, happy, and purposeful life."
+    summary: "An investigation into the Japanese secret to a long, purposeful, and joyful life."
   },
   {
     id: "10",
@@ -115,7 +116,7 @@ const books: Book[] = [
     cover: theWhiteTiger,
     genre: "Fiction",
     status: "read",
-    summary: "A darkly comic and visceral journey tracking a driver's rise through the social hierarchies of modern India."
+    summary: "A compelling, darkly humorous story tracking a driver's journey through modern India's rigid class struggles."
   }
 ];
 
@@ -200,17 +201,17 @@ const Bookshelf = () => {
           </div>
         </div>
 
-        {/* Hover Accents */}
+        {/* Outer Glow Highlight Effect on Hover */}
         <div className="absolute -inset-2 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-md pointer-events-none" />
         <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 z-30 pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
       </div>
     );
   };
 
-  // Dynamically split books so shelves remain balanced as you grow the list
-  const halfPoint = Math.ceil(books.length / 2);
-  const shelfOneBooks = books.slice(0, halfPoint);
-  const shelfTwoBooks = books.slice(halfPoint);
+  // Dynamically divide the books array into equal subsets for even shelf distribution
+  const half = Math.ceil(books.length / 2);
+  const shelfOneBooks = books.slice(0, half);
+  const shelfTwoBooks = books.slice(half);
 
   return (
     <section id="bookshelf" className="py-16 sm:py-20 bg-background px-4 sm:px-6">
