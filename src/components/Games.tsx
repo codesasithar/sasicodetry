@@ -57,6 +57,7 @@ const Games = () => {
       platforms: "Xbox Series X|S, Xbox One, PC",
       poster: forzaImg,
       description: "Explore the vibrant open world landscapes of Mexico in the ultimate racing adventure.",
+      trailer: "https://www.youtube.com/results?search_query=Forza+Horizon+5+trailer",
     },
     {
       title: "Horizon Zero Dawn",
