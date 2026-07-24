@@ -227,7 +227,16 @@ const Bookshelf = () => {
         </div>
         
         <div className="w-full max-w-4xl mx-auto">
-          <Card className="bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden">
+          <Card className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden">
+            {/* Reading light glow animation above the bookshelf */}
+            <div className="reading-light">
+              <div className="reading-light-housing" />
+              <div className="flex justify-center -mt-1">
+                <div className="reading-light-bulb" />
+              </div>
+              <div className="reading-light-beam" />
+            </div>
+
             <div className="flex items-center gap-2 mb-6">
               <Button size="sm" variant="outline" className="ml-auto">
                 <Plus className="h-4 w-4" />
