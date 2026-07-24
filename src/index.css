@@ -95,6 +95,11 @@
     --brass-medium: 45 100% 60%;
     --brass-dark: 45 80% 45%;
     --brass-darker: 45 60% 30%;
+
+    /* Reading light colors */
+    --reading-light: 45 100% 70%;
+    --reading-light-warm: 35 100% 60%;
+    --reading-light-cool: 50 100% 80%;
   }
 
   .dark {
