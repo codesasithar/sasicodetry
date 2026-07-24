@@ -95,6 +95,11 @@
     --brass-medium: 45 100% 60%;
     --brass-dark: 45 80% 45%;
     --brass-darker: 45 60% 30%;
+
+    /* Reading light colors */
+    --reading-light: 45 100% 70%;
+    --reading-light-warm: 35 100% 60%;
+    --reading-light-cool: 50 100% 80%;
   }
 
   .dark {
@@ -567,6 +572,82 @@
     0%, 100% { transform: translate(0, 0) scale(1); }
     33% { transform: translate(30px, -20px) scale(1.1); }
     66% { transform: translate(-20px, 10px) scale(0.9); }
+  }
+
+  /* Reading light glow animation on bookshelf */
+  .reading-light {
+    position: absolute;
+    top: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    pointer-events: none;
+  }
+
+  .reading-light-bulb {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(var(--reading-light)) 20%, hsl(var(--reading-light-warm)) 70%, transparent 100%);
+    box-shadow:
+      0 0 20px hsl(var(--reading-light) / 0.9),
+      0 0 40px hsl(var(--reading-light-warm) / 0.7),
+      0 0 60px hsl(var(--reading-light-cool) / 0.5);
+    animation: light-pulse 3s ease-in-out infinite, light-flicker 5s ease-in-out infinite;
+  }
+
+  .reading-light-housing {
+    width: 2.5rem;
+    height: 1rem;
+    margin: 0 auto;
+    background: linear-gradient(180deg, hsl(var(--wood-600)) 0%, hsl(var(--wood-500)) 100%);
+    border-radius: 0.5rem 0.5rem 0 0;
+    box-shadow: 0 4px 10px hsl(var(--background) / 0.5);
+  }
+
+  .reading-light-beam {
+    position: absolute;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18rem;
+    height: 14rem;
+    background: conic-gradient(from 180deg at 50% 0%, hsl(var(--reading-light) / 0.35) 0deg, hsl(var(--reading-light-warm) / 0.15) 25deg, transparent 50deg, transparent 310deg, hsl(var(--reading-light-warm) / 0.15) 335deg, hsl(var(--reading-light) / 0.35) 360deg);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    filter: blur(2px);
+    opacity: 0.7;
+    animation: beam-sweep 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes light-pulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow:
+        0 0 20px hsl(var(--reading-light) / 0.9),
+        0 0 40px hsl(var(--reading-light-warm) / 0.7),
+        0 0 60px hsl(var(--reading-light-cool) / 0.5);
+    }
+    50% {
+      transform: scale(1.15);
+      box-shadow:
+        0 0 30px hsl(var(--reading-light) / 1),
+        0 0 60px hsl(var(--reading-light-warm) / 0.85),
+        0 0 90px hsl(var(--reading-light-cool) / 0.65);
+    }
+  }
+
+  @keyframes light-flicker {
+    0%, 90%, 100% { opacity: 1; }
+    92% { opacity: 0.85; }
+    94% { opacity: 1; }
+    96% { opacity: 0.9; }
+    98% { opacity: 1; }
+  }
+
+  @keyframes beam-sweep {
+    0%, 100% { transform: translateX(-50%) rotate(-3deg); opacity: 0.7; }
+    50% { transform: translateX(-50%) rotate(3deg); opacity: 0.85; }
   }
 
   .circuit-pattern {
