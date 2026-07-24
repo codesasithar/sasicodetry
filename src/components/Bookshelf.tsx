@@ -229,12 +229,16 @@ const Bookshelf = () => {
         <div className="w-full max-w-4xl mx-auto">
           <Card className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden">
             {/* Reading light glow animation above the bookshelf */}
-            <div className="reading-light">
-              <div className="reading-light-housing" />
-              <div className="flex justify-center -mt-1">
-                <div className="reading-light-bulb" />
-              </div>
-              <div className="reading-light-beam" />
+            <div className="reading-light-bar">
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className="reading-light" style={{ animationDelay: `${i * 0.6}s` }}>
+                  <div className="reading-light-housing" />
+                  <div className="flex justify-center -mt-1">
+                    <div className="reading-light-bulb" style={{ animationDelay: `${i * 0.4}s` }} />
+                  </div>
+                  <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
+                </div>
+              ))}
             </div>
 
             <div className="flex items-center gap-2 mb-6">
