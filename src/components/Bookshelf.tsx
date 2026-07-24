@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BookOpen, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -122,6 +122,24 @@ const books: Book[] = [
 
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const [spotlightActive, setSpotlightActive] = useState(false);
+
+  const updateSpotlight = (clientX: number, clientY: number) => {
+    const card = cardRef.current;
+    const spot = spotlightRef.current;
+    if (!card || !spot) return;
+    const rect = card.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      spot.style.setProperty("--spot-x", `${x}px`);
+      spot.style.setProperty("--spot-y", `${y}px`);
+    });
+  };
 
   const getStatusColor = (status: Book['status']) => {
     switch (status) {
@@ -227,7 +245,27 @@ const Bookshelf = () => {
         </div>
         
         <div className="w-full max-w-4xl mx-auto">
-          <Card className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden">
+          <Card
+            ref={cardRef}
+            onMouseMove={(e) => updateSpotlight(e.clientX, e.clientY)}
+            onMouseEnter={(e) => { updateSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
+            onMouseLeave={() => setSpotlightActive(false)}
+            onTouchStart={(e) => { const t = e.touches[0]; updateSpotlight(t.clientX, t.clientY); setSpotlightActive(true); }}
+            onTouchMove={(e) => { const t = e.touches[0]; updateSpotlight(t.clientX, t.clientY); }}
+            onTouchEnd={() => setSpotlightActive(false)}
+            className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden"
+          >
+            {/* Cursor-following spotlight */}
+            <div
+              ref={spotlightRef}
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-30 transition-opacity duration-500 mix-blend-screen"
+              style={{
+                opacity: spotlightActive ? 1 : 0,
+                background:
+                  "radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 214, 145, 0.35), rgba(255, 180, 90, 0.15) 35%, rgba(0,0,0,0) 65%)",
+              }}
+            />
             {/* Reading light glow animation above the bookshelf */}
             <div className="reading-light-bar">
               {[0, 1, 2, 3].map((i) => (
