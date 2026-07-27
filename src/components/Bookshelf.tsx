@@ -338,47 +338,50 @@ const Bookshelf = () => {
               </Button>
             </div>
 
-            {/* Mobile Layout */}
-            <div className="block md:hidden">
-              <div className="grid grid-cols-3 gap-y-6 gap-x-4 mb-4 sm:mb-6 px-2">
-                {books.map((book) => (
-                  <AnimatedBook 
-                    key={book.id} 
-                    book={book} 
-                    sizeClasses="aspect-[2/3] w-full" 
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Desktop: Bookshelf Layout */}
-            <div className="hidden md:block space-y-12 pt-4">
-              {/* Shelf 1 */}
-              <div className="relative">
-                <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
-                  {shelfOneBooks.map((book) => (
+            {/* Books container (listens for outside clicks to close a book) */}
+            <div ref={booksContainerRef}>
+              {/* Mobile Layout */}
+              <div className="block md:hidden">
+                <div className="grid grid-cols-3 gap-y-6 gap-x-4 mb-4 sm:mb-6 px-2">
+                  {books.map((book) => (
                     <AnimatedBook 
                       key={book.id} 
                       book={book} 
-                      sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                      sizeClasses="aspect-[2/3] w-full" 
                     />
                   ))}
                 </div>
-                <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
               </div>
 
-              {/* Shelf 2 */}
-              <div className="relative">
-                <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
-                  {shelfTwoBooks.map((book) => (
-                    <AnimatedBook 
-                      key={book.id} 
-                      book={book} 
-                      sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
-                    />
-                  ))}
+              {/* Desktop: Bookshelf Layout */}
+              <div className="hidden md:block space-y-12 pt-4">
+                {/* Shelf 1 */}
+                <div className="relative">
+                  <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
+                    {shelfOneBooks.map((book) => (
+                      <AnimatedBook 
+                        key={book.id} 
+                        book={book} 
+                        sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                      />
+                    ))}
+                  </div>
+                  <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
                 </div>
-                <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+
+                {/* Shelf 2 */}
+                <div className="relative">
+                  <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
+                    {shelfTwoBooks.map((book) => (
+                      <AnimatedBook 
+                        key={book.id} 
+                        book={book} 
+                        sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                      />
+                    ))}
+                  </div>
+                  <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+                </div>
               </div>
             </div>
 
