@@ -292,10 +292,12 @@ const Bookshelf = () => {
         <div className="w-full max-w-4xl mx-auto">
           <Card
             ref={cardRef}
-            onMouseMove={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
-            onMouseLeave={() => setSpotlightActive(false)}
-            onTouchMove={(e) => { scheduleSpotlight(e.touches[0].clientX, e.touches[0].clientY); setSpotlightActive(true); }}
-            onTouchEnd={() => setSpotlightActive(false)}
+            onPointerEnter={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
+            onPointerMove={(e) => scheduleSpotlight(e.clientX, e.clientY)}
+            onPointerDown={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
+            onPointerLeave={() => setSpotlightActive(false)}
+            onPointerCancel={() => setSpotlightActive(false)}
+            style={{ touchAction: "pan-y" }}
             className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden"
           >
             {/* Cursor-following spotlight */}
