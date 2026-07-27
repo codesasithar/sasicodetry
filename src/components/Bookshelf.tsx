@@ -294,6 +294,7 @@ const Bookshelf = () => {
             ref={cardRef}
             onPointerEnter={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
             onPointerMove={(e) => scheduleSpotlight(e.clientX, e.clientY)}
+            onPointerDown={() => {}}
             onPointerLeave={() => setSpotlightActive(false)}
             onPointerCancel={() => setSpotlightActive(false)}
             style={{ touchAction: "pan-y" }}
