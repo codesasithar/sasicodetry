@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { BookOpen, Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { BookOpen, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
