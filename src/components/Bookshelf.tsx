@@ -207,22 +207,41 @@ const Bookshelf = () => {
 
             {/* Inside Page Layer */}
             <div
-              className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col justify-between"
+              className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col"
               style={{
                 backfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
               }}
             >
-              <div className="space-y-1.5 opacity-60">
-                <div className="h-2 bg-amber-900/20 rounded w-5/6" />
-                <div className="h-2 bg-amber-900/20 rounded w-full" />
-                <div className="h-2 bg-amber-900/20 rounded w-4/5" />
-                <div className="h-2 bg-amber-900/20 rounded w-11/12" />
-                <div className="h-2 bg-amber-900/20 rounded w-3/4" />
-              </div>
-              <div className="text-[10px] text-amber-800 font-serif font-semibold truncate text-center select-none">
-                {book.title}
-              </div>
+              {isOpen ? (
+                <div className="flex-1 flex flex-col text-amber-900 font-serif overflow-hidden animate-fade-in">
+                  <div className="text-[9px] md:text-[10px] font-bold leading-tight line-clamp-2">
+                    {book.title}
+                  </div>
+                  <div className="text-[7px] md:text-[8px] italic opacity-80 mb-1 truncate">
+                    {book.author}
+                  </div>
+                  <div className="text-[6px] md:text-[7px] uppercase tracking-wide opacity-70 mb-1">
+                    {book.genre}
+                  </div>
+                  <p className="text-[6px] md:text-[7px] leading-snug opacity-90 line-clamp-6 md:line-clamp-[8]">
+                    {book.summary}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-1.5 opacity-60">
+                    <div className="h-2 bg-amber-900/20 rounded w-5/6" />
+                    <div className="h-2 bg-amber-900/20 rounded w-full" />
+                    <div className="h-2 bg-amber-900/20 rounded w-4/5" />
+                    <div className="h-2 bg-amber-900/20 rounded w-11/12" />
+                    <div className="h-2 bg-amber-900/20 rounded w-3/4" />
+                  </div>
+                  <div className="mt-auto text-[10px] text-amber-800 font-serif font-semibold truncate text-center select-none">
+                    {book.title}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
