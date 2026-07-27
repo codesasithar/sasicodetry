@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { BookOpen, Plus } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { BookOpen, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -123,11 +123,29 @@ const books: Book[] = [
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const booksContainerRef = useRef<HTMLDivElement>(null);
+  const detailsPaneRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const [spotlightActive, setSpotlightActive] = useState(false);
 
   const pendingRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (!selectedBook) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      const inBooks = booksContainerRef.current?.contains(target);
+      const inDetails = detailsPaneRef.current?.contains(target);
+      if (!inBooks && !inDetails) {
+        setSelectedBook(null);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [selectedBook]);
 
   const scheduleSpotlight = (clientX: number, clientY: number) => {
     const card = cardRef.current;
@@ -274,19 +292,10 @@ const Bookshelf = () => {
         <div className="w-full max-w-4xl mx-auto">
           <Card
             ref={cardRef}
-            onPointerEnter={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
-            onPointerMove={(e) => scheduleSpotlight(e.clientX, e.clientY)}
-            onPointerDown={(e) => {
-              (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-              scheduleSpotlight(e.clientX, e.clientY);
-              setSpotlightActive(true);
-            }}
-            onPointerUp={(e) => {
-              (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
-              if (e.pointerType !== "mouse") setSpotlightActive(false);
-            }}
-            onPointerCancel={() => setSpotlightActive(false)}
-            onPointerLeave={(e) => { if (e.pointerType === "mouse") setSpotlightActive(false); }}
+            onMouseMove={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
+            onMouseLeave={() => setSpotlightActive(false)}
+            onTouchMove={(e) => { scheduleSpotlight(e.touches[0].clientX, e.touches[0].clientY); setSpotlightActive(true); }}
+            onTouchEnd={() => setSpotlightActive(false)}
             style={{ touchAction: "pan-y" }}
             className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden"
           >
@@ -320,54 +329,67 @@ const Bookshelf = () => {
               </Button>
             </div>
 
-            {/* Mobile Layout */}
-            <div className="block md:hidden">
-              <div className="grid grid-cols-3 gap-y-6 gap-x-4 mb-4 sm:mb-6 px-2">
-                {books.map((book) => (
-                  <AnimatedBook 
-                    key={book.id} 
-                    book={book} 
-                    sizeClasses="aspect-[2/3] w-full" 
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Desktop: Bookshelf Layout */}
-            <div className="hidden md:block space-y-12 pt-4">
-              {/* Shelf 1 */}
-              <div className="relative">
-                <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
-                  {shelfOneBooks.map((book) => (
+            {/* Books container (listens for outside clicks to close a book) */}
+            <div ref={booksContainerRef}>
+              {/* Mobile Layout */}
+              <div className="block md:hidden">
+                <div className="grid grid-cols-3 gap-y-6 gap-x-4 mb-4 sm:mb-6 px-2">
+                  {books.map((book) => (
                     <AnimatedBook 
                       key={book.id} 
                       book={book} 
-                      sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                      sizeClasses="aspect-[2/3] w-full" 
                     />
                   ))}
                 </div>
-                <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
               </div>
 
-              {/* Shelf 2 */}
-              <div className="relative">
-                <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
-                  {shelfTwoBooks.map((book) => (
-                    <AnimatedBook 
-                      key={book.id} 
-                      book={book} 
-                      sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
-                    />
-                  ))}
+              {/* Desktop: Bookshelf Layout */}
+              <div className="hidden md:block space-y-12 pt-4">
+                {/* Shelf 1 */}
+                <div className="relative">
+                  <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
+                    {shelfOneBooks.map((book) => (
+                      <AnimatedBook 
+                        key={book.id} 
+                        book={book} 
+                        sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                      />
+                    ))}
+                  </div>
+                  <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
                 </div>
-                <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+
+                {/* Shelf 2 */}
+                <div className="relative">
+                  <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
+                    {shelfTwoBooks.map((book) => (
+                      <AnimatedBook 
+                        key={book.id} 
+                        book={book} 
+                        sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                      />
+                    ))}
+                  </div>
+                  <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+                </div>
               </div>
             </div>
 
             {/* Book Details Pane */}
             {selectedBook && (
-              <div className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30">
-                <h4 className="font-semibold text-foreground text-base md:text-lg">{selectedBook.title}</h4>
+              <div
+                ref={detailsPaneRef}
+                className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30 relative"
+              >
+                <button
+                  onClick={() => setSelectedBook(null)}
+                  className="absolute top-2 right-2 p-1.5 rounded-full hover:bg-background/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  aria-label="Close book"
+                >
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </button>
+                <h4 className="font-semibold text-foreground text-base md:text-lg pr-6">{selectedBook.title}</h4>
                 <p className="text-muted-foreground text-sm md:text-base">{selectedBook.author}</p>
                 <div className="flex items-center gap-2 mt-2 flex-wrap">
                   <span className="text-xs px-2 py-1 bg-primary/20 text-primary rounded">
