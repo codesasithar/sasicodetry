@@ -387,8 +387,18 @@ const Bookshelf = () => {
 
             {/* Book Details Pane */}
             {selectedBook && (
-              <div className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30">
-                <h4 className="font-semibold text-foreground text-base md:text-lg">{selectedBook.title}</h4>
+              <div
+                ref={detailsPaneRef}
+                className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30 relative"
+              >
+                <button
+                  onClick={() => setSelectedBook(null)}
+                  className="absolute top-2 right-2 p-1.5 rounded-full hover:bg-background/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  aria-label="Close book"
+                >
+                  <X className="h-4 w-4 text-muted-foreground" />
+                </button>
+                <h4 className="font-semibold text-foreground text-base md:text-lg pr-6">{selectedBook.title}</h4>
                 <p className="text-muted-foreground text-sm md:text-base">{selectedBook.author}</p>
                 <div className="flex items-center gap-2 mt-2 flex-wrap">
                   <span className="text-xs px-2 py-1 bg-primary/20 text-primary rounded">
