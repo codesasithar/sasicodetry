@@ -123,11 +123,29 @@ const books: Book[] = [
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+  const booksContainerRef = useRef<HTMLDivElement>(null);
+  const detailsPaneRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const [spotlightActive, setSpotlightActive] = useState(false);
 
   const pendingRef = useRef<{ x: number; y: number } | null>(null);
+
+  useEffect(() => {
+    if (!selectedBook) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      const inBooks = booksContainerRef.current?.contains(target);
+      const inDetails = detailsPaneRef.current?.contains(target);
+      if (!inBooks && !inDetails) {
+        setSelectedBook(null);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [selectedBook]);
 
   const scheduleSpotlight = (clientX: number, clientY: number) => {
     const card = cardRef.current;
