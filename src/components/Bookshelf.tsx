@@ -292,24 +292,10 @@ const Bookshelf = () => {
         <div className="w-full max-w-4xl mx-auto">
           <Card
             ref={cardRef}
-            onPointerEnter={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
-            onPointerMove={(e) => scheduleSpotlight(e.clientX, e.clientY)}
-            onPointerDown={(e) => {
-              const target = e.target as Node;
-              const isBookOrDetails = booksContainerRef.current?.contains(target) || detailsPaneRef.current?.contains(target);
-              if (!isBookOrDetails) {
-                (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
-              }
-              scheduleSpotlight(e.clientX, e.clientY);
-              setSpotlightActive(true);
-            }}
-            onPointerUp={(e) => {
-              (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
-              if (e.pointerType !== "mouse") setSpotlightActive(false);
-            }}
-            onPointerCancel={() => setSpotlightActive(false)}
-            onPointerLeave={(e) => { if (e.pointerType === "mouse") setSpotlightActive(false); }}
-            style={{ touchAction: "pan-y" }}
+            onMouseMove={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
+            onMouseLeave={() => setSpotlightActive(false)}
+            onTouchMove={(e) => { scheduleSpotlight(e.touches[0].clientX, e.touches[0].clientY); setSpotlightActive(true); }}
+            onTouchEnd={() => setSpotlightActive(false)}
             className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden"
           >
             {/* Cursor-following spotlight */}
