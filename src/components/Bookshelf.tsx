@@ -127,17 +127,25 @@ const Bookshelf = () => {
   const rafRef = useRef<number | null>(null);
   const [spotlightActive, setSpotlightActive] = useState(false);
 
-  const updateSpotlight = (clientX: number, clientY: number) => {
+  const pendingRef = useRef<{ x: number; y: number } | null>(null);
+
+  const scheduleSpotlight = (clientX: number, clientY: number) => {
     const card = cardRef.current;
     const spot = spotlightRef.current;
     if (!card || !spot) return;
     const rect = card.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const y = clientY - rect.top;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    pendingRef.current = {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+    if (rafRef.current != null) return;
     rafRef.current = requestAnimationFrame(() => {
-      spot.style.setProperty("--spot-x", `${x}px`);
-      spot.style.setProperty("--spot-y", `${y}px`);
+      rafRef.current = null;
+      const p = pendingRef.current;
+      const s = spotlightRef.current;
+      if (!p || !s) return;
+      s.style.setProperty("--spot-x", `${p.x}px`);
+      s.style.setProperty("--spot-y", `${p.y}px`);
     });
   };
 
@@ -247,12 +255,20 @@ const Bookshelf = () => {
         <div className="w-full max-w-4xl mx-auto">
           <Card
             ref={cardRef}
-            onMouseMove={(e) => updateSpotlight(e.clientX, e.clientY)}
-            onMouseEnter={(e) => { updateSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
-            onMouseLeave={() => setSpotlightActive(false)}
-            onTouchStart={(e) => { const t = e.touches[0]; updateSpotlight(t.clientX, t.clientY); setSpotlightActive(true); }}
-            onTouchMove={(e) => { const t = e.touches[0]; updateSpotlight(t.clientX, t.clientY); }}
-            onTouchEnd={() => setSpotlightActive(false)}
+            onPointerEnter={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
+            onPointerMove={(e) => scheduleSpotlight(e.clientX, e.clientY)}
+            onPointerDown={(e) => {
+              (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+              scheduleSpotlight(e.clientX, e.clientY);
+              setSpotlightActive(true);
+            }}
+            onPointerUp={(e) => {
+              (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
+              if (e.pointerType !== "mouse") setSpotlightActive(false);
+            }}
+            onPointerCancel={() => setSpotlightActive(false)}
+            onPointerLeave={(e) => { if (e.pointerType === "mouse") setSpotlightActive(false); }}
+            style={{ touchAction: "pan-y" }}
             className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden"
           >
             {/* Cursor-following spotlight */}
