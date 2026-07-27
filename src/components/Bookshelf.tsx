@@ -295,7 +295,11 @@ const Bookshelf = () => {
             onPointerEnter={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
             onPointerMove={(e) => scheduleSpotlight(e.clientX, e.clientY)}
             onPointerDown={(e) => {
-              (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+              const target = e.target as Node;
+              const isBookOrDetails = booksContainerRef.current?.contains(target) || detailsPaneRef.current?.contains(target);
+              if (!isBookOrDetails) {
+                (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+              }
               scheduleSpotlight(e.clientX, e.clientY);
               setSpotlightActive(true);
             }}
