@@ -50,20 +50,18 @@ const Index = () => {
         {/* Critical Content loaded instantly */}
         <Hero />
 
-        {/* Lazy Loaded Sections encapsulated in Suspense */}
-        <Suspense fallback={<SectionLoader />}>
-          <About />
-          <Projects />
-          <Services />
-          <Writings />
-          <Bookshelf />
-          <News />
-          <Movies />
-          <Games />
-          <RoleModels />
-          <Achievements />
-          <Contact />
-        </Suspense>
+        {/* Per-section Suspense so each section streams in independently */}
+        <Suspense fallback={<SectionLoader />}><About /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Projects /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Services /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Writings /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Bookshelf /></Suspense>
+        <Suspense fallback={<SectionLoader />}><News /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Movies /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Games /></Suspense>
+        <Suspense fallback={<SectionLoader />}><RoleModels /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Achievements /></Suspense>
+        <Suspense fallback={<SectionLoader />}><Contact /></Suspense>
       </div>
     </>
   );
