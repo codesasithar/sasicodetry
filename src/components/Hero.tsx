@@ -55,9 +55,11 @@ const Hero = () => {
   useEffect(() => {
     const matrixContainer = document.querySelector(".matrix-bg");
     if (!matrixContainer) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</>{}[];";
 
     const createMatrixColumn = () => {
+      if (document.hidden || matrixContainer.childElementCount > 40) return;
       const column = document.createElement("div");
       column.className = "matrix-column";
       column.style.left = Math.random() * 100 + "%";
@@ -90,8 +92,10 @@ const Hero = () => {
   useEffect(() => {
     const binaryContainer = document.querySelector(".binary-rain");
     if (!binaryContainer) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const createBinaryColumn = () => {
+      if (document.hidden || binaryContainer.childElementCount > 30) return;
       const column = document.createElement("div");
       column.className = "binary-column";
       column.style.left = Math.random() * 100 + "%";
@@ -217,6 +221,7 @@ const Hero = () => {
             <img
               src={profilePicture}
               alt="Sasithar M"
+              decoding="async"
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               role="button"
               tabIndex={0}
