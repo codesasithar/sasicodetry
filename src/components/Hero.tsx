@@ -130,6 +130,8 @@ const Hero = () => {
       <img
         src={iRobotBg}
         alt="Futuristic humanoid robot"
+        loading="lazy"
+        decoding="async"
         className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend"
         style={{
           width: "clamp(200px, 50vw, 600px)",
