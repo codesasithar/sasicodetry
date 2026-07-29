@@ -347,7 +347,7 @@ const Hero = () => {
 
               <div className="flex justify-center lg:justify-start space-x-3 sm:space-x-4 animate-fade-in" style={{ animationDelay: "1s" }}>
                 <a
-                  href="https://linkedin.com/in/sasitharcodes"
+                  href="https://www.linkedin.com/in/sasitharcodes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
@@ -355,7 +355,7 @@ const Hero = () => {
                   <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
                 </a>
                 <a
-                  href="https://github.com/codesasithar/Projects"
+                  href="https://github.com/codesasithar"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
@@ -482,7 +482,7 @@ const Hero = () => {
             {/* Social Links */}
             <div className="flex justify-center flex-wrap gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "1s" }}>
               <a
-                href="https://linkedin.com/in/sasitharcodes"
+                href="https://www.linkedin.com/in/sasitharcodes/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
@@ -490,7 +490,7 @@ const Hero = () => {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a
-                href="https://github.com/codesasithar/Projects"
+                href="https://github.com/codesasithar"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
