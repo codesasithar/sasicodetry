@@ -90,9 +90,10 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
       for (const b of blocks) {
         b.y += b.vy * dt;
         b.vy += 0.18 * dt;
-        const floor = h - stack[b.col] * blockH - blockH / 2;
+        const ground = h - 110;
+        const floor = ground - stack[b.col] * blockH - blockH / 2;
         if (b.y >= floor) {
-          if (stack[b.col] * blockH < h * 0.78) {
+          if (stack[b.col] * blockH < h * 0.46) {
             settled.push({ x: b.col * colW, y: floor, text: b.text, hot: b.hot });
             stack[b.col] += 1;
           }
@@ -142,7 +143,7 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
 
       {/* robots wake up in the finished world */}
       <div
-        className={`absolute bottom-0 left-0 right-0 flex items-end justify-center gap-6 sm:gap-14 pb-2 transition-all duration-700 ${
+        className={`absolute bottom-0 left-0 right-0 flex items-end justify-center gap-6 sm:gap-14 pb-6 transition-all duration-700 ${
           phase === "world" ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
