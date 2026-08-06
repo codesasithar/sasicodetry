@@ -397,6 +397,7 @@ const Hero = () => {
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
                   <video
                     src="/videos/skills-video.mp4"
+                    poster="/videos/skills-video-thumb.jpg"
                     loop
                     playsInline
                     controls
@@ -469,6 +470,7 @@ const Hero = () => {
                 <div className="relative w-72 h-52 rounded-2xl overflow-hidden border-2 border-primary/30">
                   <video
                     src="/videos/skills-video.mp4"
+                    poster="/videos/skills-video-thumb.jpg"
                     loop
                     playsInline
                     controls
