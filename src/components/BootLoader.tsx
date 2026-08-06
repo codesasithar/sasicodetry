@@ -143,7 +143,7 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
 
       {/* robots wake up in the finished world */}
       <div
-        className={`absolute bottom-0 left-0 right-0 flex items-end justify-center gap-6 sm:gap-14 pb-6 transition-all duration-700 ${
+        className={`absolute bottom-0 left-0 right-0 flex items-end justify-center gap-6 sm:gap-14 pb-10 transition-all duration-700 ${
           phase === "world" ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
         }`}
       >
@@ -153,7 +153,7 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
       </div>
 
       {/* status */}
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center px-6">
+      <div className="absolute inset-x-0 top-[18%] text-center px-6">
         <p className="font-mono text-xs sm:text-sm tracking-[0.3em] text-accent uppercase">
           {phase === "world" ? "world online" : "compiling world"}
         </p>
