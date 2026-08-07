@@ -311,12 +311,12 @@ const Hero = () => {
               </div>
 
               {/* Headline */}
-              <h1 className="space-y-1 sm:space-y-2 mb-4 sm:mb-6 animate-slide-up leading-none" style={{ animationDelay: "0.2s" }}>
-                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic tracking-tighter bg-gradient-to-b from-foreground via-foreground/90 to-primary bg-clip-text text-transparent uppercase">
+              <h1 className="space-y-1 sm:space-y-2 mb-4 sm:mb-6 animate-slide-up leading-tight" style={{ animationDelay: "0.2s" }}>
+                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground/90">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black italic tracking-tighter bg-gradient-to-b from-primary to-accent bg-clip-text text-transparent uppercase">
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
