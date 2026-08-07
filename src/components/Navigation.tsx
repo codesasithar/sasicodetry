@@ -55,7 +55,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 w-full h-16 bg-background border-b border-border z-[99999] block clear-both">
+    <nav className="fixed top-0 left-0 right-0 w-full h-16 sm:h-20 bg-background border-b border-border z-[99999] block clear-both">
       <div className="w-full max-w-7xl mx-auto h-full px-4 flex items-center justify-between relative z-[100000]">
         
         {/* Brand Header - Profile + Welcome */}
