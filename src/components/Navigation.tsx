@@ -116,7 +116,7 @@ const Navigation = () => {
 
       {/* Mobile Drawer Structural Block */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 left-0 w-screen h-[calc(100vh-4rem)] z-[99998] overflow-hidden block">
+        <div className="lg:hidden fixed inset-0 top-16 sm:top-20 left-0 w-screen h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] z-[99998] overflow-hidden block">
           {/* Opaque Background Layer */}
           <div 
             className="absolute inset-0 bg-background/95 w-full h-full" 
