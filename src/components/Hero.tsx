@@ -9,6 +9,7 @@ import {
   Zap,
   Instagram,
   Facebook,
+  Play,
 } from "lucide-react";
 import iRobotBg from "@/assets/irobot-bg.png";
 import profilePicture from "@/assets/profile-hero-cartoon.png";
@@ -33,7 +34,7 @@ const Hero = () => {
   });
 
   const developerTyping = useTypingEffect({
-    text: "Developer.",
+    text: "Developer",
     speed: 150,
     delay: 1600
   });
@@ -125,6 +126,14 @@ const Hero = () => {
     };
   }, []);
 
+  const socials = [
+    { href: "https://www.linkedin.com/in/sasitharcodes/", icon: Linkedin, label: "LinkedIn" },
+    { href: "https://github.com/codesasithar", icon: Github, label: "GitHub" },
+    { href: "https://www.instagram.com/sasitharm/", icon: Instagram, label: "Instagram" },
+    { href: "https://www.facebook.com/snazzy.sasithar", icon: Facebook, label: "Facebook" },
+    { href: "tel:+919443798476", icon: Phone, label: "Phone" },
+  ];
+
   return (
     <section
       id="home"
@@ -136,7 +145,7 @@ const Hero = () => {
         alt="Futuristic humanoid robot"
         loading="lazy"
         decoding="async"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend hidden lg:block"
         style={{
           width: "clamp(200px, 50vw, 600px)",
           opacity: 0.25,
@@ -155,98 +164,34 @@ const Hero = () => {
         <div className="interactive-orb bottom-32 right-32 hidden sm:block" style={{ animationDelay: "2s" }}></div>
         <div className="interactive-orb top-1/2 left-1/4 hidden lg:block" style={{ animationDelay: "4s" }}></div>
 
-        {/* Arc Reactor Center */}
+        {/* Arc Reactor Center - desktop only */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 scale-75 sm:scale-90 lg:scale-100 hidden md:block">
           <div className="arc-reactor-futuristic">
             <div className="arc-outer-tech-ring">
               {[...Array(16)].map((_, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className={`arc-tech-segment ${i % 4 === 0 ? 'arc-tech-major' : 'arc-tech-minor'}`}
                   style={{ transform: `rotate(${i * 22.5}deg)` }}
                 ></div>
               ))}
             </div>
-            
             <div className="arc-secondary-ring">
               {[...Array(12)].map((_, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className="arc-secondary-segment"
-                  style={{ 
+                  style={{
                     transform: `rotate(${i * 30}deg)`,
                     animationDelay: `${i * 0.1}s`
                   }}
                 ></div>
               ))}
             </div>
-            
             <div className="arc-inner-glow-ring"></div>
-            
             <div className="arc-core-housing">
               <div className="arc-glowing-ring"></div>
             </div>
-          </div>
-        </div>
-
-        {/* Profile Picture & Welcome Badge Elegant Placement */}
-        <div
-          className="absolute top-6 left-6 sm:top-12 sm:left-12 z-30 animate-fade-in pointer-events-none flex items-center gap-4"
-          style={{ animationDelay: "0.5s" }}
-        >
-          <div className="relative">
-            <div
-              className="absolute -inset-6 rounded-full"
-              style={{
-                background:
-                  "radial-gradient(closest-side, rgba(0,240,255,0.35), rgba(59,130,246,0.18) 45%, transparent 75%)",
-                opacity: glowOpacity,
-                filter: `blur(${glowBlur * 0.6}px)`,
-                transition: "opacity 0.2s ease, filter 0.2s ease",
-              }}
-            />
-            <div
-              className="absolute inset-0 rounded-full pointer-events-none"
-              style={{
-                opacity: sparkOpacity,
-                transform: `scale(${sparkScale})`,
-                background:
-                  "conic-gradient(from 0deg, transparent 0deg, rgba(0,240,255,0.5) 20deg, transparent 40deg, transparent 120deg, rgba(168,85,247,0.4) 140deg, transparent 160deg, transparent 240deg, rgba(0,240,255,0.5) 260deg, transparent 280deg, transparent 360deg)",
-                mixBlendMode: "screen",
-                filter: `blur(${2 + sparkIntensity * 0.05}px)`,
-                animation: "spin 6s linear infinite",
-                transition: "opacity 0.2s ease, transform 0.2s ease",
-              }}
-            />
-            <img
-              src={profilePicture}
-              alt="Sasithar M"
-              decoding="async"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              title="Get in touch"
-              className="relative w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain object-bottom select-none border border-primary/20 rounded-full p-1 bg-background/40 backdrop-blur-sm shadow-lg animate-cartoon-wiggle hover:animate-cartoon-pop cursor-pointer"
-              style={{
-                WebkitMaskImage:
-                  "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
-                maskImage:
-                  "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
-                filter: `drop-shadow(0 8px 16px rgba(0,0,0,0.45)) drop-shadow(0 0 ${glowStrength * 0.2}px rgba(0,240,255,${glowOpacity * 0.5})) contrast(1.02)`,
-                transition: "filter 0.2s ease",
-              }}
-            />
-          </div>
-
-          {/* Badge position directly next to the display picture */}
-          <div className="bg-accent/20 text-accent px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium backdrop-blur-md border border-accent/30 shadow-sm animate-slide-up h-fit whitespace-nowrap">
-            Welcome to my portfolio
           </div>
         </div>
 
@@ -292,109 +237,149 @@ const Hero = () => {
       </div>
 
       {/* Content Wrapper */}
-      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-0">
+      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-0 w-full">
         <div className="max-w-7xl mx-auto">
-          {/* Desktop Layout */}
-          <div className="hidden lg:grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
-            {/* Left Column - Text Content */}
-            <div className="text-center lg:text-left">
-              {/* Top typography edits for precision typography scale */}
-              <h1
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl tracking-tight font-light mb-5 animate-slide-up leading-tight pt-12 lg:pt-0"
-                style={{ animationDelay: "0.2s" }}
-              >
-                <span className="text-foreground/90 block font-light tracking-wide mb-1 opacity-90">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 xl:gap-20 items-center">
+
+            {/* Left Column - Identity & Copy */}
+            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+              {/* Profile & Badge */}
+              <div className="relative mb-6 lg:mb-8">
+                {/* Rotating rings - decorative and subtle */}
+                <div className="absolute inset-0 -m-3 sm:-m-4 rounded-full border border-primary/20 animate-[spin_10s_linear_infinite] hidden sm:block" />
+                <div className="absolute inset-0 -m-5 sm:-m-6 rounded-full border border-dashed border-accent/15 animate-[spin_16s_linear_infinite_reverse] hidden sm:block" />
+                <div className="absolute inset-0 -m-2 rounded-full bg-primary/5 blur-xl animate-pulse" />
+
+                <div
+                  className="relative w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full p-1 bg-card/60 border border-primary/30 shadow-[0_0_30px_rgba(0,240,255,0.15)] overflow-hidden cursor-pointer"
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  title="Get in touch"
+                >
+                  <div
+                    className="absolute -inset-4 rounded-full pointer-events-none"
+                    style={{
+                      background: "radial-gradient(closest-side, rgba(0,240,255,0.35), rgba(59,130,246,0.18) 45%, transparent 75%)",
+                      opacity: glowOpacity,
+                      filter: `blur(${glowBlur * 0.6}px)`,
+                      transition: "opacity 0.2s ease, filter 0.2s ease",
+                    }}
+                  />
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{
+                      opacity: sparkOpacity,
+                      transform: `scale(${sparkScale})`,
+                      background:
+                        "conic-gradient(from 0deg, transparent 0deg, rgba(0,240,255,0.5) 20deg, transparent 40deg, transparent 120deg, rgba(168,85,247,0.4) 140deg, transparent 160deg, transparent 240deg, rgba(0,240,255,0.5) 260deg, transparent 280deg, transparent 360deg)",
+                      mixBlendMode: "screen",
+                      filter: `blur(${2 + sparkIntensity * 0.05}px)`,
+                      animation: "spin 6s linear infinite",
+                      transition: "opacity 0.2s ease, transform 0.2s ease",
+                    }}
+                  />
+                  <img
+                    src={profilePicture}
+                    alt="Sasithar M"
+                    decoding="async"
+                    className="w-full h-full object-contain object-bottom rounded-full select-none animate-cartoon-wiggle hover:animate-cartoon-pop"
+                    style={{
+                      WebkitMaskImage: "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+                      maskImage: "radial-gradient(circle at 50% 50%, #000 60%, rgba(0,0,0,0.8) 85%, transparent 100%)",
+                      filter: `drop-shadow(0 8px 16px rgba(0,0,0,0.45)) drop-shadow(0 0 ${glowStrength * 0.2}px rgba(0,240,255,${glowOpacity * 0.5})) contrast(1.02)`,
+                      transition: "filter 0.2s ease",
+                    }}
+                  />
+                </div>
+
+                {/* Floating Welcome Badge */}
+                <div className="absolute -right-20 sm:-right-24 -top-1 sm:top-0 bg-accent/15 backdrop-blur-md border border-accent/30 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-accent whitespace-nowrap animate-fade-in hidden sm:block">
+                  Welcome to my portfolio
+                </div>
+              </div>
+
+              {/* Mobile-only badge */}
+              <div className="sm:hidden mb-4 px-3 py-1.5 rounded-full bg-accent/15 border border-accent/30 text-accent text-[10px] font-semibold tracking-wider uppercase backdrop-blur-md animate-fade-in">
+                Welcome to my portfolio
+              </div>
+
+              {/* Headline */}
+              <h1 className="space-y-1 sm:space-y-2 mb-4 sm:mb-6 animate-slide-up leading-none" style={{ animationDelay: "0.2s" }}>
+                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic tracking-tighter bg-gradient-to-b from-foreground via-foreground/90 to-primary bg-clip-text text-transparent uppercase">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
                   {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <span className="text-primary block font-semibold tracking-normal text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black italic tracking-tighter bg-gradient-to-b from-primary to-accent bg-clip-text text-transparent uppercase">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
               </h1>
 
-              <p className="text-base sm:text-md text-muted-foreground mb-6 sm:mb-8 max-w-xl min-h-[4rem] sm:min-h-[5rem] animate-fade-in mx-auto lg:mx-0 glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
-                <SparkText text={typingText.displayedText} variant="text-only" />
-                {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
-              </p>
+              {/* Tagline Card */}
+              <div className="relative w-full max-w-md lg:max-w-none p-4 sm:p-5 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-xl mb-6 sm:mb-8 animate-fade-in">
+                <div className="absolute -top-px left-8 right-8 sm:left-12 sm:right-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-center lg:text-left">
+                  <SparkText text={typingText.displayedText} variant="text-only" />
+                  {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
+                </p>
+              </div>
 
-              <div className="flex justify-center lg:justify-start space-x-6 sm:space-x-8 mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-accent">5+</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Projects Built</div>
+              {/* Stats */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-xs sm:max-w-sm mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
+                <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+                  <span className="text-2xl sm:text-3xl font-black text-accent">5+</span>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground font-semibold">Projects Built</span>
                 </div>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-primary">2+</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Years Experience</div>
+                <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+                  <span className="text-2xl sm:text-3xl font-black text-primary">2+</span>
+                  <span className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground font-semibold">Years Experience</span>
                 </div>
               </div>
 
-              <div className="mb-6 sm:mb-8 animate-fade-in flex justify-center lg:justify-start" style={{ animationDelay: "0.8s" }}>
+              {/* CTA */}
+              <div className="mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
                 <button
                   onClick={scrollToProjects}
-                  className="btn-tech text-base sm:text-lg group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale"
+                  className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-primary text-primary-foreground rounded-xl font-bold uppercase tracking-widest text-xs sm:text-sm overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.18)] transition-all hover:bg-primary/90 active:scale-[0.98]"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
-                  <span className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
-                  <span className="relative z-10 flex items-center">
-                    <span className="mr-2">🚀</span>
-                    View My Work
-                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
-                  </span>
-                  <div className="absolute inset-0 border border-primary/30 rounded-lg group-hover:border-primary/60 transition-colors duration-300"></div>
+                  <span className="mr-1">🚀</span>
+                  View My Work
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
 
-              <div className="flex justify-center lg:justify-start space-x-3 sm:space-x-4 animate-fade-in" style={{ animationDelay: "1s" }}>
-                <a
-                  href="https://www.linkedin.com/in/sasitharcodes/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
-                >
-                  <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a
-                  href="https://github.com/codesasithar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
-                >
-                  <Github className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a
-                  href="https://www.instagram.com/sasitharm/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
-                >
-                  <Instagram className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a
-                  href="https://www.facebook.com/snazzy.sasithar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
-                >
-                  <Facebook className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
-                <a
-                  href="tel:+919443798476"
-                  className="p-2 sm:p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect"
-                >
-                  <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
-                </a>
+              {/* Social Links */}
+              <div className="flex justify-center lg:justify-start gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "1s" }}>
+                {socials.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={social.href.startsWith("http") ? "_blank" : undefined}
+                    rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    aria-label={social.label}
+                    className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 transition-all cursor-magnetic cursor-glow ripple-effect touch-manipulation"
+                  >
+                    <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </a>
+                ))}
               </div>
             </div>
 
             {/* Right Column - Video Player */}
             <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: "0.3s" }}>
-              <div className="relative">
-                <div className="absolute -inset-2 sm:-inset-4 bg-gradient-vibrant rounded-2xl sm:rounded-3xl blur-lg opacity-30 animate-pulse"></div>
-                <div className="absolute -top-4 sm:-top-8 -right-4 sm:-right-8 w-16 h-16 sm:w-32 sm:h-32 border-2 border-accent/20 rounded-full"></div>
-                <div className="absolute -bottom-4 sm:-bottom-8 -left-4 sm:-left-8 w-12 h-12 sm:w-24 sm:h-24 bg-primary/20 rounded-xl sm:rounded-2xl rotate-45"></div>
+              <div className="relative w-full max-w-md lg:max-w-full group">
+                <div className="absolute -inset-2 sm:-inset-4 bg-gradient-vibrant rounded-2xl sm:rounded-3xl blur-lg opacity-25 animate-pulse" />
+                <div className="absolute -top-3 sm:-top-6 -right-3 sm:-right-6 w-14 h-14 sm:w-24 sm:h-24 border-2 border-accent/20 rounded-full" />
+                <div className="absolute -bottom-3 sm:-bottom-6 -left-3 sm:-left-6 w-10 h-10 sm:w-18 sm:h-18 bg-primary/20 rounded-xl sm:rounded-2xl rotate-45" />
 
-                <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden border-2 sm:border-4 border-primary/30">
+                <div className="relative aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-primary/30 bg-black/40 shadow-2xl">
                   <video
                     src="/videos/skills-video.mp4"
                     poster="/videos/skills-video-thumb.jpg"
@@ -403,128 +388,27 @@ const Hero = () => {
                     controls
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent pointer-events-none" />
 
-          {/* Mobile Layout */}
-          <div className="lg:hidden flex flex-col items-center text-center space-y-6 sm:space-y-8">
-            <div className="w-full max-w-lg">
-              {/* Mobile heading wrapper has an extra margin adjustments to give space to top DP position */}
-              <h1
-                className="text-2xl sm:text-3xl md:text-4xl tracking-tight font-light mb-4 animate-slide-up leading-tight pt-16"
-                style={{ animationDelay: "0.2s" }}
-              >
-                <span className="text-foreground/90 block font-light tracking-wide mb-0.5">
-                  <SparkText text={applicationTyping.displayedText} variant="minimal" />
-                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
-                </span>
-                <span className="text-primary block font-semibold text-3xl sm:text-4xl md:text-5xl">
-                  <SparkText text={developerTyping.displayedText} variant="minimal" />
-                  {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
-                </span>
-              </h1>
-
-              <p className="text-base sm:text-md text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto animate-fade-in leading-relaxed glass-bg px-4 py-3 rounded-xl border border-white/5 backdrop-blur-sm" style={{ animationDelay: "0.4s" }}>
-                <SparkText text={typingText.displayedText} variant="text-only" />
-                {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
-              </p>
-
-              <div className="flex justify-center space-x-8 sm:space-x-12 mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-accent">5+</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Projects Built</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-primary">2+</div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">Years Experience</div>
-                </div>
-              </div>
-
-              <div className="mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
-                <button
-                  onClick={scrollToProjects}
-                  className="btn-tech text-base sm:text-lg group cursor-glow ripple-effect sparkle-hover relative overflow-hidden hover-scale min-h-[48px] px-6 sm:px-8"
-                >
-                  <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></span>
-                  <span className="absolute inset-0 bg-primary/10 scale-0 group-hover:scale-100 transition-transform duration-300 ease-out rounded-lg"></span>
-                  <span className="relative z-10 flex items-center">
-                    <span className="mr-2">🚀</span>
-                    View My Work
-                    <ArrowRight className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-x-2 group-hover:scale-110" />
-                  </span>
-                  <div className="absolute inset-0 border border-primary/30 rounded-lg group-hover:border-primary/60 transition-colors duration-300"></div>
-                </button>
-              </div>
-            </div>
-
-            {/* Showcase Video Player */}
-            <div className="flex flex-col items-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
-              <div className="relative">
-                <div className="absolute -inset-2 bg-gradient-vibrant rounded-2xl blur-lg opacity-30 animate-pulse"></div>
-                <div className="absolute -top-4 -right-4 w-16 h-16 border-2 border-accent/20 rounded-full"></div>
-                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary/20 rounded-xl rotate-45"></div>
-
-                <div className="relative w-72 h-52 rounded-2xl overflow-hidden border-2 border-primary/30">
-                  <video
-                    src="/videos/skills-video.mp4"
-                    poster="/videos/skills-video-thumb.jpg"
-                    loop
-                    playsInline
-                    controls
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
+                  {/* Play hint overlay - hidden when video is interacted with */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 backdrop-blur-[2px] opacity-100 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/90 border-4 border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(0,240,255,0.5)]">
+                      <Play className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-current ml-1" />
+                    </div>
+                    <div className="mt-3 px-3 py-1 rounded-lg bg-black/60 border border-white/10">
+                      <p className="text-[10px] sm:text-xs font-mono text-primary uppercase tracking-widest">About SASITHAR M</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex justify-center flex-wrap gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "1s" }}>
-              <a
-                href="https://www.linkedin.com/in/sasitharcodes/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a
-                href="https://github.com/codesasithar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-              >
-                <Github className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.instagram.com/sasitharm/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.facebook.com/snazzy.sasithar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="tel:+919443798476"
-                className="p-3 bg-card/50 rounded-lg text-muted-foreground hover:text-primary hover:bg-card transition-all cursor-magnetic cursor-glow ripple-effect min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation"
-              >
-                <Phone className="h-5 w-5" />
-              </a>
-            </div>
           </div>
         </div>
       </div>
+
+      {/* Bottom Decorative Blur */}
+      <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-80 h-80 bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Floating Controls */}
       <div className="fixed bottom-4 right-4 z-40 select-none">
