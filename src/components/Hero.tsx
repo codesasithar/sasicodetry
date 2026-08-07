@@ -12,7 +12,6 @@ import {
   Play,
 } from "lucide-react";
 import iRobotBg from "@/assets/irobot-bg.png";
-import profilePicture from "@/assets/profile-hero-cartoon.png";
 import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 import SparkText from "@/components/SparkText";
