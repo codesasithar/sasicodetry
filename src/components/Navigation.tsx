@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { 
   Menu, 
   X, 
-  Code2, 
   User, 
   Briefcase, 
   Cpu, 
@@ -16,6 +15,7 @@ import {
   Mail 
 } from "lucide-react";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import profilePicture from "@/assets/profile-hero-cartoon.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
