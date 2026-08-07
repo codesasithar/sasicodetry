@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { 
   Menu, 
   X, 
-  Code2, 
   User, 
   Briefcase, 
   Cpu, 
@@ -16,6 +15,7 @@ import {
   Mail 
 } from "lucide-react";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import profilePicture from "@/assets/profile-hero-cartoon.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,16 +55,26 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 w-full h-16 bg-background border-b border-border z-[99999] block clear-both">
+    <nav className="fixed top-0 left-0 right-0 w-full h-16 sm:h-20 bg-background border-b border-border z-[99999] block clear-both">
       <div className="w-full max-w-7xl mx-auto h-full px-4 flex items-center justify-between relative z-[100000]">
         
-        {/* Brand Header Logo */}
+        {/* Brand Header - Profile + Welcome */}
         <div 
-          className="flex items-center gap-2 cursor-pointer text-foreground group"
+          className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group"
           onClick={() => scrollToSection('home')}
         >
-          <Code2 className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
-          <span className="font-semibold text-md text-foreground">SasiCodes</span>
+          <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden ring-2 ring-primary/30 ring-offset-1 ring-offset-background transition-all group-hover:ring-primary/60 shadow-[0_0_12px_rgba(0,240,255,0.2)]">
+            <img
+              src={profilePicture}
+              alt="Sasithar M"
+              className="w-full h-full object-contain object-bottom bg-background"
+              decoding="async"
+            />
+          </div>
+          <div className="flex flex-col items-start leading-none">
+            <span className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-primary/90">Welcome to my portfolio</span>
+            <span className="text-xs sm:text-sm font-bold text-foreground hidden sm:inline-block">SasiCodes</span>
+          </div>
         </div>
 
         {/* Desktop Links Panel */}
@@ -106,7 +116,7 @@ const Navigation = () => {
 
       {/* Mobile Drawer Structural Block */}
       {isOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 left-0 w-screen h-[calc(100vh-4rem)] z-[99998] overflow-hidden block">
+        <div className="lg:hidden fixed inset-0 top-16 sm:top-20 left-0 w-screen h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] z-[99998] overflow-hidden block">
           {/* Opaque Background Layer */}
           <div 
             className="absolute inset-0 bg-background/95 w-full h-full" 
