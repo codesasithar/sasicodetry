@@ -58,13 +58,23 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 w-full h-16 bg-background border-b border-border z-[99999] block clear-both">
       <div className="w-full max-w-7xl mx-auto h-full px-4 flex items-center justify-between relative z-[100000]">
         
-        {/* Brand Header Logo */}
+        {/* Brand Header - Profile + Welcome */}
         <div 
-          className="flex items-center gap-2 cursor-pointer text-foreground group"
+          className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group"
           onClick={() => scrollToSection('home')}
         >
-          <Code2 className="h-5 w-5 text-primary transition-transform group-hover:scale-110" />
-          <span className="font-semibold text-md text-foreground">SasiCodes</span>
+          <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden ring-2 ring-primary/30 ring-offset-1 ring-offset-background transition-all group-hover:ring-primary/60 shadow-[0_0_12px_rgba(0,240,255,0.2)]">
+            <img
+              src={profilePicture}
+              alt="Sasithar M"
+              className="w-full h-full object-contain object-bottom bg-background"
+              decoding="async"
+            />
+          </div>
+          <div className="flex flex-col items-start leading-none">
+            <span className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-primary/90">Welcome to my portfolio</span>
+            <span className="text-xs sm:text-sm font-bold text-foreground hidden sm:inline-block">SasiCodes</span>
+          </div>
         </div>
 
         {/* Desktop Links Panel */}
