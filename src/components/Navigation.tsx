@@ -63,7 +63,7 @@ const Navigation = () => {
           className="flex items-center gap-3 sm:gap-4 cursor-pointer group"
           onClick={() => scrollToSection('home')}
         >
-          <div className="relative h-11 w-11 sm:h-14 sm:w-14 rounded-full overflow-hidden ring-[3px] ring-primary/40 ring-offset-2 ring-offset-background shadow-[0_0_20px_rgba(0,240,255,0.35)] animate-float transition-all duration-300 group-hover:ring-primary/70 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.55)] group-hover:scale-105">
+          <div className="relative h-11 w-11 sm:h-14 sm:w-14 rounded-full overflow-hidden ring-[3px] ring-primary/40 ring-offset-2 ring-offset-background shadow-[0_0_20px_rgba(0,240,255,0.35)] motion-safe:animate-float-subtle transition-all duration-300 group-hover:ring-primary/70 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.55)] group-hover:scale-105">
             <img
               src={profilePicture}
               alt="Sasithar M"
