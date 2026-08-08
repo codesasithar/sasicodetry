@@ -59,11 +59,11 @@ const Navigation = () => {
       <div className="w-full max-w-7xl mx-auto h-full px-4 flex items-center justify-between relative z-[100000]">
         
         {/* Brand Header - Profile + Welcome */}
-        <div 
-          className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group"
+        <div
+          className="flex items-center gap-3 sm:gap-4 cursor-pointer group"
           onClick={() => scrollToSection('home')}
         >
-          <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden ring-2 ring-primary/30 ring-offset-1 ring-offset-background transition-all group-hover:ring-primary/60 shadow-[0_0_12px_rgba(0,240,255,0.2)]">
+          <div className="relative h-11 w-11 sm:h-14 sm:w-14 rounded-full overflow-hidden ring-[3px] ring-primary/40 ring-offset-2 ring-offset-background shadow-[0_0_20px_rgba(0,240,255,0.35)] animate-float transition-all duration-300 group-hover:ring-primary/70 group-hover:shadow-[0_0_30px_rgba(0,240,255,0.55)] group-hover:scale-105">
             <img
               src={profilePicture}
               alt="Sasithar M"
@@ -76,6 +76,7 @@ const Navigation = () => {
             <span className="text-xs sm:text-sm font-bold text-foreground hidden sm:inline-block">SasiCodes</span>
           </div>
         </div>
+
 
         {/* Desktop Links Panel */}
         <div className="hidden lg:flex items-center gap-1">
