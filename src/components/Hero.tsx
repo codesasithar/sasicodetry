@@ -242,17 +242,17 @@ const Hero = () => {
 
             {/* Left Column - Identity & Copy */}
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-              {/* Headline */}
-              <h1 className="space-y-1 sm:space-y-2 mb-4 sm:mb-6 animate-slide-up leading-[1.05]" style={{ animationDelay: "0.2s" }}>
-                <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-cormorant italic font-light tracking-[0.05em] text-foreground/85">
+              {/* Minimalistic & Modern Headline */}
+              <h1 className="flex flex-col gap-1 sm:gap-2 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground/75 font-sans">
                   <SparkText text={applicationTyping.displayedText} variant="minimal" />
-                  {!applicationTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
+                  {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-0.5">|</span>}
                 </span>
-                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-cormorant italic font-semibold bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent bg-[length:200%_auto] animate-title-shimmer drop-shadow-[0_0_25px_hsl(var(--primary-glow)/0.35)]">
+                <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-primary/90 to-accent bg-clip-text text-transparent font-sans">
                   <SparkText text={developerTyping.displayedText} variant="minimal" />
                   {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
                 </span>
-                <div className="mt-3 sm:mt-4 h-px w-24 sm:w-32 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto lg:mx-0" />
+                <div className="mt-2 h-0.5 w-16 sm:w-20 bg-primary/40 mx-auto lg:mx-0 rounded-full" />
               </h1>
 
               {/* Tagline Card */}
