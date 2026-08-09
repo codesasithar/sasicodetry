@@ -148,7 +148,7 @@ const Navigation = () => {
                     {activeSection === item.id && (
                       <span className="h-2 w-2 rounded-full bg-primary" />
                     )}
-                  </return>
+                  </button>
                 );
               })}
             </div>
