@@ -32,7 +32,7 @@ export const CursorEffects = () => {
     y: 0,
     targetX: 0,
     targetY: 0,
-    history: Array.from({ length: 8 }, () => ({ x: 0, y: 0 })),
+    history: Array.from({ length: 4 }, () => ({ x: 0, y: 0 })),
   });
   const lastTimeRef = useRef<number>(performance.now());
 
@@ -78,8 +78,8 @@ export const CursorEffects = () => {
       lastTimeRef.current = time;
 
       const coords = coordsRef.current;
-      // Frame-rate independent interpolation factor
-      const lerpFactor = 1 - Math.pow(0.001, delta);
+      // Snappy, responsive interpolation
+      const lerpFactor = 0.45;
 
       coords.x += (coords.targetX - coords.x) * lerpFactor;
       coords.y += (coords.targetY - coords.y) * lerpFactor;
@@ -173,10 +173,6 @@ export const CursorEffects = () => {
 
       const expId = performance.now() + Math.random();
       setExplosions(prev => [...prev, { id: expId, x: e.clientX, y: e.clientY, particles }]);
-
-      // Screen shake trigger
-      document.documentElement.classList.add('screen-shake');
-      setTimeout(() => document.documentElement.classList.remove('screen-shake'), 140);
       setTimeout(() => setExplosions(prev => prev.filter(exp => exp.id !== expId)), 600);
 
       // Ripple Injector
