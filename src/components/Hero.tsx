@@ -5,7 +5,6 @@ import {
   Phone,
   Code,
   Terminal,
-  Zap,
   Instagram,
   Facebook,
   Play,
@@ -17,10 +16,6 @@ import { useTypingEffect } from "@/hooks/useTypingEffect";
 import SparkText from "@/components/SparkText";
 
 const Hero = () => {
-  const [sparkIntensity, setSparkIntensity] = useState(70);
-  const [glowStrength, setGlowStrength] = useState(60);
-  const [controlsOpen, setControlsOpen] = useState(false);
-
   const applicationTyping = useTypingEffect({
     text: "Application",
     speed: 120,
@@ -289,57 +284,6 @@ const Hero = () => {
           </div>
 
         </div>
-      </div>
-
-      {/* Floating Hero Controls */}
-      <div className="fixed bottom-4 right-4 z-40 select-none">
-        {controlsOpen ? (
-          <div className="w-64 rounded-2xl border border-primary/30 bg-background/90 backdrop-blur-lg p-4 shadow-2xl animate-fade-in">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold tracking-wider text-primary uppercase flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5" /> Visual Controls
-              </span>
-              <button
-                onClick={() => setControlsOpen(false)}
-                className="text-muted-foreground hover:text-foreground text-sm"
-                aria-label="Close controls"
-              >
-                ✕
-              </button>
-            </div>
-            <label className="block text-[11px] text-muted-foreground mb-1">
-              Particle Intensity: <span className="text-foreground">{sparkIntensity}%</span>
-            </label>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={sparkIntensity}
-              onChange={(e) => setSparkIntensity(Number(e.target.value))}
-              className="w-full accent-primary mb-3"
-            />
-            <label className="block text-[11px] text-muted-foreground mb-1">
-              Ambient Glow: <span className="text-foreground">{glowStrength}%</span>
-            </label>
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={glowStrength}
-              onChange={(e) => setGlowStrength(Number(e.target.value))}
-              className="w-full accent-accent"
-            />
-          </div>
-        ) : (
-          <button
-            onClick={() => setControlsOpen(true)}
-            className="flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 backdrop-blur-md px-3.5 py-2 text-xs font-semibold text-foreground hover:bg-background/90 shadow-lg transition-all"
-            aria-label="Open hero effect controls"
-          >
-            <Zap className="h-3.5 w-3.5 text-primary" />
-            FX Settings
-          </button>
-        )}
       </div>
     </section>
   );
