@@ -268,7 +268,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: all 0.05s ease;
+    transition: background 0.05s ease, border 0.05s ease, box-shadow 0.05s ease;
     mix-blend-mode: difference;
     will-change: transform;
   }
@@ -282,26 +282,26 @@
     height: 40px;
     border: 2px solid hsl(var(--primary) / 0.3);
     border-radius: 50%;
-    transition: all 0.1s ease;
+    transition: background 0.05s ease, border 0.05s ease, box-shadow 0.05s ease;
     will-change: transform;
   }
 
   .custom-cursor.hovering {
     transform: scale(1.5);
     background: hsl(var(--accent));
-    transition: all 0.08s ease;
+    transition: background 0.08s ease, border 0.08s ease, box-shadow 0.08s ease;
   }
 
   .custom-cursor.hovering::before {
     transform: scale(1.2);
     border-color: hsl(var(--accent) / 0.5);
-    transition: all 0.08s ease;
+    transition: background 0.08s ease, border 0.08s ease, box-shadow 0.08s ease;
   }
 
   .custom-cursor.clicking {
     transform: scale(0.8);
     background: hsl(var(--success));
-    transition: all 0.05s ease;
+    transition: background 0.05s ease, border 0.05s ease, box-shadow 0.05s ease;
   }
 
   .cursor-trail {
@@ -312,7 +312,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
-    transition: all 0.15s ease;
+    transition: opacity 0.15s ease;
     will-change: transform, opacity;
   }
 }
