@@ -243,17 +243,24 @@ const Hero = () => {
             {/* Left Column - Identity & Copy */}
             <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
               {/* Minimalistic & Modern Headline */}
-              <h1 className="flex flex-col gap-1 sm:gap-2 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground/75 font-sans">
-                  <SparkText text={applicationTyping.displayedText} variant="minimal" />
+              <div className="flex flex-col gap-1 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-medium tracking-wide text-primary mb-2 self-center lg:self-start">
+                  <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                  Portfolio Title
+                </div>
+                
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground font-sans leading-[1.08]">
+                  <span>{applicationTyping.displayedText}</span>
                   {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-0.5">|</span>}
-                </span>
-                <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-primary/90 to-accent bg-clip-text text-transparent font-sans">
-                  <SparkText text={developerTyping.displayedText} variant="minimal" />
-                  {!developerTyping.isComplete && <span className="animate-pulse text-accent ml-0.5">|</span>}
-                </span>
-                <div className="mt-2 h-0.5 w-16 sm:w-20 bg-primary/40 mx-auto lg:mx-0 rounded-full" />
-              </h1>
+                  <br />
+                  <span className="text-muted-foreground font-light">
+                    {developerTyping.displayedText}
+                  </span>
+                  {!developerTyping.isComplete && applicationTyping.isComplete && (
+                    <span className="animate-pulse text-primary ml-0.5">|</span>
+                  )}
+                </h1>
+              </div>
 
               {/* Tagline Card */}
               <div className="relative w-full max-w-md lg:max-w-none p-4 sm:p-5 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-xl mb-6 sm:mb-8 animate-fade-in">
