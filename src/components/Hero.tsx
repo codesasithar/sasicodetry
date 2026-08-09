@@ -2,7 +2,6 @@ import {
   ArrowRight,
   Github,
   Linkedin,
-  Mail,
   Phone,
   Code,
   Terminal,
@@ -10,6 +9,7 @@ import {
   Instagram,
   Facebook,
   Play,
+  Sparkles,
 } from "lucide-react";
 import iRobotBg from "@/assets/irobot-bg.png";
 import { useEffect, useState } from "react";
@@ -21,27 +21,22 @@ const Hero = () => {
   const [glowStrength, setGlowStrength] = useState(60);
   const [controlsOpen, setControlsOpen] = useState(false);
 
-  const glowOpacity = glowStrength / 100;
-  const glowBlur = 24 + glowStrength * 0.6;
-  const sparkOpacity = sparkIntensity / 100;
-  const sparkScale = 0.7 + (sparkIntensity / 100) * 0.6;
-
   const applicationTyping = useTypingEffect({
     text: "Application",
     speed: 120,
-    delay: 400
+    delay: 400,
   });
 
   const developerTyping = useTypingEffect({
     text: "Developer",
     speed: 150,
-    delay: 1600
+    delay: 1600,
   });
 
   const typingText = useTypingEffect({
     text: "I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions. Currently pursuing PG in AI/ML.",
     speed: 30,
-    delay: 2500
+    delay: 2500,
   });
 
   const scrollToProjects = () => {
@@ -63,7 +58,7 @@ const Hero = () => {
       const column = document.createElement("div");
       column.className = "matrix-column";
       column.style.left = Math.random() * 100 + "%";
-      column.style.animationDuration = (Math.random() * 10 + 10) + "s";
+      column.style.animationDuration = Math.random() * 10 + 10 + "s";
       column.style.animationDelay = Math.random() * 5 + "s";
       let text = "";
       for (let i = 0; i < 20; i++) {
@@ -99,7 +94,7 @@ const Hero = () => {
       const column = document.createElement("div");
       column.className = "binary-column";
       column.style.left = Math.random() * 100 + "%";
-      column.style.animationDuration = (Math.random() * 8 + 12) + "s";
+      column.style.animationDuration = Math.random() * 8 + 12 + "s";
       column.style.animationDelay = Math.random() * 3 + "s";
       let binary = "";
       for (let i = 0; i < 15; i++) {
@@ -136,167 +131,95 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 lg:py-0"
     >
-      {/* -- I, Robot-inspired visual layer -- */}
+      {/* Visual Background Layers */}
       <img
         src={iRobotBg}
         alt="Futuristic humanoid robot"
         loading="lazy"
         decoding="async"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend hidden lg:block"
-        style={{
-          width: "clamp(200px, 50vw, 600px)",
-          opacity: 0.25,
-          filter: "blur(0.5px)",
-          mixBlendMode: "lighten",
-        }}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend hidden lg:block opacity-20 filter blur-[0.5px] mix-blend-lighten"
+        style={{ width: "clamp(200px, 45vw, 550px)" }}
       />
 
-      {/* Dynamic Tech Background */}
       <div className="absolute inset-0 gradient-hero">
-        <div className="matrix-bg hidden sm:block"></div>
-        <div className="binary-rain hidden sm:block"></div>
-        <div className="tech-grid absolute inset-0 opacity-30 sm:opacity-100"></div>
-        <div className="circuit-pattern opacity-20 sm:opacity-100"></div>
-        <div className="interactive-orb top-20 left-20 hidden sm:block"></div>
-        <div className="interactive-orb bottom-32 right-32 hidden sm:block" style={{ animationDelay: "2s" }}></div>
-        <div className="interactive-orb top-1/2 left-1/4 hidden lg:block" style={{ animationDelay: "4s" }}></div>
+        <div className="matrix-bg hidden sm:block opacity-40"></div>
+        <div className="binary-rain hidden sm:block opacity-40"></div>
+        <div className="tech-grid absolute inset-0 opacity-25"></div>
+        <div className="circuit-pattern opacity-15"></div>
 
-        {/* Arc Reactor Center - desktop only */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 scale-75 sm:scale-90 lg:scale-100 hidden md:block">
-          <div className="arc-reactor-futuristic">
-            <div className="arc-outer-tech-ring">
-              {[...Array(16)].map((_, i) => (
-                <div
-                  key={i}
-                  className={`arc-tech-segment ${i % 4 === 0 ? 'arc-tech-major' : 'arc-tech-minor'}`}
-                  style={{ transform: `rotate(${i * 22.5}deg)` }}
-                ></div>
-              ))}
-            </div>
-            <div className="arc-secondary-ring">
-              {[...Array(12)].map((_, i) => (
-                <div
-                  key={i}
-                  className="arc-secondary-segment"
-                  style={{
-                    transform: `rotate(${i * 30}deg)`,
-                    animationDelay: `${i * 0.1}s`
-                  }}
-                ></div>
-              ))}
-            </div>
-            <div className="arc-inner-glow-ring"></div>
-            <div className="arc-core-housing">
-              <div className="arc-glowing-ring"></div>
-            </div>
-          </div>
-        </div>
+        {/* Ambient Glow Orbs */}
+        <div className="interactive-orb top-1/4 left-10 hidden sm:block"></div>
+        <div className="interactive-orb bottom-20 right-1/4 hidden sm:block" style={{ animationDelay: "2s" }}></div>
 
-        {/* Floating Code Snippets */}
-        <div className="absolute top-20 right-40 code-snippet overflow-hidden w-32 sm:w-48 hidden lg:block">
-          <span className="text-accent">const</span>{" "}
-          <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
+        {/* Desktop Code Snippets */}
+        <div className="absolute top-28 right-1/3 code-snippet overflow-hidden w-40 hidden lg:block text-xs font-mono backdrop-blur-md bg-black/30 p-2 rounded-lg border border-white/10">
+          <span className="text-accent">const</span> <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
         </div>
-        <div
-          className="absolute bottom-40 left-20 code-snippet overflow-hidden w-28 sm:w-40 hidden sm:block"
-          style={{ animationDelay: "1s" }}
-        >
-          <span className="text-primary">function</span>{" "}
-          <span className="text-accent">buildApp()</span> {"{"}
-          ...{"}"}
+        <div className="absolute bottom-28 left-16 code-snippet overflow-hidden w-36 hidden sm:block text-xs font-mono backdrop-blur-md bg-black/30 p-2 rounded-lg border border-white/10" style={{ animationDelay: "1s" }}>
+          <span className="text-primary">function</span> <span className="text-accent">buildApp()</span>
         </div>
-        <div
-          className="absolute top-1/3 right-1/4 code-snippet overflow-hidden w-24 sm:w-32 hidden lg:block"
-          style={{ animationDelay: "2s" }}
-        >
-          <span className="text-accent">import</span> <span className="text-primary">React</span>{" "}
-          <span className="text-accent">from</span> 'react';
-        </div>
-
-        {/* Particle Tech Elements */}
-        <div className="particle-tech top-32 left-32 hidden sm:block" style={{ animationDelay: "0s" }}></div>
-        <div className="particle-tech top-40 right-40 hidden sm:block" style={{ animationDelay: "1s" }}></div>
-        <div className="particle-tech bottom-32 left-1/3 hidden lg:block" style={{ animationDelay: "2s" }}></div>
-        <div className="particle-tech bottom-40 right-1/3 hidden lg:block" style={{ animationDelay: "3s" }}></div>
-        <div className="particle-tech top-1/2 left-1/2 hidden lg:block" style={{ animationDelay: "4s" }}></div>
-        <div className="particle-tech top-60 right-60 hidden lg:block" style={{ animationDelay: "5s" }}></div>
 
         {/* Animated Tech Icons */}
-        <div className="absolute top-24 left-1/3 text-primary/20 animate-float hidden sm:block">
-          <Code className="w-6 h-6 sm:w-8 sm:h-8" />
+        <div className="absolute top-24 left-1/4 text-primary/20 animate-float hidden sm:block">
+          <Code className="w-6 h-6" />
         </div>
-        <div className="absolute bottom-24 right-1/3 text-accent/20 animate-float hidden sm:block" style={{ animationDelay: "1.5s" }}>
-          <Terminal className="w-4 h-4 sm:w-6 sm:h-6" />
-        </div>
-        <div className="absolute top-1/3 right-20 text-primary/20 animate-float hidden lg:block" style={{ animationDelay: "3s" }}>
-          <Zap className="w-5 h-5 sm:w-7 sm:h-7" />
+        <div className="absolute bottom-32 right-1/3 text-accent/20 animate-float hidden sm:block" style={{ animationDelay: "1.5s" }}>
+          <Terminal className="w-5 h-5" />
         </div>
       </div>
 
-      {/* Content Wrapper */}
-      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-0 w-full">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 xl:gap-20 items-center">
+      {/* Main Content Area */}
+      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: Headline, Bio & CTAs */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+            
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-6 backdrop-blur-md">
+              <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+              <span>Available for New Projects</span>
+            </div>
 
-            {/* Left Column - Identity & Copy */}
-            <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-              {/* Minimalistic & Modern Headline */}
-              <div className="flex flex-col gap-1 mb-6 sm:mb-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-medium tracking-wide text-primary mb-2 self-center lg:self-start">
-                  <span className="w-2 h-2 rounded-full bg-primary animate-ping" />
-                  Portfolio Title
-                </div>
-                
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-foreground font-sans leading-[1.08]">
-                  <span>{applicationTyping.displayedText}</span>
-                  {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-0.5">|</span>}
-                  <br />
-                  <span className="text-muted-foreground font-light">
-                    {developerTyping.displayedText}
-                  </span>
-                  {!developerTyping.isComplete && applicationTyping.isComplete && (
-                    <span className="animate-pulse text-primary ml-0.5">|</span>
-                  )}
-                </h1>
-              </div>
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-sans leading-[1.05] mb-6">
+              <span className="text-foreground block">
+                {applicationTyping.displayedText}
+                {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-1">|</span>}
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/90 to-accent block mt-1">
+                {developerTyping.displayedText}
+                {!developerTyping.isComplete && applicationTyping.isComplete && (
+                  <span className="animate-pulse text-accent ml-1">|</span>
+                )}
+              </span>
+            </h1>
 
-              {/* Tagline Card */}
-              <div className="relative w-full max-w-md lg:max-w-none p-4 sm:p-5 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-xl mb-6 sm:mb-8 animate-fade-in">
-                <div className="absolute -top-px left-8 right-8 sm:left-12 sm:right-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-center lg:text-left">
-                  <SparkText text={typingText.displayedText} variant="text-only" />
-                  {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
-                </p>
-              </div>
+            {/* Bio Card */}
+            <div className="relative w-full max-w-xl p-5 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-xl mb-8 shadow-2xl">
+              <div className="absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                <SparkText text={typingText.displayedText} variant="text-only" />
+                {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
+              </p>
+            </div>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-xs sm:max-w-sm mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-                <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                  <span className="text-2xl sm:text-3xl font-black text-accent">5+</span>
-                  <span className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground font-semibold">Projects Built</span>
-                </div>
-                <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                  <span className="text-2xl sm:text-3xl font-black text-primary">2+</span>
-                  <span className="text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground font-semibold">Years Experience</span>
-                </div>
-              </div>
+            {/* Metrics & Social Bar */}
+            <div className="flex flex-col sm:flex-row items-center gap-6 w-full max-w-xl justify-between">
+              
+              {/* Primary Action Button */}
+              <button
+                onClick={scrollToProjects}
+                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
+              >
+                <span>View My Work</span>
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
 
-              {/* CTA */}
-              <div className="mb-6 sm:mb-8 animate-fade-in" style={{ animationDelay: "0.8s" }}>
-                <button
-                  onClick={scrollToProjects}
-                  className="group relative inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-primary text-primary-foreground rounded-xl font-bold uppercase tracking-widest text-xs sm:text-sm overflow-hidden shadow-[0_0_30px_rgba(0,240,255,0.18)] transition-all hover:bg-primary/90 active:scale-[0.98]"
-                >
-                  <span className="mr-1">🚀</span>
-                  View My Work
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </button>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex justify-center lg:justify-start gap-3 sm:gap-4 animate-fade-in" style={{ animationDelay: "1s" }}>
+              {/* Social Links Row */}
+              <div className="flex items-center gap-2.5">
                 {socials.map((social) => (
                   <a
                     key={social.label}
@@ -304,58 +227,78 @@ const Hero = () => {
                     target={social.href.startsWith("http") ? "_blank" : undefined}
                     rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={social.label}
-                    className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 transition-all cursor-magnetic cursor-glow ripple-effect touch-manipulation"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 transition-all shadow-sm"
                   >
-                    <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <social.icon className="h-4 w-4" />
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Right Column - Video Player */}
-            <div className="flex flex-col items-center lg:items-end animate-fade-in" style={{ animationDelay: "0.3s" }}>
-              <div className="relative w-full max-w-md lg:max-w-full group">
-                <div className="absolute -inset-2 sm:-inset-4 bg-gradient-vibrant rounded-2xl sm:rounded-3xl blur-lg opacity-25 animate-pulse" />
-                <div className="absolute -top-3 sm:-top-6 -right-3 sm:-right-6 w-14 h-14 sm:w-24 sm:h-24 border-2 border-accent/20 rounded-full" />
-                <div className="absolute -bottom-3 sm:-bottom-6 -left-3 sm:-left-6 w-10 h-10 sm:w-18 sm:h-18 bg-primary/20 rounded-xl sm:rounded-2xl rotate-45" />
-
-                <div className="relative aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-primary/30 bg-black/40 shadow-2xl">
-                  <video
-                    src="/videos/skills-video.mp4"
-                    poster="/videos/skills-video-thumb.jpg"
-                    loop
-                    playsInline
-                    controls
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent pointer-events-none" />
-
-                  {/* Play hint overlay - hidden when video is interacted with */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30 backdrop-blur-[2px] opacity-100 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-primary/90 border-4 border-primary/30 flex items-center justify-center shadow-[0_0_20px_rgba(0,240,255,0.5)]">
-                      <Play className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground fill-current ml-1" />
-                    </div>
-                    <div className="mt-3 px-3 py-1 rounded-lg bg-black/60 border border-white/10">
-                      <p className="text-[10px] sm:text-xs font-mono text-primary uppercase tracking-widest">About SASITHAR M</p>
-                    </div>
-                  </div>
+            {/* Experience Pill Counters */}
+            <div className="grid grid-cols-2 gap-4 mt-8 w-full max-w-xl">
+              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+                <span className="text-2xl font-black text-accent">5+</span>
+                <div className="flex flex-col text-left">
+                  <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Projects</span>
+                  <span className="text-[10px] text-muted-foreground">Built & Deployed</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+                <span className="text-2xl font-black text-primary">2+</span>
+                <div className="flex flex-col text-left">
+                  <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Years</span>
+                  <span className="text-[10px] text-muted-foreground">Practical Experience</span>
                 </div>
               </div>
             </div>
 
           </div>
+
+          {/* Right Column: Showcase Video Frame */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-md lg:max-w-none group">
+              
+              {/* Outer Decorative Glow Rings */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-accent/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500" />
+              
+              {/* Main Player Frame */}
+              <div className="relative aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl backdrop-blur-md">
+                <video
+                  src="/videos/skills-video.mp4"
+                  poster="/videos/skills-video-thumb.jpg"
+                  loop
+                  playsInline
+                  controls
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+                {/* Overlay Play Hint */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-[1px] group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
+                  <div className="w-12 h-12 rounded-full bg-primary/90 border border-white/20 flex items-center justify-center shadow-lg">
+                    <Play className="w-5 h-5 text-primary-foreground fill-current ml-0.5" />
+                  </div>
+                  <div className="mt-3 px-3 py-1 rounded-md bg-black/70 border border-white/10">
+                    <p className="text-[10px] font-mono text-primary uppercase tracking-widest">Interactive Skills Demo</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
 
-      {/* Bottom Decorative Blur */}
-      <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-80 h-80 bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Floating Controls */}
+      {/* Floating Hero Controls */}
       <div className="fixed bottom-4 right-4 z-40 select-none">
         {controlsOpen ? (
-          <div className="w-64 rounded-xl border border-primary/30 bg-background/80 backdrop-blur-md p-4 shadow-xl animate-fade-in">
+          <div className="w-64 rounded-2xl border border-primary/30 bg-background/90 backdrop-blur-lg p-4 shadow-2xl animate-fade-in">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold tracking-wide text-primary uppercase">Hero FX</span>
+              <span className="text-xs font-bold tracking-wider text-primary uppercase flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5" /> Visual Controls
+              </span>
               <button
                 onClick={() => setControlsOpen(false)}
                 className="text-muted-foreground hover:text-foreground text-sm"
@@ -365,7 +308,7 @@ const Hero = () => {
               </button>
             </div>
             <label className="block text-[11px] text-muted-foreground mb-1">
-              Lightning intensity: <span className="text-foreground">{sparkIntensity}%</span>
+              Particle Intensity: <span className="text-foreground">{sparkIntensity}%</span>
             </label>
             <input
               type="range"
@@ -376,7 +319,7 @@ const Hero = () => {
               className="w-full accent-primary mb-3"
             />
             <label className="block text-[11px] text-muted-foreground mb-1">
-              Glow strength: <span className="text-foreground">{glowStrength}%</span>
+              Ambient Glow: <span className="text-foreground">{glowStrength}%</span>
             </label>
             <input
               type="range"
@@ -390,11 +333,11 @@ const Hero = () => {
         ) : (
           <button
             onClick={() => setControlsOpen(true)}
-            className="flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 backdrop-blur-md px-3 py-2 text-xs text-foreground hover:bg-background shadow-md"
+            className="flex items-center gap-2 rounded-full border border-primary/30 bg-background/80 backdrop-blur-md px-3.5 py-2 text-xs font-semibold text-foreground hover:bg-background/90 shadow-lg transition-all"
             aria-label="Open hero effect controls"
           >
             <Zap className="h-3.5 w-3.5 text-primary" />
-            FX
+            FX Settings
           </button>
         )}
       </div>
