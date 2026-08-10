@@ -193,9 +193,24 @@ const Hero = () => {
             </h1>
 
             {/* Bio Card */}
-            <div className="relative w-full max-w-xl p-5 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-xl mb-8 shadow-2xl">
+            <div className="relative w-full max-w-xl p-5 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-xl mb-8 shadow-2xl overflow-hidden">
+              {/* Mobile Arc Reactor behind the bio text */}
+              <div className="lg:hidden absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none z-0">
+                <div className="arc-reactor scale-[0.7] sm:scale-90">
+                  <div className="arc-core" />
+                  <div className="arc-ring arc-ring-1" />
+                  <div className="arc-ring arc-ring-2" />
+                  <div className="arc-ring arc-ring-3" />
+                  <div className="arc-particles">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={i} className="arc-particle" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <div className="absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              <p className="relative z-10 text-sm sm:text-base text-muted-foreground leading-relaxed">
                 <SparkText text={typingText.displayedText} variant="text-only" />
                 {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
               </p>
