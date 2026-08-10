@@ -216,33 +216,20 @@ const Hero = () => {
               </p>
             </div>
 
-            {/* Metrics & Social Bar */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 w-full max-w-xl justify-between">
-              
-              {/* Primary Action Button */}
-              <button
-                onClick={scrollToProjects}
-                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
-              >
-                <span>View My Work</span>
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </button>
-
-              {/* Social Links Row */}
-              <div className="flex items-center gap-2.5">
-                {socials.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target={social.href.startsWith("http") ? "_blank" : undefined}
-                    rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    aria-label={social.label}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 transition-all shadow-sm"
-                  >
-                    <social.icon className="h-4 w-4" />
-                  </a>
-                ))}
-              </div>
+            {/* Social Links Bar */}
+            <div className="flex items-center justify-center sm:justify-start gap-2.5 w-full max-w-xl">
+              {socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  aria-label={social.label}
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 transition-all shadow-sm"
+                >
+                  <social.icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
 
             {/* Experience Pill Counters */}
@@ -298,6 +285,17 @@ const Hero = () => {
             </div>
           </div>
 
+        </div>
+
+        {/* End-of-Hero CTA */}
+        <div className="relative z-20 flex justify-center w-full mt-10 lg:mt-14">
+          <button
+            onClick={scrollToProjects}
+            className="group relative inline-flex items-center justify-center gap-3 px-10 py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
+          >
+            <span>View My Work</span>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
         </div>
       </div>
     </section>
