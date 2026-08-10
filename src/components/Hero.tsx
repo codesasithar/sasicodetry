@@ -286,6 +286,17 @@ const Hero = () => {
           </div>
 
         </div>
+
+        {/* End-of-Hero CTA */}
+        <div className="relative z-20 flex justify-center w-full mt-10 lg:mt-14">
+          <button
+            onClick={scrollToProjects}
+            className="group relative inline-flex items-center justify-center gap-3 px-10 py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
+          >
+            <span>View My Work</span>
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </button>
+        </div>
       </div>
     </section>
   );
