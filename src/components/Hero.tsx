@@ -130,12 +130,12 @@ const Hero = () => {
     >
       {/* Visual Background Layers */}
       <img
-        src={iRobotBg}
-        alt="Futuristic humanoid robot"
+        src={teslaRobot}
+        alt="Tesla Optimus humanoid robot"
         loading="lazy"
         decoding="async"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none irobot-blend hidden lg:block opacity-20 filter blur-[0.5px] mix-blend-lighten"
-        style={{ width: "clamp(200px, 45vw, 550px)" }}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none hidden lg:block opacity-15 filter blur-[1px] mix-blend-lighten"
+        style={{ width: "clamp(220px, 48vw, 580px)" }}
       />
 
       <div className="absolute inset-0 gradient-hero">
