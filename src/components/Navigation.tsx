@@ -64,7 +64,7 @@ const Navigation = () => {
           onClick={() => scrollToSection('home')}
         >
           {/* Re-styled Avatar Container */}
-          <div className="relative h-12 w-12 sm:h-14 sm:w-14 rounded-full p-1 bg-background border-2 border-border shadow-lg transition-all duration-300 group-hover:border-primary group-hover:shadow-xl">
+          <div className="relative h-12 w-12 sm:h-16 sm:w-16 rounded-full p-1 bg-background border-2 border-border shadow-lg transition-all duration-300 group-hover:border-primary group-hover:shadow-xl motion-safe:animate-float-subtle">
             <img
               src={profilePicture}
               alt="Sasithar M"
@@ -72,11 +72,17 @@ const Navigation = () => {
               decoding="async"
             />
           </div>
-          <div className="flex flex-col items-start leading-none">
+          <div className="hidden sm:flex flex-col items-start leading-none">
             <span className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-primary/90">Welcome to my portfolio</span>
             <span className="text-xs sm:text-sm font-bold text-foreground hidden sm:inline-block">SasiCodes</span>
           </div>
         </div>
+
+        {/* Centered brand name for mobile */}
+        <span className="lg:hidden absolute left-1/2 -translate-x-1/2 text-sm font-bold text-foreground tracking-wide pointer-events-none">
+          SasiCodes
+        </span>
+
 
 
         {/* Desktop Links Panel */}
