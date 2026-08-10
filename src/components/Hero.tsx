@@ -10,7 +10,7 @@ import {
   Play,
   Sparkles,
 } from "lucide-react";
-import iRobotBg from "@/assets/irobot-bg.png";
+import teslaRobot from "@/assets/tesla-robot.png";
 import { useEffect, useState } from "react";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 import SparkText from "@/components/SparkText";
