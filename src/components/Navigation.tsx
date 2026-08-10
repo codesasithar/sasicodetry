@@ -123,44 +123,55 @@ const Navigation = () => {
       </div>
 
       {/* Mobile Drawer Structural Block */}
-      {isOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 sm:top-20 left-0 w-screen h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] z-[99998] overflow-hidden block">
-          {/* Opaque Background Layer */}
-          <div 
-            className="absolute inset-0 bg-background/95 w-full h-full" 
-            onClick={() => setIsOpen(false)}
-          />
-          
-          {/* Scrollable Navigation Grid Link Block */}
-          <div className="absolute top-0 left-0 right-0 w-full bg-background border-b border-border shadow-2xl overflow-y-auto max-h-full pb-8 relative z-[99999]">
-            <div className="px-4 py-4 space-y-1">
-              {navItems.map((item) => {
-                const IconComponent = item.icon;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`w-full text-left px-4 py-3.5 text-sm font-semibold rounded-xl transition-all border flex items-center justify-between ${
-                      activeSection === item.id 
-                        ? "text-primary bg-primary/10 border-primary/20" 
-                        : "text-muted-foreground bg-transparent border-transparent"
-                    }`}
-                    type="button"
-                  >
-                    <div className="flex items-center gap-3">
-                      <IconComponent className={`h-4 w-4 ${activeSection === item.id ? "text-primary" : "text-muted-foreground"}`} />
-                      <span>{item.label}</span>
-                    </div>
-                    {activeSection === item.id && (
-                      <span className="h-2 w-2 rounded-full bg-primary" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+      <div 
+        className={`lg:hidden fixed inset-0 top-16 sm:top-20 left-0 w-screen h-[calc(100vh-4rem)] sm:h-[calc(100vh-5rem)] z-[99998] overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Opaque Background Layer */}
+        <div 
+          className={`absolute inset-0 bg-background/95 w-full h-full transition-opacity duration-300 ${
+            isOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsOpen(false)}
+        />
+        
+        {/* Scrollable Navigation Grid Link Block */}
+        <div 
+          className={`absolute top-0 left-0 right-0 w-full bg-background border-b border-border shadow-2xl overflow-y-auto max-h-full pb-8 relative z-[99999] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+            isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+          }`}
+        >
+          <div className="px-4 py-4 space-y-1">
+            {navItems.map((item, index) => {
+              const IconComponent = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`w-full text-left px-4 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 border flex items-center justify-between hover:translate-x-1 ${
+                    activeSection === item.id 
+                      ? "text-primary bg-primary/10 border-primary/20" 
+                      : "text-muted-foreground bg-transparent border-transparent hover:bg-muted/30"
+                  }`}
+                  style={{ 
+                    transitionDelay: isOpen ? `${Math.min(index * 25, 300)}ms` : "0ms" 
+                  }}
+                  type="button"
+                >
+                  <div className="flex items-center gap-3">
+                    <IconComponent className={`h-4 w-4 transition-colors ${activeSection === item.id ? "text-primary" : "text-muted-foreground"}`} />
+                    <span>{item.label}</span>
+                  </div>
+                  {activeSection === item.id && (
+                    <span className="h-2 w-2 rounded-full bg-primary" />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 };
