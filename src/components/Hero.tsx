@@ -41,11 +41,14 @@ const Hero = () => {
     }
   };
 
-  // Matrix rain effect
+  // Matrix rain effect — skipped entirely below the `sm` breakpoint so phones
+  // never pay the DOM-churn / battery cost for an effect that's CSS-hidden anyway.
   useEffect(() => {
     const matrixContainer = document.querySelector(".matrix-bg");
     if (!matrixContainer) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(max-width: 639px)").matches) return;
+
     const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</>{}[];";
 
     const createMatrixColumn = () => {
@@ -78,11 +81,12 @@ const Hero = () => {
     };
   }, []);
 
-  // Binary rain effect
+  // Binary rain effect — same mobile skip as above.
   useEffect(() => {
     const binaryContainer = document.querySelector(".binary-rain");
     if (!binaryContainer) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(max-width: 639px)").matches) return;
 
     const createBinaryColumn = () => {
       if (document.hidden || binaryContainer.childElementCount > 30) return;
@@ -126,7 +130,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 lg:py-0"
+      className="min-h-[100svh] min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 lg:py-0"
     >
       {/* Visual Background Layers */}
       <img
@@ -167,19 +171,19 @@ const Hero = () => {
 
       {/* Main Content Area */}
       <div className="section-container relative z-20 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
           
           {/* Left Column: Headline, Bio & CTAs */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-6 backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-5 sm:mb-6 backdrop-blur-md">
               <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
               <span>Available for New Projects</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-sans leading-[1.05] mb-6">
+            <h1 className="text-3xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-sans leading-[1.1] sm:leading-[1.05] mb-5 sm:mb-6">
               <span className="text-foreground block">
                 {applicationTyping.displayedText}
                 {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-1">|</span>}
@@ -193,7 +197,7 @@ const Hero = () => {
             </h1>
 
             {/* Bio Card */}
-            <div className="relative w-full max-w-xl p-5 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-xl mb-8 shadow-2xl overflow-hidden">
+            <div className="relative w-full max-w-xl p-4 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-md sm:backdrop-blur-xl mb-7 sm:mb-8 shadow-2xl overflow-hidden">
               {/* Mobile Arc Reactor behind the bio text */}
               <div className="lg:hidden absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none z-0">
                 <div className="arc-reactor scale-[0.7] sm:scale-90">
@@ -225,7 +229,7 @@ const Hero = () => {
                   target={social.href.startsWith("http") ? "_blank" : undefined}
                   rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={social.label}
-                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 transition-all shadow-sm"
+                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 active:scale-95 transition-all shadow-sm"
                 >
                   <social.icon className="h-4 w-4" />
                 </a>
@@ -233,15 +237,15 @@ const Hero = () => {
             </div>
 
             {/* Experience Pill Counters */}
-            <div className="grid grid-cols-2 gap-4 mt-8 w-full max-w-xl">
-              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-7 sm:mt-8 w-full max-w-xl">
+              <div className="flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
                 <span className="text-2xl font-black text-accent">5+</span>
                 <div className="flex flex-col text-left">
                   <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Projects</span>
                   <span className="text-[10px] text-muted-foreground">Built & Deployed</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+              <div className="flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
                 <span className="text-2xl font-black text-primary">2+</span>
                 <div className="flex flex-col text-left">
                   <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Years</span>
@@ -267,6 +271,7 @@ const Hero = () => {
                   loop
                   playsInline
                   controls
+                  preload="metadata"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -288,10 +293,10 @@ const Hero = () => {
         </div>
 
         {/* End-of-Hero CTA */}
-        <div className="relative z-20 flex justify-center w-full mt-10 lg:mt-14">
+        <div className="relative z-20 flex justify-center w-full mt-9 sm:mt-10 lg:mt-14">
           <button
             onClick={scrollToProjects}
-            className="group relative inline-flex items-center justify-center gap-3 px-10 py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
+            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-3.5 sm:px-10 sm:py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
           >
             <span>View My Work</span>
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
