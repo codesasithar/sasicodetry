@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Bot, Send, X, MessageCircle } from "lucide-react";
+import { Send, X } from "lucide-react";
+import botAvatar from "@/assets/profile-hero-cartoon.png";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -119,30 +120,44 @@ const ContactBot = () => {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close contact assistant" : "Open contact assistant"}
-        className="fixed bottom-5 right-5 z-[9998] h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-[0_0_28px_hsl(var(--primary)/0.5)] flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[9998] h-12 w-12 sm:h-14 sm:w-14 rounded-full overflow-hidden border border-primary/50 bg-primary/10 shadow-[0_0_24px_hsl(var(--primary)/0.45)] flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
       >
-        {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+        {open ? (
+          <X className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+        ) : (
+          <img
+            src={botAvatar}
+            alt="SasiBot assistant"
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
+          />
+        )}
       </button>
 
       {/* Panel */}
       <div
-        className={`fixed bottom-24 right-4 z-[9998] w-[min(22rem,calc(100vw-2rem))] origin-bottom-right rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
+        className={`fixed bottom-20 sm:bottom-24 right-3 sm:right-4 z-[9998] w-[calc(100vw-1.5rem)] sm:w-[min(22rem,calc(100vw-2rem))] max-h-[75vh] flex flex-col origin-bottom-right rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
           open
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
             : "opacity-0 translate-y-4 scale-95 pointer-events-none"
         }`}
       >
         <div className="flex items-center gap-3 border-b border-border px-4 py-3">
-          <div className="p-2 rounded-lg bg-primary/15 text-primary">
-            <Bot className="h-5 w-5" />
-          </div>
+          <img
+            src={botAvatar}
+            alt="SasiBot"
+            loading="lazy"
+            decoding="async"
+            className="h-9 w-9 rounded-full object-cover object-center border border-primary/50"
+          />
           <div>
             <p className="font-semibold leading-tight">SasiBot</p>
             <p className="text-xs text-muted-foreground">Here to help you reach Sasithar</p>
           </div>
         </div>
 
-        <div ref={scrollRef} className="h-72 overflow-y-auto px-4 py-3 space-y-3">
+        <div ref={scrollRef} className="h-[45vh] sm:h-72 flex-1 overflow-y-auto overscroll-contain px-4 py-3 space-y-3">
           {messages.map((m, i) => (
             <div key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
               <div
@@ -183,7 +198,7 @@ const ContactBot = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask me anything…"
-            className="flex-1 rounded-lg border border-border bg-input px-3 py-2 text-sm focus:ring-2 focus:ring-primary outline-none"
+            className="flex-1 min-w-0 rounded-lg border border-border bg-input px-3 py-2 text-base sm:text-sm focus:ring-2 focus:ring-primary outline-none"
           />
           <button
             type="submit"
