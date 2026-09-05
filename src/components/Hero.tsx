@@ -138,8 +138,8 @@ const Hero = () => {
         alt="Tesla Optimus humanoid robot"
         loading="lazy"
         decoding="async"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none hidden lg:block opacity-15 filter blur-[1px] mix-blend-lighten"
-        style={{ width: "clamp(220px, 48vw, 580px)" }}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none hidden lg:block opacity-45 mix-blend-lighten"
+        style={{ width: "clamp(320px, 58vw, 720px)", filter: "drop-shadow(0 0 60px rgba(0,240,255,0.35))" }}
       />
 
       <div className="absolute inset-0 gradient-hero">
