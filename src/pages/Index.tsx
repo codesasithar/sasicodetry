@@ -23,6 +23,7 @@ const Games = lazy(() => import("@/components/Games"));
 const RoleModels = lazy(() => import("@/components/RoleModels"));
 const Achievements = lazy(() => import("@/components/Achievements"));
 const Contact = lazy(() => import("@/components/Contact"));
+const ContactBot = lazy(() => import("@/components/ContactBot"));
 
 // A lightweight loading placeholder for smooth layout transitions
 const SectionLoader = () => (
@@ -62,6 +63,7 @@ const Index = () => {
         <Suspense fallback={<SectionLoader />}><RoleModels /></Suspense>
         <Suspense fallback={<SectionLoader />}><Achievements /></Suspense>
         <Suspense fallback={<SectionLoader />}><Contact /></Suspense>
+        <Suspense fallback={null}><ContactBot /></Suspense>
       </div>
     </>
   );
