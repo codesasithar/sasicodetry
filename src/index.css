@@ -2019,6 +2019,144 @@
   }
 }
 
+/* Scroll-Responsive Arc Reactor */
+.scroll-arc-reactor {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+.scroll-arc-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(
+    circle,
+    hsl(200 100% 72%) 0%,
+    hsl(200 100% 58%) 35%,
+    hsl(0 80% 60%) 62%,
+    transparent 82%
+  );
+  border-radius: 50%;
+  box-shadow:
+    0 0 calc(18px + var(--scroll-progress, 0) * 42px) hsl(200 100% 72%),
+    0 0 calc(36px + var(--scroll-progress, 0) * 64px) hsl(200 100% 58%),
+    0 0 calc(10px + var(--scroll-progress, 0) * 20px) hsl(0 80% 60%),
+    inset 0 0 18px hsl(200 100% 88%);
+  animation: scroll-arc-core-pulse calc(2s - var(--scroll-velocity, 0) * 1s) ease-in-out infinite;
+}
+
+.scroll-arc-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 3px solid;
+  transform: translate(-50%, -50%);
+}
+
+.scroll-arc-ring-1 {
+  width: 70px;
+  height: 70px;
+  border-color: hsl(200 100% 70% / 0.85);
+  box-shadow: 0 0 calc(14px + var(--scroll-progress, 0) * 28px) hsl(200 100% 70% / calc(0.5 + var(--scroll-progress, 0) * 0.45));
+  animation: scroll-arc-ring-rotate calc(4s - var(--scroll-velocity, 0) * 2.5s) linear infinite;
+}
+
+.scroll-arc-ring-2 {
+  width: 105px;
+  height: 105px;
+  border-color: hsl(0 80% 60% / 0.65);
+  box-shadow: 0 0 calc(12px + var(--scroll-progress, 0) * 24px) hsl(0 80% 60% / calc(0.4 + var(--scroll-progress, 0) * 0.45));
+  animation: scroll-arc-ring-rotate calc(6s - var(--scroll-velocity, 0) * 3.5s) linear infinite reverse;
+}
+
+.scroll-arc-ring-3 {
+  width: 145px;
+  height: 145px;
+  border-color: hsl(200 100% 60% / 0.45);
+  box-shadow: 0 0 calc(18px + var(--scroll-progress, 0) * 34px) hsl(200 100% 60% / calc(0.3 + var(--scroll-progress, 0) * 0.45));
+  animation: scroll-arc-ring-rotate calc(8s - var(--scroll-progress, 0) * 5s) linear infinite;
+}
+
+.scroll-arc-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+}
+
+.scroll-arc-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  margin-left: -2.5px;
+  background: hsl(0 90% 65%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px hsl(0 90% 65%);
+  animation: scroll-arc-particle-orbit calc(3s - var(--scroll-velocity, 0) * 1.5s) linear infinite;
+}
+
+.scroll-arc-particle:nth-child(1) {
+  background: hsl(210 100% 70%);
+  box-shadow: 0 0 8px hsl(210 100% 70%);
+}
+
+.scroll-arc-particle:nth-child(3) {
+  background: hsl(210 100% 70%);
+  box-shadow: 0 0 8px hsl(210 100% 70%);
+}
+
+.scroll-arc-particle:nth-child(5) {
+  background: hsl(210 100% 70%);
+  box-shadow: 0 0 8px hsl(210 100% 70%);
+}
+
+@keyframes scroll-arc-ring-rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes scroll-arc-core-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow:
+      0 0 calc(18px + var(--scroll-progress, 0) * 42px) hsl(200 100% 72%),
+      0 0 calc(36px + var(--scroll-progress, 0) * 64px) hsl(200 100% 58%),
+      0 0 calc(10px + var(--scroll-progress, 0) * 20px) hsl(0 80% 60%),
+      inset 0 0 18px hsl(200 100% 88%);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(calc(1.12 + var(--scroll-progress, 0) * 0.18));
+    box-shadow:
+      0 0 calc(28px + var(--scroll-progress, 0) * 52px) hsl(200 100% 78%),
+      0 0 calc(52px + var(--scroll-progress, 0) * 78px) hsl(200 100% 62%),
+      0 0 calc(18px + var(--scroll-progress, 0) * 28px) hsl(0 80% 65%),
+      inset 0 0 22px hsl(200 100% 92%);
+  }
+}
+
+@keyframes scroll-arc-particle-orbit {
+  0% {
+    transform: rotate(0deg) translateX(calc(52px + var(--scroll-progress, 0) * 18px)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(calc(52px + var(--scroll-progress, 0) * 18px)) rotate(-360deg);
+  }
+}
+
 /* Arc Reactor Sparks */
 .arc-sparks {
   position: absolute;
