@@ -1,4 +1,5 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "@/App.css";
 
 // 1. Critical "Above-the-Fold" Components (Load immediately)
@@ -34,6 +35,17 @@ const SectionLoader = () => (
 );
 
 const Index = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const sectionId = location.hash.slice(1);
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.hash]);
+
   return (
     <>
       {/* Matrix background - appears behind everything */}

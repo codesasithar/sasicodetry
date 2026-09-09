@@ -12,19 +12,24 @@ import {
   Film, 
   Gamepad2, 
   Flame, 
-  Mail 
+  Mail,
+  FolderKanban,
 } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import profilePicture from "@/assets/profile-hero-cartoon.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Nav items array mapped with clean, semantic modern icons
   const navItems = [
     { id: "about", label: "About", icon: User },
     { id: "projects", label: "Projects", icon: Briefcase },
+    { id: "builds", label: "Builds", icon: FolderKanban },
     { id: "services", label: "Services", icon: Cpu },
     { id: "writings", label: "Writings", icon: PenTool },
     { id: "bookshelf", label: "Library", icon: BookOpen },
@@ -48,6 +53,14 @@ const Navigation = () => {
 
   const scrollToSection = (sectionId: string) => {
     setIsOpen(false);
+    if (sectionId === "builds") {
+      navigate("/builds");
+      return;
+    }
+    if (location.pathname !== "/") {
+      navigate(`/#${sectionId}`);
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (!element) return;
     setActiveSection(sectionId);
@@ -60,7 +73,7 @@ const Navigation = () => {
         
         {/* Brand Header - Profile + Welcome */}
         <div
-          className="flex items-center gap-3 sm:gap-4 cursor-pointer group"
+            className="flex items-center gap-3 sm:gap-4 cursor-pointer group"
           onClick={() => scrollToSection('home')}
         >
           {/* Re-styled Avatar Container */}
@@ -94,7 +107,7 @@ const Navigation = () => {
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={`px-3 py-1.5 text-xs font-medium rounded-full transition-colors flex items-center gap-1.5 ${
-                  activeSection === item.id ? "text-primary bg-primary/10 font-semibold" : "text-muted-foreground hover:text-foreground"
+                   (item.id === "builds" ? location.pathname === "/builds" : activeSection === item.id) ? "text-primary bg-primary/10 font-semibold" : "text-muted-foreground hover:text-foreground"
                 }`}
                 type="button"
               >
@@ -150,7 +163,7 @@ const Navigation = () => {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`w-full text-left px-4 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 border flex items-center justify-between hover:translate-x-1 ${
-                    activeSection === item.id 
+                     (item.id === "builds" ? location.pathname === "/builds" : activeSection === item.id)
                       ? "text-primary bg-primary/10 border-primary/20" 
                       : "text-muted-foreground bg-transparent border-transparent hover:bg-muted/30"
                   }`}
@@ -160,10 +173,10 @@ const Navigation = () => {
                   type="button"
                 >
                   <div className="flex items-center gap-3">
-                    <IconComponent className={`h-4 w-4 transition-colors ${activeSection === item.id ? "text-primary" : "text-muted-foreground"}`} />
+                     <IconComponent className={`h-4 w-4 transition-colors ${(item.id === "builds" ? location.pathname === "/builds" : activeSection === item.id) ? "text-primary" : "text-muted-foreground"}`} />
                     <span>{item.label}</span>
                   </div>
-                  {activeSection === item.id && (
+                   {(item.id === "builds" ? location.pathname === "/builds" : activeSection === item.id) && (
                     <span className="h-2 w-2 rounded-full bg-primary" />
                   )}
                 </button>
