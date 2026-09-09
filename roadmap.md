@@ -1,0 +1,1 @@
+{"tasks":[{"title":"Finish centered arc reactor assembly animation","status":"in_progress"},{"title":"Add dedicated Builds page with project cards","status":"pending"},{"title":"Add Builds navigation and route","status":"pending"},{"title":"Verify preview and build output","status":"pending"}]}
