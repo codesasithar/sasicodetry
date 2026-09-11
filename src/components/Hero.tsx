@@ -130,15 +130,17 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-[100svh] min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 lg:py-0"
+      className="hero-shell min-h-[100svh] min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 lg:py-0"
     >
       {/* Visual Background Layers */}
+      <div className="hero-scanlines absolute inset-0 pointer-events-none z-[1]" aria-hidden="true" />
+      <div className="hero-radar absolute inset-0 pointer-events-none z-[1]" aria-hidden="true" />
       <img
         src={teslaRobot}
         alt="Tesla Optimus humanoid robot"
         loading="lazy"
         decoding="async"
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none hidden lg:block opacity-45 mix-blend-lighten"
+        className="hero-robot absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none hidden lg:block opacity-45 mix-blend-lighten"
         style={{ width: "clamp(320px, 58vw, 720px)", filter: "drop-shadow(0 0 60px rgba(0,240,255,0.35))" }}
       />
 
@@ -177,13 +179,14 @@ const Hero = () => {
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-5 sm:mb-6 backdrop-blur-md">
+            <div className="hero-status inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-5 sm:mb-6 backdrop-blur-md">
+              <span className="hero-status-dot" aria-hidden="true" />
               <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
               <span>Available for New Projects</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-sans leading-[1.1] sm:leading-[1.05] mb-5 sm:mb-6">
+            <h1 className="hero-headline text-3xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-sans leading-[1.1] sm:leading-[1.05] mb-5 sm:mb-6">
               <span className="text-foreground block">
                 {applicationTyping.displayedText}
                 {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-1">|</span>}
@@ -197,7 +200,7 @@ const Hero = () => {
             </h1>
 
             {/* Bio Card */}
-            <div className="relative w-full max-w-xl p-4 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-md sm:backdrop-blur-xl mb-7 sm:mb-8 shadow-2xl overflow-hidden">
+            <div className="hero-bio relative w-full max-w-xl p-4 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-md sm:backdrop-blur-xl mb-7 sm:mb-8 shadow-2xl overflow-hidden">
               {/* Mobile Arc Reactor behind the bio text */}
               <div className="lg:hidden absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none z-0">
                 <div className="arc-reactor scale-[0.7] sm:scale-90">
@@ -221,7 +224,7 @@ const Hero = () => {
             </div>
 
             {/* Social Links Bar */}
-            <div className="flex items-center justify-center sm:justify-start gap-2.5 w-full max-w-xl">
+            <div className="hero-socials flex items-center justify-center sm:justify-start gap-2.5 w-full max-w-xl">
               {socials.map((social) => (
                 <a
                   key={social.label}
@@ -237,15 +240,15 @@ const Hero = () => {
             </div>
 
             {/* Experience Pill Counters */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-7 sm:mt-8 w-full max-w-xl">
-              <div className="flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+            <div className="hero-stats grid grid-cols-2 gap-3 sm:gap-4 mt-7 sm:mt-8 w-full max-w-xl">
+              <div className="hero-stat flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
                 <span className="text-2xl font-black text-accent">5+</span>
                 <div className="flex flex-col text-left">
                   <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Projects</span>
                   <span className="text-[10px] text-muted-foreground">Built & Deployed</span>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
+              <div className="hero-stat flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
                 <span className="text-2xl font-black text-primary">2+</span>
                 <div className="flex flex-col text-left">
                   <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Years</span>
@@ -258,13 +261,15 @@ const Hero = () => {
 
           {/* Right Column: Showcase Video Frame */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center">
-            <div className="relative w-full max-w-md lg:max-w-none group">
+             <div className="hero-showcase relative w-full max-w-md lg:max-w-none group">
               
               {/* Outer Decorative Glow Rings */}
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-accent/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500" />
               
               {/* Main Player Frame */}
-              <div className="relative aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl backdrop-blur-md">
+               <div className="hero-video-frame relative aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl backdrop-blur-md">
+                 <div className="hero-frame-corner hero-frame-corner-tl" aria-hidden="true" />
+                 <div className="hero-frame-corner hero-frame-corner-br" aria-hidden="true" />
                 <video
                   src="/videos/skills-video.mp4"
                   poster="/videos/skills-video-thumb.jpg"
@@ -275,6 +280,7 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                 <div className="hero-scan-beam" aria-hidden="true" />
 
                 {/* Overlay Play Hint */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-[1px] group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
@@ -286,6 +292,13 @@ const Hero = () => {
                   </div>
                 </div>
               </div>
+
+               <div className="hero-hud-label hero-hud-label-top" aria-hidden="true">
+                 <span className="hero-hud-dot" /> SIGNAL_LOCKED
+               </div>
+               <div className="hero-hud-label hero-hud-label-bottom" aria-hidden="true">
+                 <span>SKILLS_DEMO</span><span className="hero-hud-bars"><i /><i /><i /><i /></span>
+               </div>
 
             </div>
           </div>
