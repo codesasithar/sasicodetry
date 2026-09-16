@@ -1,320 +1,127 @@
-import {
-  ArrowRight,
-  Github,
-  Linkedin,
-  Phone,
-  Code,
-  Terminal,
-  Instagram,
-  Facebook,
-  Play,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Facebook, Github, Instagram, Linkedin, Phone, Play, Radio } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import teslaRobot from "@/assets/tesla-robot.png";
-import { useEffect, useState } from "react";
-import { useTypingEffect } from "@/hooks/useTypingEffect";
-import SparkText from "@/components/SparkText";
+
+const socials = [
+  { href: "https://www.linkedin.com/in/sasitharcodes/", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://github.com/codesasithar", icon: Github, label: "GitHub" },
+  { href: "https://www.instagram.com/sasitharm/", icon: Instagram, label: "Instagram" },
+  { href: "https://www.facebook.com/snazzy.sasithar", icon: Facebook, label: "Facebook" },
+  { href: "tel:+919443798476", icon: Phone, label: "Phone" },
+];
 
 const Hero = () => {
-  const applicationTyping = useTypingEffect({
-    text: "Application",
-    speed: 120,
-    delay: 400,
-  });
-
-  const developerTyping = useTypingEffect({
-    text: "Developer",
-    speed: 150,
-    delay: 1600,
-  });
-
-  const typingText = useTypingEffect({
-    text: "I like to craft solid and scalable mobile products with great user experiences. Passionate about turning innovative ideas into working digital solutions. Currently pursuing PG in AI/ML.",
-    speed: 30,
-    delay: 2500,
-  });
-
   const scrollToProjects = () => {
-    const element = document.getElementById("projects");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Matrix rain effect — skipped entirely below the `sm` breakpoint so phones
-  // never pay the DOM-churn / battery cost for an effect that's CSS-hidden anyway.
-  useEffect(() => {
-    const matrixContainer = document.querySelector(".matrix-bg");
-    if (!matrixContainer) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(max-width: 639px)").matches) return;
-
-    const characters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</>{}[];";
-
-    const createMatrixColumn = () => {
-      if (document.hidden || matrixContainer.childElementCount > 40) return;
-      const column = document.createElement("div");
-      column.className = "matrix-column";
-      column.style.left = Math.random() * 100 + "%";
-      column.style.animationDuration = Math.random() * 10 + 10 + "s";
-      column.style.animationDelay = Math.random() * 5 + "s";
-      let text = "";
-      for (let i = 0; i < 20; i++) {
-        text += characters[Math.floor(Math.random() * characters.length)] + "\n";
-      }
-      column.textContent = text;
-
-      matrixContainer.appendChild(column);
-
-      setTimeout(() => {
-        if (column.parentNode) {
-          column.parentNode.removeChild(column);
-        }
-      }, 15000);
-    };
-
-    const interval = setInterval(createMatrixColumn, 300);
-
-    return () => {
-      clearInterval(interval);
-      if (matrixContainer) matrixContainer.innerHTML = "";
-    };
-  }, []);
-
-  // Binary rain effect — same mobile skip as above.
-  useEffect(() => {
-    const binaryContainer = document.querySelector(".binary-rain");
-    if (!binaryContainer) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.matchMedia("(max-width: 639px)").matches) return;
-
-    const createBinaryColumn = () => {
-      if (document.hidden || binaryContainer.childElementCount > 30) return;
-      const column = document.createElement("div");
-      column.className = "binary-column";
-      column.style.left = Math.random() * 100 + "%";
-      column.style.animationDuration = Math.random() * 8 + 12 + "s";
-      column.style.animationDelay = Math.random() * 3 + "s";
-      let binary = "";
-      for (let i = 0; i < 15; i++) {
-        binary += Math.random() > 0.5 ? "1" : "0";
-        if (i < 14) binary += "\n";
-      }
-      column.textContent = binary;
-
-      binaryContainer.appendChild(column);
-
-      setTimeout(() => {
-        if (column.parentNode) {
-          column.parentNode.removeChild(column);
-        }
-      }, 20000);
-    };
-
-    const interval = setInterval(createBinaryColumn, 500);
-
-    return () => {
-      clearInterval(interval);
-      if (binaryContainer) binaryContainer.innerHTML = "";
-    };
-  }, []);
-
-  const socials = [
-    { href: "https://www.linkedin.com/in/sasitharcodes/", icon: Linkedin, label: "LinkedIn" },
-    { href: "https://github.com/codesasithar", icon: Github, label: "GitHub" },
-    { href: "https://www.instagram.com/sasitharm/", icon: Instagram, label: "Instagram" },
-    { href: "https://www.facebook.com/snazzy.sasithar", icon: Facebook, label: "Facebook" },
-    { href: "tel:+919443798476", icon: Phone, label: "Phone" },
-  ];
-
   return (
-    <section
-      id="home"
-      className="hero-shell min-h-[100svh] min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 lg:py-0"
-    >
-      {/* Visual Background Layers */}
-      <div className="hero-scanlines absolute inset-0 pointer-events-none z-[1]" aria-hidden="true" />
-      <div className="hero-radar absolute inset-0 pointer-events-none z-[1]" aria-hidden="true" />
-      <img
-        src={teslaRobot}
-        alt="Tesla Optimus humanoid robot"
-        loading="lazy"
-        decoding="async"
-        className="hero-robot absolute right-0 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none hidden lg:block opacity-45 mix-blend-lighten"
-        style={{ width: "clamp(320px, 58vw, 720px)", filter: "drop-shadow(0 0 60px rgba(0,240,255,0.35))" }}
-      />
+    <section id="home" className="hero-shell relative min-h-[100svh] overflow-hidden px-4 pb-12 pt-24 sm:px-6 sm:pt-28 lg:px-8 lg:pb-16">
+      <div className="hero-scanlines absolute inset-0 pointer-events-none" aria-hidden="true" />
 
-      <div className="absolute inset-0 gradient-hero">
-        <div className="matrix-bg hidden sm:block opacity-40"></div>
-        <div className="binary-rain hidden sm:block opacity-40"></div>
-        <div className="tech-grid absolute inset-0 opacity-25"></div>
-        <div className="circuit-pattern opacity-15"></div>
-
-        {/* Ambient Glow Orbs */}
-        <div className="interactive-orb top-1/4 left-10 hidden sm:block"></div>
-        <div className="interactive-orb bottom-20 right-1/4 hidden sm:block" style={{ animationDelay: "2s" }}></div>
-
-        {/* Desktop Code Snippets */}
-        <div className="absolute top-28 right-1/3 code-snippet overflow-hidden w-40 hidden lg:block text-xs font-mono backdrop-blur-md bg-black/30 p-2 rounded-lg border border-white/10">
-          <span className="text-accent">const</span> <span className="text-primary">developer</span> = <span className="text-accent">'Sasithar'</span>;
-        </div>
-        <div className="absolute bottom-28 left-16 code-snippet overflow-hidden w-36 hidden sm:block text-xs font-mono backdrop-blur-md bg-black/30 p-2 rounded-lg border border-white/10" style={{ animationDelay: "1s" }}>
-          <span className="text-primary">function</span> <span className="text-accent">buildApp()</span>
-        </div>
-
-        {/* Animated Tech Icons */}
-        <div className="absolute top-24 left-1/4 text-primary/20 animate-float hidden sm:block">
-          <Code className="w-6 h-6" />
-        </div>
-        <div className="absolute bottom-32 right-1/3 text-accent/20 animate-float hidden sm:block" style={{ animationDelay: "1.5s" }}>
-          <Terminal className="w-5 h-5" />
-        </div>
-      </div>
-
-      {/* Main Content Area */}
-      <div className="section-container relative z-20 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
-          
-          {/* Left Column: Headline, Bio & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
-            
-            {/* Status Pill */}
-            <div className="hero-status inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-medium text-primary mb-5 sm:mb-6 backdrop-blur-md">
-              <span className="hero-status-dot" aria-hidden="true" />
-              <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
-              <span>Available for New Projects</span>
-            </div>
-
-            {/* Headline */}
-            <h1 className="hero-headline text-3xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-sans leading-[1.1] sm:leading-[1.05] mb-5 sm:mb-6">
-              <span className="text-foreground block">
-                {applicationTyping.displayedText}
-                {!applicationTyping.isComplete && <span className="animate-pulse text-primary ml-1">|</span>}
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/90 to-accent block mt-1">
-                {developerTyping.displayedText}
-                {!developerTyping.isComplete && applicationTyping.isComplete && (
-                  <span className="animate-pulse text-accent ml-1">|</span>
-                )}
-              </span>
+      <div className="hero-bento relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-3 lg:h-[calc(100svh-8rem)] lg:min-h-[700px] lg:max-h-[840px] lg:grid-cols-4 lg:grid-rows-4 lg:gap-4">
+        <article className="hero-panel hero-identity lg:col-span-2 lg:row-span-2">
+          <div>
+            <p className="hero-kicker">[ SYSTEM.IDENTITY ]</p>
+            <h1 className="hero-title">
+              <span>APPLICATION</span>
+              <span className="text-primary">DEVELOPER.</span>
             </h1>
-
-            {/* Bio Card */}
-            <div className="hero-bio relative w-full max-w-xl p-4 sm:p-6 rounded-2xl bg-card/40 border border-white/10 backdrop-blur-md sm:backdrop-blur-xl mb-7 sm:mb-8 shadow-2xl overflow-hidden">
-              {/* Mobile Arc Reactor behind the bio text */}
-              <div className="lg:hidden absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none z-0">
-                <div className="arc-reactor scale-[0.7] sm:scale-90">
-                  <div className="arc-core" />
-                  <div className="arc-ring arc-ring-1" />
-                  <div className="arc-ring arc-ring-2" />
-                  <div className="arc-ring arc-ring-3" />
-                  <div className="arc-particles">
-                    {Array.from({ length: 6 }).map((_, i) => (
-                      <div key={i} className="arc-particle" />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-              <p className="relative z-10 text-sm sm:text-base text-muted-foreground leading-relaxed">
-                <SparkText text={typingText.displayedText} variant="text-only" />
-                {!typingText.isComplete && <span className="animate-pulse text-primary font-bold">|</span>}
-              </p>
-            </div>
-
-            {/* Social Links Bar */}
-            <div className="hero-socials flex items-center justify-center sm:justify-start gap-2.5 w-full max-w-xl">
-              {socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target={social.href.startsWith("http") ? "_blank" : undefined}
-                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  aria-label={social.label}
-                  className="w-11 h-11 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-muted-foreground hover:text-primary hover:border-primary/40 hover:bg-white/10 active:scale-95 transition-all shadow-sm"
-                >
-                  <social.icon className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
-
-            {/* Experience Pill Counters */}
-            <div className="hero-stats grid grid-cols-2 gap-3 sm:gap-4 mt-7 sm:mt-8 w-full max-w-xl">
-              <div className="hero-stat flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                <span className="text-2xl font-black text-accent">5+</span>
-                <div className="flex flex-col text-left">
-                  <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Projects</span>
-                  <span className="text-[10px] text-muted-foreground">Built & Deployed</span>
-                </div>
-              </div>
-              <div className="hero-stat flex items-center gap-3 p-3 sm:p-3.5 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                <span className="text-2xl font-black text-primary">2+</span>
-                <div className="flex flex-col text-left">
-                  <span className="text-[11px] font-bold text-foreground uppercase tracking-wider">Years</span>
-                  <span className="text-[10px] text-muted-foreground">Practical Experience</span>
-                </div>
-              </div>
-            </div>
-
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              I craft solid, scalable mobile products with thoughtful user experiences—turning innovative ideas into working digital solutions while pursuing a PG in AI/ML.
+            </p>
           </div>
-
-          {/* Right Column: Showcase Video Frame */}
-          <div className="lg:col-span-5 flex flex-col items-center justify-center">
-             <div className="hero-showcase relative w-full max-w-md lg:max-w-none group">
-              
-              {/* Outer Decorative Glow Rings */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-accent/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-75 transition duration-500" />
-              
-              {/* Main Player Frame */}
-               <div className="hero-video-frame relative aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl backdrop-blur-md">
-                 <div className="hero-frame-corner hero-frame-corner-tl" aria-hidden="true" />
-                 <div className="hero-frame-corner hero-frame-corner-br" aria-hidden="true" />
-                <video
-                  src="/videos/skills-video.mp4"
-                  poster="/videos/skills-video-thumb.jpg"
-                  loop
-                  playsInline
-                  controls
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                 <div className="hero-scan-beam" aria-hidden="true" />
-
-                {/* Overlay Play Hint */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/20 backdrop-blur-[1px] group-hover:opacity-0 transition-opacity duration-300 pointer-events-none">
-                  <div className="w-12 h-12 rounded-full bg-primary/90 border border-white/20 flex items-center justify-center shadow-lg">
-                    <Play className="w-5 h-5 text-primary-foreground fill-current ml-0.5" />
-                  </div>
-                  <div className="mt-3 px-3 py-1 rounded-md bg-black/70 border border-white/10">
-                    <p className="text-[10px] font-mono text-primary uppercase tracking-widest">Interactive Skills Demo</p>
-                  </div>
-                </div>
-              </div>
-
-               <div className="hero-hud-label hero-hud-label-top" aria-hidden="true">
-                 <span className="hero-hud-dot" /> SIGNAL_LOCKED
-               </div>
-               <div className="hero-hud-label hero-hud-label-bottom" aria-hidden="true">
-                 <span>SKILLS_DEMO</span><span className="hero-hud-bars"><i /><i /><i /><i /></span>
-               </div>
-
-            </div>
+          <div className="mt-7 flex flex-wrap gap-2">
+            <span className="hero-tag">Mobile products</span>
+            <span className="hero-tag">AI / ML</span>
+            <span className="hero-tag">Creative developer</span>
           </div>
+        </article>
 
-        </div>
+        <figure className="hero-panel hero-visual min-h-[310px] lg:col-span-2 lg:row-span-2">
+          <img src={teslaRobot} alt="Tesla Optimus humanoid robot" className="hero-robot" />
+          <div className="hero-visual-grid" aria-hidden="true" />
+          <figcaption className="absolute bottom-5 left-5 flex items-center gap-2 font-mono text-[10px] uppercase text-primary sm:text-xs">
+            <span className="hero-status-dot" /> Visual prototype // 01
+          </figcaption>
+        </figure>
 
-        {/* End-of-Hero CTA */}
-        <div className="relative z-20 flex justify-center w-full mt-9 sm:mt-10 lg:mt-14">
-          <button
-            onClick={scrollToProjects}
-            className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-3.5 sm:px-10 sm:py-4 bg-primary text-primary-foreground rounded-xl font-semibold tracking-wider text-xs sm:text-sm uppercase overflow-hidden shadow-[0_0_25px_rgba(0,240,255,0.25)] transition-all hover:bg-primary/90 active:scale-[0.98]"
-          >
-            <span>View My Work</span>
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </button>
-        </div>
+        <article className="hero-panel hero-showcase min-h-[220px] lg:col-span-2 lg:row-span-1">
+          <video
+            src="/videos/skills-video.mp4"
+            poster="/videos/skills-video-thumb.jpg"
+            loop
+            playsInline
+            controls
+            preload="metadata"
+            className="h-full w-full object-cover opacity-70"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="flex h-14 w-14 items-center justify-center rounded-full border border-primary/30 bg-background/70 text-primary backdrop-blur-md">
+              <Play className="h-5 w-5 fill-current" />
+            </span>
+          </div>
+          <span className="absolute bottom-4 left-4 font-mono text-[10px] uppercase text-foreground/70">Play skills showreel</span>
+        </article>
+
+        <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
+          <span className="font-mono text-[10px] uppercase text-muted-foreground">Build archive</span>
+          <div>
+            <p className="font-mono text-4xl font-bold text-foreground">5<span className="text-primary">+</span></p>
+            <p className="mt-1 text-xs uppercase text-muted-foreground">Projects built & deployed</p>
+          </div>
+          <div className="h-px w-full bg-border"><div className="h-px w-3/4 bg-primary" /></div>
+        </article>
+
+        <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
+          <span className="font-mono text-[10px] uppercase text-muted-foreground">Field experience</span>
+          <div>
+            <p className="font-mono text-4xl font-bold text-foreground">2<span className="text-primary">+</span></p>
+            <p className="mt-1 text-xs uppercase text-muted-foreground">Years of practical work</p>
+          </div>
+          <div className="h-px w-full bg-border"><div className="h-px w-1/2 bg-primary" /></div>
+        </article>
+
+        <article className="hero-panel flex min-h-[130px] flex-col justify-between lg:col-span-2 lg:row-span-1">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] uppercase text-muted-foreground">Network / Protocol</span>
+            <Radio className="h-4 w-4 text-primary" />
+          </div>
+          <div className="flex items-center gap-2">
+            {socials.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target={social.href.startsWith("http") ? "_blank" : undefined}
+                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={social.label}
+                className="hero-social-link"
+              >
+                <social.icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </article>
+
+        <Button onClick={scrollToProjects} className="hero-project-cta group h-auto min-h-[130px] justify-between px-6 py-6 lg:col-span-2 lg:row-span-1">
+          <span className="text-left">
+            <span className="block font-mono text-2xl font-bold sm:text-3xl">VIEW MY WORK</span>
+            <span className="mt-1 block font-mono text-[10px] uppercase opacity-70">Explore project archive</span>
+          </span>
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-foreground text-primary transition-transform duration-300 group-hover:translate-x-1">
+            <ArrowRight className="h-5 w-5" />
+          </span>
+        </Button>
+
+        <article className="hero-panel flex min-h-[110px] items-center gap-4 lg:col-span-2 lg:row-span-1">
+          <span className="hero-status-dot" />
+          <div>
+            <p className="font-mono text-[10px] uppercase text-muted-foreground">System status</p>
+            <p className="mt-1 font-mono text-xs uppercase text-foreground">Available for new projects</p>
+          </div>
+          <span className="ml-auto hidden font-mono text-[9px] text-muted-foreground sm:block">SIGNAL: LOCKED // PORTFOLIO: ONLINE</span>
+        </article>
       </div>
     </section>
   );

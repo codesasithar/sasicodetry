@@ -19,7 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'poppins': ['Poppins', 'sans-serif'],
+				'poppins': ['Work Sans', 'sans-serif'],
+				'work': ['Work Sans', 'sans-serif'],
+				'mono': ['JetBrains Mono', 'monospace'],
 				'cormorant': ['Cormorant Garamond', 'serif'],
 			},
 			colors: {
