@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Patrick+Hand&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,31 +7,31 @@
 @layer base {
   :root {
     /* Core Background & Foreground */
-    --background: 215 100% 6%;
-    --foreground: 0 0% 98%;
+    --background: 216 44% 5%;
+    --foreground: 190 63% 96%;
 
     /* Card & Surface Colors */
-    --card: 215 50% 12%;
-    --card-foreground: 0 0% 98%;
-    --card-hover: 215 50% 16%;
+    --card: 207 38% 10%;
+    --card-foreground: 190 63% 96%;
+    --card-hover: 204 34% 13%;
 
     /* Popover Colors */
     --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
 
     /* Primary Cool Blue */
-    --primary: 200 98% 39%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 200 98% 55%;
-    --primary-dark: 200 98% 25%;
+    --primary: 189 100% 50%;
+    --primary-foreground: 216 44% 5%;
+    --primary-glow: 189 100% 64%;
+    --primary-dark: 190 100% 28%;
 
     /* Secondary Bright Cyan */
     --secondary: 191 91% 36%;
     --secondary-foreground: 215 100% 6%;
 
     /* Muted Colors */
-    --muted: 215 25% 25%;
-    --muted-foreground: 215 15% 82%;
+    --muted: 207 24% 18%;
+    --muted-foreground: 194 18% 72%;
 
     /* Accent Electric Blue */
     --accent: 199 89% 48%;
@@ -47,9 +44,9 @@
     --success-foreground: 0 0% 98%;
 
     /* Interactive Elements */
-    --border: 215 25% 25%;
-    --input: 215 25% 18%;
-    --ring: 200 98% 39%;
+    --border: 201 28% 22%;
+    --input: 207 30% 14%;
+    --ring: 189 100% 50%;
 
     /* Design System Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
@@ -73,7 +70,7 @@
   --particle-count: 6;
   --code-typing-speed: 3s;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -103,25 +100,25 @@
   }
 
   .dark {
-    --background: 215 100% 6%;
-    --foreground: 0 0% 98%;
-    --card: 215 50% 12%;
-    --card-foreground: 0 0% 98%;
+    --background: 216 44% 5%;
+    --foreground: 190 63% 96%;
+    --card: 207 38% 10%;
+    --card-foreground: 190 63% 96%;
     --popover: 215 50% 12%;
     --popover-foreground: 0 0% 98%;
-    --primary: 200 98% 39%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 189 100% 50%;
+    --primary-foreground: 216 44% 5%;
     --secondary: 191 91% 36%;
     --secondary-foreground: 215 100% 6%;
-    --muted: 215 25% 25%;
-    --muted-foreground: 215 15% 82%;
+    --muted: 207 24% 18%;
+    --muted-foreground: 194 18% 72%;
     --accent: 199 89% 48%;
     --accent-foreground: 215 100% 6%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 25% 25%;
-    --input: 215 25% 18%;
-    --ring: 200 98% 39%;
+    --border: 201 28% 22%;
+    --input: 207 30% 14%;
+    --ring: 189 100% 50%;
   }
 
   .light {
@@ -171,13 +168,13 @@
   /* Optimized Typography for Headers */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
     line-height: 1.2;
   }
 
   h1 {
     @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
     margin-bottom: 1.5rem;
   }
 
