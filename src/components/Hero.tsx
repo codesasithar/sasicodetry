@@ -21,6 +21,7 @@ const Hero = () => {
 
       <div className="hero-bento relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-3 lg:h-[calc(100svh-8rem)] lg:min-h-[700px] lg:max-h-[840px] lg:grid-cols-4 lg:grid-rows-4 lg:gap-4">
         <article className="hero-panel hero-identity lg:col-span-2 lg:row-span-2">
+          <span className="hero-panel-index">01 / 08</span>
           <div>
             <p className="hero-kicker">[ SYSTEM.IDENTITY ]</p>
             <h1 className="hero-title">
@@ -39,14 +40,17 @@ const Hero = () => {
         </article>
 
         <figure className="hero-panel hero-visual min-h-[310px] lg:col-span-2 lg:row-span-2">
+          <span className="hero-panel-index">02 / VISUAL</span>
           <img src={teslaRobot} alt="Tesla Optimus humanoid robot" className="hero-robot" />
           <div className="hero-visual-grid" aria-hidden="true" />
+          <div className="hero-visual-crosshair" aria-hidden="true"><span /><span /></div>
           <figcaption className="absolute bottom-5 left-5 flex items-center gap-2 font-mono text-[10px] uppercase text-primary sm:text-xs">
             <span className="hero-status-dot" /> Visual prototype // 01
           </figcaption>
         </figure>
 
         <article className="hero-panel hero-showcase min-h-[220px] lg:col-span-2 lg:row-span-1">
+          <span className="hero-panel-index">03 / SHOWREEL</span>
           <video
             src="/videos/skills-video.mp4"
             poster="/videos/skills-video-thumb.jpg"
@@ -66,6 +70,7 @@ const Hero = () => {
         </article>
 
         <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
+          <span className="hero-panel-index">04 / OUTPUT</span>
           <span className="font-mono text-[10px] uppercase text-muted-foreground">Build archive</span>
           <div>
             <p className="font-mono text-4xl font-bold text-foreground">5<span className="text-primary">+</span></p>
@@ -75,6 +80,7 @@ const Hero = () => {
         </article>
 
         <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
+          <span className="hero-panel-index">05 / SIGNAL</span>
           <span className="font-mono text-[10px] uppercase text-muted-foreground">Field experience</span>
           <div>
             <p className="font-mono text-4xl font-bold text-foreground">2<span className="text-primary">+</span></p>
@@ -83,7 +89,7 @@ const Hero = () => {
           <div className="h-px w-full bg-border"><div className="h-px w-1/2 bg-primary" /></div>
         </article>
 
-        <article className="hero-panel flex min-h-[130px] flex-col justify-between lg:col-span-2 lg:row-span-1">
+        <article className="hero-panel hero-network flex min-h-[130px] flex-col justify-between lg:col-span-2 lg:row-span-1">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase text-muted-foreground">Network / Protocol</span>
             <Radio className="h-4 w-4 text-primary" />
@@ -114,7 +120,7 @@ const Hero = () => {
           </span>
         </Button>
 
-        <article className="hero-panel flex min-h-[110px] items-center gap-4 lg:col-span-2 lg:row-span-1">
+        <article className="hero-panel hero-system flex min-h-[110px] items-center gap-4 lg:col-span-2 lg:row-span-1">
           <span className="hero-status-dot" />
           <div>
             <p className="font-mono text-[10px] uppercase text-muted-foreground">System status</p>
