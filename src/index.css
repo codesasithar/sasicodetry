@@ -2631,7 +2631,7 @@
 
 .hero-visual {
   display: flex;
-  min-height: 0;
+  min-height: 19rem;
   align-items: center;
   justify-content: center;
   isolation: isolate;
