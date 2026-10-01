@@ -3335,3 +3335,115 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-boot-robot, .animate-boot-eye { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* ---------- Study lamp next to the library shelves ---------- */
+.desk-lamp {
+  position: relative;
+  width: 96px;
+  height: 118px;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+.desk-lamp-base {
+  position: absolute;
+  bottom: 0;
+  left: 14px;
+  width: 68px;
+  height: 9px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, hsl(var(--wood-600)), hsl(var(--wood-500)));
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.55);
+}
+.desk-lamp-arm {
+  position: absolute;
+  bottom: 7px;
+  left: 46px;
+  width: 5px;
+  height: 72px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, hsl(var(--wood-500)), hsl(var(--wood-600)));
+  transform: rotate(16deg);
+  transform-origin: bottom center;
+}
+.desk-lamp-head {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  width: 56px;
+  height: 26px;
+  border-radius: 8px 8px 16px 16px;
+  background: linear-gradient(180deg, hsl(var(--wood-500)), hsl(var(--wood-600)));
+  transform: rotate(-12deg);
+  box-shadow:
+    inset 0 -5px 8px hsl(var(--reading-light-warm) / 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.45);
+}
+.desk-lamp-bulb {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, hsl(var(--reading-light-cool)), hsl(var(--reading-light) / 0.85) 55%, transparent 80%);
+  filter: blur(1px);
+  box-shadow:
+    0 0 16px hsl(var(--reading-light) / 0.9),
+    0 0 32px hsl(var(--reading-light-warm) / 0.6);
+  animation: lamp-glow 4s ease-in-out infinite;
+}
+.desk-lamp-glow {
+  position: absolute;
+  top: 20px;
+  left: -34px;
+  width: 175px;
+  height: 120px;
+  background: radial-gradient(ellipse at 50% 18%, hsl(var(--reading-light) / 0.35), hsl(var(--reading-light-warm) / 0.14) 45%, transparent 72%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: lamp-glow 4s ease-in-out infinite;
+}
+@keyframes lamp-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desk-lamp-bulb,
+  .desk-lamp-glow {
+    animation: none;
+  }
+}
+
+/* ---------- Framed desk photo on the shelf ---------- */
+.shelf-photo-frame {
+  position: relative;
+  width: 6rem;
+  padding: 5px;
+  border-radius: 6px;
+  background: linear-gradient(160deg, hsl(var(--wood-500)), hsl(var(--wood-600)));
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.55),
+    0 0 26px hsl(var(--reading-light-warm) / 0.14);
+  transform: rotate(1.5deg);
+}
+.shelf-photo-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.shelf-photo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .shelf-photo-frame {
+    width: 8.5rem;
+  }
+}
