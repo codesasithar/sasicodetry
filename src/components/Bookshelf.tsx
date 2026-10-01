@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpen, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
 
 // Existing asset imports
 const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.png";
@@ -321,6 +322,25 @@ const Bookshelf = () => {
                   <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
                 </div>
               ))}
+            </div>
+
+            {/* Study lamp + framed photo sitting on top of the shelf */}
+            <div className="flex items-end justify-between gap-4 px-2 sm:px-8 mb-2 select-none">
+              <div className="desk-lamp hidden md:block" aria-hidden>
+                <div className="desk-lamp-glow" />
+                <div className="desk-lamp-head">
+                  <div className="desk-lamp-bulb" />
+                </div>
+                <div className="desk-lamp-arm" />
+                <div className="desk-lamp-base" />
+              </div>
+              <figure className="shelf-photo-frame mx-auto md:mx-0">
+                <img
+                  src={deskPhoto.url}
+                  alt="Sasithar at his desk with his favourite books and an Einstein figurine"
+                  loading="lazy"
+                />
+              </figure>
             </div>
 
             <div className="flex items-center gap-2 mb-6">
