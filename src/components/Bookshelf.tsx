@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { BookOpen, Plus, X } from "lucide-react";
+import { BookOpen, Pin, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
@@ -119,6 +119,39 @@ const books: Book[] = [
     status: "read",
     summary: "A compelling, darkly humorous story tracking a driver's journey through modern India's rigid class struggles."
   }
+];
+
+const libraryNotes = [
+  {
+    book: "A Brief History of Time",
+    line: "The universe is strange enough to make curiosity a daily habit.",
+    tone: "gold",
+  },
+  {
+    book: "Atomic Habits",
+    line: "Tiny habits are votes cast for the person you are becoming.",
+    tone: "cyan",
+  },
+  {
+    book: "Ikigai",
+    line: "A meaningful life can begin with one useful thing, done with care.",
+    tone: "coral",
+  },
+  {
+    book: "Life Lessons from a Brain Surgeon",
+    line: "Your brain is not a statue; it is a city that keeps rebuilding itself.",
+    tone: "mint",
+  },
+  {
+    book: "Dopamine Detox",
+    line: "When every ping feels urgent, silence becomes a superpower.",
+    tone: "lavender",
+  },
+  {
+    book: "The White Tiger",
+    line: "Ambition can be a ladder, a trap, or a very strange car ride.",
+    tone: "peach",
+  },
 ];
 
 const DeskLamp = () => (
@@ -379,6 +412,31 @@ const Bookshelf = () => {
                 />
               </figure>
             </div>
+
+            {/* Pinned reading notes inspired by the books on the shelf */}
+            <section className="library-notes" aria-labelledby="library-notes-title">
+              <div className="library-notes-heading">
+                <div>
+                  <p className="library-notes-kicker">MARGIN NOTES / 06</p>
+                  <h3 id="library-notes-title" className="library-notes-title">Ideas worth pinning</h3>
+                </div>
+                <span className="library-notes-mark" aria-hidden="true">READ / REPEAT</span>
+              </div>
+              <div className="library-notes-grid">
+                {libraryNotes.map((note, index) => (
+                  <article
+                    key={note.book}
+                    className="library-note"
+                    data-tone={note.tone}
+                    data-note-index={index + 1}
+                  >
+                    <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
+                    <p className="library-note-line">“{note.line}”</p>
+                    <p className="library-note-source">Inspired by <span>{note.book}</span></p>
+                  </article>
+                ))}
+              </div>
+            </section>
 
             <div className="flex items-center gap-2 mb-6">
               <Button size="sm" variant="outline" className="ml-auto">
