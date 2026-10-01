@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpen, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
 
 // Existing asset imports
 const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.png";
@@ -119,6 +120,48 @@ const books: Book[] = [
     summary: "A compelling, darkly humorous story tracking a driver's journey through modern India's rigid class struggles."
   }
 ];
+
+const DeskLamp = () => (
+  <svg
+    className="desk-lamp-svg"
+    width="96"
+    height="118"
+    viewBox="0 0 96 118"
+    fill="none"
+    aria-hidden
+    focusable="false"
+  >
+    <defs>
+      <radialGradient id="lampGlow" cx="50%" cy="28%" r="62%">
+        <stop offset="0%" stopColor="hsl(45 100% 70%)" stopOpacity="0.42" />
+        <stop offset="55%" stopColor="hsl(35 100% 60%)" stopOpacity="0.15" />
+        <stop offset="100%" stopColor="hsl(45 100% 70%)" stopOpacity="0" />
+      </radialGradient>
+      <linearGradient id="lampMetal" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="hsl(28 40% 58%)" />
+        <stop offset="100%" stopColor="hsl(22 32% 30%)" />
+      </linearGradient>
+    </defs>
+    {/* light pool falling from the shade */}
+    <ellipse className="lamp-glow-pulse" cx="40" cy="56" rx="54" ry="44" fill="url(#lampGlow)" />
+    {/* arm */}
+    <path d="M62 110 L52 44" stroke="url(#lampMetal)" strokeWidth="5" strokeLinecap="round" />
+    {/* shade */}
+    <path d="M28 36 L58 22 L72 42 L44 58 Z" fill="url(#lampMetal)" transform="rotate(-4 50 40)" />
+    {/* glowing bulb at the shade opening */}
+    <ellipse
+      className="lamp-bulb-pulse"
+      cx="35"
+      cy="48"
+      rx="14"
+      ry="5.5"
+      fill="hsl(50 100% 82%)"
+      transform="rotate(-32 35 48)"
+    />
+    {/* base */}
+    <rect x="36" y="108" width="46" height="9" rx="4.5" fill="url(#lampMetal)" />
+  </svg>
+);
 
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
@@ -321,6 +364,20 @@ const Bookshelf = () => {
                   <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
                 </div>
               ))}
+            </div>
+
+            {/* Study lamp + framed photo sitting on top of the shelf */}
+            <div className="flex items-end justify-between gap-4 px-2 sm:px-8 mb-2 select-none">
+              <div className="hidden md:block" aria-hidden>
+                <DeskLamp />
+              </div>
+              <figure className="shelf-photo-frame mx-auto md:mx-0">
+                <img
+                  src={deskPhoto.url}
+                  alt="Sasithar at his desk with his favourite books and an Einstein figurine"
+                  loading="lazy"
+                />
+              </figure>
             </div>
 
             <div className="flex items-center gap-2 mb-6">

@@ -3335,3 +3335,58 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-boot-robot, .animate-boot-eye { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* ---------- Study lamp next to the library shelves ---------- */
+.desk-lamp-svg {
+  display: block;
+}
+.lamp-bulb-pulse,
+.lamp-glow-pulse {
+  animation: lamp-glow 4s ease-in-out infinite;
+}
+.lamp-bulb-pulse {
+  filter: drop-shadow(0 0 6px hsl(45 100% 70% / 0.9)) drop-shadow(0 0 14px hsl(35 100% 60% / 0.5));
+}
+@keyframes lamp-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lamp-bulb-pulse,
+  .lamp-glow-pulse {
+    animation: none;
+  }
+}
+
+/* ---------- Framed desk photo on the shelf ---------- */
+.shelf-photo-frame {
+  position: relative;
+  width: 6rem;
+  padding: 5px;
+  border-radius: 6px;
+  background: linear-gradient(160deg, hsl(var(--wood-500)), hsl(var(--wood-600)));
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.55),
+    0 0 26px hsl(var(--reading-light-warm) / 0.14);
+  transform: rotate(1.5deg);
+}
+.shelf-photo-frame img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 3px;
+}
+.shelf-photo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .shelf-photo-frame {
+    width: 8.5rem;
+  }
+}
