@@ -121,6 +121,48 @@ const books: Book[] = [
   }
 ];
 
+const DeskLamp = () => (
+  <svg
+    className="desk-lamp-svg"
+    width="96"
+    height="118"
+    viewBox="0 0 96 118"
+    fill="none"
+    aria-hidden
+    focusable="false"
+  >
+    <defs>
+      <radialGradient id="lampGlow" cx="50%" cy="28%" r="62%">
+        <stop offset="0%" stopColor="hsl(45 100% 70%)" stopOpacity="0.42" />
+        <stop offset="55%" stopColor="hsl(35 100% 60%)" stopOpacity="0.15" />
+        <stop offset="100%" stopColor="hsl(45 100% 70%)" stopOpacity="0" />
+      </radialGradient>
+      <linearGradient id="lampMetal" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="hsl(28 40% 58%)" />
+        <stop offset="100%" stopColor="hsl(22 32% 30%)" />
+      </linearGradient>
+    </defs>
+    {/* light pool falling from the shade */}
+    <ellipse className="lamp-glow-pulse" cx="40" cy="56" rx="54" ry="44" fill="url(#lampGlow)" />
+    {/* arm */}
+    <path d="M62 110 L52 44" stroke="url(#lampMetal)" strokeWidth="5" strokeLinecap="round" />
+    {/* shade */}
+    <path d="M28 36 L58 22 L72 42 L44 58 Z" fill="url(#lampMetal)" transform="rotate(-4 50 40)" />
+    {/* glowing bulb at the shade opening */}
+    <ellipse
+      className="lamp-bulb-pulse"
+      cx="35"
+      cy="48"
+      rx="14"
+      ry="5.5"
+      fill="hsl(50 100% 82%)"
+      transform="rotate(-32 35 48)"
+    />
+    {/* base */}
+    <rect x="36" y="108" width="46" height="9" rx="4.5" fill="url(#lampMetal)" />
+  </svg>
+);
+
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
