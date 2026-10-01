@@ -326,13 +326,8 @@ const Bookshelf = () => {
 
             {/* Study lamp + framed photo sitting on top of the shelf */}
             <div className="flex items-end justify-between gap-4 px-2 sm:px-8 mb-2 select-none">
-              <div className="desk-lamp hidden md:block" aria-hidden>
-                <div className="desk-lamp-glow" />
-                <div className="desk-lamp-head">
-                  <div className="desk-lamp-bulb" />
-                </div>
-                <div className="desk-lamp-arm" />
-                <div className="desk-lamp-base" />
+              <div className="hidden md:block" aria-hidden>
+                <DeskLamp />
               </div>
               <figure className="shelf-photo-frame mx-auto md:mx-0">
                 <img
