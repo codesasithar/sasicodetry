@@ -455,7 +455,7 @@ const Bookshelf = () => {
               <div className="library-notes-grid">
                 {libraryNotes.map((note, index) => (
                   <article
-                    key={note.book}
+                    key={`${note.book}-${index}`}
                     className="library-note"
                     data-tone={note.tone}
                     data-note-index={index + 1}
