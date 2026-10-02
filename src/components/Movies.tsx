@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Play, Calendar, ExternalLink, Clapperboard, Film } from "lucide-react";
+import { Play, Calendar, ExternalLink, Clapperboard, Film, Pin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -193,6 +193,69 @@ const categories: Category[] = [
   },
 ];
 
+const movieNotes = [
+  {
+    movie: "Inception",
+    line: "An idea is the world's stickiest sticky note. Plant the good ones.",
+    tone: "gold",
+  },
+  {
+    movie: "The Matrix",
+    line: "There is no spoon — and half the time, no actual bug either.",
+    tone: "cyan",
+  },
+  {
+    movie: "Iron Man",
+    line: "Built in a cave, with a box of scraps. Excuses officially cancelled.",
+    tone: "coral",
+  },
+  {
+    movie: "Rocky",
+    line: "Getting hit is part of the plan; moving forward is the skill.",
+    tone: "mint",
+  },
+  {
+    movie: "Kung Fu Panda",
+    line: "There is no secret ingredient. It was you all along.",
+    tone: "lavender",
+  },
+  {
+    movie: "WALL-E",
+    line: "One tidy little robot saved a whole planet. Small habits, big orbit.",
+    tone: "peach",
+  },
+  {
+    movie: "12 Angry Men",
+    line: "One calm 'wait — let's look again' can flip an entire room.",
+    tone: "mint",
+  },
+  {
+    movie: "Ant-Man",
+    line: "Think small, impact big — the Ant-Man rule of good code.",
+    tone: "coral",
+  },
+  {
+    movie: "Interstellar",
+    line: "Some messages travel faster through love than through light.",
+    tone: "cyan",
+  },
+  {
+    movie: "The Social Network",
+    line: "Ship it from your dorm; history rarely books a conference room.",
+    tone: "lavender",
+  },
+  {
+    movie: "Up",
+    line: "Adventure is out there — sometimes it floats on a bunch of balloons.",
+    tone: "peach",
+  },
+  {
+    movie: "The Shawshank Redemption",
+    line: "Geology is the study of pressure — and so is patience.",
+    tone: "gold",
+  },
+];
+
 const MovieCard = ({ movie, category, index }: { movie: Movie; category: string; index: number }) => (
   <Dialog>
     <DialogTrigger asChild>
@@ -308,6 +371,31 @@ const Movies = () => {
               and fuel my passion for technology and innovation.
             </p>
           </div>
+
+          {/* Pinned screen notes */}
+          <section className="library-notes" aria-labelledby="movie-notes-title">
+            <div className="library-notes-heading">
+              <div>
+                <p className="library-notes-kicker">SCREEN NOTES / 07</p>
+                <h3 id="movie-notes-title" className="library-notes-title">Lines from the big screen</h3>
+              </div>
+              <span className="library-notes-mark" aria-hidden="true">WATCH / REWIND</span>
+            </div>
+            <div className="library-notes-grid">
+              {movieNotes.map((note, index) => (
+                <article
+                  key={note.movie}
+                  className="library-note"
+                  data-tone={note.tone}
+                  data-note-index={index + 1}
+                >
+                  <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
+                  <p className="library-note-line">“{note.line}”</p>
+                  <p className="library-note-source">Inspired by <span>{note.movie}</span></p>
+                </article>
+              ))}
+            </div>
+          </section>
 
           {/* Genre filters */}
           <div className="flex flex-wrap justify-center gap-2 mb-10">
