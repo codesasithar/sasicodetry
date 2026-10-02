@@ -3367,6 +3367,45 @@
   }
 }
 
+/* ---------- Elegant arc study lamp ---------- */
+.arc-lamp-svg {
+  display: block;
+  overflow: visible;
+}
+.arc-arm-dash {
+  animation: arc-dash 7s linear infinite;
+}
+@keyframes arc-dash {
+  to {
+    stroke-dashoffset: -56;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .arc-arm-dash {
+    animation: none;
+  }
+}
+
+/* Warm wash of lamplight spilling over the shelves below */
+.lamp-beam-cast {
+  position: absolute;
+  top: 45%;
+  left: 40%;
+  width: 34rem;
+  height: 27rem;
+  transform: rotate(14deg);
+  transform-origin: top left;
+  border-radius: 9999px;
+  background: radial-gradient(
+    58% 52% at 28% 6%,
+    hsl(45 100% 74% / 0.13),
+    hsl(35 100% 62% / 0.055) 46%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* ---------- Framed desk photo on the shelf ---------- */
 .shelf-photo-frame {
   position: relative;
