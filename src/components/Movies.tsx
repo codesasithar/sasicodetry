@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Play, Calendar, ExternalLink, Clapperboard, Film } from "lucide-react";
+import { Play, Calendar, ExternalLink, Clapperboard, Film, Pin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,

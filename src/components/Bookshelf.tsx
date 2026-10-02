@@ -152,6 +152,36 @@ const libraryNotes = [
     line: "Ambition can be a ladder, a trap, or a very strange car ride.",
     tone: "peach",
   },
+  {
+    book: "Rich Dad Poor Dad",
+    line: "Assets pay you while you sleep; liabilities just look great in photos.",
+    tone: "coral",
+  },
+  {
+    book: "The Origin of Species",
+    line: "It was never survival of the strongest — it is survival of the most adaptable.",
+    tone: "mint",
+  },
+  {
+    book: "Mind is Your Business",
+    line: "Your mind is not a monkey. It is a supercomputer nobody has trained yet.",
+    tone: "cyan",
+  },
+  {
+    book: "The Power of Your Subconscious Mind",
+    line: "Your subconscious takes orders literally and works the night shift — choose your words.",
+    tone: "peach",
+  },
+  {
+    book: "A Brief History of Time",
+    line: "Hawking joked every equation halves your readers. This note contains zero.",
+    tone: "lavender",
+  },
+  {
+    book: "Atomic Habits",
+    line: "You do not rise to the level of your goals; you fall to the level of your systems.",
+    tone: "gold",
+  },
 ];
 
 const DeskLamp = () => (
