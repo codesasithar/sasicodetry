@@ -186,43 +186,79 @@ const libraryNotes = [
 
 const DeskLamp = () => (
   <svg
-    className="desk-lamp-svg"
-    width="96"
-    height="118"
-    viewBox="0 0 96 118"
+    className="desk-lamp-svg arc-lamp-svg"
+    width="192"
+    height="137"
+    viewBox="0 0 210 150"
     fill="none"
     aria-hidden
     focusable="false"
   >
     <defs>
-      <radialGradient id="lampGlow" cx="50%" cy="28%" r="62%">
-        <stop offset="0%" stopColor="hsl(45 100% 70%)" stopOpacity="0.42" />
-        <stop offset="55%" stopColor="hsl(35 100% 60%)" stopOpacity="0.15" />
-        <stop offset="100%" stopColor="hsl(45 100% 70%)" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient id="lampMetal" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="hsl(28 40% 58%)" />
-        <stop offset="100%" stopColor="hsl(22 32% 30%)" />
+      <linearGradient id="lampBody" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="hsl(30 26% 62%)" />
+        <stop offset="55%" stopColor="hsl(25 30% 42%)" />
+        <stop offset="100%" stopColor="hsl(22 36% 24%)" />
       </linearGradient>
+      <linearGradient id="lampShade" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="hsl(27 30% 48%)" />
+        <stop offset="100%" stopColor="hsl(20 40% 18%)" />
+      </linearGradient>
+      <radialGradient id="lampBeam" cx="42%" cy="0%" r="85%">
+        <stop offset="0%" stopColor="hsl(48 100% 78%)" stopOpacity="0.5" />
+        <stop offset="45%" stopColor="hsl(40 100% 66%)" stopOpacity="0.2" />
+        <stop offset="100%" stopColor="hsl(40 100% 66%)" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="bulbHalo" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="hsl(48 100% 86%)" stopOpacity="0.85" />
+        <stop offset="45%" stopColor="hsl(42 100% 70%)" stopOpacity="0.3" />
+        <stop offset="100%" stopColor="hsl(42 100% 70%)" stopOpacity="0" />
+      </radialGradient>
     </defs>
-    {/* light pool falling from the shade */}
-    <ellipse className="lamp-glow-pulse" cx="40" cy="56" rx="54" ry="44" fill="url(#lampGlow)" />
-    {/* arm */}
-    <path d="M62 110 L52 44" stroke="url(#lampMetal)" strokeWidth="5" strokeLinecap="round" />
-    {/* shade */}
-    <path d="M28 36 L58 22 L72 42 L44 58 Z" fill="url(#lampMetal)" transform="rotate(-4 50 40)" />
-    {/* glowing bulb at the shade opening */}
+
+    {/* Warm light cone aimed down at the books */}
+    <path
+      className="lamp-glow-pulse"
+      d="M138 66 L170 84 L218 150 L104 150 Z"
+      fill="url(#lampBeam)"
+    />
+
+    {/* Soft halo around the bulb */}
+    <circle className="lamp-bulb-pulse" cx="154" cy="76" r="19" fill="url(#bulbHalo)" />
+
+    {/* Shade */}
+    <path d="M146 44 L182 60 L170 84 L138 66 Z" fill="url(#lampShade)" />
+    <path d="M138 66 L170 84" stroke="hsl(45 100% 80% / 0.45)" strokeWidth="1.5" />
+    {/* Glowing bulb at the shade opening */}
     <ellipse
       className="lamp-bulb-pulse"
-      cx="35"
-      cy="48"
-      rx="14"
-      ry="5.5"
-      fill="hsl(50 100% 82%)"
-      transform="rotate(-32 35 48)"
+      cx="154"
+      cy="76"
+      rx="12"
+      ry="4.5"
+      fill="hsl(50 100% 84%)"
+      transform="rotate(29 154 76)"
     />
-    {/* base */}
-    <rect x="36" y="108" width="46" height="9" rx="4.5" fill="url(#lampMetal)" />
+
+    {/* Curved arc arm */}
+    <path d="M40 58 C 42 14 148 4 154 46" stroke="url(#lampBody)" strokeWidth="5" strokeLinecap="round" />
+    {/* Electric-cyan tech trace riding the arm */}
+    <path
+      className="arc-arm-dash"
+      d="M40 58 C 42 14 148 4 154 46"
+      stroke="hsl(190 100% 50%)"
+      strokeOpacity="0.45"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeDasharray="1.5 6"
+    />
+
+    {/* Joint */}
+    <circle cx="40" cy="58" r="5" fill="hsl(22 36% 20%)" stroke="url(#lampBody)" strokeWidth="2" />
+
+    {/* Stem and base */}
+    <path d="M40 138 L40 58" stroke="url(#lampBody)" strokeWidth="5.5" strokeLinecap="round" />
+    <rect x="16" y="136" width="52" height="9" rx="4.5" fill="url(#lampBody)" />
   </svg>
 );
 
