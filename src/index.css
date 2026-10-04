@@ -3165,6 +3165,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.9rem;
 }
+.library-notes[data-collapsed="true"] .library-notes-grid { display: none; }
 .library-note {
   position: relative;
   min-height: 9.5rem;

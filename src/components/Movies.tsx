@@ -415,22 +415,20 @@ const Movies = () => {
                 </Button>
               </div>
             </div>
-            {notesExpanded && (
-              <div className="library-notes-grid" id="movie-notes-grid">
-                {movieNotes.map((note, index) => (
-                  <article
-                    key={note.movie}
-                    className="library-note"
-                    data-tone={note.tone}
-                    data-note-index={index + 1}
-                  >
-                    <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
-                    <p className="library-note-line">“{note.line}”</p>
-                    <p className="library-note-source">Inspired by <span>{note.movie}</span></p>
-                  </article>
-                ))}
-              </div>
-            )}
+            <div className="library-notes-grid" id="movie-notes-grid">
+              {movieNotes.map((note, index) => (
+                <article
+                  key={note.movie}
+                  className="library-note"
+                  data-tone={note.tone}
+                  data-note-index={index + 1}
+                >
+                  <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
+                  <p className="library-note-line">“{note.line}”</p>
+                  <p className="library-note-source">Inspired by <span>{note.movie}</span></p>
+                </article>
+              ))}
+            </div>
           </section>
 
           {/* Genre filters */}
