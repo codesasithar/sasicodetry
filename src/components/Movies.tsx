@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Play, Calendar, ExternalLink, Clapperboard, Film, Pin } from "lucide-react";
+import { Play, Calendar, ChevronDown, ChevronUp, ExternalLink, Clapperboard, Film, Pin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -254,6 +254,26 @@ const movieNotes = [
     line: "Geology is the study of pressure — and so is patience.",
     tone: "gold",
   },
+  {
+    movie: "Good Will Hunting",
+    line: "Knowing the theory is useful; showing up for the messy human part is harder.",
+    tone: "cyan",
+  },
+  {
+    movie: "Forrest Gump",
+    line: "You cannot plan every mile. Keep walking and bring snacks.",
+    tone: "mint",
+  },
+  {
+    movie: "The Lord of the Rings",
+    line: "Small steps still count, even when the quest has terrible parking.",
+    tone: "coral",
+  },
+  {
+    movie: "Tetris",
+    line: "When life stacks up, one good move can clear more than a row.",
+    tone: "lavender",
+  },
 ];
 
 const MovieCard = ({ movie, category, index }: { movie: Movie; category: string; index: number }) => (
@@ -348,6 +368,7 @@ const MovieCard = ({ movie, category, index }: { movie: Movie; category: string;
 
 const Movies = () => {
   const [active, setActive] = useState<string>("All");
+  const [notesExpanded, setNotesExpanded] = useState(false);
 
   const total = useMemo(
     () => categories.reduce((sum, c) => sum + c.movies.length, 0),
@@ -373,15 +394,28 @@ const Movies = () => {
           </div>
 
           {/* Pinned screen notes */}
-          <section className="library-notes" aria-labelledby="movie-notes-title">
+          <section className="library-notes" data-collapsed={!notesExpanded} aria-labelledby="movie-notes-title">
             <div className="library-notes-heading">
               <div>
-                <p className="library-notes-kicker">SCREEN NOTES / 07</p>
+                <p className="library-notes-kicker">SCREEN NOTES / {String(movieNotes.length).padStart(2, "0")}</p>
                 <h3 id="movie-notes-title" className="library-notes-title">Lines from the big screen</h3>
               </div>
-              <span className="library-notes-mark" aria-hidden="true">WATCH / REWIND</span>
+              <div className="library-notes-actions">
+                <span className="library-notes-mark" aria-hidden="true">WATCH / REWIND</span>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  aria-expanded={notesExpanded}
+                  aria-controls="movie-notes-grid"
+                  onClick={() => setNotesExpanded((expanded) => !expanded)}
+                >
+                  {notesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                  {notesExpanded ? "Hide notes" : `Show notes · ${movieNotes.length}`}
+                </Button>
+              </div>
             </div>
-            <div className="library-notes-grid">
+            <div className="library-notes-grid" id="movie-notes-grid">
               {movieNotes.map((note, index) => (
                 <article
                   key={note.movie}

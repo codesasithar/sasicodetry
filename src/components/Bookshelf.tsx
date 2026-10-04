@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { BookOpen, Pin, Plus, X } from "lucide-react";
+import { BookOpen, ChevronDown, ChevronUp, Pin, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
@@ -182,6 +182,26 @@ const libraryNotes = [
     line: "You do not rise to the level of your goals; you fall to the level of your systems.",
     tone: "gold",
   },
+  {
+    book: "Ikigai",
+    line: "Purpose is less a lightning bolt and more a lamp you remember to switch on.",
+    tone: "cyan",
+  },
+  {
+    book: "The White Tiger",
+    line: "A sharp story can make the familiar world look newly strange.",
+    tone: "mint",
+  },
+  {
+    book: "Life Lessons from a Brain Surgeon",
+    line: "Rest is not a software update you can keep postponing forever.",
+    tone: "coral",
+  },
+  {
+    book: "Dopamine Detox",
+    line: "If your phone is always in your hand, your attention has a roommate.",
+    tone: "lavender",
+  },
 ];
 
 const DeskLamp = () => (
@@ -264,6 +284,7 @@ const DeskLamp = () => (
 
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [notesExpanded, setNotesExpanded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const booksContainerRef = useRef<HTMLDivElement>(null);
   const detailsPaneRef = useRef<HTMLDivElement>(null);
@@ -480,15 +501,28 @@ const Bookshelf = () => {
             </div>
 
             {/* Pinned reading notes inspired by the books on the shelf */}
-            <section className="library-notes" aria-labelledby="library-notes-title">
+            <section className="library-notes" data-collapsed={!notesExpanded} aria-labelledby="library-notes-title">
               <div className="library-notes-heading">
                 <div>
-                  <p className="library-notes-kicker">MARGIN NOTES / 06</p>
+                  <p className="library-notes-kicker">MARGIN NOTES / {String(libraryNotes.length).padStart(2, "0")}</p>
                   <h3 id="library-notes-title" className="library-notes-title">Ideas worth pinning</h3>
                 </div>
-                <span className="library-notes-mark" aria-hidden="true">READ / REPEAT</span>
+                <div className="library-notes-actions">
+                  <span className="library-notes-mark" aria-hidden="true">READ / REPEAT</span>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    aria-expanded={notesExpanded}
+                    aria-controls="library-notes-grid"
+                    onClick={() => setNotesExpanded((expanded) => !expanded)}
+                  >
+                    {notesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    {notesExpanded ? "Hide notes" : `Show notes · ${libraryNotes.length}`}
+                  </Button>
+                </div>
               </div>
-              <div className="library-notes-grid">
+              <div className="library-notes-grid" id="library-notes-grid">
                 {libraryNotes.map((note, index) => (
                   <article
                     key={`${note.book}-${index}`}
