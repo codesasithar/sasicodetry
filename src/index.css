@@ -3177,10 +3177,10 @@
 }
 .library-note:nth-child(even) { transform: rotate(1.1deg); }
 .library-note:nth-child(3n) { transform: rotate(-0.35deg); }
-.library-note[data-note-index="4n + 1"] { --note-hover-tilt: -1.5deg; }
-.library-note[data-note-index="4n + 2"] { --note-hover-tilt: 1.5deg; }
-.library-note[data-note-index="4n + 3"] { --note-hover-tilt: -1deg; }
-.library-note[data-note-index="4n"] { --note-hover-tilt: 1deg; }
+.library-note:nth-child(4n + 1) { --note-hover-tilt: -1.5deg; }
+.library-note:nth-child(4n + 2) { --note-hover-tilt: 1.5deg; }
+.library-note:nth-child(4n + 3) { --note-hover-tilt: -1deg; }
+.library-note:nth-child(4n) { --note-hover-tilt: 1deg; }
 .library-note:focus-within {
   z-index: 2;
   box-shadow: 0 0.7rem 1.1rem hsl(var(--background) / 0.45), 0 0 0.8rem hsl(var(--primary) / 0.22);
