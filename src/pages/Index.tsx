@@ -59,7 +59,6 @@ const Index = () => {
         <CursorEffects />
         <Navigation />
         <ScrollToTop />
-        <ScrollArcReactor />
 
         {/* Critical Content loaded instantly */}
         <Hero />
