@@ -10,7 +10,6 @@ import Hero from "@/components/Hero";
 // 2. Global UI Utilities (Lightweight, but can load right after)
 import CursorEffects from "@/components/CursorEffects";
 import ScrollToTop from "@/components/ScrollToTop";
-import ScrollArcReactor from "@/components/ScrollArcReactor";
 
 // 3. Lazy Load Heavy "Below-the-Fold" Sections
 const FlyingDrone = lazy(() => import("@/components/FlyingDrone"));
@@ -60,7 +59,6 @@ const Index = () => {
         <CursorEffects />
         <Navigation />
         <ScrollToTop />
-        <ScrollArcReactor />
 
         {/* Critical Content loaded instantly */}
         <Hero />
