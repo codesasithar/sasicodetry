@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Lightbulb } from "lucide-react";
+import { ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
+
 
 // Import role model images
 import nikolaTesla from "@/assets/role-models/nikola-tesla.jpg";
@@ -564,6 +566,8 @@ const roleModels: RoleModel[] = [
 
 const RoleModels = () => {
   const [selectedModel, setSelectedModel] = useState<RoleModel | null>(null);
+  const [modelsExpanded, setModelsExpanded] = useState(false);
+
 
   const getCategoryColor = (category: string) => {
     const colors = {
@@ -596,7 +600,7 @@ const RoleModels = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
-          {roleModels.map((model) => {
+          {(modelsExpanded ? roleModels : roleModels.slice(0, 6)).map((model) => {
             const isSelected = selectedModel?.id === model.id;
 
             return (
@@ -676,7 +680,24 @@ const RoleModels = () => {
             );
           })}
         </div>
+
+        <div className="flex justify-center -mt-4 mb-4">
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            aria-expanded={modelsExpanded}
+            onClick={() => {
+              if (modelsExpanded) setSelectedModel(null);
+              setModelsExpanded((expanded) => !expanded);
+            }}
+          >
+            {modelsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            {modelsExpanded ? "Show fewer" : `Show more · ${roleModels.length - 6}`}
+          </Button>
+        </div>
       </div>
+
     </section>
   );
 };
