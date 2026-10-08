@@ -518,12 +518,12 @@ const Bookshelf = () => {
                     onClick={() => setNotesExpanded((expanded) => !expanded)}
                   >
                     {notesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                    {notesExpanded ? "Hide notes" : `Show notes · ${libraryNotes.length}`}
+                    {notesExpanded ? "Show fewer" : `Show more · ${libraryNotes.length - 6}`}
                   </Button>
                 </div>
               </div>
               <div className="library-notes-grid" id="library-notes-grid">
-                {libraryNotes.map((note, index) => (
+                {(notesExpanded ? libraryNotes : libraryNotes.slice(0, 6)).map((note, index) => (
                   <article
                     key={`${note.book}-${index}`}
                     className="library-note"

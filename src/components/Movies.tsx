@@ -411,12 +411,12 @@ const Movies = () => {
                   onClick={() => setNotesExpanded((expanded) => !expanded)}
                 >
                   {notesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                  {notesExpanded ? "Hide notes" : `Show notes · ${movieNotes.length}`}
+                  {notesExpanded ? "Show fewer" : `Show more · ${movieNotes.length - 6}`}
                 </Button>
               </div>
             </div>
             <div className="library-notes-grid" id="movie-notes-grid">
-              {movieNotes.map((note, index) => (
+              {(notesExpanded ? movieNotes : movieNotes.slice(0, 6)).map((note, index) => (
                 <article
                   key={note.movie}
                   className="library-note"
