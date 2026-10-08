@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
+import { ChevronDown, ChevronUp, Lightbulb, Pin } from "lucide-react";
 
 
 // Import role model images
@@ -564,9 +564,42 @@ const roleModels: RoleModel[] = [
   }
 ];
 
+interface ModelNote {
+  name: string;
+  line: string;
+  tone: "cyan" | "coral" | "mint" | "lavender" | "peach";
+}
+
+const modelNotes: ModelNote[] = [
+  { name: "Albert Einstein", line: "Imagination is more important than knowledge.", tone: "cyan" },
+  { name: "Nikola Tesla", line: "The present is theirs; the future, for which I really worked, is mine.", tone: "lavender" },
+  { name: "Steve Jobs", line: "Stay hungry, stay foolish.", tone: "coral" },
+  { name: "Bruce Lee", line: "Be water, my friend.", tone: "mint" },
+  { name: "Muhammad Ali", line: "Don't count the days, make the days count.", tone: "peach" },
+  { name: "Nelson Mandela", line: "It always seems impossible until it's done.", tone: "cyan" },
+  { name: "APJ Abdul Kalam", line: "Dream is not that which you see while sleeping, it is something that does not let you sleep.", tone: "coral" },
+  { name: "Stephen Hawking", line: "However difficult life may seem, there is always something you can do and succeed at.", tone: "mint" },
+  { name: "Srinivasa Ramanujan", line: "An equation means nothing to me unless it expresses a thought of God.", tone: "lavender" },
+  { name: "Michael Faraday", line: "Nothing is too wonderful to be true if it be consistent with the laws of nature.", tone: "cyan" },
+  { name: "James Clerk Maxwell", line: "Thoroughly conscious ignorance is the prelude to every real advance in science.", tone: "peach" },
+  { name: "Niels Bohr", line: "Prediction is very difficult, especially about the future.", tone: "coral" },
+  { name: "Neil deGrasse Tyson", line: "The universe is under no obligation to make sense to you.", tone: "mint" },
+  { name: "Arnold Schwarzenegger", line: "Trust yourself. Break the rules.", tone: "lavender" },
+  { name: "Bill Gates", line: "Success is a lousy teacher. It seduces smart people into thinking they can't lose.", tone: "cyan" },
+  { name: "Vincent van Gogh", line: "What would life be if we had no courage to attempt anything?", tone: "peach" },
+  { name: "J. Robert Oppenheimer", line: "Now I am become Death, the destroyer of worlds.", tone: "coral" },
+  { name: "Keanu Reeves", line: "The simple act of paying attention can take you a long way.", tone: "mint" },
+  { name: "Mike Tyson", line: "Everyone has a plan until they get punched in the mouth.", tone: "lavender" },
+  { name: "Elon Musk", line: "When something is important enough, you do it even if the odds are not in your favor.", tone: "cyan" },
+  { name: "Michael Jackson", line: "In a world filled with hate, we must still dare to hope.", tone: "coral" },
+  { name: "Alexander the Great", line: "There is nothing impossible to him who will try.", tone: "mint" },
+  { name: "Sundar Pichai", line: "It is always good to work with people who make you feel insecure about yourself. That way, you will keep learning.", tone: "peach" },
+  { name: "Mahatma Gandhi", line: "Be the change you wish to see in the world.", tone: "lavender" }
+];
+
 const RoleModels = () => {
   const [selectedModel, setSelectedModel] = useState<RoleModel | null>(null);
-  const [modelsExpanded, setModelsExpanded] = useState(false);
+  const [notesExpanded, setNotesExpanded] = useState(false);
 
 
   const getCategoryColor = (category: string) => {
@@ -600,7 +633,7 @@ const RoleModels = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
-          {(modelsExpanded ? roleModels : roleModels.slice(0, 6)).map((model) => {
+          {roleModels.map((model) => {
             const isSelected = selectedModel?.id === model.id;
 
             return (
@@ -681,21 +714,43 @@ const RoleModels = () => {
           })}
         </div>
 
-        <div className="flex justify-center -mt-4 mb-4">
-          <Button
-            type="button"
-            size="sm"
-            variant="outline"
-            aria-expanded={modelsExpanded}
-            onClick={() => {
-              if (modelsExpanded) setSelectedModel(null);
-              setModelsExpanded((expanded) => !expanded);
-            }}
-          >
-            {modelsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            {modelsExpanded ? "Show fewer" : `Show more · ${roleModels.length - 6}`}
-          </Button>
-        </div>
+        {/* Pinned quotes from the role models */}
+        <section className="library-notes" data-collapsed={!notesExpanded} aria-labelledby="role-notes-title">
+          <div className="library-notes-heading">
+            <div>
+              <p className="library-notes-kicker">ROLE NOTES / {String(modelNotes.length).padStart(2, "0")}</p>
+              <h3 id="role-notes-title" className="library-notes-title">Words to live by</h3>
+            </div>
+            <div className="library-notes-actions">
+              <span className="library-notes-mark" aria-hidden="true">READ / REMEMBER</span>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                aria-expanded={notesExpanded}
+                aria-controls="role-notes-grid"
+                onClick={() => setNotesExpanded((expanded) => !expanded)}
+              >
+                {notesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                {notesExpanded ? "Show fewer" : `Show more · ${modelNotes.length - 6}`}
+              </Button>
+            </div>
+          </div>
+          <div className="library-notes-grid" id="role-notes-grid">
+            {(notesExpanded ? modelNotes : modelNotes.slice(0, 6)).map((note, index) => (
+              <article
+                key={`${note.name}-${index}`}
+                className="library-note"
+                data-tone={note.tone}
+                data-note-index={index + 1}
+              >
+                <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
+                <p className="library-note-line">“{note.line}”</p>
+                <p className="library-note-source">— <span>{note.name}</span></p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
 
     </section>
