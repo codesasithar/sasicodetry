@@ -714,21 +714,43 @@ const RoleModels = () => {
           })}
         </div>
 
-        <div className="flex justify-center -mt-4 mb-4">
-          <Button
-            type="button"
-            size="sm"
-            variant="outline"
-            aria-expanded={modelsExpanded}
-            onClick={() => {
-              if (modelsExpanded) setSelectedModel(null);
-              setModelsExpanded((expanded) => !expanded);
-            }}
-          >
-            {modelsExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            {modelsExpanded ? "Show fewer" : `Show more · ${roleModels.length - 6}`}
-          </Button>
-        </div>
+        {/* Pinned quotes from the role models */}
+        <section className="library-notes" data-collapsed={!notesExpanded} aria-labelledby="role-notes-title">
+          <div className="library-notes-heading">
+            <div>
+              <p className="library-notes-kicker">ROLE NOTES / {String(modelNotes.length).padStart(2, "0")}</p>
+              <h3 id="role-notes-title" className="library-notes-title">Words to live by</h3>
+            </div>
+            <div className="library-notes-actions">
+              <span className="library-notes-mark" aria-hidden="true">READ / REMEMBER</span>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                aria-expanded={notesExpanded}
+                aria-controls="role-notes-grid"
+                onClick={() => setNotesExpanded((expanded) => !expanded)}
+              >
+                {notesExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                {notesExpanded ? "Show fewer" : `Show more · ${modelNotes.length - 6}`}
+              </Button>
+            </div>
+          </div>
+          <div className="library-notes-grid" id="role-notes-grid">
+            {(notesExpanded ? modelNotes : modelNotes.slice(0, 6)).map((note, index) => (
+              <article
+                key={`${note.name}-${index}`}
+                className="library-note"
+                data-tone={note.tone}
+                data-note-index={index + 1}
+              >
+                <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
+                <p className="library-note-line">“{note.line}”</p>
+                <p className="library-note-source">— <span>{note.name}</span></p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
 
     </section>
