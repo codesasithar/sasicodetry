@@ -141,7 +141,7 @@ const ContactBot = () => {
 
       {/* Panel */}
       <div
-        className={`fixed bottom-20 sm:bottom-24 right-3 sm:right-4 z-[9998] w-[calc(100vw-1.5rem)] sm:w-[min(22rem,calc(100vw-2rem))] max-h-[75vh] flex flex-col origin-bottom-right rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
+        className={`fixed bottom-24 sm:bottom-28 right-4 sm:right-6 z-[9998] w-[calc(100vw-2rem)] sm:w-[min(22rem,calc(100vw-3rem))] max-h-[75vh] flex flex-col origin-bottom-right rounded-2xl border border-border bg-background/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ${
           open
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
             : "opacity-0 translate-y-4 scale-95 pointer-events-none"
