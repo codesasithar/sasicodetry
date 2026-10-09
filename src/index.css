@@ -3241,3 +3241,24 @@
 @media (prefers-reduced-motion: reduce) {
   .library-note { transition: none; }
 }
+
+/* Hero title typing cursor */
+.hero-title-cursor {
+  display: inline-block;
+  width: 0.09em;
+  height: 0.9em;
+  margin-left: 0.08em;
+  vertical-align: -0.08em;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.8);
+  animation: title-cursor-blink 1s step-end infinite;
+}
+
+@keyframes title-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title-cursor { animation: none; }
+}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ArrowRight, Facebook, Github, Instagram, Linkedin, Phone, Play, Radio } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import teslaRobot from "@/assets/tesla-robot.png";
@@ -10,7 +11,26 @@ const socials = [
   { href: "tel:+919443798476", icon: Phone, label: "Phone" },
 ];
 
+const FULL_TITLE = "SOFTWARE DEVELOPER.";
+const FIRST_WORD_LEN = "SOFTWARE".length;
+
 const Hero = () => {
+  const [typedCount, setTypedCount] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? FULL_TITLE.length
+      : 0
+  );
+
+  useEffect(() => {
+    if (typedCount >= FULL_TITLE.length) return;
+    const timer = window.setTimeout(() => setTypedCount(typedCount + 1), 90);
+    return () => window.clearTimeout(timer);
+  }, [typedCount]);
+
+  const typed = FULL_TITLE.slice(0, typedCount);
+  const firstWord = typed.slice(0, FIRST_WORD_LEN);
+  const secondWord = typedCount > FIRST_WORD_LEN ? typed.slice(FIRST_WORD_LEN + 1) : "";
+
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -24,9 +44,15 @@ const Hero = () => {
           <span className="hero-panel-index">01 / 08</span>
           <div>
             <p className="hero-kicker">[ SYSTEM.IDENTITY ]</p>
-            <h1 className="hero-title">
-              <span>SOFTWARE</span>
-              <span className="text-primary">DEVELOPER.</span>
+            <h1 className="hero-title" aria-label={FULL_TITLE}>
+              <span aria-hidden="true">
+                {firstWord}
+                {typedCount <= FIRST_WORD_LEN && <span className="hero-title-cursor" />}
+              </span>
+              <span className="text-primary" aria-hidden="true">
+                {secondWord}
+                {typedCount > FIRST_WORD_LEN && <span className="hero-title-cursor" />}
+              </span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               I craft solid, scalable mobile products with thoughtful user experiences—turning innovative ideas into working digital solutions while pursuing a PG in AI/ML.
