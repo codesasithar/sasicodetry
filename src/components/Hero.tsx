@@ -54,14 +54,6 @@ const Hero = () => {
                 {typedCount > FIRST_WORD_LEN && <span className="hero-title-cursor" />}
               </span>
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              I craft solid, scalable mobile products with thoughtful user experiences—turning innovative ideas into working digital solutions while pursuing a PG in AI/ML.
-            </p>
-          </div>
-          <div className="mt-7 flex flex-wrap gap-2">
-            <span className="hero-tag">Mobile products</span>
-            <span className="hero-tag">AI / ML</span>
-            <span className="hero-tag">Creative developer</span>
           </div>
         </article>
 
