@@ -120,18 +120,22 @@ const ContactBot = () => {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close contact assistant" : "Open contact assistant"}
-        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[9998] h-12 w-12 sm:h-14 sm:w-14 rounded-full overflow-hidden border border-primary/50 bg-primary/10 shadow-[0_0_24px_hsl(var(--primary)/0.45)] flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
+        title={open ? "Close SasiBot" : "Chat with SasiBot"}
+        className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-[9999] h-14 w-14 sm:h-16 sm:w-16 rounded-full overflow-hidden border-2 border-primary bg-background shadow-[0_0_30px_hsl(var(--primary)/0.6)] flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
       >
         {open ? (
-          <X className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+          <X className="h-6 w-6 sm:h-7 sm:w-7 text-primary" strokeWidth={2.5} />
         ) : (
-          <img
-            src={botAvatar}
-            alt="SasiBot assistant"
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover object-center"
-          />
+          <>
+            <img
+              src={botAvatar}
+              alt="SasiBot assistant"
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover object-center"
+            />
+            <span className="absolute bottom-1 right-1 h-3 w-3 rounded-full bg-primary ring-2 ring-background" />
+          </>
         )}
       </button>
 
