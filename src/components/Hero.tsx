@@ -25,7 +25,7 @@ const Hero = () => {
           <div>
             <p className="hero-kicker">[ SYSTEM.IDENTITY ]</p>
             <h1 className="hero-title">
-              <span>APPLICATION</span>
+              <span>SOFTWARE</span>
               <span className="text-primary">DEVELOPER.</span>
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">

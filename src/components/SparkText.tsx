@@ -18,7 +18,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const isMinimalWord = text.trim().toLowerCase() === "application developer";
+  const isMinimalWord = text.trim().toLowerCase() === "software developer";
 
   // --- 1. MINIMALISTIC DESIGN FOR TARGET WORDS ---
   if (isMinimalWord) {
