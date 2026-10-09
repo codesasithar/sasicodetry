@@ -30,7 +30,7 @@ const categories: Category[] = [
   {
     category: "Superhero & Comic Book",
     movies: [
-      { title: "Ant-Man", year: "2015", trailer: "https://www.youtube.com/results?search_query=Ant-Man+2015+official+trailer", poster: "https://image.tmdb.org/t/p/w500/A7Y3p5irhjNroNpXMc6kxxrrM7S.jpg" },
+      { title: "Ant-Man", year: "2015", trailer: "https://www.youtube.com/results?search_query=Ant-Man+2015+official+trailer", poster: "https://image.tmdb.org/t/p/w500/rQRnQfUl3kfp78nCWq8Ks04vnq1.jpg" },
       { title: "Avengers: Endgame", year: "2019", trailer: "https://www.youtube.com/results?search_query=Avengers%3A+Endgame+2019+official+trailer", poster: "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg" },
       { title: "Avengers: Infinity War", year: "2018", trailer: "https://www.youtube.com/results?search_query=Avengers%3A+Infinity+War+2018+official+trailer", poster: "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" },
       { title: "Black Panther", year: "2018", trailer: "https://www.youtube.com/results?search_query=Black+Panther+2018+official+trailer", poster: "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg" },
