@@ -2239,7 +2239,7 @@
 .hero-identity {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   min-height: 0;
   animation: hero-enter 700ms 80ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
