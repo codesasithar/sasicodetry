@@ -17,6 +17,7 @@ const FIRST_WORD_LEN = "SOFTWARE".length;
 const Hero = () => {
   const showreelRef = useRef<HTMLVideoElement>(null);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
+  const [showreelUnavailable, setShowreelUnavailable] = useState(false);
   const [typedCount, setTypedCount] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ? FULL_TITLE.length
@@ -78,11 +79,18 @@ const Hero = () => {
               poster="/videos/skills-video-thumb.jpg"
               loop
               playsInline
-              controls
+              controls={showreelPlaying}
               preload="metadata"
-              onPlay={() => setShowreelPlaying(true)}
+              onPlay={() => {
+                setShowreelUnavailable(false);
+                setShowreelPlaying(true);
+              }}
               onPause={() => setShowreelPlaying(false)}
               onEnded={() => setShowreelPlaying(false)}
+              onError={() => {
+                setShowreelUnavailable(true);
+                setShowreelPlaying(false);
+              }}
               className="hero-reel-video"
             />
             <div className="hero-reel-shade" aria-hidden="true" />
@@ -91,11 +99,17 @@ const Hero = () => {
             {!showreelPlaying && (
               <Button
                 type="button"
-                aria-label="Play skills showreel"
+                aria-label={showreelUnavailable ? "Retry skills showreel" : "Play skills showreel"}
                 className="hero-reel-play"
                 onClick={() => {
+                  setShowreelUnavailable(false);
                   const playback = showreelRef.current?.play();
-                  if (playback) void playback.catch(() => setShowreelPlaying(false));
+                  if (playback) {
+                    void playback.catch(() => {
+                      setShowreelPlaying(false);
+                      setShowreelUnavailable(true);
+                    });
+                  }
                 }}
               >
                 <Play className="h-5 w-5 fill-current" aria-hidden="true" />
@@ -103,7 +117,7 @@ const Hero = () => {
             )}
             <div className="hero-reel-caption">
               <span className="hero-reel-title">Skills showreel</span>
-              <span className="hero-reel-state"><span className="hero-status-dot" /> {showreelPlaying ? "Now playing" : "Ready to play"}</span>
+              <span className="hero-reel-state" aria-live="polite"><span className="hero-status-dot" /> {showreelPlaying ? "Now playing" : showreelUnavailable ? "Playback unavailable" : "Ready to play"}</span>
             </div>
           </div>
         </article>
