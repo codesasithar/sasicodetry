@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Facebook, Github, Instagram, Linkedin, Phone, Play, Radio } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import teslaRobot from "@/assets/tesla-robot.png";
@@ -15,6 +15,8 @@ const FULL_TITLE = "SOFTWARE DEVELOPER.";
 const FIRST_WORD_LEN = "SOFTWARE".length;
 
 const Hero = () => {
+  const showreelRef = useRef<HTMLVideoElement>(null);
+  const [showreelPlaying, setShowreelPlaying] = useState(false);
   const [typedCount, setTypedCount] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ? FULL_TITLE.length
@@ -69,22 +71,41 @@ const Hero = () => {
 
         <article className="hero-panel hero-showcase min-h-[220px] lg:col-span-2 lg:row-span-1">
           <span className="hero-panel-index">03 / SHOWREEL</span>
-          <video
-            src="/videos/skills-video.mp4"
-            poster="/videos/skills-video-thumb.jpg"
-            loop
-            playsInline
-            controls
-            preload="metadata"
-            className="h-full w-full object-cover opacity-70"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span className="flex h-14 w-14 items-center justify-center rounded-full border border-primary/30 bg-background/70 text-primary backdrop-blur-md">
-              <Play className="h-5 w-5 fill-current" />
-            </span>
+          <div className="hero-reel-screen">
+            <video
+              ref={showreelRef}
+              src="/videos/skills-video.mp4"
+              poster="/videos/skills-video-thumb.jpg"
+              loop
+              playsInline
+              controls
+              preload="metadata"
+              onPlay={() => setShowreelPlaying(true)}
+              onPause={() => setShowreelPlaying(false)}
+              onEnded={() => setShowreelPlaying(false)}
+              className="hero-reel-video"
+            />
+            <div className="hero-reel-shade" aria-hidden="true" />
+            <span className="hero-frame-corner hero-frame-corner-tl" aria-hidden="true" />
+            <span className="hero-frame-corner hero-frame-corner-br" aria-hidden="true" />
+            {!showreelPlaying && (
+              <Button
+                type="button"
+                aria-label="Play skills showreel"
+                className="hero-reel-play"
+                onClick={() => {
+                  const playback = showreelRef.current?.play();
+                  if (playback) void playback.catch(() => setShowreelPlaying(false));
+                }}
+              >
+                <Play className="h-5 w-5 fill-current" aria-hidden="true" />
+              </Button>
+            )}
+            <div className="hero-reel-caption">
+              <span className="hero-reel-title">Skills showreel</span>
+              <span className="hero-reel-state"><span className="hero-status-dot" /> {showreelPlaying ? "Now playing" : "Ready to play"}</span>
+            </div>
           </div>
-          <span className="absolute bottom-4 left-4 font-mono text-[10px] uppercase text-foreground/70">Play skills showreel</span>
         </article>
 
         <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
