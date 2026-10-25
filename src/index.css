@@ -3750,7 +3750,7 @@
   top: 0;
   left: 0;
   z-index: 30;
-  width: clamp(8rem, 13vw, 12rem);
+  width: clamp(6.5rem, 9vw, 9rem);
   pointer-events: none;
   filter: drop-shadow(0 0.8rem 1.1rem hsl(216 55% 3% / 0.5));
   transform-origin: 50% 50%;
@@ -3783,7 +3783,7 @@
 
 @media (max-width: 767px) {
   .flying-drone {
-    width: clamp(6.5rem, 25vw, 8rem);
+    width: clamp(5rem, 21vw, 6rem);
   }
 }
 
@@ -3792,5 +3792,59 @@
   .drone-gimbal {
     animation: none;
     transition: none;
+  }
+}
+
+.drone-pointer-light {
+  position: fixed;
+  inset: 0;
+  z-index: 29;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.drone-beam-core {
+  opacity: 0.46;
+  stroke-dasharray: 3 12;
+  filter: drop-shadow(0 0 0.35rem hsl(189 100% 65% / 0.8));
+  animation: drone-beam-flow 1.1s linear infinite;
+}
+
+.drone-beam-target {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: drone-target-pulse 1.4s ease-in-out infinite;
+}
+
+.drone-time {
+  position: absolute;
+  top: -1.55rem;
+  left: 50%;
+  z-index: 1;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid hsl(var(--primary) / 0.34);
+  border-radius: 999px;
+  background: hsl(var(--background) / 0.86);
+  color: hsl(var(--primary));
+  font: 600 0.58rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 1rem hsl(var(--primary) / 0.12);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@keyframes drone-beam-flow {
+  to { stroke-dashoffset: -30; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drone-beam-core,
+  .drone-beam-target {
+    animation: none;
   }
 }
