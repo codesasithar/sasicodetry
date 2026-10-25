@@ -39,6 +39,9 @@ const ScrollRobot = () => {
     if (!main) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let pointerX = window.innerWidth / 2;
+    let pointerY = window.innerHeight / 2;
+    let pointerKnown = false;
 
     const animateArm = () => {
       frameRef.current = 0;
@@ -76,20 +79,33 @@ const ScrollRobot = () => {
       }
 
       const robot = robotRef.current;
-      const heading = activeSection.querySelector<HTMLElement>("h1, h2");
-      if (!robot || !heading) return;
+      if (!robot) return;
 
       const robotRect = robot.getBoundingClientRect();
-      const headingRect = heading.getBoundingClientRect();
-      const sectionRect = activeSection.getBoundingClientRect();
       const originX = robotRect.left + robotRect.width * (82 / 240);
       const originY = robotRect.top + robotRect.height * (108 / 426.67);
-      const targetX = clamp(headingRect.left + headingRect.width / 2, 20, window.innerWidth - 20);
-      const targetY = clamp(headingRect.top + headingRect.height / 2, 96, window.innerHeight - 60);
-      const visibleTargetY = sectionRect.top > targetY && sectionRect.top < window.innerHeight
-        ? clamp(sectionRect.top + 72, 96, window.innerHeight - 60)
-        : targetY;
-      const worldAngle = Math.atan2(visibleTargetY - originY, targetX - originX) * 180 / Math.PI;
+      let targetX: number;
+      let targetY: number;
+
+      if (pointerKnown) {
+        targetX = clamp(pointerX, 4, window.innerWidth - 4);
+        targetY = clamp(pointerY, 4, window.innerHeight - 4);
+      } else {
+        const heading = activeSection.querySelector<HTMLElement>("h1, h2");
+        if (!heading) return;
+        const headingRect = heading.getBoundingClientRect();
+        const sectionRect = activeSection.getBoundingClientRect();
+        targetX = clamp(headingRect.left + headingRect.width / 2, 20, window.innerWidth - 20);
+        targetY = clamp(headingRect.top + headingRect.height / 2, 96, window.innerHeight - 60);
+        if (sectionRect.top > targetY && sectionRect.top < window.innerHeight) {
+          targetY = clamp(sectionRect.top + 72, 96, window.innerHeight - 60);
+        }
+      }
+
+      const deltaX = targetX - originX;
+      const deltaY = targetY - originY;
+      if (Math.hypot(deltaX, deltaY) < 4) return;
+      const worldAngle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
       const armRotation = worldAngle - 180;
       targetAngleRef.current = ((armRotation + 180) % 360 + 360) % 360 - 180;
 
@@ -104,16 +120,35 @@ const ScrollRobot = () => {
         updateTarget();
       });
     };
+    const rememberPointer = (x: number, y: number) => {
+      pointerX = x;
+      pointerY = y;
+      pointerKnown = true;
+      scheduleUpdate();
+    };
+    const handlePointer = (event: PointerEvent) => rememberPointer(event.clientX, event.clientY);
+    const handleTouch = (event: TouchEvent) => {
+      const touch = event.touches[0] ?? event.changedTouches[0];
+      if (touch) rememberPointer(touch.clientX, touch.clientY);
+    };
 
     updateTarget();
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("pointermove", handlePointer, { passive: true });
+    window.addEventListener("pointerdown", handlePointer, { passive: true });
+    window.addEventListener("touchmove", handleTouch, { passive: true });
+    window.addEventListener("touchstart", handleTouch, { passive: true });
     const mutations = new MutationObserver(scheduleUpdate);
     mutations.observe(main, { childList: true });
 
     return () => {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("pointermove", handlePointer);
+      window.removeEventListener("pointerdown", handlePointer);
+      window.removeEventListener("touchmove", handleTouch);
+      window.removeEventListener("touchstart", handleTouch);
       mutations.disconnect();
       if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
       if (frameRef.current) window.cancelAnimationFrame(frameRef.current);

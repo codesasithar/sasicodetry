@@ -13,8 +13,11 @@ const shortestAngle = (difference: number) => ((difference + 540) % 360) - 180;
 const FlyingDrone = () => {
   const droneRef = useRef<HTMLDivElement>(null);
   const gimbalRef = useRef<SVGGElement>(null);
+  const beamConeRef = useRef<SVGPathElement>(null);
+  const beamGradientRef = useRef<SVGLinearGradientElement>(null);
   const beamSoftRef = useRef<SVGLineElement>(null);
   const beamCoreRef = useRef<SVGLineElement>(null);
+  const beamSpotRef = useRef<SVGCircleElement>(null);
   const beamTargetRef = useRef<SVGCircleElement>(null);
   const timeRef = useRef<HTMLSpanElement>(null);
   const [time, setTime] = useState(() => new Date());
@@ -39,22 +42,46 @@ const FlyingDrone = () => {
     let pointerY = window.innerHeight / 2;
 
     const updateBeam = () => {
+      const beamCone = beamConeRef.current;
+      const beamGradient = beamGradientRef.current;
       const beamSoft = beamSoftRef.current;
       const beamCore = beamCoreRef.current;
+      const beamSpot = beamSpotRef.current;
       const beamTarget = beamTargetRef.current;
-      if (!beamSoft || !beamCore || !beamTarget) return;
+      if (!beamCone || !beamGradient || !beamSoft || !beamCore || !beamSpot || !beamTarget) return;
 
       const radians = currentHeading * Math.PI / 180;
       const lensOffset = drone.offsetWidth * (56 / 280);
       const sourceX = currentX - lensOffset * Math.sin(radians);
       const sourceY = currentY + lensOffset * Math.cos(radians);
+      const dx = pointerX - sourceX;
+      const dy = pointerY - sourceY;
+      const distance = Math.max(1, Math.hypot(dx, dy));
+      const perpendicularX = -dy / distance;
+      const perpendicularY = dx / distance;
+      const spread = clamp(distance * 0.12, 28, 112);
+      const sourceSpread = clamp(drone.offsetWidth * 0.018, 2, 4);
       const attributes = {
         x1: sourceX.toFixed(1),
         y1: sourceY.toFixed(1),
         x2: pointerX.toFixed(1),
         y2: pointerY.toFixed(1),
       };
+      const conePath = [
+        "M", sourceX + perpendicularX * sourceSpread, sourceY + perpendicularY * sourceSpread,
+        "L", pointerX + perpendicularX * spread, pointerY + perpendicularY * spread,
+        "L", pointerX - perpendicularX * spread, pointerY - perpendicularY * spread,
+        "L", sourceX - perpendicularX * sourceSpread, sourceY - perpendicularY * sourceSpread,
+        "Z",
+      ].join(" ");
 
+      beamCone.setAttribute("d", conePath);
+      beamGradient.setAttribute("x1", attributes.x1);
+      beamGradient.setAttribute("y1", attributes.y1);
+      beamGradient.setAttribute("x2", attributes.x2);
+      beamGradient.setAttribute("y2", attributes.y2);
+      beamSpot.setAttribute("cx", attributes.x2);
+      beamSpot.setAttribute("cy", attributes.y2);
       for (const line of [beamSoft, beamCore]) {
         line.setAttribute("x1", attributes.x1);
         line.setAttribute("y1", attributes.y1);
@@ -144,19 +171,28 @@ const FlyingDrone = () => {
     <>
       <svg className="drone-pointer-light" aria-hidden="true">
         <defs>
-          <linearGradient id="drone-pointer-gradient">
-            <stop offset="0" stopColor="#5ceaff" stopOpacity=".23" />
-            <stop offset=".65" stopColor="#39dfff" stopOpacity=".12" />
-            <stop offset="1" stopColor="#57eaff" stopOpacity=".28" />
+          <linearGradient ref={beamGradientRef} id="drone-pointer-gradient" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stopColor="#7beaff" stopOpacity=".035" />
+            <stop offset=".68" stopColor="#81edff" stopOpacity=".09" />
+            <stop offset="1" stopColor="#e8fdff" stopOpacity=".22" />
           </linearGradient>
+          <radialGradient id="drone-flashlight-falloff">
+            <stop offset="0" stopColor="#f4ffff" stopOpacity=".42" />
+            <stop offset=".16" stopColor="#c5f8ff" stopOpacity=".34" />
+            <stop offset=".48" stopColor="#6feaff" stopOpacity=".17" />
+            <stop offset=".78" stopColor="#4ddfff" stopOpacity=".055" />
+            <stop offset="1" stopColor="#4ddfff" stopOpacity="0" />
+          </radialGradient>
           <filter id="drone-pointer-glow" x="-100%" y="-100%" width="300%" height="300%">
             <feGaussianBlur stdDeviation="4" result="blur" />
             <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
         </defs>
-        <line ref={beamSoftRef} stroke="url(#drone-pointer-gradient)" strokeWidth="9" strokeLinecap="round" filter="url(#drone-pointer-glow)" />
-        <line ref={beamCoreRef} className="drone-beam-core" stroke="#6bedff" strokeWidth="1.4" strokeLinecap="round" />
-        <circle ref={beamTargetRef} className="drone-beam-target" r="4" fill="#7af2ff" filter="url(#drone-pointer-glow)" />
+        <path ref={beamConeRef} className="drone-flashlight-cone" fill="url(#drone-pointer-gradient)" />
+        <circle ref={beamSpotRef} className="drone-flashlight-spot" r="112" fill="url(#drone-flashlight-falloff)" />
+        <line ref={beamSoftRef} stroke="url(#drone-pointer-gradient)" strokeWidth="12" strokeLinecap="round" filter="url(#drone-pointer-glow)" />
+        <line ref={beamCoreRef} className="drone-beam-core" stroke="#d8fbff" strokeWidth="1.7" strokeLinecap="round" />
+        <circle ref={beamTargetRef} className="drone-beam-target" r="5" fill="#e7fdff" filter="url(#drone-pointer-glow)" />
       </svg>
 
       <div ref={droneRef} className="flying-drone" aria-hidden="true">
