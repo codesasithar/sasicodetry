@@ -161,7 +161,6 @@ const ScrollRobot = () => {
             </g>
           </svg>
         </span>
-        <span className="sr-only">{chatOpen ? "Close Sasibot chat" : "Open Sasibot chat"}</span>
       </button>
 
       <Sasibot open={chatOpen} onClose={closeChat} />
