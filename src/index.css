@@ -3742,3 +3742,55 @@
     font-weight: 650;
   }
 }
+
+
+/* Realistic compact quadcopter details and rotor motion. */
+.flying-drone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: clamp(8rem, 13vw, 12rem);
+  pointer-events: none;
+  filter: drop-shadow(0 0.8rem 1.1rem hsl(216 55% 3% / 0.5));
+  transform-origin: 50% 50%;
+  will-change: left, top, transform;
+}
+
+.flying-drone-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.drone-prop-blur {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: drone-propeller-spin 90ms linear infinite;
+  filter: blur(1px);
+}
+
+.drone-gimbal {
+  transform-box: view-box;
+  transform-origin: 50% 80%;
+  transition: transform 110ms ease-out;
+}
+
+@keyframes drone-propeller-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 767px) {
+  .flying-drone {
+    width: clamp(6.5rem, 25vw, 8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drone-prop-blur,
+  .drone-gimbal {
+    animation: none;
+    transition: none;
+  }
+}
