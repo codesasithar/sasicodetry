@@ -38,175 +38,6 @@
 .read-the-docs {
   color: #888;
 }
-/* === Atom Cursor: Nucleus + Orbiting Electrons === */
-.custom-cursor {
-  position: fixed;
-  pointer-events: none;
-  width: 40px;
-  height: 40px;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  background: none;
-  border: none;
-}
-
-/* Nucleus - glowing core */
-.cursor-nucleus {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ff4444 0%, #ff0066 60%, #aa0044 100%);
-  box-shadow: 0 0 6px 2px #ff006688, 0 0 14px 4px #ff444433;
-  transform: translate(-50%, -50%);
-  transition: all 0.15s;
-}
-
-/* Orbit rings */
-.cursor-orbit {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  border: 1px solid rgba(0, 200, 255, 0.3);
-  border-radius: 50%;
-}
-.cursor-orbit-1 {
-  width: 36px; height: 14px;
-  animation: atom-orbit-1 2s linear infinite;
-}
-.cursor-orbit-2 {
-  width: 34px; height: 12px;
-  animation: atom-orbit-2 2.6s linear infinite;
-}
-.cursor-orbit-3 {
-  width: 32px; height: 13px;
-  animation: atom-orbit-3 3.2s linear infinite;
-}
-
-/* Electron dots */
-.cursor-electron {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #00e5ff;
-  box-shadow: 0 0 4px 1px #00e5ffaa, 0 0 10px 2px #00e5ff44;
-  top: 50%;
-  left: 50%;
-}
-.cursor-electron-1 { animation: e-orbit-1 2s linear infinite; }
-.cursor-electron-2 { animation: e-orbit-2 2.6s linear infinite; }
-.cursor-electron-3 { animation: e-orbit-3 3.2s linear infinite; }
-
-@keyframes atom-orbit-1 {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to   { transform: translate(-50%, -50%) rotate(360deg); }
-}
-@keyframes atom-orbit-2 {
-  from { transform: translate(-50%, -50%) rotate(60deg); }
-  to   { transform: translate(-50%, -50%) rotate(420deg); }
-}
-@keyframes atom-orbit-3 {
-  from { transform: translate(-50%, -50%) rotate(120deg); }
-  to   { transform: translate(-50%, -50%) rotate(480deg); }
-}
-
-/* Electrons revolving in ellipses around the nucleus */
-@keyframes e-orbit-1 {
-  0%   { transform: translate(14px, -2.5px); }
-  25%  { transform: translate(0px, -9px); }
-  50%  { transform: translate(-14px, -2.5px); }
-  75%  { transform: translate(0px, 4px); }
-  100% { transform: translate(14px, -2.5px); }
-}
-@keyframes e-orbit-2 {
-  0%   { transform: translate(10px, -10px); }
-  25%  { transform: translate(-7px, -9px); }
-  50%  { transform: translate(-10px, 5px); }
-  75%  { transform: translate(7px, 6px); }
-  100% { transform: translate(10px, -10px); }
-}
-@keyframes e-orbit-3 {
-  0%   { transform: translate(-10px, -10px); }
-  25%  { transform: translate(7px, -8px); }
-  50%  { transform: translate(10px, 6px); }
-  75%  { transform: translate(-7px, 7px); }
-  100% { transform: translate(-10px, -10px); }
-}
-
-/* Hover state */
-.custom-cursor.hovering .cursor-nucleus {
-  background: radial-gradient(circle, #ffeb3b 0%, #ff9800 60%, #ff6600 100%);
-  box-shadow: 0 0 8px 3px #ffeb3b88, 0 0 18px 6px #ff980044;
-}
-.custom-cursor.hovering .cursor-electron {
-  background: #ffeb3b;
-  box-shadow: 0 0 5px 2px #ffeb3baa, 0 0 12px 3px #ffeb3b44;
-}
-
-/* Click state */
-.custom-cursor.clicking .cursor-nucleus {
-  width: 12px;
-  height: 12px;
-  background: radial-gradient(circle, #fff 0%, #00e5ff 60%, transparent 100%);
-  box-shadow: 0 0 14px 5px #ffffffcc, 0 0 30px 10px #00e5ff66;
-}
-
-.cursor-text {
-  position: fixed;
-  pointer-events: none;
-  color: #fff;
-  background: rgba(0,34,255,0.85);
-  border-radius: 7px;
-  font-size: 13px;
-  font-family: 'Roboto Mono', 'Fira Mono', 'monospace';
-  padding: 2px 10px;
-  z-index: 10000;
-  transform: translate(-50%, -175%) scale(0.95);
-  opacity: 0;
-  transition: opacity 0.18s, transform 0.14s;
-  user-select: none;
-}
-.cursor-text.visible {
-  opacity: 1;
-  transform: translate(-50%, -175%) scale(1.05);
-}
-
-.cursor-trail {
-  position: fixed;
-  width: 4px;
-  height: 4px;
-  pointer-events: none;
-  border-radius: 50%;
-  background: #00e5ff;
-  box-shadow: 0 0 4px 1px rgba(0,229,255,0.3);
-  border: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.25s, transform 0.2s;
-  will-change: opacity, transform;
-}
-
-.cursor-clock {
-  position: fixed;
-  pointer-events: none;
-  z-index: 10001;
-  background: rgba(10,18,34,0.84);
-  border: 1.5px solid #00eaff;
-  color: #00eaff;
-  font-family: 'Roboto Mono', 'Fira Mono', 'monospace';
-  font-size: 13px;
-  border-radius: 7px;
-  padding: 2.5px 13px 2.5px 10px;
-  letter-spacing: 1.3px;
-  box-shadow: 0 0 4px #00eaff44, 0 2px 8px #00224444;
-  transform: translate(-15%, -45%) scale(1.04) skew(-6deg);
-  opacity: 0.96;
-  user-select: none;
-}
-
 /* Add a simple ripple animation used by the code */
 .ripple {
   position: absolute;
@@ -219,96 +50,6 @@
 @keyframes ripple-fade {
   from { transform: scale(0); opacity: 0.65; }
   to { transform: scale(2.3); opacity: 0; }
-}
-
-/* === Fission Explosion on Click === */
-.fission-explosion {
-  position: fixed;
-  pointer-events: none;
-  z-index: 10002;
-  transform: translate(-50%, -50%);
-}
-
-/* Central flash */
-.fission-flash {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff 0%, #ffdd00 30%, #ff6600 60%, transparent 100%);
-  transform: translate(-50%, -50%) scale(0);
-  animation: fission-flash-anim 0.45s ease-out forwards;
-}
-
-@keyframes fission-flash-anim {
-  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-  30%  { transform: translate(-50%, -50%) scale(4); opacity: 0.9; }
-  100% { transform: translate(-50%, -50%) scale(7); opacity: 0; }
-}
-
-/* Shockwave ring */
-.fission-shockwave {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 2px solid rgba(0, 229, 255, 0.7);
-  background: transparent;
-  transform: translate(-50%, -50%) scale(0);
-  animation: fission-shockwave-anim 0.5s ease-out forwards;
-}
-
-@keyframes fission-shockwave-anim {
-  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; border-width: 3px; }
-  100% { transform: translate(-50%, -50%) scale(10); opacity: 0; border-width: 0.5px; }
-}
-
-/* Flying particle fragments */
-.fission-particle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #00e5ff;
-  box-shadow: 0 0 4px 1px #00e5ffaa;
-  animation: fission-particle-fly var(--duration, 0.5s) ease-out forwards;
-  transform: translate(-50%, -50%);
-}
-
-.fission-particle.hot {
-  background: #ffaa00;
-  box-shadow: 0 0 4px 1px #ffaa00aa;
-}
-
-.fission-particle.white {
-  background: #fff;
-  box-shadow: 0 0 6px 2px #ffffffaa;
-  width: 3px;
-  height: 3px;
-}
-
-@keyframes fission-particle-fly {
-  0%   { transform: translate(-50%, -50%) translate(0, 0) scale(1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(0.2); opacity: 0; }
-}
-
-/* Screen shake on fission */
-@keyframes screen-shake {
-  0%, 100% { transform: translate(0, 0); }
-  15% { transform: translate(-2px, 1px); }
-  30% { transform: translate(2px, -1px); }
-  45% { transform: translate(-1px, 2px); }
-  60% { transform: translate(1px, -2px); }
-  75% { transform: translate(-1px, 1px); }
-}
-html.screen-shake {
-  animation: screen-shake 0.3s ease-out;
 }
 
 /* === Cartoon avatar animations === */
@@ -331,4 +72,104 @@ html.screen-shake {
 }
 .hover\:animate-cartoon-pop:hover {
   animation: cartoon-pop 0.6s ease-in-out both;
+}
+
+/* Minimal, responsive desktop pointer: a soft magnetic ring and precise core. */
+.modern-cursor,
+.modern-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+  transition: opacity 140ms ease, visibility 140ms ease;
+}
+
+.modern-cursor {
+  z-index: 100001;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.modern-cursor.is-visible,
+.modern-cursor-dot.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modern-cursor-ring {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border: 1px solid hsl(var(--primary) / 0.68);
+  border-radius: 50%;
+  background: hsl(var(--primary) / 0.055);
+  box-shadow: 0 0 1.4rem hsl(var(--primary) / 0.15), inset 0 0 0.7rem hsl(var(--primary) / 0.07);
+  transform: scale(0.82);
+  transition: transform 220ms cubic-bezier(0.2, 0.75, 0.25, 1), border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+}
+
+.modern-cursor.is-visible .modern-cursor-ring {
+  transform: scale(1);
+}
+
+.modern-cursor.is-hovering .modern-cursor-ring {
+  transform: scale(1.42);
+  border-color: hsl(var(--primary) / 0.95);
+  background: hsl(var(--primary) / 0.12);
+  box-shadow: 0 0 1.8rem hsl(var(--primary) / 0.28), inset 0 0 0.7rem hsl(var(--primary) / 0.12);
+}
+
+.modern-cursor.is-pressed .modern-cursor-ring {
+  transform: scale(0.86);
+  background: hsl(var(--primary) / 0.22);
+}
+
+.modern-cursor-dot {
+  z-index: 100002;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: hsl(var(--foreground));
+  box-shadow: 0 0 0.8rem hsl(var(--primary) / 0.8);
+  transition: opacity 140ms ease, visibility 140ms ease, width 160ms ease, height 160ms ease;
+}
+
+.modern-cursor-dot.is-pressed {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.modern-cursor-label {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 50%;
+  padding: 0.28rem 0.52rem;
+  border: 1px solid hsl(var(--border) / 0.85);
+  border-radius: 999px;
+  background: hsl(var(--background) / 0.88);
+  color: hsl(var(--foreground));
+  font: 600 0.56rem/1 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, 0.2rem) scale(0.94);
+  backdrop-filter: blur(10px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.modern-cursor.is-hovering .modern-cursor-label {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modern-cursor,
+  .modern-cursor-dot {
+    display: none !important;
+  }
 }

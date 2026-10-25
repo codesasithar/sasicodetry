@@ -156,7 +156,6 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: none; /* Hide default cursor */
   }
 
   html {
@@ -165,7 +164,6 @@
 
   body {
     @apply bg-background text-foreground font-poppins;
-    cursor: none; /* Hide default cursor */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -3343,5 +3341,129 @@
 @layer base {
   .hero-responsive h1 {
     font-family: inherit !important;
+  }
+}
+
+/* Replace the native pointer only while the animated desktop cursor is active. */
+@media (hover: hover) and (pointer: fine) {
+  html.has-modern-cursor,
+  html.has-modern-cursor body,
+  html.has-modern-cursor body * {
+    cursor: none !important;
+  }
+
+  html.has-modern-cursor input,
+  html.has-modern-cursor textarea,
+  html.has-modern-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+
+  html.has-modern-cursor select {
+    cursor: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-modern-cursor,
+  html.has-modern-cursor * {
+    cursor: auto !important;
+  }
+
+  .modern-cursor,
+  .modern-cursor-dot {
+    display: none !important;
+  }
+}
+
+/* Hero entrance, focus glow, and slow floating artwork. */
+.hero-responsive {
+  background-image:
+    radial-gradient(circle at 78% 46%, hsl(var(--primary) / 0.14), transparent 28rem),
+    linear-gradient(90deg, hsl(var(--background) / 0.74), hsl(var(--background) / 0.3) 62%, transparent);
+}
+
+.hero-copy {
+  animation: hero-copy-enter 760ms 80ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.hero-composite {
+  isolation: isolate;
+  animation: hero-visual-enter 900ms 160ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.hero-art-image {
+  transform-origin: 50% 66%;
+  filter: drop-shadow(0 1rem 2rem hsl(var(--primary) / 0.14));
+  animation: hero-art-float 7s 1s ease-in-out infinite;
+}
+
+.hero-showreel-card {
+  transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+  animation: hero-reel-enter 720ms 420ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.hero-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: -0.3rem;
+  border: 1px solid hsl(var(--primary) / 0.56);
+  border-radius: 50%;
+  animation: hero-status-pulse 2.2s ease-out infinite;
+}
+
+.hero-primary-cta {
+  transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-primary-cta:hover {
+    box-shadow: 0 0.65rem 2rem hsl(var(--primary) / 0.24);
+  }
+
+  .hero-showreel-card:hover {
+    transform: translateY(-0.25rem);
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 1.75rem 3.5rem hsl(var(--background) / 0.52), 0 0 2rem hsl(var(--primary) / 0.1);
+  }
+}
+
+@keyframes hero-copy-enter {
+  from { opacity: 0; transform: translateY(1rem); filter: blur(5px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes hero-visual-enter {
+  from { opacity: 0; transform: translateY(1rem) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hero-reel-enter {
+  from { opacity: 0; transform: translateY(0.75rem) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hero-art-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-0.45rem); }
+}
+
+@keyframes hero-status-pulse {
+  0% { transform: scale(0.65); opacity: 0.85; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@media (max-width: 767px) {
+  .hero-responsive {
+    background-image: radial-gradient(circle at 76% 62%, hsl(var(--primary) / 0.12), transparent 23rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy,
+  .hero-composite,
+  .hero-art-image,
+  .hero-showreel-card,
+  .hero-status-dot::after {
+    animation: none !important;
   }
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import teslaRobot from "@/assets/tesla-robot.png";
@@ -11,12 +11,40 @@ const socials = [
   { href: "tel:+919443798476", icon: Phone, label: "Phone" },
 ];
 
+const ROLE_TITLE = "Developer.";
+
 const Hero = () => {
   const showreelRef = useRef<HTMLVideoElement>(null);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
   const [showreelUnavailable, setShowreelUnavailable] = useState(false);
+  const [canAnimateTitle, setCanAnimateTitle] = useState(
+    () => typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  const [typedCount, setTypedCount] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? ROLE_TITLE.length
+      : 0
+  );
   const reelStatus = showreelPlaying ? "Now playing" : showreelUnavailable ? "Playback unavailable" : "Ready to play";
 
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotionPreference = () => {
+      const shouldAnimate = !reducedMotion.matches;
+      setCanAnimateTitle(shouldAnimate);
+      if (!shouldAnimate) setTypedCount(ROLE_TITLE.length);
+    };
+
+    syncMotionPreference();
+    reducedMotion.addEventListener("change", syncMotionPreference);
+    return () => reducedMotion.removeEventListener("change", syncMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (!canAnimateTitle || typedCount >= ROLE_TITLE.length) return;
+    const timer = window.setTimeout(() => setTypedCount((count) => count + 1), 72);
+    return () => window.clearTimeout(timer);
+  }, [canAnimateTitle, typedCount]);
   const scrollToProjects = () => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.getElementById("projects")?.scrollIntoView({
@@ -42,15 +70,27 @@ const Hero = () => {
       className="hero-responsive relative flex min-h-[100svh] items-center overflow-hidden px-5 pb-12 pt-24 font-sans sm:px-8 sm:pb-16 sm:pt-28 lg:px-10"
     >
       <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="relative z-10 lg:col-span-7">
+        <div className="hero-copy relative z-10 lg:col-span-7">
           <p className="mb-0 inline-flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+            <span className="hero-status-dot relative h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
             Available for new projects
           </p>
 
-          <h1 id="hero-heading" className="mb-0 mt-5 max-w-[11ch] text-5xl font-semibold leading-[0.92] tracking-[-0.06em] text-foreground min-[380px]:text-6xl sm:mt-6 sm:text-7xl xl:text-8xl">
-            <span className="block">Software</span>
-            <span className="block text-primary">Developer.</span>
+          <h1
+            id="hero-heading"
+            aria-label="Software Developer."
+            className="mb-0 mt-5 max-w-[11ch] text-5xl font-semibold leading-[0.92] tracking-[-0.06em] text-foreground min-[380px]:text-6xl sm:mt-6 sm:text-7xl xl:text-8xl"
+          >
+            <span className="block" aria-hidden="true">Software</span>
+            <span className="block text-primary" aria-hidden="true">
+              <span className="inline-grid align-baseline">
+                <span className="col-start-1 row-start-1" style={{ gridArea: "1 / 1", visibility: "hidden" }}>Developer.</span>
+                <span className="col-start-1 row-start-1 whitespace-nowrap" style={{ gridArea: "1 / 1" }}>
+                  {ROLE_TITLE.slice(0, typedCount)}
+                  {typedCount < ROLE_TITLE.length && <span className="hero-title-cursor" aria-hidden="true" />}
+                </span>
+              </span>
+            </span>
           </h1>
 
           <p className="mb-0 mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
@@ -62,7 +102,7 @@ const Hero = () => {
               type="button"
               onClick={scrollToProjects}
               size="lg"
-              className="h-12 w-full rounded-full px-7 text-sm shadow-lg shadow-primary/10 transition-transform hover:-translate-y-0.5 sm:w-auto sm:text-base"
+              className="hero-primary-cta h-12 w-full rounded-full px-7 text-sm shadow-lg shadow-primary/10 transition-transform hover:-translate-y-0.5 sm:w-auto sm:text-base"
             >
               View my work
             </Button>
@@ -96,10 +136,10 @@ const Hero = () => {
             alt="Tesla Optimus humanoid robot"
             decoding="async"
             fetchPriority="high"
-            className="relative z-10 h-full w-full object-contain p-4 sm:p-6"
+            className="hero-art-image relative z-10 h-full w-full object-contain p-4 sm:p-6"
           />
 
-          <div className="absolute bottom-0 right-0 z-20 aspect-video w-[68%] max-w-72 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_1.5rem_3rem_hsl(var(--background)/0.45)]">
+          <div className="hero-showreel-card absolute bottom-0 right-0 z-20 aspect-video w-[68%] max-w-72 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_1.5rem_3rem_hsl(var(--background)/0.45)]">
             <video
               ref={showreelRef}
               src="/videos/skills-video.mp4"
