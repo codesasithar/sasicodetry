@@ -3708,3 +3708,37 @@
 @media (prefers-reduced-motion: reduce) {
   .mobile-nav-panel { animation: none; }
 }
+
+
+/* Friendly, rounded typography tuned for narrow screens. */
+@media (max-width: 767px) {
+  body,
+  body .font-sans,
+  body .font-poppins {
+    font-family: "Nunito", "Work Sans", sans-serif !important;
+  }
+
+  body h1,
+  body h2,
+  body h3,
+  body h4,
+  body h5,
+  body h6 {
+    font-family: "Nunito", "Work Sans", sans-serif !important;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+  }
+
+  body p,
+  body li {
+    font-weight: 500;
+    line-height: 1.65;
+  }
+
+  body button,
+  body a,
+  body label {
+    font-weight: 650;
+  }
+}
