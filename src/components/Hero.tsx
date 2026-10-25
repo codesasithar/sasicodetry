@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import teslaRobot from "@/assets/tesla-robot.png";
@@ -11,37 +11,10 @@ const socials = [
   { href: "tel:+919443798476", icon: Phone, label: "Phone" },
 ];
 
-const TITLE_LINES = ["Software", "Developer."] as const;
-const FIRST_LINE_LEN = TITLE_LINES[0].length;
-const TOTAL_CHARS = FIRST_LINE_LEN + TITLE_LINES[1].length;
-
-// Typed characters are visible, the rest stay invisible, so the heading
-// reserves its final size from the first frame (no layout shift on mobile).
-const TitleLine = ({ text, count, showCursor }: { text: string; count: number; showCursor: boolean }) => (
-  <span className="block" aria-hidden="true">
-    {text.slice(0, count)}
-    {showCursor && <span aria-hidden="true" className="ml-1 inline-block h-[0.72em] w-[0.07em] rounded-full bg-primary" />}
-    <span className="invisible">{text.slice(count)}</span>
-  </span>
-);
-
 const Hero = () => {
   const showreelRef = useRef<HTMLVideoElement>(null);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
   const [showreelUnavailable, setShowreelUnavailable] = useState(false);
-  const [typedCount, setTypedCount] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? TOTAL_CHARS
-      : 0
-  );
-
-  useEffect(() => {
-    if (typedCount >= TOTAL_CHARS) return;
-    const timer = window.setTimeout(() => setTypedCount((count) => count + 1), 90);
-    return () => window.clearTimeout(timer);
-  }, [typedCount]);
-
-  const isTyping = typedCount < TOTAL_CHARS;
   const reelStatus = showreelPlaying ? "Now playing" : showreelUnavailable ? "Playback unavailable" : "Ready to play";
 
   const scrollToProjects = () => {
@@ -65,6 +38,7 @@ const Hero = () => {
   return (
     <section
       id="home"
+      aria-labelledby="hero-heading"
       className="hero-responsive relative flex min-h-[100svh] items-center overflow-hidden px-5 pb-12 pt-24 font-sans sm:px-8 sm:pb-16 sm:pt-28 lg:px-10"
     >
       <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-12 lg:gap-16">
@@ -74,18 +48,9 @@ const Hero = () => {
             Available for new projects
           </p>
 
-          <h1 className="mb-0 mt-5 max-w-[11ch] text-5xl font-semibold leading-[0.92] tracking-[-0.06em] text-foreground min-[380px]:text-6xl sm:mt-6 sm:text-7xl xl:text-8xl">
-            <span className="sr-only">Software Developer.</span>
-            <TitleLine
-              text={TITLE_LINES[0]}
-              count={Math.min(typedCount, FIRST_LINE_LEN)}
-              showCursor={typedCount < FIRST_LINE_LEN}
-            />
-            <TitleLine
-              text={TITLE_LINES[1]}
-              count={Math.max(0, typedCount - FIRST_LINE_LEN)}
-              showCursor={isTyping && typedCount >= FIRST_LINE_LEN}
-            />
+          <h1 id="hero-heading" className="mb-0 mt-5 max-w-[11ch] text-5xl font-semibold leading-[0.92] tracking-[-0.06em] text-foreground min-[380px]:text-6xl sm:mt-6 sm:text-7xl xl:text-8xl">
+            <span className="block">Software</span>
+            <span className="block text-primary">Developer.</span>
           </h1>
 
           <p className="mb-0 mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
