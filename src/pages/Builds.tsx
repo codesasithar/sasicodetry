@@ -11,6 +11,7 @@ import Navigation from "@/components/Navigation";
 import MatrixBackground from "@/components/MatrixBackground";
 import CursorEffects from "@/components/CursorEffects";
 import ScrollToTop from "@/components/ScrollToTop";
+import ScrollRobot from "@/components/ScrollRobot";
 
 const builds = [
   {
@@ -67,6 +68,7 @@ const Builds = () => (
       <CursorEffects />
       <Navigation />
       <ScrollToTop />
+      <ScrollRobot />
 
       <main className="px-4 pb-24 pt-32 sm:px-6 lg:px-12">
         <div className="w-full">
@@ -83,7 +85,7 @@ const Builds = () => (
             </p>
           </header>
 
-          <section aria-label="Project builds" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <section id="builds" aria-label="Project builds" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {builds.map((build, index) => {
               const Icon = build.icon;
               return (

@@ -67,7 +67,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
     <section
       id="home"
       aria-labelledby="hero-heading"
-      className="hero-responsive relative flex min-h-[100svh] items-center overflow-hidden px-5 pb-12 pt-24 font-sans sm:px-8 sm:pb-16 sm:pt-28 lg:px-10"
+      className="hero-responsive relative flex min-h-[100svh] items-center overflow-hidden px-4 pb-10 pt-24 font-sans sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-16 lg:pt-28"
     >
       <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="hero-copy relative z-10 lg:col-span-7">
@@ -124,7 +124,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
           </div>
         </div>
 
-        <div className="hero-visual-column mx-auto flex w-full max-w-[34rem] flex-col lg:col-span-5">
+        <div className="hero-visual-column mx-auto flex w-full max-w-[32rem] flex-col lg:col-span-5">
           <div className="hero-composite relative aspect-[1.1] w-full sm:aspect-square">
             <div
               aria-hidden="true"
