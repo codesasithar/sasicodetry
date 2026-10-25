@@ -172,15 +172,15 @@ const FlyingDrone = () => {
       <svg className="drone-pointer-light" aria-hidden="true">
         <defs>
           <linearGradient ref={beamGradientRef} id="drone-pointer-gradient" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#7beaff" stopOpacity=".035" />
-            <stop offset=".68" stopColor="#81edff" stopOpacity=".09" />
-            <stop offset="1" stopColor="#e8fdff" stopOpacity=".22" />
+            <stop offset="0" stopColor="#7beaff" stopOpacity=".018" />
+            <stop offset=".68" stopColor="#81edff" stopOpacity=".042" />
+            <stop offset="1" stopColor="#e8fdff" stopOpacity=".095" />
           </linearGradient>
           <radialGradient id="drone-flashlight-falloff">
-            <stop offset="0" stopColor="#f4ffff" stopOpacity=".42" />
-            <stop offset=".16" stopColor="#c5f8ff" stopOpacity=".34" />
-            <stop offset=".48" stopColor="#6feaff" stopOpacity=".17" />
-            <stop offset=".78" stopColor="#4ddfff" stopOpacity=".055" />
+            <stop offset="0" stopColor="#f4ffff" stopOpacity=".2" />
+            <stop offset=".16" stopColor="#c5f8ff" stopOpacity=".15" />
+            <stop offset=".48" stopColor="#6feaff" stopOpacity=".075" />
+            <stop offset=".78" stopColor="#4ddfff" stopOpacity=".022" />
             <stop offset="1" stopColor="#4ddfff" stopOpacity="0" />
           </radialGradient>
           <filter id="drone-pointer-glow" x="-100%" y="-100%" width="300%" height="300%">
@@ -190,9 +190,9 @@ const FlyingDrone = () => {
         </defs>
         <path ref={beamConeRef} className="drone-flashlight-cone" fill="url(#drone-pointer-gradient)" />
         <circle ref={beamSpotRef} className="drone-flashlight-spot" r="112" fill="url(#drone-flashlight-falloff)" />
-        <line ref={beamSoftRef} stroke="url(#drone-pointer-gradient)" strokeWidth="12" strokeLinecap="round" filter="url(#drone-pointer-glow)" />
-        <line ref={beamCoreRef} className="drone-beam-core" stroke="#d8fbff" strokeWidth="1.7" strokeLinecap="round" />
-        <circle ref={beamTargetRef} className="drone-beam-target" r="5" fill="#e7fdff" filter="url(#drone-pointer-glow)" />
+        <line ref={beamSoftRef} stroke="url(#drone-pointer-gradient)" strokeWidth="8" strokeLinecap="round" filter="url(#drone-pointer-glow)" />
+        <line ref={beamCoreRef} className="drone-beam-core" stroke="#d8fbff" strokeWidth="1.2" strokeLinecap="round" />
+        <circle ref={beamTargetRef} className="drone-beam-target" r="4" fill="#e7fdff" filter="url(#drone-pointer-glow)" />
       </svg>
 
       <div ref={droneRef} className="flying-drone" aria-hidden="true">
