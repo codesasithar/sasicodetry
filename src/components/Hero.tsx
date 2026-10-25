@@ -133,7 +133,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
           <div aria-hidden="true" className="absolute inset-x-[12%] bottom-[12%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <img
             src={profileHero}
-            alt="Portrait of Sasithar in a futuristic technology lab"
+            alt="Portrait of Sasithar"
             decoding="async"
             fetchPriority="high"
             className="hero-art-image relative z-10 h-full w-full object-contain p-4 sm:p-6"
