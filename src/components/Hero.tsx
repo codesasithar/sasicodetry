@@ -45,7 +45,10 @@ const Hero = () => {
   const reelStatus = showreelPlaying ? "Now playing" : showreelUnavailable ? "Playback unavailable" : "Ready to play";
 
   const scrollToProjects = () => {
-    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.getElementById("projects")?.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+    });
   };
 
   const playShowreel = () => {
