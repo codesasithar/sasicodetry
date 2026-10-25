@@ -3528,57 +3528,129 @@
   }
 }
 
-/* Fixed section guide robot: compact, expressive, and non-blocking. */
+/* Sasibot: fixed humanoid guide and chat launcher. */
 .scroll-robot {
   position: fixed;
   right: clamp(0.5rem, 1.5vw, 1.5rem);
-  bottom: clamp(4.5rem, 12vh, 7rem);
-  z-index: 40;
-  width: clamp(6rem, 9vw, 9.5rem);
-  pointer-events: none;
-  filter: drop-shadow(0 0.8rem 1.5rem hsl(var(--primary) / 0.2));
+  bottom: clamp(4.75rem, 12vh, 7rem);
+  z-index: 9997;
+  display: block;
+  width: clamp(5.5rem, 7.5vw, 8rem);
+  aspect-ratio: 9 / 16;
+  padding: 0;
+  border: 0;
+  border-radius: 1.25rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+  filter: drop-shadow(0 0.8rem 1.5rem hsl(var(--primary) / 0.24));
   transform-origin: 50% 100%;
   animation: scroll-robot-float 4.2s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scroll-robot:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 4px;
+}
+
+.scroll-robot-visual {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+}
+
+.scroll-robot-portrait {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .scroll-robot-svg {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   overflow: visible;
+  pointer-events: none;
 }
 
 .scroll-robot-pointing-arm {
-  transition: transform 480ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  transform-box: view-box;
+  transform-origin: 34% 25.3%;
+  transition: none;
 }
 
 .scroll-robot-label {
   position: absolute;
-  top: -0.4rem;
-  left: 50%;
-  display: inline-flex;
+  top: -0.15rem;
+  right: -0.45rem;
+  z-index: 2;
+  display: flex;
+  min-width: 4.8rem;
+  flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.35rem 0.55rem;
+  gap: 0.22rem;
+  padding: 0.42rem 0.62rem;
   border: 1px solid hsl(var(--primary) / 0.28);
-  border-radius: 999px;
-  background: hsl(var(--background) / 0.84);
-  color: hsl(var(--foreground) / 0.88);
-  font: 600 0.52rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-  letter-spacing: 0.12em;
+  border-radius: 0.8rem;
+  background: hsl(var(--background) / 0.88);
+  color: hsl(var(--foreground) / 0.92);
+  font: 650 0.48rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.13em;
   white-space: nowrap;
   backdrop-filter: blur(12px);
   box-shadow: 0 0.4rem 1.2rem hsl(var(--background) / 0.35), 0 0 1rem hsl(var(--primary) / 0.1);
-  transform: translate(-50%, -100%);
+  transform: translateY(-75%);
+  pointer-events: none;
 }
 
-.scroll-robot-label span {
-  width: 0.35rem;
-  height: 0.35rem;
+.scroll-robot-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.scroll-robot-live > span {
+  width: 0.32rem;
+  height: 0.32rem;
   border-radius: 50%;
   background: hsl(var(--primary));
-  box-shadow: 0 0 0.7rem hsl(var(--primary) / 0.85);
+  box-shadow: 0 0 0.65rem hsl(var(--primary) / 0.85);
   animation: robot-target-pulse 1.6s ease-in-out infinite;
+}
+
+.scroll-robot-section {
+  color: hsl(var(--primary));
+  font-size: 0.42rem;
+  letter-spacing: 0.16em;
+}
+
+.sasibot-panel {
+  right: clamp(0.5rem, 1.5vw, 1.5rem);
+  bottom: calc(clamp(4.75rem, 12vh, 7rem) + clamp(9.8rem, 13.33vw, 14.25rem) + 1rem);
+}
+
+.sasibot-panel-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.sasibot-panel-closed {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(0.8rem) scale(0.97);
 }
 
 @keyframes scroll-robot-float {
@@ -3595,18 +3667,35 @@
   .scroll-robot {
     right: 0.3rem;
     bottom: 4.75rem;
-    width: 4.7rem;
-    opacity: 0.88;
+    width: 5.25rem;
   }
-  .scroll-robot-label { font-size: 0.44rem; }
+
+  .scroll-robot-label {
+    right: -0.3rem;
+    min-width: 4.5rem;
+    font-size: 0.44rem;
+  }
+
+  .sasibot-panel {
+    right: 0.3rem;
+    bottom: calc(4.75rem + 9.35rem + 0.75rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .scroll-robot,
-  .scroll-robot-label span { animation: none; }
-  .scroll-robot-pointing-arm { transition: none; }
-}
+  .scroll-robot-live > span {
+    animation: none;
+  }
 
+  .scroll-robot-pointing-arm {
+    transition: none;
+  }
+
+  .sasibot-panel {
+    transition: none;
+  }
+}
 .mobile-nav-panel {
   animation: mobile-nav-enter 260ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }

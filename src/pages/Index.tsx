@@ -1,5 +1,4 @@
 import { Suspense, lazy, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import "@/App.css";
 
 // 1. Critical "Above-the-Fold" Components (Load immediately)
@@ -25,7 +24,6 @@ const Games = lazy(() => import("@/components/Games"));
 const RoleModels = lazy(() => import("@/components/RoleModels"));
 const Achievements = lazy(() => import("@/components/Achievements"));
 const Contact = lazy(() => import("@/components/Contact"));
-const ContactBot = lazy(() => import("@/components/ContactBot"));
 
 // A lightweight loading placeholder for smooth layout transitions
 const SectionLoader = () => (
@@ -35,16 +33,6 @@ const SectionLoader = () => (
 );
 
 const Index = ({ isReady }: { isReady: boolean }) => {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (!location.hash) return;
-    const sectionId = location.hash.slice(1);
-    const frame = window.requestAnimationFrame(() => {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-    });
-    return () => window.cancelAnimationFrame(frame);
-  }, [location.hash]);
 
   useEffect(() => {
     const main = document.querySelector<HTMLElement>(".site-main");
@@ -113,7 +101,6 @@ const Index = ({ isReady }: { isReady: boolean }) => {
           <Suspense fallback={<SectionLoader />}><Achievements /></Suspense>
           <Suspense fallback={<SectionLoader />}><Contact /></Suspense>
         </main>
-        <Suspense fallback={null}><ContactBot /></Suspense>
       </div>
     </>
   );
