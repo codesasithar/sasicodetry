@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Facebook, Github, Instagram, Linkedin, Phone, Play, Radio } from "lucide-react";
+import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import teslaRobot from "@/assets/tesla-robot.png";
 
@@ -11,8 +11,19 @@ const socials = [
   { href: "tel:+919443798476", icon: Phone, label: "Phone" },
 ];
 
-const FULL_TITLE = "SOFTWARE DEVELOPER.";
-const FIRST_WORD_LEN = "SOFTWARE".length;
+const TITLE_LINES = ["Software", "Developer."] as const;
+const FIRST_LINE_LEN = TITLE_LINES[0].length;
+const TOTAL_CHARS = FIRST_LINE_LEN + TITLE_LINES[1].length;
+
+// Typed characters are visible, the rest stay invisible, so the heading
+// reserves its final size from the first frame (no layout shift on mobile).
+const TitleLine = ({ text, count, showCursor }: { text: string; count: number; showCursor: boolean }) => (
+  <span className="block" aria-hidden="true">
+    {text.slice(0, count)}
+    {showCursor && <span className="ml-1 inline-block h-[0.72em] w-[0.07em] bg-primary" />}
+    <span className="invisible">{text.slice(count)}</span>
+  </span>
+);
 
 const Hero = () => {
   const showreelRef = useRef<HTMLVideoElement>(null);
@@ -20,59 +31,104 @@ const Hero = () => {
   const [showreelUnavailable, setShowreelUnavailable] = useState(false);
   const [typedCount, setTypedCount] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? FULL_TITLE.length
+      ? TOTAL_CHARS
       : 0
   );
 
   useEffect(() => {
-    if (typedCount >= FULL_TITLE.length) return;
-    const timer = window.setTimeout(() => setTypedCount(typedCount + 1), 90);
+    if (typedCount >= TOTAL_CHARS) return;
+    const timer = window.setTimeout(() => setTypedCount((count) => count + 1), 90);
     return () => window.clearTimeout(timer);
   }, [typedCount]);
 
-  const typed = FULL_TITLE.slice(0, typedCount);
-  const firstWord = typed.slice(0, FIRST_WORD_LEN);
-  const secondWord = typedCount > FIRST_WORD_LEN ? typed.slice(FIRST_WORD_LEN + 1) : "";
+  const isTyping = typedCount < TOTAL_CHARS;
+  const reelStatus = showreelPlaying ? "Now playing" : showreelUnavailable ? "Playback unavailable" : "Ready to play";
 
   const scrollToProjects = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const playShowreel = () => {
+    setShowreelUnavailable(false);
+    const playback = showreelRef.current?.play();
+    if (playback) {
+      void playback.catch(() => {
+        setShowreelPlaying(false);
+        setShowreelUnavailable(true);
+      });
+    }
+  };
+
   return (
-    <section id="home" className="hero-shell relative min-h-[100svh] overflow-hidden px-4 pb-12 pt-24 sm:px-6 sm:pt-28 lg:px-8 lg:pb-16">
-      <div className="hero-scanlines absolute inset-0 pointer-events-none" aria-hidden="true" />
+    <section
+      id="home"
+      className="relative flex min-h-[100svh] items-center overflow-hidden px-5 pb-16 pt-24 sm:px-8 sm:pt-28 lg:px-10"
+    >
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        {/* Text */}
+        <div className="lg:col-span-7">
+          <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+            Available for new projects
+          </p>
 
-      <div className="hero-bento relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 gap-3 lg:h-[calc(100svh-8rem)] lg:min-h-[700px] lg:max-h-[840px] lg:grid-cols-4 lg:grid-rows-4 lg:gap-4">
-        <article className="hero-panel hero-identity lg:col-span-2 lg:row-span-2">
-          <span className="hero-panel-index">01 / 08</span>
-          <div>
-            <p className="hero-kicker">[ SYSTEM.IDENTITY ]</p>
-            <h1 className="hero-title" aria-label={FULL_TITLE}>
-              <span aria-hidden="true">
-                {firstWord}
-                {typedCount <= FIRST_WORD_LEN && <span className="hero-title-cursor" />}
-              </span>
-              <span className="text-primary" aria-hidden="true">
-                {secondWord}
-                {typedCount > FIRST_WORD_LEN && <span className="hero-title-cursor" />}
-              </span>
-            </h1>
+          <h1 className="mt-6 text-5xl font-semibold leading-[0.95] tracking-tighter text-foreground min-[380px]:text-6xl sm:text-7xl xl:text-8xl">
+            <span className="sr-only">Software Developer.</span>
+            <TitleLine
+              text={TITLE_LINES[0]}
+              count={Math.min(typedCount, FIRST_LINE_LEN)}
+              showCursor={typedCount < FIRST_LINE_LEN}
+            />
+            <TitleLine
+              text={TITLE_LINES[1]}
+              count={Math.max(0, typedCount - FIRST_LINE_LEN)}
+              showCursor={isTyping && typedCount >= FIRST_LINE_LEN}
+            />
+          </h1>
+
+          <p className="mt-6 max-w-sm text-base leading-relaxed text-muted-foreground sm:text-lg">
+            2+ years of hands-on experience. 5+ projects built and deployed.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+            <Button
+              onClick={scrollToProjects}
+              size="lg"
+              className="h-12 w-full rounded-full px-8 text-base sm:w-auto"
+            >
+              View my work
+            </Button>
+
+            <nav aria-label="Social links" className="flex items-center justify-center gap-1 sm:justify-start">
+              {socials.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  aria-label={social.label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <social.icon className="h-5 w-5" aria-hidden="true" />
+                </a>
+              ))}
+            </nav>
           </div>
-        </article>
+        </div>
 
-        <figure className="hero-panel hero-visual min-h-[310px] lg:col-span-2 lg:row-span-2">
-          <span className="hero-panel-index">02 / VISUAL</span>
-          <img src={teslaRobot} alt="Tesla Optimus humanoid robot" className="hero-robot" />
-          <div className="hero-visual-grid" aria-hidden="true" />
-          <div className="hero-visual-crosshair" aria-hidden="true"><span /><span /></div>
-          <figcaption className="absolute bottom-5 left-5 flex items-center gap-2 font-mono text-[10px] uppercase text-primary sm:text-xs">
-            <span className="hero-status-dot" /> Visual prototype // 01
-          </figcaption>
-        </figure>
+        {/* Visuals */}
+        <div className="flex flex-col gap-6 lg:col-span-5">
+          <div className="relative mx-auto aspect-[5/4] w-full max-w-md lg:max-w-none">
+            <div aria-hidden="true" className="absolute inset-[18%] rounded-full bg-primary/10 blur-3xl" />
+            <img
+              src={teslaRobot}
+              alt="Tesla Optimus humanoid robot"
+              decoding="async"
+              className="relative h-full w-full object-contain"
+            />
+          </div>
 
-        <article className="hero-panel hero-showcase min-h-[220px] lg:col-span-2 lg:row-span-1">
-          <span className="hero-panel-index">03 / SHOWREEL</span>
-          <div className="hero-reel-screen">
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-card lg:aspect-[2/1]">
             <video
               ref={showreelRef}
               src="/videos/skills-video.mp4"
@@ -91,96 +147,36 @@ const Hero = () => {
                 setShowreelUnavailable(true);
                 setShowreelPlaying(false);
               }}
-              className="hero-reel-video"
+              className="absolute inset-0 h-full w-full object-cover"
             />
-            <div className="hero-reel-shade" aria-hidden="true" />
-            <span className="hero-frame-corner hero-frame-corner-tl" aria-hidden="true" />
-            <span className="hero-frame-corner hero-frame-corner-br" aria-hidden="true" />
+
             {!showreelPlaying && (
-              <Button
+              <button
                 type="button"
                 aria-label={showreelUnavailable ? "Retry skills showreel" : "Play skills showreel"}
-                className="hero-reel-play"
-                onClick={() => {
-                  setShowreelUnavailable(false);
-                  const playback = showreelRef.current?.play();
-                  if (playback) {
-                    void playback.catch(() => {
-                      setShowreelPlaying(false);
-                      setShowreelUnavailable(true);
-                    });
-                  }
-                }}
+                onClick={playShowreel}
+                className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur-md transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-95"
               >
                 <Play className="h-5 w-5 fill-current" aria-hidden="true" />
-              </Button>
+              </button>
             )}
-            <div className="hero-reel-caption">
-              <span className="hero-reel-title">Skills showreel</span>
-              <span className="hero-reel-state" aria-live="polite"><span className="hero-status-dot" /> {showreelPlaying ? "Now playing" : showreelUnavailable ? "Playback unavailable" : "Ready to play"}</span>
+
+            <div
+              className={`pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-background/90 to-transparent px-4 pb-3 pt-10 transition-opacity duration-300 ${
+                showreelPlaying ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              <span className="text-sm font-medium text-foreground">Skills showreel</span>
+              <span className="flex items-center gap-1.5 text-xs text-muted-foreground" aria-live="polite">
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${showreelUnavailable ? "bg-destructive" : "bg-primary"}`}
+                  aria-hidden="true"
+                />
+                {reelStatus}
+              </span>
             </div>
           </div>
-        </article>
-
-        <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
-          <span className="hero-panel-index">04 / OUTPUT</span>
-          <span className="font-mono text-[10px] uppercase text-muted-foreground">Build archive</span>
-          <div>
-            <p className="font-mono text-4xl font-bold text-foreground">5<span className="text-primary">+</span></p>
-            <p className="mt-1 text-xs uppercase text-muted-foreground">Projects built & deployed</p>
-          </div>
-          <div className="h-px w-full bg-border"><div className="h-px w-3/4 bg-primary" /></div>
-        </article>
-
-        <article className="hero-panel hero-stat flex min-h-[150px] flex-col justify-between lg:col-span-1 lg:row-span-1">
-          <span className="hero-panel-index">05 / SIGNAL</span>
-          <span className="font-mono text-[10px] uppercase text-muted-foreground">Field experience</span>
-          <div>
-            <p className="font-mono text-4xl font-bold text-foreground">2<span className="text-primary">+</span></p>
-            <p className="mt-1 text-xs uppercase text-muted-foreground">Years of practical work</p>
-          </div>
-          <div className="h-px w-full bg-border"><div className="h-px w-1/2 bg-primary" /></div>
-        </article>
-
-        <article className="hero-panel hero-network flex min-h-[130px] flex-col justify-between lg:col-span-2 lg:row-span-1">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase text-muted-foreground">Network / Protocol</span>
-            <Radio className="h-4 w-4 text-primary" />
-          </div>
-          <div className="flex items-center gap-2">
-            {socials.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target={social.href.startsWith("http") ? "_blank" : undefined}
-                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={social.label}
-                className="hero-social-link"
-              >
-                <social.icon className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
-        </article>
-
-        <Button onClick={scrollToProjects} className="hero-project-cta group h-auto min-h-[130px] justify-between px-6 py-6 lg:col-span-2 lg:row-span-1">
-          <span className="text-left">
-            <span className="block font-mono text-2xl font-bold sm:text-3xl">VIEW MY WORK</span>
-            <span className="mt-1 block font-mono text-[10px] uppercase opacity-70">Explore project archive</span>
-          </span>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-foreground text-primary transition-transform duration-300 group-hover:translate-x-1">
-            <ArrowRight className="h-5 w-5" />
-          </span>
-        </Button>
-
-        <article className="hero-panel hero-system flex min-h-[110px] items-center gap-4 lg:col-span-2 lg:row-span-1">
-          <span className="hero-status-dot" />
-          <div>
-            <p className="font-mono text-[10px] uppercase text-muted-foreground">System status</p>
-            <p className="mt-1 font-mono text-xs uppercase text-foreground">Available for new projects</p>
-          </div>
-          <span className="ml-auto hidden font-mono text-[9px] text-muted-foreground sm:block">SIGNAL: LOCKED // PORTFOLIO: ONLINE</span>
-        </article>
+        </div>
       </div>
     </section>
   );
