@@ -452,7 +452,7 @@ const Bookshelf = () => {
           </p>
         </div>
         
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full">
           <Card
             ref={cardRef}
             onMouseMove={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
@@ -473,19 +473,6 @@ const Bookshelf = () => {
                   "radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 214, 145, 0.35), rgba(255, 180, 90, 0.15) 35%, rgba(0,0,0,0) 65%)",
               }}
             />
-            {/* Reading light glow animation above the bookshelf */}
-            <div className="reading-light-bar">
-              {[0, 1, 2, 3].map((i) => (
-                <div key={i} className="reading-light" style={{ animationDelay: `${i * 0.6}s` }}>
-                  <div className="reading-light-housing" />
-                  <div className="flex justify-center -mt-1">
-                    <div className="reading-light-bulb" style={{ animationDelay: `${i * 0.4}s` }} />
-                  </div>
-                  <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
-                </div>
-              ))}
-            </div>
-
             {/* Study lamp + framed photo sitting on top of the shelf */}
             <div className="flex items-end justify-between gap-4 px-2 sm:px-8 mb-2 select-none">
               <div className="hidden md:block" aria-hidden>
@@ -563,12 +550,24 @@ const Bookshelf = () => {
               <div className="hidden md:block space-y-12 pt-4">
                 {/* Shelf 1 */}
                 <div className="relative">
-                  <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-6 pt-4 rounded-t-sm">
+                  {/* Reading lights across the shelves */}
+                  <div className="reading-light-bar" aria-hidden="true">
+                    {[0, 1, 2, 3].map((i) => (
+                      <div key={i} className="reading-light" style={{ animationDelay: `${i * 0.6}s` }}>
+                        <div className="reading-light-housing" />
+                        <div className="flex justify-center -mt-1">
+                          <div className="reading-light-bulb" style={{ animationDelay: `${i * 0.4}s` }} />
+                        </div>
+                        <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
                     {shelfOneBooks.map((book) => (
                       <AnimatedBook 
                         key={book.id} 
                         book={book} 
-                        sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                        sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
                       />
                     ))}
                   </div>
@@ -577,12 +576,12 @@ const Bookshelf = () => {
 
                 {/* Shelf 2 */}
                 <div className="relative">
-                  <div className="flex gap-8 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-6 pt-4 rounded-t-sm min-h-[8rem]">
+                  <div className="grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
                     {shelfTwoBooks.map((book) => (
                       <AnimatedBook 
                         key={book.id} 
                         book={book} 
-                        sizeClasses="w-20 lg:w-24 h-28 lg:h-32" 
+                        sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
                       />
                     ))}
                   </div>

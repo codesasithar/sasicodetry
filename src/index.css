@@ -608,11 +608,12 @@
   .reading-light-bar {
     position: absolute;
     top: -2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    right: clamp(1rem, 4vw, 4.5rem);
+    left: clamp(1rem, 4vw, 4.5rem);
     z-index: 20;
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 0.5rem;
     pointer-events: none;
   }
@@ -648,8 +649,8 @@
     top: 1rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 10rem;
-    height: 10rem;
+    width: clamp(10rem, 22vw, 24rem);
+    height: clamp(10rem, 18vw, 18rem);
     background: conic-gradient(from 180deg at 50% 0%, hsl(var(--reading-light) / 0.35) 0deg, hsl(var(--reading-light-warm) / 0.15) 25deg, transparent 50deg, transparent 310deg, hsl(var(--reading-light-warm) / 0.15) 335deg, hsl(var(--reading-light) / 0.35) 360deg);
     clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
     filter: blur(2px);
@@ -3237,7 +3238,7 @@
 }
 .library-notes-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
   gap: 0.9rem;
 }
 
@@ -3305,7 +3306,6 @@
 }
 @media (min-width: 640px) {
   .library-notes { padding: 1.25rem; }
-  .library-notes-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .library-note { min-height: 10.5rem; padding-inline: 1rem; }
 }
 @media (max-width: 639px) {
