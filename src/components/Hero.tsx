@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import profilePicture from "@/assets/profile-picture.png";
+import profileHero from "@/assets/profile-hero.png";
 
 const socials = [
   { href: "https://www.linkedin.com/in/sasitharcodes/", icon: Linkedin, label: "LinkedIn" },
@@ -132,7 +132,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
           <div aria-hidden="true" className="absolute inset-[18%] rounded-full bg-primary/10 blur-3xl" />
           <div aria-hidden="true" className="absolute inset-x-[12%] bottom-[12%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <img
-            src={profilePicture}
+            src={profileHero}
             alt="Portrait of Sasithar in a futuristic technology lab"
             decoding="async"
             fetchPriority="high"
