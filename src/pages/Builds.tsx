@@ -69,7 +69,7 @@ const Builds = () => (
       <ScrollToTop />
 
       <main className="px-4 pb-24 pt-32 sm:px-6 lg:px-12">
-        <div className="mx-auto max-w-7xl">
+        <div className="w-full">
           <header className="mb-14 max-w-3xl sm:mb-20">
             <div className="mb-5 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
               <Terminal className="h-4 w-4" aria-hidden="true" />

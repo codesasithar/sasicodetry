@@ -45,6 +45,40 @@ const Index = () => {
     return () => window.cancelAnimationFrame(frame);
   }, [location.hash]);
 
+  useEffect(() => {
+    const main = document.querySelector<HTMLElement>(".site-main");
+    if (!main) return;
+
+    const observedSections = new Set<Element>();
+    const observer = typeof IntersectionObserver === "undefined"
+      ? null
+      : new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("section-is-visible");
+            observer?.unobserve(entry.target);
+          });
+        }, { rootMargin: "0px 0px -12% 0px", threshold: 0.04 });
+
+    const observeSections = () => {
+      main.querySelectorAll(":scope > section:not(#home)").forEach((section) => {
+        if (observedSections.has(section)) return;
+        observedSections.add(section);
+        if (observer) observer.observe(section);
+        else section.classList.add("section-is-visible");
+      });
+    };
+
+    observeSections();
+    const mutations = new MutationObserver(observeSections);
+    mutations.observe(main, { childList: true });
+
+    return () => {
+      mutations.disconnect();
+      observer?.disconnect();
+    };
+  }, []);
+
   return (
     <>
       {/* Matrix background - appears behind everything */}
@@ -60,21 +94,23 @@ const Index = () => {
         <Navigation />
         <ScrollToTop />
 
-        {/* Critical Content loaded instantly */}
-        <Hero />
+        <main className="site-main">
+          {/* Critical Content loaded instantly */}
+          <Hero />
 
-        {/* Per-section Suspense so each section streams in independently */}
-        <Suspense fallback={<SectionLoader />}><About /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Projects /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Services /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Writings /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Bookshelf /></Suspense>
-        <Suspense fallback={<SectionLoader />}><News /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Movies /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Games /></Suspense>
-        <Suspense fallback={<SectionLoader />}><RoleModels /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Achievements /></Suspense>
-        <Suspense fallback={<SectionLoader />}><Contact /></Suspense>
+          {/* Per-section Suspense so each section streams in independently */}
+          <Suspense fallback={<SectionLoader />}><About /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Projects /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Services /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Writings /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Bookshelf /></Suspense>
+          <Suspense fallback={<SectionLoader />}><News /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Movies /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Games /></Suspense>
+          <Suspense fallback={<SectionLoader />}><RoleModels /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Achievements /></Suspense>
+          <Suspense fallback={<SectionLoader />}><Contact /></Suspense>
+        </main>
         <Suspense fallback={null}><ContactBot /></Suspense>
       </div>
     </>

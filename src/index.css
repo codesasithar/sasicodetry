@@ -407,7 +407,7 @@
   }
 
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20;
+    @apply w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20;
   }
 
   .parallax-bg {
@@ -3465,5 +3465,65 @@
   .hero-showreel-card,
   .hero-status-dot::after {
     animation: none !important;
+  }
+}
+/* Wide canvas and atmospheric section-to-section transitions. */
+.site-main {
+  width: 100%;
+  min-width: 0;
+  overflow: clip;
+}
+
+.site-main > section {
+  position: relative;
+  width: 100%;
+  max-width: none !important;
+  margin-inline: 0;
+  scroll-margin-top: 6rem;
+}
+
+.site-main > section :is(.max-w-6xl, .max-w-7xl, .container) {
+  width: 100%;
+  max-width: none !important;
+}
+
+.site-main > section:not(#home) {
+  isolation: isolate;
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0) scale(0.995);
+  filter: blur(6px);
+  background-image:
+    radial-gradient(ellipse 42% 15rem at 12% 0%, hsl(var(--primary) / 0.09), transparent 75%),
+    radial-gradient(ellipse 38% 13rem at 88% 0%, hsl(var(--accent) / 0.065), transparent 75%),
+    linear-gradient(180deg, hsl(var(--foreground) / 0.018), transparent 16rem, transparent calc(100% - 13rem), hsl(var(--primary) / 0.025));
+  transition:
+    opacity 760ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    transform 860ms cubic-bezier(0.2, 0.75, 0.25, 1),
+    filter 760ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.site-main > section:not(#home)::before {
+  position: absolute;
+  top: 0;
+  right: clamp(1rem, 4vw, 4.5rem);
+  left: clamp(1rem, 4vw, 4.5rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.12) 15%, hsl(var(--primary) / 0.7) 50%, hsl(var(--accent) / 0.24) 82%, transparent);
+  box-shadow: 0 0 1.5rem hsl(var(--primary) / 0.36);
+  content: "";
+  pointer-events: none;
+}
+
+.site-main > section.section-is-visible:not(#home) {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-main > section:not(#home) {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
