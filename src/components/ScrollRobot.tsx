@@ -151,13 +151,38 @@ const ScrollRobot = () => {
               </filter>
             </defs>
             <g ref={armRef} className="scroll-robot-pointing-arm" transform="rotate(0 82 108)">
-              <path d="M82 108 C74 109 68 116 61 119 L39 112" fill="none" stroke="#101820" strokeWidth="17" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M82 108 C74 109 68 116 61 119" fill="none" stroke="url(#sasibot-arm-metal)" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M61 119 L39 112" fill="none" stroke="url(#sasibot-arm-metal)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
-              <circle cx="61" cy="119" r="7.5" fill="#141d26" stroke="#b8c8d3" strokeWidth="2" />
-              <circle cx="61" cy="119" r="2.5" fill="#53eaff" filter="url(#sasibot-arm-glow)" />
-              <path d="M40 108 L32 103 L26 105 L18 97 L13 100 L19 110 L3 106 L1 114 L20 120 L30 126 L42 119 Z" fill="url(#sasibot-arm-metal)" stroke="#effaff" strokeWidth="1.5" strokeLinejoin="round" />
-              <path d="M19 110 L3 107" stroke="#50eaff" strokeWidth="2" strokeLinecap="round" filter="url(#sasibot-arm-glow)" />
+              {/* Shoulder socket and dark articulated core */}
+              <path d="M83 108 C75 102 68 103 61 109 L31 112" fill="none" stroke="#101820" strokeWidth="15" strokeLinecap="round" />
+              <path d="M77 107 L64 110 L54 109" fill="none" stroke="#8398a8" strokeWidth="3" strokeLinecap="round" />
+              <path d="M73 111 L61 113 L53 111" fill="none" stroke="#1a2732" strokeWidth="2" strokeLinecap="round" />
+
+              {/* Layered shoulder and upper-arm armor */}
+              <circle cx="81" cy="108" r="12" fill="#101820" stroke="#c3d2dc" strokeWidth="2" />
+              <circle cx="81" cy="108" r="8.5" fill="url(#sasibot-arm-metal)" stroke="#effaff" strokeWidth="1.5" />
+              <circle cx="81" cy="108" r="3.5" fill="#263744" stroke="#8ca5b7" strokeWidth="1" />
+              <circle cx="81" cy="108" r="1.2" fill="#54eaff" filter="url(#sasibot-arm-glow)" />
+              <path d="M77 100 L70 95 L62 97 L56 103 L57 110 L62 116 L72 114 L79 110 Z" fill="url(#sasibot-arm-metal)" stroke="#edf9ff" strokeWidth="1.5" strokeLinejoin="round" />
+              <path d="M72 99 L64 100 L59 104" fill="none" stroke="#ffffff" strokeOpacity=".75" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M71 112 L63 113 L59 110" fill="none" stroke="#586d7e" strokeWidth="1.4" strokeLinecap="round" />
+
+              {/* Elbow bearing and armored forearm */}
+              <circle cx="55" cy="110" r="8.5" fill="#0b131b" stroke="#8fa4b3" strokeWidth="2" />
+              <circle cx="55" cy="110" r="5.5" fill="url(#sasibot-arm-metal)" stroke="#eaf7ff" strokeWidth="1.2" />
+              <circle cx="55" cy="110" r="2.2" fill="#263744" stroke="#8ca5b7" strokeWidth=".8" />
+              <path d="M51 103 L44 99 L36 102 L29 108 L30 115 L37 120 L46 118 L53 114 Z" fill="url(#sasibot-arm-metal)" stroke="#effaff" strokeWidth="1.5" strokeLinejoin="round" />
+              <path d="M45 102 L37 105 L33 109 L34 113" fill="none" stroke="#ffffff" strokeOpacity=".72" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M47 116 L39 117 L34 114" fill="none" stroke="#536a7c" strokeWidth="1.4" strokeLinecap="round" />
+              <path d="M47 105 L39 109" fill="none" stroke="#17232e" strokeWidth="2.5" strokeLinecap="round" />
+
+              {/* Wrist assembly and articulated hand with extended index finger */}
+              <circle cx="29" cy="112" r="6.5" fill="#111a23" stroke="#d3e3ec" strokeWidth="1.5" />
+              <circle cx="29" cy="112" r="3.2" fill="url(#sasibot-arm-metal)" stroke="#60798c" strokeWidth="1" />
+              <path d="M31 107 L25 104 L20 106 L17 111 L19 117 L26 119 L32 115 Z" fill="url(#sasibot-arm-metal)" stroke="#effaff" strokeWidth="1.4" strokeLinejoin="round" />
+              <path d="M21 108 L5 103 Q2 103 1 106 L2 109 L18 114 L22 112 Z" fill="url(#sasibot-arm-metal)" stroke="#effaff" strokeWidth="1.25" strokeLinejoin="round" />
+              <path d="M19 114 L7 114 Q4 115 5 118 L8 120 L21 120 L25 117 Z" fill="url(#sasibot-arm-metal)" stroke="#dcecf5" strokeWidth="1.1" strokeLinejoin="round" />
+              <path d="M20 118 L12 121 Q10 123 13 125 L17 125 L26 120" fill="url(#sasibot-arm-metal)" stroke="#dcecf5" strokeWidth="1.1" strokeLinejoin="round" />
+              <path d="M10 106 L17 109 M10 116 L17 116 M15 122 L20 119" fill="none" stroke="#526c7e" strokeWidth="1" strokeLinecap="round" />
+              <circle cx="7" cy="106" r="1.2" fill="#50eaff" filter="url(#sasibot-arm-glow)" />
             </g>
           </svg>
         </span>
