@@ -33,7 +33,7 @@ const SectionLoader = () => (
   </div>
 );
 
-const Index = () => {
+const Index = ({ isReady }: { isReady: boolean }) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const Index = () => {
 
         <main className="site-main">
           {/* Critical Content loaded instantly */}
-          <Hero />
+          <Hero startTyping={isReady} />
 
           {/* Per-section Suspense so each section streams in independently */}
           <Suspense fallback={<SectionLoader />}><About /></Suspense>

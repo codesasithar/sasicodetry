@@ -13,7 +13,7 @@ const socials = [
 
 const ROLE_TITLE = "Developer.";
 
-const Hero = () => {
+const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
   const showreelRef = useRef<HTMLVideoElement>(null);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
   const [showreelUnavailable, setShowreelUnavailable] = useState(false);
@@ -41,10 +41,10 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    if (!canAnimateTitle || typedCount >= ROLE_TITLE.length) return;
+    if (!startTyping || !canAnimateTitle || typedCount >= ROLE_TITLE.length) return;
     const timer = window.setTimeout(() => setTypedCount((count) => count + 1), 72);
     return () => window.clearTimeout(timer);
-  }, [canAnimateTitle, typedCount]);
+  }, [canAnimateTitle, startTyping, typedCount]);
   const scrollToProjects = () => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.getElementById("projects")?.scrollIntoView({
