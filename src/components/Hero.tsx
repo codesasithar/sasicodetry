@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import profileHero from "@/assets/profile-hero.png";
+import profileHeroCutout from "@/assets/profile-hero-cutout.png";
 
 const socials = [
   { href: "https://www.linkedin.com/in/sasitharcodes/", icon: Linkedin, label: "LinkedIn" },
@@ -124,22 +124,24 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
           </div>
         </div>
 
-        <div className="hero-composite relative mx-auto aspect-[1.35] w-full max-w-[34rem] sm:aspect-[1.25] lg:col-span-5 lg:aspect-square">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 rounded-[2rem] border border-border/70 bg-gradient-to-br from-card/80 via-background/60 to-primary/5 shadow-[inset_0_1px_0_hsl(var(--foreground)/0.05)]"
-          />
-          <div aria-hidden="true" className="absolute inset-[18%] rounded-full bg-primary/10 blur-3xl" />
-          <div aria-hidden="true" className="absolute inset-x-[12%] bottom-[12%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-          <img
-            src={profileHero}
-            alt="Portrait of Sasithar"
-            decoding="async"
-            fetchPriority="high"
-            className="hero-art-image relative z-10 h-full w-full object-contain p-4 sm:p-6"
-          />
+        <div className="hero-visual-column mx-auto flex w-full max-w-[34rem] flex-col lg:col-span-5">
+          <div className="hero-composite relative aspect-[1.1] w-full sm:aspect-square">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 rounded-[2rem] border border-border/70 bg-gradient-to-br from-card/80 via-background/60 to-primary/5 shadow-[inset_0_1px_0_hsl(var(--foreground)/0.05)]"
+            />
+            <div aria-hidden="true" className="absolute inset-[18%] rounded-full bg-primary/10 blur-3xl" />
+            <div aria-hidden="true" className="absolute inset-x-[12%] bottom-[12%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            <img
+              src={profileHeroCutout}
+              alt="Portrait of Sasithar"
+              decoding="async"
+              fetchPriority="high"
+              className="hero-art-image relative z-10 h-full w-full object-contain px-2 pt-2 sm:px-4 sm:pt-4"
+            />
 
-          <div className="hero-showreel-card absolute bottom-0 right-0 z-20 aspect-video w-[68%] max-w-72 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_1.5rem_3rem_hsl(var(--background)/0.45)]">
+          </div>
+          <div className="hero-showreel-card relative mx-auto mt-4 aspect-video w-[78%] max-w-72 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_1.5rem_3rem_hsl(var(--background)/0.45)]">
             <video
               ref={showreelRef}
               src="/videos/skills-video.mp4"
