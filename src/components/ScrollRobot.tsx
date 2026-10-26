@@ -98,11 +98,11 @@ const ScrollRobot = () => {
       const x = horizontal * 2.2;
       const y = vertical * 1.25;
 
-      head.style.setProperty("--head-x", `${(horizontal * 1.5).toFixed(2)}px`);
-      head.style.setProperty("--head-y", `${(vertical * 1).toFixed(2)}px`);
-      head.style.setProperty("--head-yaw", `${(horizontal * 15).toFixed(2)}deg`);
-      head.style.setProperty("--head-pitch", `${(vertical * 8).toFixed(2)}deg`);
-      head.style.setProperty("--head-roll", `${(horizontal * 2.5).toFixed(2)}deg`);
+      head.style.setProperty("--head-x", `${(horizontal * 2.2).toFixed(2)}px`);
+      head.style.setProperty("--head-y", `${(vertical * 1.5).toFixed(2)}px`);
+      head.style.setProperty("--head-yaw", `${(horizontal * 34).toFixed(2)}deg`);
+      head.style.setProperty("--head-pitch", `${(vertical * 18).toFixed(2)}deg`);
+      head.style.setProperty("--head-roll", `${(horizontal * 4.5).toFixed(2)}deg`);
       gaze.setAttribute("transform", `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
     };
 
