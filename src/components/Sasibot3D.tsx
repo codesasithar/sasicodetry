@@ -21,6 +21,7 @@ const clamp = (value: number, min: number, max: number) => Math.min(max, Math.ma
 const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   const root = new THREE.Group();
   const body = new THREE.Group();
+  body.scale.x = 0.94;
   root.add(body);
 
   const shell = new THREE.MeshStandardMaterial({ color: 0xcbd1d4, metalness: 0.44, roughness: 0.25 });
