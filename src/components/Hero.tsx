@@ -125,7 +125,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
         </div>
 
         <div className="hero-visual-column mx-auto flex w-full max-w-[32rem] flex-col lg:col-span-5">
-          <div className="hero-composite relative aspect-[1.1] w-full sm:aspect-square">
+          <div className="hero-composite relative aspect-[0.96] w-full sm:aspect-square">
             <div
               aria-hidden="true"
               className="absolute inset-0 rounded-[2rem] border border-border/70 bg-gradient-to-br from-card/80 via-background/60 to-primary/5 shadow-[inset_0_1px_0_hsl(var(--foreground)/0.05)]"
@@ -137,7 +137,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
               alt="Portrait of Sasithar"
               decoding="async"
               fetchPriority="high"
-              className="hero-art-image absolute inset-0 z-10 m-auto h-[45%] w-[45%] object-contain"
+              className="hero-art-image absolute inset-0 z-10 m-auto h-[70%] w-[55%] object-contain"
             />
 
           </div>
