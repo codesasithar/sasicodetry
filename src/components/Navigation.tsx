@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import profilePicture from "@/assets/profile-hero-cartoon.png";
+import profilePicture from "@/assets/profile-hero-cartoon.webp";
 
 const navItems = [
   { id: "about", label: "About", icon: User },

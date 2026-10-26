@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import profileHeroCutout from "@/assets/profile-hero-cutout.png";
+import profileHeroCutout from "@/assets/profile-hero-cutout.webp";
 
 const socials = [
   { href: "https://www.linkedin.com/in/sasitharcodes/", icon: Linkedin, label: "LinkedIn" },
@@ -150,7 +150,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
               loop
               playsInline
               controls={showreelPlaying}
-              preload="metadata"
+              preload="none"
               onPlay={() => {
                 setShowreelUnavailable(false);
                 setShowreelPlaying(true);

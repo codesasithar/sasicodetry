@@ -5,22 +5,16 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Preload an above-the-fold image while the quantum sequence runs.
-    const preload = document.createElement("link");
-    preload.rel = "preload";
-    preload.as = "image";
-    preload.href = "/videos/skills-video-thumb.jpg";
-    document.head.appendChild(preload);
-
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const duration = reducedMotion ? 900 : 2700;
-    const fadeDuration = reducedMotion ? 80 : 650;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const duration = reducedMotion ? 250 : isMobile ? 450 : 900;
+    const fadeDuration = reducedMotion ? 80 : isMobile ? 160 : 300;
     const start = performance.now();
     let frame = 0;
     let lastProgress = -1;
 
     const updateProgress = (now: number) => {
-      const nextProgress = Math.min(100, Math.floor(((now - start) / duration) * 100));
+      const nextProgress = Math.min(100, Math.floor(((now - start) / duration) * 10) * 10);
       if (nextProgress !== lastProgress) {
         lastProgress = nextProgress;
         setProgress(nextProgress);
@@ -39,7 +33,6 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
       window.cancelAnimationFrame(frame);
       window.clearTimeout(fadeTimer);
       window.clearTimeout(doneTimer);
-      preload.remove();
     };
   }, [onDone]);
 

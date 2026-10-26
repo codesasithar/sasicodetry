@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import robotPortrait from "@/assets/sasibot-android-symmetric.png";
+import robotPortrait from "@/assets/sasibot-android-symmetric.webp";
 import Sasibot from "@/components/Sasibot";
 import Sasibot3D from "@/components/Sasibot3D";
 
@@ -95,7 +95,13 @@ const ScrollRobot = () => {
           <span className="scroll-robot-section">{label}</span>
         </span>
         <span className="scroll-robot-visual" data-3d-ready={robot3DReady} aria-hidden="true">
-          <img src={robotPortrait} alt="" className="scroll-robot-portrait scroll-robot-fallback" decoding="async" />
+          <img
+            src={robotPortrait}
+            alt=""
+            className="scroll-robot-portrait scroll-robot-fallback"
+            decoding="async"
+            fetchPriority="low"
+          />
           <Sasibot3D buttonRef={robotRef} onReady={handleRobot3DReady} />
         </span>
       </button>

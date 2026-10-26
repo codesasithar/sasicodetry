@@ -2,12 +2,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BootLoader from "./components/BootLoader";
 import Index from "./pages/Index";
-import Builds from "./pages/Builds";
 import NotFound from "./pages/NotFound";
+
+const Builds = lazy(() => import("./pages/Builds"));
 
 const queryClient = new QueryClient();
 
@@ -30,7 +31,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index isReady={booted} />} />
-          <Route path="/builds" element={<Builds />} />
+          <Route path="/builds" element={<Suspense fallback={null}><Builds /></Suspense>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

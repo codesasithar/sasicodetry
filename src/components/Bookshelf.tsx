@@ -5,18 +5,18 @@ import { Card } from "@/components/ui/card";
 import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
 
 // Existing asset imports
-const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.png";
-import atomicHabits from "@/assets/books/atomic-habits.jpg";
-import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.jpg";
+const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.webp";
+import atomicHabits from "@/assets/books/atomic-habits.webp";
+import richDadPoorDad from "@/assets/books/rich-dad-poor-dad.webp";
 import originOfSpecies from "@/assets/books/origin-of-species.jpg";
-import mindIsYourBusiness from "@/assets/books/mind-is-your-business.jpg";
-import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.jpg";
-import dopamineDetox from "@/assets/books/dopamine-detox.jpg";
-import lifeLessonsBrainSurgeon from "@/assets/books/life-lessons-brain-surgeon.jpg";
+import mindIsYourBusiness from "@/assets/books/mind-is-your-business.webp";
+import powerOfSubconsciousMind from "@/assets/books/power-of-subconscious-mind.webp";
+import dopamineDetox from "@/assets/books/dopamine-detox.webp";
+import lifeLessonsBrainSurgeon from "@/assets/books/life-lessons-brain-surgeon.webp";
 
 // New asset imports
-import ikigai from "@/assets/books/ikigai.jpg";
-import theWhiteTiger from "@/assets/books/the-white-tiger.jpg";
+import ikigai from "@/assets/books/ikigai.webp";
+import theWhiteTiger from "@/assets/books/the-white-tiger.webp";
 
 interface Book {
   id: string;
@@ -381,6 +381,8 @@ const Bookshelf = () => {
                 src={book.cover}
                 alt={book.title}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
@@ -483,6 +485,7 @@ const Bookshelf = () => {
                   src={deskPhoto.url}
                   alt="Sasithar at his desk with his favourite books and an Einstein figurine"
                   loading="lazy"
+                  decoding="async"
                 />
               </figure>
             </div>

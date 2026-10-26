@@ -401,10 +401,12 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
       }
     };
 
-    void initialize();
+    const initDelay = window.matchMedia('(max-width: 767px)').matches ? 1400 : 650;
+    const initTimer = window.setTimeout(() => void initialize(), initDelay);
 
     return () => {
       disposed = true;
+      window.clearTimeout(initTimer);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       resizeObserver?.disconnect();
       removeInputListeners?.();

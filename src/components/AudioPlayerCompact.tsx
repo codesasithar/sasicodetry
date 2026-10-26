@@ -131,7 +131,7 @@ const AudioPlayerCompact = () => {
         <audio
           ref={audioRef}
           loop
-          preload="auto"
+          preload="none"
           src="/background-audio.mp3"
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}

@@ -3788,6 +3788,20 @@
   }
 }
 
+@media (max-width: 767px) {
+  .matrix-background {
+    display: none !important;
+  }
+
+  .site-main > section:not(#home) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 80vh;
+    transform: none;
+    filter: none;
+    transition: opacity 240ms ease;
+  }
+}
+
 /* Sasibot: fixed humanoid guide and chat launcher. */
 .scroll-robot {
   position: fixed;

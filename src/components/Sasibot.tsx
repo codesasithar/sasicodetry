@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Send, X } from "lucide-react";
-import botAvatar from "@/assets/sasibot-android.png";
+import botAvatar from "@/assets/sasibot-android.webp";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 type SasibotProps = { open: boolean; onClose: () => void };

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const MatrixBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -7,6 +7,7 @@ const MatrixBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -73,15 +74,27 @@ const MatrixBackground = () => {
 
     // Animation loop
     const animate = () => {
+      if (document.hidden) {
+        animationRef.current = undefined;
+        return;
+      }
       draw();
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    const onVisibilityChange = () => {
+      if (!document.hidden && !animationRef.current) {
+        animationRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    animationRef.current = requestAnimationFrame(animate);
 
     // Cleanup function
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }

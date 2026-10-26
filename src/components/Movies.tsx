@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import realSteelPoster from "@/assets/movies/real-steel.jpg";
-import tetrisPoster from "@/assets/movies/tetris.jpg";
-import goodWillHuntingPoster from "@/assets/movies/good-will-hunting.jpg";
+import tetrisPoster from "@/assets/movies/tetris.webp";
+import goodWillHuntingPoster from "@/assets/movies/good-will-hunting.webp";
 
 type Movie = {
   title: string;

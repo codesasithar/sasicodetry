@@ -5,42 +5,42 @@ import { ChevronDown, ChevronUp, Lightbulb, Pin } from "lucide-react";
 
 
 // Import role model images
-import nikolaTesla from "@/assets/role-models/nikola-tesla.jpg";
-import albertEinstein from "@/assets/role-models/albert-einstein.jpg";
-import elonMusk from "@/assets/role-models/elon-musk.jpg";
-import kamalHassan from "@/assets/role-models/kamal-hassan.jpg";
-import gandhi from "@/assets/role-models/gandhi.jpg";
-import bruceLee from "@/assets/role-models/bruce-lee.jpg";
-import muhammadAli from "@/assets/role-models/muhammad-ali.jpg";
-import mikeTyson from "@/assets/role-models/mike-tyson.jpg";
-import alexanderGreat from "@/assets/role-models/alexander-great.jpg";
-import michaelJackson from "@/assets/role-models/michael-jackson.jpg";
-import quentinTarantino from "@/assets/role-models/quentin-tarantino.jpg";
-import clintEastwood from "@/assets/role-models/clint-eastwood.jpg";
-import nelsonMandela from "@/assets/role-models/nelson-mandela.jpg";
-import morganFreeman from "@/assets/role-models/morgan-freeman.jpg";
-import apjAbdulKalam from "@/assets/role-models/apj-abdul-kalam.jpg";
-import billGates from "@/assets/role-models/bill-gates.jpg";
-import steveJobs from "@/assets/role-models/steve-jobs.jpg";
-import vanGogh from "@/assets/role-models/van-gogh.jpg";
-import jackieChan from "@/assets/role-models/jackie-chan.jpg";
-import willSmith from "@/assets/role-models/will-smith.jpg";
-import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.jpg";
-import keanuReeves from "@/assets/role-models/keanu-reeves.jpg";
-import danielCraig from "@/assets/role-models/daniel-craig.jpg";
-import oppenheimer from "@/assets/role-models/oppenheimer.jpg";
-import nielsBohr from "@/assets/role-models/niels-bohr.jpg";
-import michioKaku from "@/assets/role-models/michio-kaku.jpg";
-import neilDeGrasseTyson from "@/assets/role-models/neil-degrasse-tyson.jpg";
-import ramanujan from "@/assets/role-models/ramanujan.jpg";
-import michaelFaraday from "@/assets/role-models/michael-faraday.jpg";
-import jamesClerkMaxwell from "@/assets/role-models/james-clerk-maxwell.jpg";
-import stephenHawking from "@/assets/role-models/stephen-hawking.jpg";
-import christopherNolan from "@/assets/role-models/christopher-nolan.jpg";
-import arnoldSchwarzenegger from "@/assets/role-models/arnold-schwarzenegger.jpg";
-import sundarPichai from "@/assets/role-models/sundar-pichai.jpg";
+import nikolaTesla from "@/assets/role-models/nikola-tesla.webp";
+import albertEinstein from "@/assets/role-models/albert-einstein.webp";
+import elonMusk from "@/assets/role-models/elon-musk.webp";
+import kamalHassan from "@/assets/role-models/kamal-hassan.webp";
+import gandhi from "@/assets/role-models/gandhi.webp";
+import bruceLee from "@/assets/role-models/bruce-lee.webp";
+import muhammadAli from "@/assets/role-models/muhammad-ali.webp";
+import mikeTyson from "@/assets/role-models/mike-tyson.webp";
+import alexanderGreat from "@/assets/role-models/alexander-great.webp";
+import michaelJackson from "@/assets/role-models/michael-jackson.webp";
+import quentinTarantino from "@/assets/role-models/quentin-tarantino.webp";
+import clintEastwood from "@/assets/role-models/clint-eastwood.webp";
+import nelsonMandela from "@/assets/role-models/nelson-mandela.webp";
+import morganFreeman from "@/assets/role-models/morgan-freeman.webp";
+import apjAbdulKalam from "@/assets/role-models/apj-abdul-kalam.webp";
+import billGates from "@/assets/role-models/bill-gates.webp";
+import steveJobs from "@/assets/role-models/steve-jobs.webp";
+import vanGogh from "@/assets/role-models/van-gogh.webp";
+import jackieChan from "@/assets/role-models/jackie-chan.webp";
+import willSmith from "@/assets/role-models/will-smith.webp";
+import leonardoDiCaprio from "@/assets/role-models/leonardo-dicaprio.webp";
+import keanuReeves from "@/assets/role-models/keanu-reeves.webp";
+import danielCraig from "@/assets/role-models/daniel-craig.webp";
+import oppenheimer from "@/assets/role-models/oppenheimer.webp";
+import nielsBohr from "@/assets/role-models/niels-bohr.webp";
+import michioKaku from "@/assets/role-models/michio-kaku.webp";
+import neilDeGrasseTyson from "@/assets/role-models/neil-degrasse-tyson.webp";
+import ramanujan from "@/assets/role-models/ramanujan.webp";
+import michaelFaraday from "@/assets/role-models/michael-faraday.webp";
+import jamesClerkMaxwell from "@/assets/role-models/james-clerk-maxwell.webp";
+import stephenHawking from "@/assets/role-models/stephen-hawking.webp";
+import christopherNolan from "@/assets/role-models/christopher-nolan.webp";
+import arnoldSchwarzenegger from "@/assets/role-models/arnold-schwarzenegger.webp";
+import sundarPichai from "@/assets/role-models/sundar-pichai.webp";
 // Portrait by Christopher P. Michel, shared under CC BY-SA 4.0 via Wikimedia Commons.
-import geoffreyHinton from "@/assets/role-models/geoffrey-hinton.jpg";
+import geoffreyHinton from "@/assets/role-models/geoffrey-hinton.webp";
 
 interface RoleModel {
   id: string;
@@ -678,6 +678,8 @@ const RoleModels = () => {
                           src={model.image}
                           alt={model.name}
                           className={`w-full object-cover object-top transition-transform duration-300 group-hover:scale-110 ${isSelected ? 'h-64 lg:h-80' : 'h-56 sm:h-64'}`}
+                          loading="lazy"
+                          decoding="async"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>

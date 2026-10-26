@@ -7,26 +7,26 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import godOfWarImg from "@/assets/games/god-of-war-ragnarok.jpg";
-import spiderman2Img from "@/assets/games/spiderman-2.jpg";
-import forzaImg from "@/assets/games/forza-horizon-5.jpg";
-import horizonZDImg from "@/assets/games/horizon-zero-dawn.jpg";
-import horizonFWImg from "@/assets/games/horizon-forbidden-west.jpg";
-import uncharted4Img from "@/assets/games/uncharted-4.jpg";
-import prototype2Img from "@/assets/games/prototype-2.jpg";
-import flightSimImg from "@/assets/games/flight-simulator.jpg";
-import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.jpg";
-import blackMythImg from "@/assets/games/black-myth-wukong.jpg";
-import tekken8Img from "@/assets/games/tekken-8.jpg";
-import batmanArkhamKnightImg from "@/assets/games/batman-arkham-knight.jpg";
-import cyberpunk2077Img from "@/assets/games/cyberpunk-2077.jpg";
-import itTakesTwoImg from "@/assets/games/it-takes-two.jpg";
-import redDeadRedemptionImg from "@/assets/games/red-dead-redemption.jpg";
-import skyrimImg from "@/assets/games/skyrim.jpg";
-import eldenRingImg from "@/assets/games/elden-ring.jpg";
-import forza6Img from "@/assets/games/forza-6.jpg";
-import redDeadRedemption2Img from "@/assets/games/red-dead-redemption-2.jpg";
-import farCry5Img from "@/assets/games/far-cry-5.jpg";
+import godOfWarImg from "@/assets/games/god-of-war-ragnarok.webp";
+import spiderman2Img from "@/assets/games/spiderman-2.webp";
+import forzaImg from "@/assets/games/forza-horizon-5.webp";
+import horizonZDImg from "@/assets/games/horizon-zero-dawn.webp";
+import horizonFWImg from "@/assets/games/horizon-forbidden-west.webp";
+import uncharted4Img from "@/assets/games/uncharted-4.webp";
+import prototype2Img from "@/assets/games/prototype-2.webp";
+import flightSimImg from "@/assets/games/flight-simulator.webp";
+import tombRaiderImg from "@/assets/games/rise-of-the-tomb-raider.webp";
+import blackMythImg from "@/assets/games/black-myth-wukong.webp";
+import tekken8Img from "@/assets/games/tekken-8.webp";
+import batmanArkhamKnightImg from "@/assets/games/batman-arkham-knight.webp";
+import cyberpunk2077Img from "@/assets/games/cyberpunk-2077.webp";
+import itTakesTwoImg from "@/assets/games/it-takes-two.webp";
+import redDeadRedemptionImg from "@/assets/games/red-dead-redemption.webp";
+import skyrimImg from "@/assets/games/skyrim.webp";
+import eldenRingImg from "@/assets/games/elden-ring.webp";
+import forza6Img from "@/assets/games/forza-6.webp";
+import redDeadRedemption2Img from "@/assets/games/red-dead-redemption-2.webp";
+import farCry5Img from "@/assets/games/far-cry-5.webp";
 import firstLight007Asset from "@/assets/games/007-first-light.png.asset.json";
 const firstLight007Img = firstLight007Asset.url;
 
