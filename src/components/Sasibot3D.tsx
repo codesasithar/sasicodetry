@@ -23,21 +23,15 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   const body = new THREE.Group();
   root.add(body);
 
-  const shell = new THREE.MeshStandardMaterial({ color: 0xd9e3e9, metalness: 0.62, roughness: 0.28 });
-  const brightShell = new THREE.MeshStandardMaterial({ color: 0xf0f5f8, metalness: 0.48, roughness: 0.24 });
-  const shadowShell = new THREE.MeshStandardMaterial({ color: 0x73818c, metalness: 0.68, roughness: 0.3 });
-  const joint = new THREE.MeshStandardMaterial({ color: 0x18232c, metalness: 0.72, roughness: 0.3 });
-  const jointEdge = new THREE.MeshStandardMaterial({ color: 0x42535f, metalness: 0.82, roughness: 0.24 });
-  const blue = new THREE.MeshStandardMaterial({
-    color: 0x32cfff,
-    emissive: 0x078bc5,
-    emissiveIntensity: 1.5,
-    metalness: 0.2,
-    roughness: 0.22,
-  });
-  const darkBlue = new THREE.MeshStandardMaterial({ color: 0x075071, metalness: 0.65, roughness: 0.25 });
+  const shell = new THREE.MeshStandardMaterial({ color: 0xcbd1d4, metalness: 0.44, roughness: 0.25 });
+  const brightShell = new THREE.MeshStandardMaterial({ color: 0xe5e8e9, metalness: 0.36, roughness: 0.23 });
+  const shadowShell = new THREE.MeshStandardMaterial({ color: 0x7f898f, metalness: 0.66, roughness: 0.27 });
+  const joint = new THREE.MeshStandardMaterial({ color: 0x101216, metalness: 0.38, roughness: 0.34 });
+  const jointEdge = new THREE.MeshStandardMaterial({ color: 0xa0a9ae, metalness: 0.76, roughness: 0.2 });
+  const eyeWhite = new THREE.MeshStandardMaterial({ color: 0xe5ecee, metalness: 0.08, roughness: 0.2 });
+  const iris = new THREE.MeshStandardMaterial({ color: 0x819ba4, metalness: 0.06, roughness: 0.24 });
 
-  const sphereGeometry = new THREE.SphereGeometry(1, 20, 16);
+  const sphereGeometry = new THREE.SphereGeometry(1, 32, 24);
   const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 
   const sphere = (parent: THREE.Group, material: THREE.Material, position: Vec3, scale: Vec3) => {
@@ -77,37 +71,86 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
     return mesh;
   };
 
-  // Torso and layered chest armor.
-  sphere(body, joint, [0, 2.1, 0], [0.47, 0.68, 0.31]);
-  sphere(body, shell, [0, 2.34, 0.02], [0.53, 0.55, 0.32]);
-  sphere(body, brightShell, [-0.22, 2.45, 0.19], [0.31, 0.37, 0.2]);
-  sphere(body, brightShell, [0.22, 2.45, 0.19], [0.31, 0.37, 0.2]);
-  box(body, shadowShell, [0, 2.08, 0.28], [0.055, 0.4, 0.035]);
-  sphere(body, blue, [0, 2.2, 0.315], [0.047, 0.047, 0.025]);
-  sphere(body, darkBlue, [0, 1.72, 0.05], [0.4, 0.25, 0.28]);
-  sphere(body, shell, [0, 1.65, 0.13], [0.36, 0.21, 0.28]);
-  box(body, jointEdge, [0, 1.43, 0], [0.62, 0.16, 0.38]);
+  const extrudedPanel = (
+    parent: THREE.Group,
+    material: THREE.Material,
+    shape: THREE.Shape,
+    position: Vec3,
+    depth: number,
+    bevel: number,
+  ) => {
+    const mesh = new THREE.Mesh(
+      new THREE.ExtrudeGeometry(shape, {
+        depth,
+        bevelEnabled: true,
+        bevelSegments: 3,
+        bevelSize: bevel,
+        bevelThickness: bevel,
+        curveSegments: 16,
+        steps: 1,
+      }),
+      material,
+    );
+    mesh.position.set(...position);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    parent.add(mesh);
+    return mesh;
+  };
 
-  // Neck pistons meet the head at its natural turning point.
-  segment(body, joint, [0, 2.75, 0], [0, 3.12, 0], 0.14, 0.11);
+  // A single pearl-silver chest shell wraps an exposed mechanical core.
+  sphere(body, joint, [0, 2.1, -0.015], [0.45, 0.64, 0.29]);
+  sphere(body, shadowShell, [0, 2.34, 0.015], [0.49, 0.57, 0.28]);
+  sphere(body, brightShell, [0, 2.36, 0.035], [0.58, 0.59, 0.34]);
+
+  // The waist stays narrow and open, with a V-shaped silver pelvis shell.
+  sphere(body, joint, [0, 1.66, 0], [0.28, 0.25, 0.22]);
+  const pelvisShape = new THREE.Shape();
+  pelvisShape.moveTo(-0.28, 0.17);
+  pelvisShape.quadraticCurveTo(0, 0.29, 0.28, 0.17);
+  pelvisShape.lineTo(0.22, -0.08);
+  pelvisShape.quadraticCurveTo(0.12, -0.23, 0, -0.3);
+  pelvisShape.quadraticCurveTo(-0.12, -0.23, -0.22, -0.08);
+  pelvisShape.closePath();
+  extrudedPanel(body, shell, pelvisShape, [0, 1.49, 0.11], 0.14, 0.035);
+  box(body, jointEdge, [0, 1.42, 0], [0.47, 0.1, 0.28]);
+  for (let vertebra = 0; vertebra < 4; vertebra += 1) {
+    const y = 1.88 - vertebra * 0.075;
+    sphere(body, jointEdge, [0, y, 0.13], [0.115 - vertebra * 0.01, 0.035, 0.055]);
+    sphere(body, joint, [0, y - 0.035, 0.135], [0.07, 0.027, 0.045]);
+  }
   for (const side of [-1, 1]) {
-    segment(body, jointEdge, [side * 0.13, 2.78, 0.02], [side * 0.13, 3.1, 0.02], 0.035, 0.025);
-    sphere(body, blue, [side * 0.13, 2.95, 0.04], [0.035, 0.035, 0.035]);
+    segment(body, jointEdge, [side * 0.2, 1.9, 0.07], [side * 0.12, 1.6, 0.13], 0.025, 0.018);
+    segment(body, joint, [side * 0.22, 1.88, 0.015], [side * 0.16, 1.61, 0.035], 0.035, 0.026);
   }
 
-  // Mirrored arms with matching shoulder, elbow, forearm, and hand geometry.
+  // Narrow neck struts remain visible between the chest and the turning head.
+  segment(body, joint, [0, 2.76, 0], [0, 3.12, 0], 0.09, 0.075);
   for (const side of [-1, 1]) {
-    sphere(body, joint, [side * 0.57, 2.63, 0], [0.27, 0.3, 0.26]);
-    sphere(body, shell, [side * 0.61, 2.65, 0.08], [0.25, 0.27, 0.25]);
-    sphere(body, blue, [side * 0.6, 2.65, 0.29], [0.045, 0.045, 0.025]);
+    segment(body, brightShell, [side * 0.12, 2.79, 0.04], [side * 0.16, 3.1, 0.02], 0.025, 0.018);
+    segment(body, joint, [side * 0.15, 2.81, -0.04], [side * 0.12, 3.09, 0.01], 0.022, 0.014);
+  }
 
-    segment(body, joint, [side * 0.68, 2.47, 0], [side * 0.77, 2.02, 0.015], 0.15, 0.13);
-    sphere(body, brightShell, [side * 0.72, 2.28, 0.03], [0.19, 0.31, 0.19]);
+  // Mirrored arms pair exposed black actuators with smooth silver outer shells.
+  for (const side of [-1, 1]) {
+    sphere(body, joint, [side * 0.58, 2.61, -0.015], [0.29, 0.27, 0.25]);
+    sphere(body, brightShell, [side * 0.61, 2.63, 0.08], [0.23, 0.23, 0.22]);
+    sphere(body, jointEdge, [side * 0.61, 2.63, 0.27], [0.13, 0.13, 0.045]);
+    sphere(body, shell, [side * 0.61, 2.63, 0.305], [0.075, 0.075, 0.025]);
+
+    sphere(body, joint, [side * 0.72, 2.27, 0.02], [0.17, 0.32, 0.17]);
+    for (const offset of [-0.085, 0, 0.085]) {
+      segment(body, joint, [side * 0.67 + offset, 2.46, 0.16], [side * 0.77 + offset * 0.82, 2.06, 0.17], 0.033, 0.026);
+    }
+    segment(body, brightShell, [side * 0.62, 2.46, 0.14], [side * 0.68, 2.06, 0.17], 0.027, 0.02);
+    segment(body, jointEdge, [side * 0.81, 2.44, 0.13], [side * 0.8, 2.07, 0.15], 0.025, 0.018);
     sphere(body, jointEdge, [side * 0.78, 1.98, 0.02], [0.16, 0.16, 0.16]);
-    sphere(body, shell, [side * 0.78, 1.98, 0.15], [0.11, 0.11, 0.035]);
+    sphere(body, brightShell, [side * 0.78, 1.98, 0.15], [0.11, 0.11, 0.035]);
 
     segment(body, joint, [side * 0.78, 1.91, 0.01], [side * 0.82, 1.35, 0.04], 0.13, 0.11);
     sphere(body, shell, [side * 0.81, 1.62, 0.06], [0.18, 0.32, 0.19]);
+    segment(body, jointEdge, [side * 0.72, 1.89, 0.13], [side * 0.77, 1.4, 0.15], 0.024, 0.017);
+    segment(body, brightShell, [side * 0.9, 1.88, 0.12], [side * 0.88, 1.41, 0.14], 0.022, 0.016);
     box(body, jointEdge, [side * 0.82, 1.36, 0.04], [0.22, 0.09, 0.22]);
     sphere(body, joint, [side * 0.82, 1.17, 0.05], [0.13, 0.16, 0.12]);
     sphere(body, shell, [side * 0.82, 1.11, 0.15], [0.13, 0.15, 0.1]);
@@ -120,47 +163,69 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
     segment(body, jointEdge, [side * 0.92, 1.15, 0.12], [side * 0.99, 1.01, 0.14], 0.03, 0.022);
   }
 
-  // Mirrored legs, with visible mechanical joints and armored shins.
+  // Black thigh actuators and mirrored silver shin armor match the reference silhouette.
   for (const side of [-1, 1]) {
     const hipX = side * 0.22;
     sphere(body, joint, [hipX, 1.42, 0], [0.19, 0.2, 0.18]);
     segment(body, joint, [hipX, 1.38, 0], [side * 0.25, 0.77, 0], 0.16, 0.14);
-    sphere(body, shell, [side * 0.24, 1.05, 0.02], [0.22, 0.39, 0.22]);
+    sphere(body, joint, [side * 0.24, 1.05, 0.02], [0.2, 0.4, 0.2]);
+    segment(body, jointEdge, [side * 0.13, 1.38, 0.1], [side * 0.16, 0.8, 0.12], 0.025, 0.018);
+    segment(body, brightShell, [side * 0.34, 1.35, 0.1], [side * 0.33, 0.82, 0.11], 0.023, 0.017);
     sphere(body, jointEdge, [side * 0.25, 0.73, 0.02], [0.17, 0.16, 0.17]);
-    sphere(body, shell, [side * 0.25, 0.73, 0.15], [0.12, 0.12, 0.045]);
-    sphere(body, blue, [side * 0.25, 0.73, 0.19], [0.035, 0.035, 0.02]);
+    sphere(body, brightShell, [side * 0.25, 0.73, 0.15], [0.12, 0.12, 0.045]);
 
     segment(body, joint, [side * 0.25, 0.67, 0], [side * 0.27, 0.18, 0.01], 0.13, 0.12);
     sphere(body, brightShell, [side * 0.26, 0.43, 0.06], [0.19, 0.31, 0.2]);
     sphere(body, jointEdge, [side * 0.27, 0.16, 0], [0.15, 0.13, 0.16]);
     box(body, shell, [side * 0.27, 0.08, 0.13], [0.3, 0.16, 0.43]);
-    box(body, brightShell, [side * 0.27, 0.13, 0.3], [0.26, 0.07, 0.16]);
+    box(body, brightShell, [side * 0.27, 0.135, 0.3], [0.27, 0.07, 0.18]);
+    segment(body, jointEdge, [side * 0.27, 0.17, 0.02], [side * 0.27, 0.1, 0.34], 0.018, 0.014);
   }
 
   // Face assembly rotates independently at the neck while the body follows the pointer.
   const head = new THREE.Group();
   head.position.y = 3.08;
   body.add(head);
-  sphere(head, joint, [0, 0.35, 0], [0.34, 0.43, 0.29]);
-  sphere(head, brightShell, [0, 0.31, 0.16], [0.28, 0.31, 0.2]);
-  sphere(head, shell, [0, 0.1, 0.17], [0.24, 0.18, 0.18]);
-  box(head, brightShell, [0, 0.57, 0.23], [0.49, 0.085, 0.13]);
-  sphere(head, darkBlue, [0, 0.65, 0.275], [0.045, 0.035, 0.025]);
-  sphere(head, shell, [0, 0.28, 0.34], [0.055, 0.12, 0.08]);
-  box(head, joint, [0, 0.08, 0.325], [0.17, 0.022, 0.025]);
+  const headGeometry = sphereGeometry.clone();
+  const headPositions = headGeometry.attributes.position;
+  for (let index = 0; index < headPositions.count; index += 1) {
+    const y = headPositions.getY(index);
+    const jawTaper = clamp((0.22 - y) / 1.22, 0, 1);
+    headPositions.setX(index, headPositions.getX(index) * (1 - 0.2 * jawTaper));
+    headPositions.setZ(index, headPositions.getZ(index) * (1 - 0.04 * jawTaper));
+  }
+  headGeometry.computeVertexNormals();
+  const skull = new THREE.Mesh(headGeometry, brightShell);
+  skull.position.set(0, 0.35, 0);
+  skull.scale.set(0.34, 0.43, 0.29);
+  skull.castShadow = true;
+  skull.receiveShadow = true;
+  head.add(skull);
+  sphere(head, shell, [0, 0.24, 0.13], [0.255, 0.28, 0.18]);
+  sphere(head, shell, [0, 0.035, 0.16], [0.17, 0.12, 0.14]);
   for (const side of [-1, 1]) {
-    sphere(head, jointEdge, [side * 0.32, 0.33, 0], [0.07, 0.15, 0.13]);
-    sphere(head, blue, [side * 0.34, 0.33, 0.08], [0.035, 0.045, 0.035]);
+    sphere(head, shell, [side * 0.17, 0.2, 0.2], [0.09, 0.12, 0.09]);
+    sphere(head, shell, [side * 0.13, 0.435, 0.25], [0.105, 0.035, 0.035]);
+  }
+  segment(head, shell, [0, 0.37, 0.255], [0, 0.24, 0.32], 0.038, 0.03);
+  sphere(head, shell, [0, 0.22, 0.325], [0.048, 0.036, 0.046]);
+  segment(head, shadowShell, [-0.07, 0.075, 0.29], [0, 0.068, 0.305], 0.006, 0.006);
+  segment(head, shadowShell, [0, 0.068, 0.305], [0.07, 0.075, 0.29], 0.006, 0.006);
+  for (const side of [-1, 1]) {
+    sphere(head, shadowShell, [side * 0.32, 0.31, 0.005], [0.055, 0.115, 0.1]);
+    sphere(head, brightShell, [side * 0.34, 0.31, 0.04], [0.04, 0.09, 0.075]);
+    sphere(head, shadowShell, [side * 0.355, 0.31, 0.075], [0.014, 0.048, 0.025]);
   }
 
   const pupils: RobotModel["pupils"] = [];
   for (const side of [-1, 1]) {
-    sphere(head, joint, [side * 0.14, 0.4, 0.345], [0.09, 0.065, 0.04]);
-    sphere(head, blue, [side * 0.14, 0.4, 0.377], [0.058, 0.044, 0.026]);
+    sphere(head, shadowShell, [side * 0.13, 0.37, 0.29], [0.07, 0.05, 0.025]);
+    sphere(head, eyeWhite, [side * 0.13, 0.37, 0.309], [0.045, 0.031, 0.018]);
     const pupil = new THREE.Group();
-    pupil.position.set(side * 0.14, 0.4, 0.4);
-    sphere(pupil, joint, [0, 0, 0], [0.028, 0.031, 0.018]);
-    sphere(pupil, brightShell, [-0.009, 0.012, 0.016], [0.009, 0.009, 0.006]);
+    pupil.position.set(side * 0.13, 0.37, 0.326);
+    sphere(pupil, iris, [0, 0, 0], [0.022, 0.023, 0.01]);
+    sphere(pupil, joint, [0, 0, 0.008], [0.011, 0.015, 0.006]);
+    sphere(pupil, eyeWhite, [-0.008, 0.01, 0.014], [0.006, 0.006, 0.003]);
     head.add(pupil);
     pupils.push({ group: pupil, side });
   }
@@ -288,8 +353,8 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
           model.root.scale.setScalar(model.root.scale.x + ((hovering ? 1.045 : 1) - model.root.scale.x) * smooth);
 
           for (const { group, side } of model.pupils) {
-            group.position.x += (side * 0.14 + aimX * 0.035 - group.position.x) * smooth;
-            group.position.y += (0.4 - aimY * 0.024 - group.position.y) * smooth;
+            group.position.x += (side * 0.13 + aimX * 0.026 - group.position.x) * smooth;
+            group.position.y += (0.37 - aimY * 0.02 - group.position.y) * smooth;
           }
 
           renderer.render(scene, camera);
