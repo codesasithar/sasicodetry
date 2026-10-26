@@ -3363,6 +3363,15 @@
   display: block;
   overflow: visible;
 }
+.lamp-stem {
+  stroke: hsl(27 34% 48%);
+  stroke-width: 7px;
+  filter: drop-shadow(0 0 2px hsl(30 45% 56% / 0.45));
+}
+.lamp-stem-highlight {
+  stroke: hsl(34 72% 74% / 0.6);
+  stroke-width: 1.2px;
+}
 .arc-arm-dash {
   animation: arc-dash 7s linear infinite;
 }
@@ -3826,6 +3835,43 @@
   -webkit-user-drag: none;
 }
 
+.scroll-robot-body {
+  -webkit-mask-image: radial-gradient(ellipse 13% 10.4% at 49.2% 9.3%, transparent 98%, #000 104%);
+  mask-image: radial-gradient(ellipse 13% 10.4% at 49.2% 9.3%, transparent 98%, #000 104%);
+}
+
+.scroll-robot-head {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  transform: perspective(260px) translate3d(var(--head-x, 0px), var(--head-y, 0px), 0) rotateY(var(--head-yaw, 0deg)) rotateX(var(--head-pitch, 0deg)) rotateZ(var(--head-roll, 0deg));
+  transform-origin: 49.2% 18%;
+  transition: transform 180ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  will-change: transform;
+}
+
+.scroll-robot-head-portrait {
+  clip-path: ellipse(11.2% 9.1% at 49.2% 9.3%);
+}
+
+.scroll-robot-gaze-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.scroll-robot-gaze {
+  transition: transform 70ms ease-out;
+}
+
 .scroll-robot-label {
   position: absolute;
   top: -0.15rem;
@@ -3922,21 +3968,53 @@
   .scroll-robot-live > span {
     animation: none;
   }
+
+  .scroll-robot-gaze {
+    transition: none;
+  }
+  .scroll-robot-head {
+    transition: none;
+  }
 .sasibot-panel {
     transition: none;
   }
 }
-.mobile-nav-panel {
-  animation: mobile-nav-enter 260ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+.mobile-nav-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 240ms ease, visibility 0s linear 240ms;
 }
 
-@keyframes mobile-nav-enter {
-  from { opacity: 0; transform: translateY(-0.55rem) scale(0.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+.mobile-nav-backdrop-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 240ms ease, visibility 0s linear 0s;
+}
+
+.mobile-nav-panel {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-0.55rem) scale(0.985);
+  transform-origin: top center;
+  transition: opacity 260ms cubic-bezier(0.2, 0.75, 0.25, 1), transform 260ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s linear 260ms;
+}
+
+.mobile-nav-panel-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  transition: opacity 260ms cubic-bezier(0.2, 0.75, 0.25, 1), transform 260ms cubic-bezier(0.2, 0.75, 0.25, 1), visibility 0s linear 0s;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mobile-nav-panel { animation: none; }
+  .mobile-nav-backdrop,
+  .mobile-nav-panel {
+    transition: none;
+  }
 }
 
 

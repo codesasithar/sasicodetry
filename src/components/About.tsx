@@ -7,6 +7,8 @@ const About = () => {
     "Full Stack Development",
     "MuleSoft",
     "Python",
+    "Artificial Intelligence",
+    "Machine Learning",
     "SQL",
     "Unity",
     "Spark AR",

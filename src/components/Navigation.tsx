@@ -276,21 +276,23 @@ const Navigation = () => {
         </div>
       </nav>
 
-      {isOpen && (
+      {(
         <>
           <button
             type="button"
             tabIndex={-1}
             aria-label="Close navigation menu"
+            aria-hidden={!isOpen}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-x-0 bottom-0 top-16 z-[99997] bg-background/45 backdrop-blur-sm sm:top-20 lg:hidden"
+            className={`mobile-nav-backdrop fixed inset-x-0 bottom-0 top-16 z-[99997] bg-background/45 backdrop-blur-sm sm:top-20 lg:hidden ${isOpen ? "mobile-nav-backdrop-open" : ""}`}
           />
           <div
             id="mobile-site-nav"
             role="dialog"
-            aria-modal="true"
+            aria-modal={isOpen}
+            aria-hidden={!isOpen}
             aria-label="Site sections"
-            className="mobile-nav-panel fixed inset-x-3 bottom-3 top-[4.5rem] z-[99998] overflow-hidden rounded-[1.6rem] border border-border/80 bg-background/95 shadow-2xl backdrop-blur-2xl sm:inset-x-auto sm:right-5 sm:top-[5.5rem] sm:w-[min(92vw,30rem)] lg:hidden"
+            className={`mobile-nav-panel fixed inset-x-3 bottom-3 top-[4.5rem] z-[99998] overflow-hidden rounded-[1.6rem] border border-border/80 bg-background/95 shadow-2xl backdrop-blur-2xl sm:inset-x-auto sm:right-5 sm:top-[5.5rem] sm:w-[min(92vw,30rem)] lg:hidden ${isOpen ? "mobile-nav-panel-open" : ""}`}
           >
             <div className="flex items-start justify-between gap-4 border-b border-border/70 px-5 pb-4 pt-5">
               <div>

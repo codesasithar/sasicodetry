@@ -273,11 +273,11 @@ const DeskLamp = () => (
       strokeDasharray="1.5 6"
     />
 
-    {/* Joint */}
+    {/* Stem and base: keep the support clearly visible between the arm and foot. */}
+    <path className="lamp-stem" d="M40 138 L40 58" stroke="url(#lampBody)" strokeWidth="7" strokeLinecap="round" />
+    <path className="lamp-stem-highlight" d="M38.5 132 L38.5 64" strokeLinecap="round" />
+    {/* Joint sits over the stem so the arm reads as one connected assembly. */}
     <circle cx="40" cy="58" r="5" fill="hsl(22 36% 20%)" stroke="url(#lampBody)" strokeWidth="2" />
-
-    {/* Stem and base */}
-    <path d="M40 138 L40 58" stroke="url(#lampBody)" strokeWidth="5.5" strokeLinecap="round" />
     <rect x="16" y="136" width="52" height="9" rx="4.5" fill="url(#lampBody)" />
   </svg>
 );
