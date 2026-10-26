@@ -53,7 +53,6 @@ interface RoleModel {
   achievements: string[];
   photoAttribution?: {
     author: string;
-    sourceUrl: string;
     license: string;
     licenseUrl: string;
   };
@@ -586,7 +585,6 @@ const roleModels: RoleModel[] = [
     ],
     photoAttribution: {
       author: "Christopher P. Michel",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Geoffrey_Hinton_in_2026.jpg",
       license: "CC BY-SA 4.0",
       licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/"
     }
@@ -682,29 +680,6 @@ const RoleModels = () => {
                           className={`w-full object-cover object-top transition-transform duration-300 group-hover:scale-110 ${isSelected ? 'h-64 lg:h-80' : 'h-56 sm:h-64'}`}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        {model.photoAttribution && (
-                          <div className="absolute bottom-1.5 left-2 z-10 rounded bg-background/70 px-1.5 py-1 text-[9px] leading-none text-foreground/90 backdrop-blur-sm">
-                            <a
-                              href={model.photoAttribution.sourceUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(event) => event.stopPropagation()}
-                              className="underline underline-offset-2"
-                            >
-                              Photo: {model.photoAttribution.author}
-                            </a>
-                            <span> · </span>
-                            <a
-                              href={model.photoAttribution.licenseUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(event) => event.stopPropagation()}
-                              className="underline underline-offset-2"
-                            >
-                              {model.photoAttribution.license}
-                            </a>
-                          </div>
-                        )}
                       </div>
                     
                       <div className="text-center">
@@ -756,6 +731,20 @@ const RoleModels = () => {
                               ))}
                             </ul>
                           </div>
+                          {model.photoAttribution && (
+                            <p className="mt-4 text-xs text-muted-foreground">
+                              Portrait by {model.photoAttribution.author} · licensed under{" "}
+                              <a
+                                href={model.photoAttribution.licenseUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(event) => event.stopPropagation()}
+                                className="underline underline-offset-2"
+                              >
+                                {model.photoAttribution.license}
+                              </a>
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
