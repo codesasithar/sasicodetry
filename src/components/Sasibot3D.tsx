@@ -26,6 +26,13 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
 
   const shell = new THREE.MeshStandardMaterial({ color: 0xcbd1d4, metalness: 0.44, roughness: 0.25 });
   const brightShell = new THREE.MeshStandardMaterial({ color: 0xe5e8e9, metalness: 0.36, roughness: 0.23 });
+  const faceShell = new THREE.MeshPhysicalMaterial({
+    color: 0xd5d7d6,
+    metalness: 0.16,
+    roughness: 0.31,
+    clearcoat: 0.22,
+    clearcoatRoughness: 0.26,
+  });
   const shadowShell = new THREE.MeshStandardMaterial({ color: 0x7f898f, metalness: 0.66, roughness: 0.27 });
   const joint = new THREE.MeshStandardMaterial({ color: 0x101216, metalness: 0.38, roughness: 0.34 });
   const jointEdge = new THREE.MeshStandardMaterial({ color: 0xa0a9ae, metalness: 0.76, roughness: 0.2 });
@@ -187,46 +194,70 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   const head = new THREE.Group();
   head.position.y = 3.08;
   body.add(head);
-  const headGeometry = sphereGeometry.clone();
+  const headGeometry = new THREE.SphereGeometry(1, 64, 48);
   const headPositions = headGeometry.attributes.position;
   for (let index = 0; index < headPositions.count; index += 1) {
     const y = headPositions.getY(index);
-    const jawTaper = clamp((0.22 - y) / 1.22, 0, 1);
-    headPositions.setX(index, headPositions.getX(index) * (1 - 0.2 * jawTaper));
-    headPositions.setZ(index, headPositions.getZ(index) * (1 - 0.04 * jawTaper));
+    const x = headPositions.getX(index);
+    const z = headPositions.getZ(index);
+    const jawTaper = clamp((0.16 - y) / 1.16, 0, 1);
+    headPositions.setX(index, x * (1 - 0.23 * jawTaper));
+
+    if (z > 0) {
+      const frontness = clamp((z - 0.12) / 0.68, 0, 1);
+      const gaussian = (cx: number, cy: number, sx: number, sy: number) =>
+        Math.exp(-(((x - cx) / sx) ** 2 + ((y - cy) / sy) ** 2));
+      const sockets = gaussian(-0.37, 0.05, 0.19, 0.15) + gaussian(0.37, 0.05, 0.19, 0.15);
+      const brows = gaussian(-0.36, 0.2, 0.25, 0.12) + gaussian(0.36, 0.2, 0.25, 0.12);
+      const cheeks = gaussian(-0.45, -0.18, 0.31, 0.2) + gaussian(0.45, -0.18, 0.31, 0.2);
+      const noseBridge = gaussian(0, -0.015, 0.15, 0.34);
+      const noseTip = gaussian(0, -0.25, 0.2, 0.16);
+      const noseWings = gaussian(-0.15, -0.31, 0.14, 0.11) + gaussian(0.15, -0.31, 0.14, 0.11);
+      const muzzle = gaussian(0, -0.4, 0.31, 0.15);
+      const mouth = gaussian(0, -0.5, 0.34, 0.045);
+      const chin = gaussian(0, -0.67, 0.29, 0.18);
+      const relief =
+        -0.055 * sockets +
+        0.025 * brows +
+        0.032 * cheeks +
+        0.25 * noseBridge +
+        0.31 * noseTip +
+        0.12 * noseWings +
+        0.045 * muzzle -
+        0.06 * mouth +
+        0.075 * chin;
+      headPositions.setZ(index, z + relief * frontness);
+    }
   }
   headGeometry.computeVertexNormals();
-  const skull = new THREE.Mesh(headGeometry, brightShell);
+  const skull = new THREE.Mesh(headGeometry, faceShell);
   skull.position.set(0, 0.35, 0);
   skull.scale.set(0.34, 0.43, 0.29);
   skull.castShadow = true;
   skull.receiveShadow = true;
   head.add(skull);
-  sphere(head, shell, [0, 0.24, 0.13], [0.255, 0.28, 0.18]);
-  sphere(head, shell, [0, 0.035, 0.16], [0.17, 0.12, 0.14]);
+  // Small nostrils and a fine mouth seam give the porcelain face human proportions.
   for (const side of [-1, 1]) {
-    sphere(head, shell, [side * 0.17, 0.2, 0.2], [0.09, 0.12, 0.09]);
-    sphere(head, shell, [side * 0.13, 0.435, 0.25], [0.105, 0.035, 0.035]);
+    sphere(head, joint, [side * 0.041, 0.219, 0.361], [0.012, 0.006, 0.004]);
   }
-  segment(head, shell, [0, 0.37, 0.255], [0, 0.24, 0.32], 0.038, 0.03);
-  sphere(head, shell, [0, 0.22, 0.325], [0.048, 0.036, 0.046]);
-  segment(head, shadowShell, [-0.07, 0.075, 0.29], [0, 0.068, 0.305], 0.006, 0.006);
-  segment(head, shadowShell, [0, 0.068, 0.305], [0.07, 0.075, 0.29], 0.006, 0.006);
+  segment(head, joint, [-0.07, 0.14, 0.247], [0, 0.133, 0.254], 0.005, 0.005);
+  segment(head, joint, [0, 0.133, 0.254], [0.07, 0.14, 0.247], 0.005, 0.005);
+  segment(head, shell, [-0.045, 0.105, 0.248], [0.045, 0.105, 0.248], 0.004, 0.004);
   for (const side of [-1, 1]) {
-    sphere(head, shadowShell, [side * 0.32, 0.31, 0.005], [0.055, 0.115, 0.1]);
-    sphere(head, brightShell, [side * 0.34, 0.31, 0.04], [0.04, 0.09, 0.075]);
-    sphere(head, shadowShell, [side * 0.355, 0.31, 0.075], [0.014, 0.048, 0.025]);
+    sphere(head, faceShell, [side * 0.325, 0.31, 0.005], [0.05, 0.105, 0.085]);
+    sphere(head, shadowShell, [side * 0.35, 0.31, 0.045], [0.012, 0.046, 0.022]);
   }
 
   const pupils: RobotModel["pupils"] = [];
   for (const side of [-1, 1]) {
-    sphere(head, shadowShell, [side * 0.13, 0.37, 0.29], [0.07, 0.05, 0.025]);
-    sphere(head, eyeWhite, [side * 0.13, 0.37, 0.309], [0.045, 0.031, 0.018]);
+    sphere(head, shadowShell, [side * 0.13, 0.37, 0.254], [0.068, 0.047, 0.018]);
+    sphere(head, faceShell, [side * 0.13, 0.405, 0.261], [0.054, 0.012, 0.012]);
+    sphere(head, eyeWhite, [side * 0.13, 0.37, 0.26], [0.044, 0.03, 0.015]);
     const pupil = new THREE.Group();
-    pupil.position.set(side * 0.13, 0.37, 0.326);
-    sphere(pupil, iris, [0, 0, 0], [0.022, 0.023, 0.01]);
-    sphere(pupil, joint, [0, 0, 0.008], [0.011, 0.015, 0.006]);
-    sphere(pupil, eyeWhite, [-0.008, 0.01, 0.014], [0.006, 0.006, 0.003]);
+    pupil.position.set(side * 0.13, 0.37, 0.273);
+    sphere(pupil, iris, [0, 0, 0], [0.021, 0.022, 0.009]);
+    sphere(pupil, joint, [0, 0, 0.007], [0.01, 0.014, 0.006]);
+    sphere(pupil, eyeWhite, [-0.007, 0.009, 0.012], [0.005, 0.005, 0.003]);
     head.add(pupil);
     pupils.push({ group: pupil, side });
   }
