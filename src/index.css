@@ -3821,6 +3821,17 @@
   display: block;
   width: 100%;
   aspect-ratio: 9 / 16;
+  transform: perspective(520px) rotateY(var(--robot-yaw, 0deg)) rotateX(var(--robot-pitch, 0deg));
+  transform-origin: 50% 55%;
+  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scroll-robot:hover .scroll-robot-visual {
+    transform: perspective(520px) rotateY(calc(var(--robot-yaw, 0deg) + var(--hover-yaw, 0deg))) rotateX(var(--robot-pitch, 0deg)) translateY(-2px) scale(1.04);
+  }
 }
 
 .scroll-robot-portrait {
@@ -3967,6 +3978,10 @@
   .scroll-robot,
   .scroll-robot-live > span {
     animation: none;
+  }
+
+  .scroll-robot-visual {
+    transition: none;
   }
 
   .scroll-robot-gaze {

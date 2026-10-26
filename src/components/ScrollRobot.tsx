@@ -82,15 +82,18 @@ const ScrollRobot = () => {
     let pointerX = window.innerWidth / 2;
     let pointerY = window.innerHeight / 2;
     let frame = 0;
+    let mouseHoveringRobot = false;
 
     const updateGaze = () => {
       frame = 0;
       const visual = visualRef.current;
+      const robot = robotRef.current;
       const head = headRef.current;
       const gaze = gazeRef.current;
-      if (!visual || !head || !gaze) return;
+      if (!visual || !robot || !head || !gaze) return;
 
-      const bounds = visual.getBoundingClientRect();
+      // Use the untransformed button bounds so turning the bot cannot skew its own pointer target.
+      const bounds = robot.getBoundingClientRect();
       const faceCenterX = bounds.left + bounds.width * (118 / 240);
       const faceCenterY = bounds.top + bounds.height * (29.5 / 426.67);
       const horizontal = Math.max(-1, Math.min(1, (pointerX - faceCenterX) / Math.max(bounds.width * 0.8, 1)));
@@ -98,6 +101,9 @@ const ScrollRobot = () => {
       const x = horizontal * 2.2;
       const y = vertical * 1.25;
 
+      visual.style.setProperty("--robot-yaw", `${(horizontal * 18).toFixed(2)}deg`);
+      visual.style.setProperty("--robot-pitch", `${(vertical * 8).toFixed(2)}deg`);
+      visual.style.setProperty("--hover-yaw", `${(mouseHoveringRobot ? (horizontal < 0 ? -14 : 14) : 0).toFixed(2)}deg`);
       head.style.setProperty("--head-x", `${(horizontal * 2.2).toFixed(2)}px`);
       head.style.setProperty("--head-y", `${(vertical * 1.5).toFixed(2)}px`);
       head.style.setProperty("--head-yaw", `${(horizontal * 34).toFixed(2)}deg`);
@@ -115,16 +121,31 @@ const ScrollRobot = () => {
       pointerY = event.clientY;
       scheduleGazeUpdate();
     };
+    const enterWithMouse = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      mouseHoveringRobot = true;
+      rememberPointer(event);
+    };
+    const leaveWithMouse = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      mouseHoveringRobot = false;
+      scheduleGazeUpdate();
+    };
+    const robot = robotRef.current;
 
     updateGaze();
     window.addEventListener("pointermove", rememberPointer, { passive: true });
     window.addEventListener("pointerdown", rememberPointer, { passive: true });
     window.addEventListener("resize", scheduleGazeUpdate);
+    robot?.addEventListener("pointerenter", enterWithMouse);
+    robot?.addEventListener("pointerleave", leaveWithMouse);
 
     return () => {
       window.removeEventListener("pointermove", rememberPointer);
       window.removeEventListener("pointerdown", rememberPointer);
       window.removeEventListener("resize", scheduleGazeUpdate);
+      robot?.removeEventListener("pointerenter", enterWithMouse);
+      robot?.removeEventListener("pointerleave", leaveWithMouse);
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);
