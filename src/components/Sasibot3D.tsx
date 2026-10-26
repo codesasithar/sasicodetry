@@ -112,16 +112,16 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   sphere(body, brightShell, [0, 2.36, 0.035], [0.58, 0.59, 0.34]);
 
   // The waist stays narrow and open, with a V-shaped silver pelvis shell.
-  sphere(body, joint, [0, 1.66, 0], [0.28, 0.25, 0.22]);
+  sphere(body, joint, [0, 1.66, 0], [0.14, 0.125, 0.11]);
   const pelvisShape = new THREE.Shape();
-  pelvisShape.moveTo(-0.28, 0.17);
-  pelvisShape.quadraticCurveTo(0, 0.29, 0.28, 0.17);
-  pelvisShape.lineTo(0.22, -0.08);
-  pelvisShape.quadraticCurveTo(0.12, -0.23, 0, -0.3);
-  pelvisShape.quadraticCurveTo(-0.12, -0.23, -0.22, -0.08);
+  pelvisShape.moveTo(-0.14, 0.085);
+  pelvisShape.quadraticCurveTo(0, 0.145, 0.14, 0.085);
+  pelvisShape.lineTo(0.11, -0.04);
+  pelvisShape.quadraticCurveTo(0.06, -0.115, 0, -0.15);
+  pelvisShape.quadraticCurveTo(-0.06, -0.115, -0.11, -0.04);
   pelvisShape.closePath();
-  extrudedPanel(body, shell, pelvisShape, [0, 1.49, 0.11], 0.14, 0.035);
-  box(body, jointEdge, [0, 1.42, 0], [0.47, 0.1, 0.28]);
+  extrudedPanel(body, shell, pelvisShape, [0, 1.49, 0.11], 0.07, 0.0175);
+  box(body, jointEdge, [0, 1.42, 0], [0.235, 0.05, 0.14]);
   for (let vertebra = 0; vertebra < 4; vertebra += 1) {
     const y = 1.88 - vertebra * 0.075;
     sphere(body, jointEdge, [0, y, 0.13], [0.115 - vertebra * 0.01, 0.035, 0.055]);
@@ -174,7 +174,7 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   // Black thigh actuators and mirrored silver shin armor match the reference silhouette.
   for (const side of [-1, 1]) {
     const hipX = side * 0.22;
-    sphere(body, joint, [hipX, 1.42, 0], [0.19, 0.2, 0.18]);
+    sphere(body, joint, [hipX, 1.42, 0], [0.095, 0.1, 0.09]);
     segment(body, joint, [hipX, 1.38, 0], [side * 0.25, 0.77, 0], 0.16, 0.14);
     sphere(body, joint, [side * 0.24, 1.05, 0.02], [0.2, 0.4, 0.2]);
     segment(body, jointEdge, [side * 0.13, 1.38, 0.1], [side * 0.16, 0.8, 0.12], 0.025, 0.018);
