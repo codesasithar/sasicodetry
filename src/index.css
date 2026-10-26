@@ -3821,17 +3821,6 @@
   display: block;
   width: 100%;
   aspect-ratio: 9 / 16;
-  transform: perspective(520px) rotateY(var(--robot-yaw, 0deg)) rotateX(var(--robot-pitch, 0deg));
-  transform-origin: 50% 55%;
-  transform-style: preserve-3d;
-  transition: transform 220ms cubic-bezier(0.2, 0.75, 0.25, 1);
-  will-change: transform;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .scroll-robot:hover .scroll-robot-visual {
-    transform: perspective(520px) rotateY(calc(var(--robot-yaw, 0deg) + var(--hover-yaw, 0deg))) rotateX(var(--robot-pitch, 0deg)) translateY(-2px) scale(1.04);
-  }
 }
 
 .scroll-robot-portrait {
@@ -3846,41 +3835,33 @@
   -webkit-user-drag: none;
 }
 
-.scroll-robot-body {
-  -webkit-mask-image: radial-gradient(ellipse 13% 10.4% at 49.2% 9.3%, transparent 98%, #000 104%);
-  mask-image: radial-gradient(ellipse 13% 10.4% at 49.2% 9.3%, transparent 98%, #000 104%);
+.scroll-robot-fallback {
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
-.scroll-robot-head {
+.scroll-robot-visual[data-3d-ready="true"] .scroll-robot-fallback {
+  opacity: 0;
+}
+
+.scroll-robot-canvas {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  opacity: 0;
   pointer-events: none;
-  transform: perspective(180px) translate3d(var(--head-x, 0px), var(--head-y, 0px), 0) rotateY(var(--head-yaw, 0deg)) rotateX(var(--head-pitch, 0deg)) rotateZ(var(--head-roll, 0deg));
-  transform-origin: 49.2% 18%;
-  transition: transform 150ms cubic-bezier(0.2, 0.75, 0.25, 1);
-  will-change: transform;
+  transition: opacity 220ms ease;
 }
 
-.scroll-robot-head-portrait {
-  clip-path: ellipse(11.2% 9.1% at 49.2% 9.3%);
+.scroll-robot-visual[data-3d-ready="true"] .scroll-robot-canvas {
+  opacity: 1;
 }
 
-.scroll-robot-gaze-overlay {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.scroll-robot-gaze {
-  transition: transform 70ms ease-out;
+@media (hover: hover) and (pointer: fine) {
+  .scroll-robot:hover .scroll-robot-fallback {
+    transform: perspective(520px) rotateY(-24deg) translateY(-2px) scale(1.04);
+  }
 }
 
 .scroll-robot-label {
@@ -3980,14 +3961,8 @@
     animation: none;
   }
 
-  .scroll-robot-visual {
-    transition: none;
-  }
-
-  .scroll-robot-gaze {
-    transition: none;
-  }
-  .scroll-robot-head {
+  .scroll-robot-fallback,
+  .scroll-robot-canvas {
     transition: none;
   }
 .sasibot-panel {
