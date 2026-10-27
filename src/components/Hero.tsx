@@ -23,6 +23,23 @@ const heroNotePool = [
   { id: "library", tone: "gold", source: "Off-screen", text: "10 books on the shelf. Countless rabbit holes." },
   { id: "delivery", tone: "cyan", source: "Studio rule", text: "Fast delivery, thoughtful details, useful results." },
   { id: "future", tone: "coral", source: "Writing desk", text: "The future gets interesting when AR feels useful." },
+  { id: "book-atomic-habits", tone: "cyan", source: "Library · Atomic Habits", text: "Tiny habits are votes cast for the person you are becoming." },
+  { id: "book-history", tone: "gold", source: "Library · A Brief History of Time", text: "The universe is strange enough to make curiosity a daily habit." },
+  { id: "book-ikigai", tone: "coral", source: "Library · Ikigai", text: "A meaningful life can begin with one useful thing, done with care." },
+  { id: "book-dopamine", tone: "lavender", source: "Library · Dopamine Detox", text: "When every ping feels urgent, silence becomes a superpower." },
+  { id: "book-brain", tone: "mint", source: "Library · Brain Surgeon", text: "Your brain is a city that keeps rebuilding itself." },
+  { id: "movie-inception", tone: "gold", source: "Movies · Inception", text: "An idea is the world's stickiest sticky note. Plant the good ones." },
+  { id: "movie-matrix", tone: "cyan", source: "Movies · The Matrix", text: "There is no spoon — and half the time, no actual bug either." },
+  { id: "movie-kung-fu-panda", tone: "lavender", source: "Movies · Kung Fu Panda", text: "There is no secret ingredient. It was you all along." },
+  { id: "movie-social-network", tone: "peach", source: "Movies · The Social Network", text: "Ship it from your dorm; history rarely books a conference room." },
+  { id: "game-horizon", tone: "mint", source: "Game shelf · Horizon Zero Dawn", text: "Ancient machines, open wilds, and a mystery worth chasing." },
+  { id: "game-skyrim", tone: "coral", source: "Game shelf · Skyrim", text: "Some open worlds keep calling you back for one more quest." },
+  { id: "game-forza", tone: "cyan", source: "Game shelf · Forza Horizon 5", text: "Open roads, vivid landscapes, full throttle." },
+  { id: "rolemodel-tesla", tone: "gold", source: "Role models · Nikola Tesla", text: "Curiosity can change how the whole world is powered." },
+  { id: "rolemodel-einstein", tone: "lavender", source: "Role models · Albert Einstein", text: "Keep asking questions about the world around you." },
+  { id: "rolemodel-bruce-lee", tone: "peach", source: "Role models · Bruce Lee", text: "Stay adaptable. Keep improving." },
+  { id: "achievement-git", tone: "mint", source: "Achievements · Git and GitHub", text: "Small commits, clear history, better teamwork." },
+  { id: "achievement-itfest", tone: "coral", source: "Achievements · IT Fest", text: "Inter-college IT Fest winner — one for the highlight reel." },
 ];
 
 const pickHeroNotes = (exclude: string[] = []) => {
