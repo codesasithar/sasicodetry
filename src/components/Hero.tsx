@@ -91,7 +91,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
       aria-labelledby="hero-heading"
       className="hero-responsive relative flex min-h-[100svh] items-center overflow-hidden px-4 pb-10 pt-24 font-sans sm:px-8 sm:pb-12 sm:pt-24 lg:px-12 lg:pb-16 lg:pt-28"
     >
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:gap-12 lg:grid-cols-12 lg:gap-16">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-0 xl:gap-x-16">
         <div className="hero-copy relative z-10 lg:col-span-7">
           <p className="mb-0 inline-flex items-center gap-2 text-sm text-muted-foreground">
             <span className="hero-status-dot relative h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
@@ -175,7 +175,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
           </section>
         </div>
 
-        <div className="hero-visual-column mx-auto flex w-full max-w-[32rem] flex-col lg:col-span-5">
+        <div className="hero-visual-column mx-auto flex w-full max-w-[32rem] flex-col gap-5 lg:col-span-5 lg:gap-6">
           <div className="hero-composite relative aspect-[0.96] w-full sm:aspect-square">
             <div
               aria-hidden="true"
@@ -192,7 +192,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
             />
 
           </div>
-          <div className="hero-showreel-card relative mx-auto mt-4 aspect-video w-[78%] max-w-72 overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_1.5rem_3rem_hsl(var(--background)/0.45)]">
+          <div className="hero-showreel-card relative mx-auto aspect-video w-[90%] max-w-md overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_1.5rem_3rem_hsl(var(--background)/0.45)]">
             <video
               ref={showreelRef}
               src="/videos/skills-video.mp4"
