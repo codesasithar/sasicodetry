@@ -137,7 +137,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
               alt="Portrait of Sasithar"
               decoding="async"
               fetchPriority="high"
-              className="hero-art-image absolute inset-0 z-10 m-auto h-[70%] w-[55%] object-contain"
+              className="hero-art-image absolute inset-0 z-10 h-full w-full object-contain object-center"
             />
 
           </div>
