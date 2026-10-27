@@ -142,7 +142,7 @@ const categories: Category[] = [
     movies: [
       { title: "A Beautiful Mind", year: "2001", trailer: "https://www.youtube.com/results?search_query=A+Beautiful+Mind+2001+official+trailer", poster: "https://image.tmdb.org/t/p/w500/rEIg5yJdNOt9fmX4P8gU9LeNoTQ.jpg" },
       { title: "Argo", year: "2012", trailer: "https://www.youtube.com/results?search_query=Argo+2012+official+trailer", poster: "https://image.tmdb.org/t/p/w500/m5gPWFZFIp4UJFABgWyLkbXv8GX.jpg" },
-      { title: "F1 The Movie", year: "2025", trailer: "https://www.youtube.com/results?search_query=F1+The+Movie+2025+official+trailer", poster: "https://image.tmdb.org/t/p/w500/o4kRR0Zt08NlnMSlCHIop3sqUhX.jpg" },
+      { title: "F1 The Movie", year: "2025", trailer: "https://www.youtube.com/results?search_query=F1+The+Movie+2025+official+trailer", poster: "https://mediafiles.cineplex.com/Central/Film/Posters/37964_768_1024.jpg" },
       { title: "Gandhi", year: "1982", trailer: "https://www.youtube.com/results?search_query=Gandhi+1982+official+trailer", poster: "https://image.tmdb.org/t/p/w500/rOXftt7SluxskrFrvU7qFJa5zeN.jpg" },
       { title: "Green Book", year: "2018", trailer: "https://www.youtube.com/results?search_query=Green+Book+2018+official+trailer", poster: "https://image.tmdb.org/t/p/w500/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg" },
       { title: "Hidden Figures", year: "2016", trailer: "https://www.youtube.com/results?search_query=Hidden+Figures+2016+official+trailer", poster: "https://image.tmdb.org/t/p/w500/9lfz2W2uGjyow3am00rsPJ8iOyq.jpg" },
