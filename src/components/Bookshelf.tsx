@@ -537,20 +537,33 @@ const Bookshelf = () => {
             {/* Books container (listens for outside clicks to close a book) */}
             <div ref={booksContainerRef}>
               {/* Mobile Layout */}
-              <div className="block md:hidden">
-                <div className="grid grid-cols-3 gap-y-6 gap-x-4 mb-4 sm:mb-6 px-2">
-                  {books.map((book) => (
-                    <AnimatedBook 
-                      key={book.id} 
-                      book={book} 
-                      sizeClasses="aspect-[2/3] w-full" 
-                    />
-                  ))}
+              <div className="library-wood-rack library-mobile-rack md:hidden">
+                <div className="library-rack-nameplate" aria-hidden="true">
+                  <span>THE READING ROOM</span>
+                  <span>{String(books.length).padStart(2, "0")} VOLUMES</span>
                 </div>
+                {Array.from({ length: Math.ceil(books.length / 3) }, (_, shelfIndex) => (
+                  <div className="library-mobile-shelf" key={shelfIndex}>
+                    <div className="grid grid-cols-3 items-end gap-x-4 px-2">
+                      {books.slice(shelfIndex * 3, shelfIndex * 3 + 3).map((book) => (
+                        <AnimatedBook
+                          key={book.id}
+                          book={book}
+                          sizeClasses="aspect-[2/3] w-full"
+                        />
+                      ))}
+                    </div>
+                    <div className="library-mobile-shelf-plank" aria-hidden="true" />
+                  </div>
+                ))}
               </div>
 
               {/* Desktop: Bookshelf Layout */}
-              <div className="hidden md:block space-y-12 pt-4">
+              <div className="library-wood-rack library-desktop-rack hidden md:block pt-4">
+                <div className="library-rack-nameplate" aria-hidden="true">
+                  <span>THE READING ROOM</span>
+                  <span>{String(books.length).padStart(2, "0")} VOLUMES</span>
+                </div>
                 {/* Shelf 1 */}
                 <div className="relative">
                   {/* Reading lights across the shelves */}
@@ -565,7 +578,7 @@ const Bookshelf = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-400/30 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
+                  <div className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
                     {shelfOneBooks.map((book) => (
                       <AnimatedBook 
                         key={book.id} 
@@ -574,12 +587,12 @@ const Bookshelf = () => {
                       />
                     ))}
                   </div>
-                  <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+                  <div className="library-wood-shelf-lip" aria-hidden="true" />
                 </div>
 
                 {/* Shelf 2 */}
                 <div className="relative">
-                  <div className="grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 border-b-4 border-wood-500/30 bg-gradient-to-b from-wood-200/20 to-wood-600/30 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
+                  <div className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
                     {shelfTwoBooks.map((book) => (
                       <AnimatedBook 
                         key={book.id} 
@@ -588,7 +601,7 @@ const Bookshelf = () => {
                       />
                     ))}
                   </div>
-                  <div className="h-2 bg-gradient-to-r from-wood-600 via-wood-500 to-wood-600 rounded-b-sm" />
+                  <div className="library-wood-shelf-lip" aria-hidden="true" />
                 </div>
               </div>
             </div>

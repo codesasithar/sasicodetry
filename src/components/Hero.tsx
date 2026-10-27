@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Facebook, Github, Instagram, Linkedin, Phone, Play } from "lucide-react";
+import { Facebook, Github, Instagram, Linkedin, Phone, Pin, Play, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import profileHeroCutout from "@/assets/profile-hero-cutout.webp";
 
@@ -13,10 +13,32 @@ const socials = [
 
 const ROLE_TITLE = "Developer.";
 
+const heroNotePool = [
+  { id: "experience", tone: "gold", source: "The journey", text: "2+ years building. 5+ projects shipped." },
+  { id: "ux", tone: "cyan", source: "Writing desk", text: "Great mobile UX starts with understanding people." },
+  { id: "ar", tone: "coral", source: "Project log", text: "AR road safety, Android apps, and VR experiments." },
+  { id: "craft", tone: "mint", source: "Studio rule", text: "Clean code is a kindness to whoever comes next." },
+  { id: "excelpro", tone: "lavender", source: "Build note", text: "Turning spreadsheet data into student-ready tools." },
+  { id: "resilient", tone: "peach", source: "Writing desk", text: "Build for the rough edges, and apps stay resilient." },
+  { id: "library", tone: "gold", source: "Off-screen", text: "10 books on the shelf. Countless rabbit holes." },
+  { id: "delivery", tone: "cyan", source: "Studio rule", text: "Fast delivery, thoughtful details, useful results." },
+  { id: "future", tone: "coral", source: "Writing desk", text: "The future gets interesting when AR feels useful." },
+];
+
+const pickHeroNotes = (exclude: string[] = []) => {
+  const available = heroNotePool.filter((note) => !exclude.includes(note.id));
+  for (let index = available.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [available[index], available[swapIndex]] = [available[swapIndex], available[index]];
+  }
+  return available.slice(0, 3);
+};
+
 const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
   const showreelRef = useRef<HTMLVideoElement>(null);
   const [showreelPlaying, setShowreelPlaying] = useState(false);
   const [showreelUnavailable, setShowreelUnavailable] = useState(false);
+  const [heroNotes, setHeroNotes] = useState(() => pickHeroNotes());
   const [canAnimateTitle, setCanAnimateTitle] = useState(
     () => typeof window !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
@@ -122,6 +144,35 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
               ))}
             </nav>
           </div>
+
+          <section className="hero-notice-board" aria-labelledby="hero-notice-title">
+            <div className="hero-notice-heading">
+              <div>
+                <p className="hero-notice-kicker">FIELD NOTES / PINNED</p>
+                <h2 id="hero-notice-title" className="hero-notice-title">A few things on my mind</h2>
+              </div>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="hero-note-shuffle"
+                onClick={() => setHeroNotes((current) => pickHeroNotes(current.map((note) => note.id)))}
+                aria-label="Shuffle the pinned notes"
+              >
+                <Shuffle className="h-3.5 w-3.5" aria-hidden="true" />
+                Shuffle
+              </Button>
+            </div>
+            <div className="hero-notes-grid" aria-live="polite" aria-relevant="additions text">
+              {heroNotes.map((note) => (
+                <article key={note.id} className="hero-sticky-note" data-tone={note.tone}>
+                  <span className="hero-note-pin" aria-hidden="true"><Pin size={14} strokeWidth={2.4} /></span>
+                  <p>{note.text}</p>
+                  <span className="hero-note-source">{note.source}</span>
+                </article>
+              ))}
+            </div>
+          </section>
         </div>
 
         <div className="hero-visual-column mx-auto flex w-full max-w-[32rem] flex-col lg:col-span-5">
