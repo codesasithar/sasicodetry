@@ -673,11 +673,11 @@ const RoleModels = () => {
                 <CardContent className="p-4 sm:p-6">
                   <div className={isSelected ? "grid gap-6 lg:grid-cols-[minmax(240px,320px)_1fr] lg:items-start" : ""}>
                     <div>
-                      <div className="relative mb-3 sm:mb-4 overflow-hidden rounded-lg">
+                      <div className="relative mb-3 sm:mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-muted/30">
                         <img
                           src={model.image}
                           alt={model.name}
-                          className={`w-full object-cover object-top transition-transform duration-300 group-hover:scale-110 ${isSelected ? 'h-64 lg:h-80' : 'h-56 sm:h-64'}`}
+                          className="h-full w-full object-contain object-center"
                           loading="lazy"
                           decoding="async"
                         />
