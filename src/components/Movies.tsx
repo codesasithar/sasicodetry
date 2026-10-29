@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import realSteelPoster from "@/assets/movies/real-steel.jpg";
+import threeHundredPoster from "@/assets/movies/300.jpg";
 import tetrisPoster from "@/assets/movies/tetris.webp";
 import goodWillHuntingPoster from "@/assets/movies/good-will-hunting.webp";
 
@@ -50,7 +51,7 @@ const categories: Category[] = [
   {
     category: "Action, Thriller & Martial Arts",
     movies: [
-      { title: "300", year: "2006", trailer: "https://www.youtube.com/results?search_query=300+2006+official+trailer", poster: "https://image.tmdb.org/t/p/w500/hVxd5MdkRFYVtK4zkw7zUTay1Xk.jpg" },
+      { title: "300", year: "2006", trailer: "https://www.youtube.com/results?search_query=300+2006+official+trailer", poster: threeHundredPoster },
       { title: "Casino Royale", year: "2006", trailer: "https://www.youtube.com/results?search_query=Casino+Royale+2006+official+trailer", poster: "https://image.tmdb.org/t/p/w500/hJsiNIn1YWQsSW88tNhJwgeDXJn.jpg" },
       { title: "Drunken Master", year: "1978", trailer: "https://www.youtube.com/results?search_query=Drunken+Master+1978+official+trailer", poster: "https://image.tmdb.org/t/p/w500/cf43J2SH8tECZVl9N5n0Q6Ckche.jpg" },
       { title: "Expendables", year: "Collection", trailer: "https://www.youtube.com/results?search_query=Expendables++official+trailer", poster: "https://image.tmdb.org/t/p/w500/j09ZkH6R4JWVylBcDai1laCmGw7.jpg" },
