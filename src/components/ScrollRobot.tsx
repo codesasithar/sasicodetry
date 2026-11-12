@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import robotPortrait from "@/assets/sasibot-android-symmetric.webp";
+import robotPortrait from "@/assets/sasibot-mascot.svg";
 import Sasibot from "@/components/Sasibot";
 import Sasibot3D from "@/components/Sasibot3D";
 

@@ -4407,3 +4407,31 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-sticky-note { animation: none; }
 }
+
+.about-typing-caret {
+  display: inline-block;
+  width: 0.11em;
+  height: 1em;
+  margin-left: 0.08em;
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 0.65em hsl(var(--primary) / 0.65);
+  vertical-align: -0.12em;
+  animation: about-caret-blink 0.9s steps(2, end) infinite;
+}
+
+@keyframes about-caret-blink {
+  50% { opacity: 0; }
+}
+
+@media (max-width: 767px) {
+  .about-bio-copy { min-height: 12em; }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .about-bio-copy { min-height: 7em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-typing-caret { animation: none; }
+}
