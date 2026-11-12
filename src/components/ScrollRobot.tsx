@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-<<<<<<< HEAD
 import robotPortrait from "@/assets/sasibot-mascot.svg";
-=======
-import robotPortrait from "@/assets/sasibot-companion.png";
->>>>>>> f10401091f81d393b58627d09db136f1b66e7a47
 import Sasibot from "@/components/Sasibot";
 
 const SECTION_LABELS: Record<string, string> = {
