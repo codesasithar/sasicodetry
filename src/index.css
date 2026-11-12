@@ -4142,26 +4142,12 @@
 }
 
 .drone-flashlight-cone {
-  opacity: 0.48;
-  filter: drop-shadow(0 0 0.55rem hsl(189 100% 74% / 0.12));
+  opacity: 0.56;
+  filter: blur(8px) drop-shadow(0 0 1rem hsl(165 48% 82% / 0.12));
 }
 
 .drone-flashlight-spot {
-  filter: blur(16px) drop-shadow(0 0 0.8rem hsl(189 100% 76% / 0.18));
-}
-
-.drone-beam-core {
-  opacity: 0.3;
-  stroke-dasharray: 2 18;
-  filter: drop-shadow(0 0 0.2rem hsl(189 100% 65% / 0.4));
-  animation: drone-beam-flow 1.1s linear infinite;
-}
-
-.drone-beam-target {
-  opacity: 0.46;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: drone-target-pulse 1.4s ease-in-out infinite;
+  filter: blur(20px) drop-shadow(0 0 1.1rem hsl(42 56% 82% / 0.15));
 }
 
 .drone-time {
@@ -4181,17 +4167,6 @@
   box-shadow: 0 0 1rem hsl(var(--primary) / 0.12);
   transform: translateX(-50%);
   pointer-events: none;
-}
-
-@keyframes drone-beam-flow {
-  to { stroke-dashoffset: -30; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .drone-beam-core,
-  .drone-beam-target {
-    animation: none;
-  }
 }
 
 /* A small corkboard of rotating portfolio notes in the hero. */
