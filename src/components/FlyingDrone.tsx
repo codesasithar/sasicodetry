@@ -15,10 +15,7 @@ const FlyingDrone = () => {
   const gimbalRef = useRef<SVGGElement>(null);
   const beamConeRef = useRef<SVGPathElement>(null);
   const beamGradientRef = useRef<SVGLinearGradientElement>(null);
-  const beamSoftRef = useRef<SVGLineElement>(null);
-  const beamCoreRef = useRef<SVGLineElement>(null);
   const beamSpotRef = useRef<SVGCircleElement>(null);
-  const beamTargetRef = useRef<SVGCircleElement>(null);
   const timeRef = useRef<HTMLSpanElement>(null);
   const [time, setTime] = useState(() => new Date());
 
@@ -44,11 +41,8 @@ const FlyingDrone = () => {
     const updateBeam = () => {
       const beamCone = beamConeRef.current;
       const beamGradient = beamGradientRef.current;
-      const beamSoft = beamSoftRef.current;
-      const beamCore = beamCoreRef.current;
       const beamSpot = beamSpotRef.current;
-      const beamTarget = beamTargetRef.current;
-      if (!beamCone || !beamGradient || !beamSoft || !beamCore || !beamSpot || !beamTarget) return;
+      if (!beamCone || !beamGradient || !beamSpot) return;
 
       const radians = currentHeading * Math.PI / 180;
       const lensOffset = drone.offsetWidth * (56 / 280);
@@ -82,14 +76,6 @@ const FlyingDrone = () => {
       beamGradient.setAttribute("y2", attributes.y2);
       beamSpot.setAttribute("cx", attributes.x2);
       beamSpot.setAttribute("cy", attributes.y2);
-      for (const line of [beamSoft, beamCore]) {
-        line.setAttribute("x1", attributes.x1);
-        line.setAttribute("y1", attributes.y1);
-        line.setAttribute("x2", attributes.x2);
-        line.setAttribute("y2", attributes.y2);
-      }
-      beamTarget.setAttribute("cx", attributes.x2);
-      beamTarget.setAttribute("cy", attributes.y2);
     };
 
     const updatePose = (now: number) => {
@@ -172,27 +158,20 @@ const FlyingDrone = () => {
       <svg className="drone-pointer-light" aria-hidden="true">
         <defs>
           <linearGradient ref={beamGradientRef} id="drone-pointer-gradient" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stopColor="#7beaff" stopOpacity=".018" />
-            <stop offset=".68" stopColor="#81edff" stopOpacity=".042" />
-            <stop offset="1" stopColor="#e8fdff" stopOpacity=".095" />
+            <stop offset="0" stopColor="#c6eeeb" stopOpacity=".008" />
+            <stop offset=".68" stopColor="#d9f1e5" stopOpacity=".035" />
+            <stop offset="1" stopColor="#fff0d5" stopOpacity=".11" />
           </linearGradient>
           <radialGradient id="drone-flashlight-falloff">
-            <stop offset="0" stopColor="#f4ffff" stopOpacity=".2" />
-            <stop offset=".16" stopColor="#c5f8ff" stopOpacity=".15" />
-            <stop offset=".48" stopColor="#6feaff" stopOpacity=".075" />
-            <stop offset=".78" stopColor="#4ddfff" stopOpacity=".022" />
-            <stop offset="1" stopColor="#4ddfff" stopOpacity="0" />
+            <stop offset="0" stopColor="#fff6e4" stopOpacity=".2" />
+            <stop offset=".16" stopColor="#e9f6e9" stopOpacity=".145" />
+            <stop offset=".48" stopColor="#c4eee6" stopOpacity=".07" />
+            <stop offset=".78" stopColor="#b9e6df" stopOpacity=".02" />
+            <stop offset="1" stopColor="#b9e6df" stopOpacity="0" />
           </radialGradient>
-          <filter id="drone-pointer-glow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
         </defs>
         <path ref={beamConeRef} className="drone-flashlight-cone" fill="url(#drone-pointer-gradient)" />
-        <circle ref={beamSpotRef} className="drone-flashlight-spot" r="112" fill="url(#drone-flashlight-falloff)" />
-        <line ref={beamSoftRef} stroke="url(#drone-pointer-gradient)" strokeWidth="8" strokeLinecap="round" filter="url(#drone-pointer-glow)" />
-        <line ref={beamCoreRef} className="drone-beam-core" stroke="#d8fbff" strokeWidth="1.2" strokeLinecap="round" />
-        <circle ref={beamTargetRef} className="drone-beam-target" r="4" fill="#e7fdff" filter="url(#drone-pointer-glow)" />
+        <circle ref={beamSpotRef} className="drone-flashlight-spot" r="118" fill="url(#drone-flashlight-falloff)" />
       </svg>
 
       <div ref={droneRef} className="flying-drone" aria-hidden="true">
@@ -236,7 +215,7 @@ const FlyingDrone = () => {
             <path d="M116 74 L56 47 M164 74 L224 47 M116 106 L56 139 M164 106 L224 139" stroke="#09121b" strokeWidth="16" />
             <path d="M116 74 L56 47 M164 74 L224 47 M116 106 L56 139 M164 106 L224 139" stroke="url(#drone-carbon)" strokeWidth="11" />
             <path d="M113 72 L58 48 M167 72 L222 48 M113 108 L58 138 M167 108 L222 138" stroke="#a9bdcc" strokeOpacity=".42" strokeWidth="1.5" />
-            <path d="M82 59 L72 55 M198 59 L208 55 M82 125 L72 131 M198 125 L208 131" stroke="#30dcff" strokeOpacity=".86" strokeWidth="2.5" filter="url(#drone-soft-glow)" />
+            <path d="M82 59 L72 55 M198 59 L208 55 M82 125 L72 131 M198 125 L208 131" stroke="#a1e2d9" strokeOpacity=".62" strokeWidth="2.5" filter="url(#drone-soft-glow)" />
           </g>
 
           {rotors.map((rotor, index) => (
@@ -249,7 +228,7 @@ const FlyingDrone = () => {
               <circle r="10.5" fill="url(#drone-carbon)" stroke="#b7c9d6" strokeWidth="1.5" />
               <circle r="6.5" fill="url(#drone-shell)" stroke="#eef9ff" strokeWidth="1" />
               <circle r="2.2" fill="#253746" />
-              <circle cx="0" cy="-13" r="2.2" fill={index < 2 ? "#48eaff" : "#f3a66e"} filter="url(#drone-soft-glow)" />
+              <circle cx="0" cy="-13" r="2.2" fill={index < 2 ? "#a5e9df" : "#f0d4ae"} opacity=".76" filter="url(#drone-soft-glow)" />
             </g>
           ))}
 
@@ -258,12 +237,12 @@ const FlyingDrone = () => {
           <path d="M140 47 C151 48 159 56 161 72 L159 81 L121 81 L119 72 C121 56 129 48 140 47 Z" fill="#dfe9ef" stroke="#9fb3c1" strokeWidth="1" />
           <path d="M128 56 Q140 52 152 56 L155 70 Q140 75 125 70 Z" fill="#253847" stroke="#91a8b7" strokeWidth="1" />
           <path d="M129 59 L140 57 L151 59 L149 67 L131 67 Z" fill="#10212e" />
-          <path d="M133 61 L140 60 L147 61" fill="none" stroke="#67f0ff" strokeWidth="1.5" strokeLinecap="round" filter="url(#drone-soft-glow)" />
+          <path d="M133 61 L140 60 L147 61" fill="none" stroke="#a6e8df" strokeWidth="1.5" strokeLinecap="round" filter="url(#drone-soft-glow)" />
           <path d="M115 91 Q140 98 165 91 L163 106 Q140 119 117 106 Z" fill="url(#drone-shell-dark)" stroke="#647c8e" strokeWidth="1" />
           <path d="M125 101 L155 101 M128 106 L152 106 M132 111 L148 111" stroke="#9bb0bf" strokeOpacity=".45" strokeWidth="1" strokeLinecap="round" />
-          <circle cx="140" cy="87" r="2.5" fill="#52eaff" filter="url(#drone-soft-glow)" />
-          <circle cx="119" cy="77" r="2" fill="#ee786f" filter="url(#drone-soft-glow)" />
-          <circle cx="161" cy="77" r="2" fill="#57eaff" filter="url(#drone-soft-glow)" />
+          <circle cx="140" cy="87" r="2.5" fill="#b5e9df" filter="url(#drone-soft-glow)" />
+          <circle cx="119" cy="77" r="2" fill="#e9bfa7" filter="url(#drone-soft-glow)" />
+          <circle cx="161" cy="77" r="2" fill="#a5e6de" filter="url(#drone-soft-glow)" />
 
           <path d="M119 108 L108 136 Q108 141 114 141 L119 139 L128 116 M161 108 L172 136 Q172 141 166 141 L161 139 L152 116" fill="none" stroke="#142330" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M108 138 L103 141 L115 143 M172 138 L177 141 L165 143" fill="none" stroke="url(#drone-shell)" strokeWidth="3" strokeLinecap="round" />
@@ -272,9 +251,9 @@ const FlyingDrone = () => {
             <path d="M126 130 L128 140 M154 130 L152 140" stroke="#9caebb" strokeWidth="1.4" strokeLinecap="round" />
             <rect x="127" y="136" width="26" height="22" rx="9" fill="url(#drone-shell-dark)" stroke="#b7c8d4" strokeWidth="1.5" />
             <circle cx="140" cy="146" r="8.2" fill="#07131d" stroke="#d7e8f2" strokeWidth="1.5" />
-            <circle cx="140" cy="146" r="5.7" fill="url(#drone-lens)" stroke="#58eaff" strokeWidth="1" />
+            <circle cx="140" cy="146" r="5.7" fill="url(#drone-lens)" stroke="#a9e9e3" strokeWidth="1" />
             <circle cx="138" cy="144" r="1.8" fill="#e9ffff" opacity=".9" />
-            <path d="M133 156 Q140 160 147 156" fill="none" stroke="#31dfff" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M133 156 Q140 160 147 156" fill="none" stroke="#a8e5dc" strokeWidth="1.5" strokeLinecap="round" />
           </g>
         </svg>
       </div>
