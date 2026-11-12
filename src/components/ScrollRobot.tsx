@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import robotPortrait from "@/assets/sasibot-mascot.svg";
 import Sasibot from "@/components/Sasibot";
+import Sasibot3D from "@/components/Sasibot3D";
 
 const SECTION_LABELS: Record<string, string> = {
   home: "INTRO",
@@ -23,6 +24,9 @@ const ScrollRobot = () => {
   const labelRef = useRef("INTRO");
   const [label, setLabel] = useState("INTRO");
   const [chatOpen, setChatOpen] = useState(false);
+  const [robotReady, setRobotReady] = useState(false);
+
+  const markRobotReady = useCallback(() => setRobotReady(true), []);
 
   const closeChat = useCallback(() => {
     setChatOpen(false);
@@ -90,14 +94,19 @@ const ScrollRobot = () => {
           <span className="scroll-robot-live"><span />SASIBOT</span>
           <span className="scroll-robot-section">{label}</span>
         </span>
-        <span className="scroll-robot-visual" aria-hidden="true">
+        <span
+          className="scroll-robot-visual"
+          data-3d-ready={robotReady ? "true" : undefined}
+          aria-hidden="true"
+        >
           <img
             src={robotPortrait}
             alt=""
-            className="scroll-robot-portrait"
+            className="scroll-robot-fallback"
             decoding="async"
             fetchPriority="low"
           />
+          <Sasibot3D buttonRef={robotRef} onReady={markRobotReady} />
         </span>
       </button>
 

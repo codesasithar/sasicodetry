@@ -1,4 +1,5 @@
 import { Smartphone, Code, Rocket, Users, Zap, Shield } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 
 const Services = () => {
   const features = [
@@ -35,10 +36,12 @@ const Services = () => {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            What I Can Build <span className="text-primary">For You</span>
+            <MobileTypingReveal>What I Can Build <span className="text-primary">For You</span></MobileTypingReveal>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-            Specialized in creating high-quality Android applications from concept to deployment
+            <MobileTypingReveal startDelay={180}>
+              Specialized in creating high-quality Android applications from concept to deployment
+            </MobileTypingReveal>
           </p>
         </div>
 

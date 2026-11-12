@@ -12,6 +12,7 @@ import MatrixBackground from "@/components/MatrixBackground";
 import CursorEffects from "@/components/CursorEffects";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollRobot from "@/components/ScrollRobot";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 
 const builds = [
   {
@@ -78,10 +79,12 @@ const Builds = () => (
               <span>Selected builds / 2020—2026</span>
             </div>
             <h1 className="mb-6 text-5xl font-bold leading-[0.98] sm:text-7xl">
-              Things I&apos;ve <span className="text-primary">built.</span>
+              <MobileTypingReveal>Things I&apos;ve <span className="text-primary">built.</span></MobileTypingReveal>
             </h1>
             <p className="glass-bg max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              A working archive of mobile products, immersive experiments, games, and systems shaped by curiosity and careful craft.
+              <MobileTypingReveal startDelay={180}>
+                A working archive of mobile products, immersive experiments, games, and systems shaped by curiosity and careful craft.
+              </MobileTypingReveal>
             </p>
           </header>
 

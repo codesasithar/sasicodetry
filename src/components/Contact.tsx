@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageSquare, Instagram, Facebook } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { useToast } from "@/hooks/use-toast";
 import emailjs from "@emailjs/browser";
 
@@ -113,10 +114,12 @@ const Contact = () => {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            Let's Work <span className="text-primary">Together</span>
+            <MobileTypingReveal>Let's Work <span className="text-primary">Together</span></MobileTypingReveal>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-            Ready to bring your ideas to life? Get in touch and let's create something amazing together.
+            <MobileTypingReveal startDelay={180}>
+              Ready to bring your ideas to life? Get in touch and let's create something amazing together.
+            </MobileTypingReveal>
           </p>
         </div>
 

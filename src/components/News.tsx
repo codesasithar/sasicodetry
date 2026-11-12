@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Calendar, TrendingUp } from "lucide-react";
 import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { useToast } from "@/components/ui/use-toast";
 
 interface NewsArticle {
@@ -93,10 +94,12 @@ const News = () => {
             <span className="text-sm font-medium text-primary">Latest Updates</span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent bg-size-200 animate-gradient">
-            Tech News
+            <MobileTypingReveal>Tech News</MobileTypingReveal>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto glass-bg inline-block">
-            Curated news based on my interests: {interests.slice(0, 3).join(", ")} and more
+            <MobileTypingReveal startDelay={180}>
+              Curated news based on my interests: {interests.slice(0, 3).join(", ")} and more
+            </MobileTypingReveal>
           </p>
           <div className="pt-2">
             <Button

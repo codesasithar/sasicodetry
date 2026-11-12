@@ -1,4 +1,5 @@
 import { ExternalLink, Github, Smartphone, Database, Eye, Gamepad2, Headset, ArrowRight } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 
 const Projects = () => {
 const projects = [
@@ -45,10 +46,12 @@ return (
 {/* Section Header */}
 <div className="text-center mb-12 sm:mb-16">
 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-Featured <span className="text-primary">Projects</span>
+<MobileTypingReveal>Featured <span className="text-primary">Projects</span></MobileTypingReveal>
 </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-            Showcasing innovative solutions across mobile, web, AR/VR, and backend development
+            <MobileTypingReveal startDelay={180}>
+              Showcasing innovative solutions across mobile, web, AR/VR, and backend development
+            </MobileTypingReveal>
           </p>
 </div>
  

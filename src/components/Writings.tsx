@@ -1,4 +1,5 @@
 import { PenTool, BookOpen, FileText, Calendar, ArrowRight, Eye } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 
 const Writings = () => {
   const writings = [
@@ -51,10 +52,12 @@ const Writings = () => {
             Latest Thoughts
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            My <span className="text-primary">Writings</span>
+            <MobileTypingReveal>My <span className="text-primary">Writings</span></MobileTypingReveal>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-            Sharing insights on technology, psychology, and the intersection of human behavior with digital innovation
+            <MobileTypingReveal startDelay={180}>
+              Sharing insights on technology, psychology, and the intersection of human behavior with digital innovation
+            </MobileTypingReveal>
           </p>
         </div>
 

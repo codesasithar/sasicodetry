@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Github, Instagram, Linkedin, Phone, Pin, Play, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 import profileHeroCutout from "@/assets/profile-hero-cutout.webp";
 
 const socials = [
@@ -133,7 +134,9 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
           </h1>
 
           <p className="mb-0 mt-5 max-w-md text-base leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
-            2+ years of hands-on experience. 5+ projects built and deployed.
+            <MobileTypingReveal startDelay={700}>
+              2+ years of hands-on experience. 5+ projects built and deployed.
+            </MobileTypingReveal>
           </p>
 
           <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-8">

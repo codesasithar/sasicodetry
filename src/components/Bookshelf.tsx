@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { BookOpen, ChevronDown, ChevronUp, Pin, Plus, X } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
@@ -447,10 +448,12 @@ const Bookshelf = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center mb-4">
             <BookOpen className="w-6 h-6 sm:w-8 sm:h-8 text-primary mr-2 sm:mr-3" />
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">My Library</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground"><MobileTypingReveal>My Library</MobileTypingReveal></h2>
           </div>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto glass-bg inline-block">
-            A curated collection of books that have shaped my thinking and inspired my journey
+            <MobileTypingReveal startDelay={180}>
+              A curated collection of books that have shaped my thinking and inspired my journey
+            </MobileTypingReveal>
           </p>
         </div>
         

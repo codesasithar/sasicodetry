@@ -1,4 +1,5 @@
 import { Gamepad2, Star, Calendar, Play } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
@@ -233,10 +234,12 @@ const Games = () => {
               🎮 Gaming
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Games I <span className="text-primary">Recommend</span>
+              <MobileTypingReveal>Games I <span className="text-primary">Recommend</span></MobileTypingReveal>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-              Epic adventures and stunning worlds that keep me inspired beyond the code editor.
+              <MobileTypingReveal startDelay={180}>
+                Epic adventures and stunning worlds that keep me inspired beyond the code editor.
+              </MobileTypingReveal>
             </p>
           </div>
 

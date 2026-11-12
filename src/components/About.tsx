@@ -1,109 +1,13 @@
-import { useEffect, useRef, useState } from "react";
 import { GraduationCap, Briefcase, Code, Brain, Smartphone, Database } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 
-const BIO_COPY = "I’m Sasithar M—an Analyst at Deloitte who enjoys turning ideas into useful digital products. I’ve built Android and OCR apps, integrated APIs, and explored AR/VR. Psychology and motivational ideas keep me curious about how people think and grow.";
-const NAME_START = BIO_COPY.indexOf("Sasithar M");
-const NAME_END = NAME_START + "Sasithar M".length;
-
-const mobileTypingIsEnabled = () =>
-  typeof window !== "undefined" &&
-  window.matchMedia("(max-width: 767px)").matches &&
-  !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-const PersonalBio = () => {
-  const bioRef = useRef<HTMLParagraphElement>(null);
-  const [shouldAnimate, setShouldAnimate] = useState(mobileTypingIsEnabled);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [visibleCharacters, setVisibleCharacters] = useState(() =>
-    mobileTypingIsEnabled() ? 0 : BIO_COPY.length,
-  );
-  const [isTyping, setIsTyping] = useState(false);
-
-  useEffect(() => {
-    const mobileQuery = window.matchMedia("(max-width: 767px)");
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updateMotionMode = () => {
-      const enabled = mobileQuery.matches && !reducedMotionQuery.matches;
-      setShouldAnimate(enabled);
-      setVisibleCharacters(enabled ? 0 : BIO_COPY.length);
-      setHasStarted(false);
-      setIsTyping(false);
-    };
-
-    mobileQuery.addEventListener("change", updateMotionMode);
-    reducedMotionQuery.addEventListener("change", updateMotionMode);
-    return () => {
-      mobileQuery.removeEventListener("change", updateMotionMode);
-      reducedMotionQuery.removeEventListener("change", updateMotionMode);
-    };
-  }, []);
-
-  useEffect(() => {
-    const target = bioRef.current;
-    if (!shouldAnimate || hasStarted || !target) return;
-
-    if (!("IntersectionObserver" in window)) {
-      setHasStarted(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setHasStarted(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.35, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, [hasStarted, shouldAnimate]);
-
-  useEffect(() => {
-    if (!shouldAnimate || !hasStarted) return;
-
-    let characterIndex = 0;
-    let timeoutId = 0;
-    setIsTyping(true);
-
-    const typeNextCharacter = () => {
-      characterIndex += 1;
-      setVisibleCharacters(characterIndex);
-
-      if (characterIndex >= BIO_COPY.length) {
-        setIsTyping(false);
-        return;
-      }
-
-      const lastCharacter = BIO_COPY[characterIndex - 1];
-      const pause = lastCharacter === "." ? 125 : lastCharacter === "," || lastCharacter === "—" ? 55 : 13;
-      timeoutId = window.setTimeout(typeNextCharacter, pause);
-    };
-
-    timeoutId = window.setTimeout(typeNextCharacter, 100);
-    return () => window.clearTimeout(timeoutId);
-  }, [hasStarted, shouldAnimate]);
-
-  const visibleBio = BIO_COPY.slice(0, visibleCharacters);
-
-  return (
-    <p ref={bioRef} className="text-muted-foreground leading-relaxed about-bio-copy">
-      <span aria-hidden="true">
-        {visibleBio.slice(0, NAME_START)}
-        {visibleBio.length > NAME_START && (
-          <span className="text-primary font-semibold">
-            {visibleBio.slice(NAME_START, Math.min(visibleBio.length, NAME_END))}
-          </span>
-        )}
-        {visibleBio.length > NAME_END && visibleBio.slice(NAME_END)}
-        {isTyping && <span className="about-typing-caret" />}
-      </span>
-      <span className="sr-only">{BIO_COPY}</span>
-    </p>
-  );
-};
+const PersonalBio = () => (
+  <p className="text-muted-foreground leading-relaxed">
+    <MobileTypingReveal>
+      I’m <span className="text-primary font-semibold">Sasithar M</span>—an Analyst at Deloitte who enjoys turning ideas into useful digital products. I’ve built Android and OCR apps, integrated APIs, and explored AR/VR. Psychology and motivational ideas keep me curious about how people think and grow.
+    </MobileTypingReveal>
+  </p>
+);
 
 const About = () => {
   const skills = [
@@ -130,10 +34,14 @@ const About = () => {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            About <span className="text-primary">Me</span>
+            <MobileTypingReveal>
+              About <span className="text-primary">Me</span>
+            </MobileTypingReveal>
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-            Passionate coder turning ideas into digital reality
+            <MobileTypingReveal startDelay={160}>
+              Passionate coder turning ideas into digital reality
+            </MobileTypingReveal>
           </p>
         </div>
 

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Play, Calendar, ChevronDown, ChevronUp, ExternalLink, Clapperboard, Film, Pin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -386,11 +387,13 @@ const Movies = () => {
               🎬 Entertainment
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              Movies I <span className="text-primary">Love</span>
+              <MobileTypingReveal>Movies I <span className="text-primary">Love</span></MobileTypingReveal>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-              {total} films across {categories.length} genres — the stories that inspire my creativity
-              and fuel my passion for technology and innovation.
+              <MobileTypingReveal startDelay={180}>
+                {total} films across {categories.length} genres — the stories that inspire my creativity
+                and fuel my passion for technology and innovation.
+              </MobileTypingReveal>
             </p>
           </div>
 

@@ -1,4 +1,5 @@
 import { Award, Trophy, Star, GraduationCap, Users, Target } from "lucide-react";
+import MobileTypingReveal from "@/components/MobileTypingReveal";
 
 const Achievements = () => {
   const certifications = [
@@ -54,10 +55,12 @@ const Achievements = () => {
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
-            Certifications & <span className="text-primary">Achievements</span>
+            <MobileTypingReveal>Certifications & <span className="text-primary">Achievements</span></MobileTypingReveal>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
-            Recognition of excellence in programming, development, and professional growth
+            <MobileTypingReveal startDelay={180}>
+              Recognition of excellence in programming, development, and professional growth
+            </MobileTypingReveal>
           </p>
         </div>
 
