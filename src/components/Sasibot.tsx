@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Send, X } from "lucide-react";
-import botAvatar from "@/assets/sasibot-android.webp";
+import botAvatar from "@/assets/sasibot-avatar.png";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 type SasibotProps = { open: boolean; onClose: () => void };
@@ -164,7 +164,7 @@ const Sasibot = ({ open, onClose }: SasibotProps) => {
           src={botAvatar}
           alt=""
           decoding="async"
-          className="h-11 w-11 rounded-full border border-primary/40 bg-card object-cover object-center shadow-[0_0_1rem_hsl(var(--primary)/0.16)]"
+          className="h-11 w-11 rounded-full border border-primary/40 bg-card object-cover object-[center_8%] shadow-[0_0_1rem_hsl(var(--primary)/0.16)]"
         />
         <div className="min-w-0 flex-1">
           <p className="font-semibold leading-tight">Sasibot</p>

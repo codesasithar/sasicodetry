@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+<<<<<<< HEAD
 import robotPortrait from "@/assets/sasibot-mascot.svg";
+=======
+import robotPortrait from "@/assets/sasibot-companion.png";
+>>>>>>> f10401091f81d393b58627d09db136f1b66e7a47
 import Sasibot from "@/components/Sasibot";
-import Sasibot3D from "@/components/Sasibot3D";
 
 const SECTION_LABELS: Record<string, string> = {
   home: "INTRO",
@@ -24,14 +27,11 @@ const ScrollRobot = () => {
   const labelRef = useRef("INTRO");
   const [label, setLabel] = useState("INTRO");
   const [chatOpen, setChatOpen] = useState(false);
-  const [robot3DReady, setRobot3DReady] = useState(false);
 
   const closeChat = useCallback(() => {
     setChatOpen(false);
     window.requestAnimationFrame(() => robotRef.current?.focus());
   }, []);
-  const handleRobot3DReady = useCallback(() => setRobot3DReady(true), []);
-
   useEffect(() => {
     const main = document.querySelector<HTMLElement>(".site-main") ?? document.querySelector<HTMLElement>("main");
     if (!main) return;
@@ -94,15 +94,14 @@ const ScrollRobot = () => {
           <span className="scroll-robot-live"><span />SASIBOT</span>
           <span className="scroll-robot-section">{label}</span>
         </span>
-        <span className="scroll-robot-visual" data-3d-ready={robot3DReady} aria-hidden="true">
+        <span className="scroll-robot-visual" aria-hidden="true">
           <img
             src={robotPortrait}
             alt=""
-            className="scroll-robot-portrait scroll-robot-fallback"
+            className="scroll-robot-portrait"
             decoding="async"
             fetchPriority="low"
           />
-          <Sasibot3D buttonRef={robotRef} onReady={handleRobot3DReady} />
         </span>
       </button>
 
