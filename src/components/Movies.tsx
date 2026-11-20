@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
-import { Play, Calendar, ChevronDown, ChevronUp, ExternalLink, Clapperboard, Film, Pin } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Play, Calendar, ChevronDown, ChevronUp, ExternalLink, Clapperboard, Film, Pin, Heart, Search, X } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +15,8 @@ import realSteelPoster from "@/assets/movies/real-steel.jpg";
 import threeHundredPoster from "@/assets/movies/300.jpg";
 import tetrisPoster from "@/assets/movies/tetris.webp";
 import goodWillHuntingPoster from "@/assets/movies/good-will-hunting.webp";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 type Movie = {
   title: string;
@@ -195,6 +197,12 @@ const categories: Category[] = [
   },
 ];
 
+const allMovies = categories.flatMap(({ category, movies }) =>
+  movies.map((movie) => ({ ...movie, category }))
+);
+const FAVORITES_STORAGE_KEY = "movies-i-love-favorites";
+const MOVIES_PAGE_SIZE = 12;
+
 const movieNotes = [
   {
     movie: "Inception",
@@ -278,52 +286,87 @@ const movieNotes = [
   },
 ];
 
-const MovieCard = ({ movie, category, index }: { movie: Movie; category: string; index: number }) => (
+const MoviePoster = ({ movie, className }: { movie: Movie; className?: string }) => {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  if (!movie.poster || imageFailed) {
+    return (
+      <div className={cn("flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/20 via-card to-accent/15 p-3 text-center", className)}>
+        <Film className="h-6 w-6 text-primary/70" aria-hidden="true" />
+        <span className="line-clamp-4 text-xs font-semibold leading-tight text-foreground">{movie.title}</span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={movie.poster}
+      alt={`${movie.title} poster`}
+      className={cn("h-full w-full object-cover", className)}
+      loading="lazy"
+      decoding="async"
+      onError={() => setImageFailed(true)}
+    />
+  );
+};
+
+const MovieCard = ({
+  movie,
+  category,
+  index,
+  isFavorite,
+  onToggleFavorite,
+}: {
+  movie: Movie;
+  category: string;
+  index: number;
+  isFavorite: boolean;
+  onToggleFavorite: () => void;
+}) => (
   <Dialog>
-    <DialogTrigger asChild>
-      <Card
-        className="group overflow-hidden bg-card/50 border border-border/50 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 animate-fade-in cursor-glow cursor-pointer"
-        style={{ animationDelay: `${Math.min(index, 8) * 0.05}s` }}
-      >
-        <CardContent className="p-0">
-          <div className="relative overflow-hidden aspect-[2/3]">
-            {movie.poster ? (
-              <img
-                src={movie.poster}
-                alt={`${movie.title} poster`}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/25 via-card to-accent/20 p-3 text-center">
-                <Film className="h-6 w-6 text-primary/70" />
-                <span className="text-xs sm:text-sm font-semibold text-foreground leading-tight line-clamp-4">
-                  {movie.title}
-                </span>
-              </div>
-            )}
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-              <div className="bg-primary/90 rounded-full p-2">
-                <Play className="h-5 w-5 text-primary-foreground fill-current" />
-              </div>
-            </div>
+    <Card
+      className="group relative overflow-hidden rounded-xl border-border/60 bg-card/65 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 animate-fade-in"
+      style={{ animationDelay: `${Math.min(index, 8) * 0.035}s` }}
+    >
+      <DialogTrigger asChild>
+        <button type="button" className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset">
+          <div className="relative aspect-[2/3] overflow-hidden bg-muted">
+            <MoviePoster movie={movie} className="transition-transform duration-300 group-hover:scale-[1.03]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-75 transition-opacity group-hover:opacity-100" />
+            <span className="absolute bottom-2 left-2 right-2 line-clamp-2 text-xs font-medium text-white/90 sm:text-sm">
+              {category}
+            </span>
+            <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+              <span className="rounded-full bg-primary/95 p-2.5 text-primary-foreground shadow-lg">
+                <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+              </span>
+            </span>
           </div>
-
-          <div className="p-2.5 sm:p-3">
-            <h3 className="font-bold text-xs sm:text-sm mb-1 group-hover:text-primary transition-colors line-clamp-2">
+          <div className="min-h-[4.5rem] p-3 pr-11 sm:min-h-[5rem] sm:p-3.5 sm:pr-11">
+            <h3 className="mb-1 line-clamp-2 text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-primary sm:text-[0.95rem]">
               {movie.title}
             </h3>
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Calendar className="h-3 w-3" />
+              <Calendar className="h-3 w-3" aria-hidden="true" />
               <span>{movie.year}</span>
             </div>
           </div>
-        </CardContent>
-      </Card>
-    </DialogTrigger>
+        </button>
+      </DialogTrigger>
+
+      <button
+        type="button"
+        className={cn(
+          "absolute right-2 top-2 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/45 text-white shadow-sm backdrop-blur transition hover:scale-105 hover:bg-black/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+          isFavorite && "border-primary/50 bg-primary text-primary-foreground hover:bg-primary/90"
+        )}
+        aria-label={isFavorite ? `Remove ${movie.title} from saved movies` : `Save ${movie.title}`}
+        aria-pressed={isFavorite}
+        onClick={onToggleFavorite}
+      >
+        <Heart className={cn("h-4 w-4", isFavorite && "fill-current")} aria-hidden="true" />
+      </button>
+    </Card>
 
     <DialogContent className="sm:max-w-lg bg-card/95 backdrop-blur-xl border-border/60">
       <DialogHeader className="sr-only">
@@ -332,19 +375,8 @@ const MovieCard = ({ movie, category, index }: { movie: Movie; category: string;
       </DialogHeader>
 
       <div className="grid gap-5 sm:grid-cols-5 items-start">
-        <div className="sm:col-span-2 aspect-[2/3] rounded-lg overflow-hidden border border-border/50">
-          {movie.poster ? (
-            <img
-              src={movie.poster}
-              alt={`${movie.title} poster`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/25 via-card to-accent/20 p-3 text-center">
-              <span className="text-sm font-semibold text-foreground">{movie.title}</span>
-            </div>
-          )}
+        <div className="sm:col-span-2 aspect-[2/3] overflow-hidden rounded-lg border border-border/50 bg-muted">
+          <MoviePoster movie={movie} />
         </div>
 
         <div className="sm:col-span-3 flex flex-col gap-3">
@@ -371,28 +403,73 @@ const MovieCard = ({ movie, category, index }: { movie: Movie; category: string;
 const Movies = () => {
   const [active, setActive] = useState<string>("All");
   const [notesExpanded, setNotesExpanded] = useState(false);
+  const [search, setSearch] = useState("");
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [sort, setSort] = useState("featured");
+  const [shownCount, setShownCount] = useState(MOVIES_PAGE_SIZE);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>(() => {
+    try {
+      const saved = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+      const parsed: unknown = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed.filter((value): value is string => typeof value === "string") : [];
+    } catch {
+      return [];
+    }
+  });
 
-  const total = useMemo(
-    () => categories.reduce((sum, c) => sum + c.movies.length, 0),
-    []
-  );
-  const visible = active === "All" ? categories : categories.filter((c) => c.category === active);
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds));
+    } catch {
+      // Keep the collection usable when browser storage is unavailable.
+    }
+  }, [favoriteIds]);
+
+  const filteredMovies = useMemo(() => {
+    const normalizedSearch = search.trim().toLocaleLowerCase();
+    const filtered = allMovies.filter((movie) => {
+      const matchesCategory = active === "All" || movie.category === active;
+      const matchesFavorite = !favoritesOnly || favoriteIds.includes(movie.title);
+      const matchesSearch = !normalizedSearch ||
+        `${movie.title} ${movie.year} ${movie.category}`.toLocaleLowerCase().includes(normalizedSearch);
+      return matchesCategory && matchesFavorite && matchesSearch;
+    });
+
+    if (sort === "title") filtered.sort((a, b) => a.title.localeCompare(b.title));
+    if (sort === "year-newest") filtered.sort((a, b) => (Number.parseInt(b.year, 10) || 0) - (Number.parseInt(a.year, 10) || 0));
+    if (sort === "year-oldest") filtered.sort((a, b) => (Number.parseInt(a.year, 10) || 0) - (Number.parseInt(b.year, 10) || 0));
+    return filtered;
+  }, [active, favoritesOnly, favoriteIds, search, sort]);
+
+  const visibleMovies = filteredMovies.slice(0, shownCount);
+  const total = allMovies.length;
+
+  const updateFilter = (update: () => void) => {
+    update();
+    setShownCount(MOVIES_PAGE_SIZE);
+  };
+
+  const toggleFavorite = (title: string) => {
+    setFavoriteIds((current) => current.includes(title)
+      ? current.filter((savedTitle) => savedTitle !== title)
+      : [...current, title]);
+  };
 
   return (
     <section id="movies" className="section-padding bg-background px-4 sm:px-6 lg:px-8">
       <div className="section-container">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-10 animate-fade-in">
-            <div className="inline-block bg-accent/20 text-accent px-3 py-2 sm:px-4 rounded-full text-xs sm:text-sm font-medium mb-4">
-              🎬 Entertainment
+          <div className="mb-8 text-center animate-fade-in sm:mb-10">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/55 px-3 py-1.5 text-xs font-medium text-muted-foreground">
+              <Film className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              A personal watchlist
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+            <h2 className="mb-3 text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl">
               <MobileTypingReveal>Movies I <span className="text-primary">Love</span></MobileTypingReveal>
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto glass-bg inline-block">
+            <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
               <MobileTypingReveal startDelay={180}>
-                {total} films across {categories.length} genres — the stories that inspire my creativity
-                and fuel my passion for technology and innovation.
+                {total} films across {categories.length} genres. Search, save favorites, and find something to watch.
               </MobileTypingReveal>
             </p>
           </div>
@@ -435,47 +512,135 @@ const Movies = () => {
             </div>
           </section>
 
-          {/* Genre filters */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {["All", ...categories.map((c) => c.category)].map((name) => (
-              <button
-                key={name}
-                onClick={() => setActive(name)}
-                className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium border transition-colors ${
-                  active === name
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-card/50 text-muted-foreground border-border/50 hover:text-foreground hover:border-primary/40"
-                }`}
-              >
-                {name}
-              </button>
-            ))}
+          <div className="mb-7 rounded-2xl border border-border/60 bg-card/45 p-3 shadow-sm backdrop-blur-sm sm:p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="relative min-w-0 flex-1">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                <Input
+                  type="search"
+                  value={search}
+                  onChange={(event) => updateFilter(() => setSearch(event.target.value))}
+                  placeholder="Search titles, years, or genres"
+                  aria-label="Search movies"
+                  className="h-11 rounded-xl border-border/60 bg-background/70 pl-9 pr-10 text-sm"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => updateFilter(() => setSearch(""))}
+                    className="absolute right-2 top-1/2 grid h-7 w-7 -translate-y-1/2 place-items-center rounded-md text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    aria-label="Clear search"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => updateFilter(() => setFavoritesOnly((value) => !value))}
+                  aria-pressed={favoritesOnly}
+                  className={cn(
+                    "inline-flex h-11 shrink-0 items-center gap-2 rounded-xl border px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+                    favoritesOnly
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border/60 bg-background/70 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  )}
+                >
+                  <Heart className={cn("h-4 w-4", favoritesOnly && "fill-current")} aria-hidden="true" />
+                  Saved <span className="text-xs opacity-75">{favoriteIds.length}</span>
+                </button>
+                <label className="relative flex h-11 min-w-[9.5rem] items-center rounded-xl border border-border/60 bg-background/70 pl-3 pr-2 text-muted-foreground focus-within:ring-2 focus-within:ring-primary">
+                  <span className="sr-only">Sort movies</span>
+                  <select
+                    value={sort}
+                    onChange={(event) => updateFilter(() => setSort(event.target.value))}
+                    className="h-full w-full appearance-none bg-transparent pr-5 text-sm text-foreground outline-none"
+                  >
+                    <option value="featured">Featured</option>
+                    <option value="title">Title A–Z</option>
+                    <option value="year-newest">Newest first</option>
+                    <option value="year-oldest">Oldest first</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-2 h-4 w-4" aria-hidden="true" />
+                </label>
+              </div>
+            </div>
+
+            <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:thin]" aria-label="Filter by genre">
+              {[{ category: "All", count: total }, ...categories.map((category) => ({ category: category.category, count: category.movies.length }))].map(({ category, count }) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => updateFilter(() => setActive(category))}
+                  aria-pressed={active === category}
+                  className={cn(
+                    "inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full border px-3 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:text-sm",
+                    active === category
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border/60 bg-background/65 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  )}
+                >
+                  {category}<span className="opacity-65">{count}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Grouped grids */}
-          <div className="space-y-12">
-            {visible.map((group) => (
-              <div key={group.category}>
-                <div className="flex items-center gap-3 mb-5">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground">
-                    {group.category}
-                  </h3>
-                  <span className="text-xs text-muted-foreground">{group.movies.length}</span>
-                  <div className="flex-1 h-px bg-border/60" />
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
-                  {group.movies.map((movie, index) => (
-                    <MovieCard
-                      key={`${group.category}-${movie.title}`}
-                      movie={movie}
-                      category={group.category}
-                      index={index}
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="mb-4 flex items-center justify-between gap-3 text-sm text-muted-foreground" aria-live="polite">
+            <p>{filteredMovies.length === 0 ? "No movies found" : `Showing ${visibleMovies.length} of ${filteredMovies.length} movies`}</p>
+            {(search || favoritesOnly || active !== "All") && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch("");
+                  setFavoritesOnly(false);
+                  setActive("All");
+                  setShownCount(MOVIES_PAGE_SIZE);
+                }}
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+              >
+                <X className="h-3.5 w-3.5" aria-hidden="true" /> Clear filters
+              </button>
+            )}
           </div>
+
+          {filteredMovies.length > 0 ? (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+              {visibleMovies.map((movie, index) => (
+                <MovieCard
+                  key={`${movie.category}-${movie.title}`}
+                  movie={movie}
+                  category={movie.category}
+                  index={index}
+                  isFavorite={favoriteIds.includes(movie.title)}
+                  onToggleFavorite={() => toggleFavorite(movie.title)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-border/70 bg-card/30 px-5 py-12 text-center">
+              <Film className="mx-auto mb-3 h-8 w-8 text-muted-foreground/70" aria-hidden="true" />
+              <p className="font-medium text-foreground">{favoritesOnly ? "No saved movies yet" : "No matches in this collection"}</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                {favoritesOnly ? "Tap the heart on a poster to keep it close." : "Try another title, year, or genre."}
+              </p>
+            </div>
+          )}
+
+          {filteredMovies.length > MOVIES_PAGE_SIZE && (
+            <div className="mt-7 flex justify-center">
+              {shownCount < filteredMovies.length ? (
+                <Button type="button" variant="outline" className="h-11 rounded-xl px-5" onClick={() => setShownCount((count) => count + MOVIES_PAGE_SIZE)}>
+                  Show more movies <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                </Button>
+              ) : (
+                <Button type="button" variant="ghost" className="h-11 rounded-xl px-5 text-muted-foreground" onClick={() => setShownCount(MOVIES_PAGE_SIZE)}>
+                  Show fewer <ChevronUp className="h-4 w-4" aria-hidden="true" />
+                </Button>
+              )}
+            </div>
+          )}
 
           <div className="text-center mt-12 animate-fade-in">
             <div className="inline-block bg-card/50 border border-border/50 rounded-lg p-4">
