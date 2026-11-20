@@ -14,6 +14,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import ScrollRobot from "@/components/ScrollRobot";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
 import GameProjectVideo from "@/components/GameProjectVideo";
+import ExcelProGallery from "@/components/ExcelProGallery";
 
 const builds = [
   {
@@ -118,6 +119,7 @@ const Builds = () => (
                   </div>
                   <h2 className="mb-4 text-2xl font-semibold leading-tight sm:text-3xl">{build.title}</h2>
                   <p className="mb-8 max-w-xl flex-1 leading-relaxed text-muted-foreground">{build.description}</p>
+                  {build.title === "ExcelPro Android Application" && <ExcelProGallery />}
                   {build.title === "BOYS — Game Project" && <GameProjectVideo />}
                   {build.technologies.length > 0 && (
                     <div className="flex flex-wrap gap-2 border-t border-border pt-5">
