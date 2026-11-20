@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import {
   BookOpen,
   Briefcase,
+  Code2,
+  Cpu,
   Film,
   Flame,
   FolderKanban,
@@ -15,7 +17,6 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import profilePicture from "@/assets/profile-hero-cartoon.webp";
 
 const navItems = [
   { id: "about", label: "About", icon: User },
@@ -161,37 +162,44 @@ const Navigation = () => {
     <>
       <nav
         aria-label="Main navigation"
-        className="fixed inset-x-0 top-0 z-[99999] h-16 border-b border-border/60 bg-background/80 backdrop-blur-2xl sm:h-20"
+        className="site-navigation fixed inset-x-0 top-0 z-[99999] h-16 border-b border-border/50 bg-background/75 backdrop-blur-2xl sm:h-[4.5rem]"
       >
         <div className="mx-auto flex h-full w-full items-center justify-between gap-3 px-4 sm:px-6 xl:px-10">
           <button
             type="button"
             onClick={() => scrollToSection("home")}
             aria-label="SasiCodes home"
-            className="group flex min-w-0 shrink-0 items-center gap-2 rounded-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="nav-brand group flex min-w-0 shrink-0 items-center gap-2.5 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
-            <span className="relative h-5 w-5 shrink-0 overflow-hidden rounded-full border border-primary/35 bg-card shadow-[0_0_0.55rem_hsl(var(--primary)/0.12)] transition group-hover:border-primary sm:h-6 sm:w-6">
-              <img src={profilePicture} alt="" className="h-full w-full object-cover object-center" decoding="async" />
+            <span className="nav-brand-mark relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-xl border border-primary/25 text-primary transition sm:h-10 sm:w-10">
+              <Code2 className="relative z-[1] h-[1.15rem] w-[1.15rem] transition-transform duration-300 group-hover:scale-110" strokeWidth={2.1} aria-hidden="true" />
+              <span className="nav-brand-led" aria-hidden="true" />
             </span>
             <span className="leading-tight">
-              <span className="block text-sm font-bold tracking-tight text-foreground sm:text-base">SasiCodes</span>
-              <span className="hidden text-[0.58rem] font-medium uppercase tracking-[0.18em] text-muted-foreground sm:block">Developer · Builder</span>
+              <span className="block text-sm font-bold tracking-tight text-foreground sm:text-[0.95rem]">Sasi<span className="text-primary">Codes</span></span>
+              <span className="hidden text-[0.55rem] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:block">Developer <span className="text-primary/70">/</span> Builder</span>
             </span>
           </button>
 
           <div className="hidden min-w-0 flex-1 justify-center lg:flex">
-            <div className="nav-links-scroll flex max-w-full flex-nowrap items-center gap-0.5 overflow-x-auto rounded-full border border-border/70 bg-card/55 p-1 shadow-sm backdrop-blur-xl">
+            <div className="nav-links-shell relative flex max-w-full flex-nowrap items-center gap-0.5 overflow-x-auto rounded-full border border-border/60 bg-card/45 p-1 shadow-sm backdrop-blur-xl">
+              <span className="nav-shell-prompt hidden shrink-0 px-2 font-mono text-[0.65rem] font-semibold text-primary/75 2xl:inline" aria-hidden="true">~/</span>
               {navItems.map((item) => {
                 const active = isActive(item.id);
+                const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => scrollToSection(item.id)}
                     aria-current={active ? "location" : undefined}
-                    className={`shrink-0 whitespace-nowrap rounded-full px-2 py-2 text-[0.68rem] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary xl:px-2.5 xl:text-xs ${active ? "bg-primary text-primary-foreground shadow-[0_0.3rem_1rem_hsl(var(--primary)/0.2)]" : "text-muted-foreground hover:bg-background/80 hover:text-foreground"}`}
+                    aria-label={item.label}
+                    title={item.label}
+                    className="nav-link-chip group relative inline-flex h-9 w-9 shrink-0 items-center justify-center gap-1.5 rounded-full border border-transparent px-2 text-xs font-medium text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary xl:w-auto xl:px-2.5"
                   >
-                    {item.label}
+                    <Icon className="nav-link-icon h-[0.95rem] w-[0.95rem] shrink-0" strokeWidth={1.8} aria-hidden="true" />
+                    <span className="hidden whitespace-nowrap xl:inline">{item.label}</span>
+                    {active && <span className="nav-active-node" aria-hidden="true" />}
                   </button>
                 );
               })}
@@ -210,9 +218,12 @@ const Navigation = () => {
                 aria-expanded={isOpen}
                 aria-controls="mobile-site-nav"
                 aria-label={isOpen ? "Close navigation" : "Open navigation"}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-card/70 text-foreground shadow-sm transition hover:border-primary/40 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+                className="nav-menu-toggle inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/60 bg-card/55 text-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-95"
+                data-open={isOpen}
               >
-                {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+                <span className="nav-menu-toggle-icon" aria-hidden="true">
+                  {isOpen ? <X className="h-[1.1rem] w-[1.1rem]" /> : <Menu className="h-[1.1rem] w-[1.1rem]" />}
+                </span>
               </button>
             </div>
           </div>
@@ -227,7 +238,7 @@ const Navigation = () => {
             aria-label="Close navigation menu"
             aria-hidden={!isOpen}
             onClick={() => setIsOpen(false)}
-            className={`mobile-nav-backdrop fixed inset-x-0 bottom-0 top-16 z-[99997] bg-background/45 backdrop-blur-sm sm:top-20 lg:hidden ${isOpen ? "mobile-nav-backdrop-open" : ""}`}
+            className={`mobile-nav-backdrop fixed inset-x-0 bottom-0 top-16 z-[99997] bg-background/45 backdrop-blur-sm sm:top-[4.5rem] lg:hidden ${isOpen ? "mobile-nav-backdrop-open" : ""}`}
           />
           <div
             id="mobile-site-nav"
@@ -235,24 +246,30 @@ const Navigation = () => {
             aria-modal={isOpen}
             aria-hidden={!isOpen}
             aria-label="Site sections"
-            className={`mobile-nav-panel fixed inset-x-3 bottom-3 top-[4.5rem] z-[99998] overflow-hidden rounded-[1.6rem] border border-border/80 bg-background/95 shadow-2xl backdrop-blur-2xl sm:inset-x-auto sm:right-5 sm:top-[5.5rem] sm:w-[min(92vw,30rem)] lg:hidden ${isOpen ? "mobile-nav-panel-open" : ""}`}
+            className={`mobile-nav-panel fixed inset-x-3 bottom-3 top-16 z-[99998] overflow-hidden rounded-[1.35rem] border border-border/70 bg-background/95 shadow-2xl backdrop-blur-2xl sm:inset-x-auto sm:right-5 sm:top-[4.5rem] sm:w-[min(92vw,27rem)] lg:hidden ${isOpen ? "mobile-nav-panel-open" : ""}`}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-border/70 px-5 pb-4 pt-5">
+            <div className="nav-mobile-header relative flex items-start justify-between gap-4 border-b border-border/60 px-5 pb-4 pt-5">
               <div>
-                <p className="mb-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-primary">Navigate</p>
-                <h2 className="m-0 text-xl font-semibold tracking-tight text-foreground">Jump to a section</h2>
+                <p className="mb-1.5 flex items-center gap-1.5 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-primary">
+                  <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
+                  Section index <span className="text-muted-foreground/70">/ {String(navItems.length).padStart(2, "0")}</span>
+                </p>
+                <h2 className="m-0 text-lg font-semibold tracking-tight text-foreground sm:text-xl">Where to next?</h2>
               </div>
+              <span className="nav-mobile-signal mt-1 inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1.5 font-mono text-[0.56rem] font-medium uppercase tracking-wider text-muted-foreground">
+                <span className="nav-mobile-signal-dot" aria-hidden="true" /> ready
+              </span>
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
                 aria-label="Close navigation"
-                className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border/70 bg-card/70 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="nav-mobile-close inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-card/60 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
-                <X className="h-4 w-4" />
+                <X className="h-3.5 w-3.5" />
               </button>
             </div>
-            <div className="grid h-[calc(100%-5.5rem)] grid-cols-2 content-start gap-2 overflow-y-auto p-4">
-              {navItems.map((item) => {
+            <div className="grid h-[calc(100%-5.25rem)] grid-cols-2 content-start gap-2 overflow-y-auto p-3.5 sm:p-4">
+              {navItems.map((item, index) => {
                 const Icon = item.icon;
                 const active = isActive(item.id);
                 return (
@@ -261,13 +278,14 @@ const Navigation = () => {
                     type="button"
                     onClick={() => scrollToSection(item.id)}
                     aria-current={active ? "location" : undefined}
-                    className={`flex min-h-[4.25rem] items-center gap-2.5 rounded-2xl border px-3 py-3 text-left text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${active ? "border-primary/30 bg-primary/10 text-primary shadow-[inset_0_1px_hsl(var(--primary)/0.16)]" : "border-border/50 bg-card/40 text-muted-foreground hover:border-primary/20 hover:bg-card/80 hover:text-foreground"}`}
+                    className={`nav-mobile-link group flex min-h-[3.5rem] items-center gap-2.5 rounded-xl border px-2.5 py-2.5 text-left text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${active ? "is-active border-primary/25 bg-primary/[0.08] text-primary" : "border-border/45 bg-card/35 text-muted-foreground hover:border-primary/25 hover:bg-card/75 hover:text-foreground"}`}
+                    style={{ animationDelay: `${Math.min(index, 9) * 28}ms` }}
                   >
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${active ? "bg-primary/15 text-primary" : "bg-muted/70 text-muted-foreground"}`}>
-                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    <span className={`nav-mobile-link-icon grid h-8 w-8 shrink-0 place-items-center rounded-lg ${active ? "bg-primary/10 text-primary" : "bg-muted/55 text-muted-foreground"}`}>
+                      <Icon className="h-[0.95rem] w-[0.95rem]" strokeWidth={1.8} aria-hidden="true" />
                     </span>
                     <span className="min-w-0 truncate">{item.label}</span>
-                    {active && <span className="ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_0.7rem_hsl(var(--primary)/0.8)]" />}
+                    {active && <span className="nav-mobile-active-dot ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />}
                   </button>
                 );
               })}

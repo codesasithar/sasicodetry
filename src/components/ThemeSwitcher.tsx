@@ -27,26 +27,18 @@ const ThemeSwitcher = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative group p-2.5 rounded-lg bg-card/50 border border-border/50 hover:border-primary/40 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+      className="nav-theme-toggle group relative grid h-9 w-9 place-items-center rounded-xl border border-border/60 bg-card/55 text-muted-foreground transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       aria-label="Toggle theme"
+      title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
       type="button"
     >
-      {/* Animated background glow */}
-      <div className="absolute inset-0 bg-primary/10 rounded-lg blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
-      {/* Icon container with smooth rotation */}
-      <div className={`relative transition-all duration-500 ${isAnimating ? 'rotate-180 scale-90' : 'rotate-0 scale-100'}`}>
+      <span className={`nav-theme-glyph relative z-[1] ${isAnimating ? "is-animating" : ""}`}>
         {theme === "dark" ? (
-          <Sun className="h-5 w-5 text-primary transition-all duration-300 group-hover:text-accent group-hover:scale-110 drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
+          <Sun className="h-4 w-4" aria-hidden="true" />
         ) : (
-          <Moon className="h-5 w-5 text-primary transition-all duration-300 group-hover:text-accent group-hover:scale-110 drop-shadow-[0_0_8px_hsl(var(--primary)/0.5)]" />
+          <Moon className="h-4 w-4" aria-hidden="true" />
         )}
-      </div>
-
-      {/* Ripple effect on click */}
-      {isAnimating && (
-        <div className="absolute inset-0 rounded-lg border-2 border-primary/50 animate-ping" />
-      )}
+      </span>
     </button>
   );
 };

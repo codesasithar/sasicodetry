@@ -4455,3 +4455,251 @@
 @media (prefers-reduced-motion: reduce) {
   .mobile-typing-caret { animation: none; }
 }
+
+/* Compact code inspired navigation */
+.site-navigation {
+  box-shadow: 0 0.7rem 2rem hsl(var(--background) / 0.1);
+}
+
+.nav-brand-mark {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 76% 23%, hsl(var(--primary) / 0.24), transparent 36%),
+    linear-gradient(145deg, hsl(var(--primary) / 0.1), hsl(var(--card) / 0.75));
+  box-shadow: inset 0 1px hsl(var(--foreground) / 0.1), 0 0.25rem 0.8rem hsl(var(--primary) / 0.08);
+}
+
+.nav-brand-mark::before {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(hsl(var(--primary) / 0.38) 0.7px, transparent 0.8px);
+  background-position: 2px 2px;
+  background-size: 7px 7px;
+  content: "";
+  opacity: 0.23;
+  mask-image: linear-gradient(135deg, black, transparent 72%);
+}
+
+.nav-brand-led,
+.nav-mobile-signal-dot {
+  position: absolute;
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 0.55rem hsl(var(--primary) / 0.72);
+}
+
+.nav-brand-led {
+  right: 0.3rem;
+  bottom: 0.3rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  animation: nav-led-breathe 3.4s ease-in-out infinite;
+}
+
+.nav-links-shell {
+  scrollbar-width: none;
+}
+
+.nav-links-shell::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-links-shell::before {
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.65), hsl(var(--accent) / 0.5), transparent);
+  background-size: 200% 100%;
+  content: "";
+  opacity: 0.65;
+  pointer-events: none;
+  animation: nav-circuit-flow 8s ease-in-out infinite;
+}
+
+.nav-link-chip {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.nav-link-chip:hover {
+  transform: translateY(-1px);
+  border-color: hsl(var(--border) / 0.72);
+  background: hsl(var(--background) / 0.65);
+  color: hsl(var(--foreground));
+}
+
+.nav-link-chip[aria-current="location"] {
+  border-color: hsl(var(--primary) / 0.22);
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  box-shadow: inset 0 1px hsl(var(--primary) / 0.1), 0 0.25rem 0.75rem hsl(var(--primary) / 0.06);
+}
+
+.nav-link-icon {
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.nav-link-chip:hover .nav-link-icon {
+  transform: scale(1.08);
+}
+
+.nav-link-chip[aria-current="location"] .nav-link-icon {
+  filter: drop-shadow(0 0 0.3rem hsl(var(--primary) / 0.48));
+}
+
+.nav-active-node {
+  position: absolute;
+  bottom: 0.12rem;
+  left: 50%;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 0.5rem hsl(var(--primary) / 0.8);
+  transform: translateX(-50%);
+  animation: nav-node-pulse 2.4s ease-in-out infinite;
+}
+
+.nav-menu-toggle {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.nav-menu-toggle:hover,
+.nav-menu-toggle[data-open="true"] {
+  border-color: hsl(var(--primary) / 0.3);
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--primary));
+  box-shadow: 0 0.25rem 0.9rem hsl(var(--primary) / 0.08);
+}
+
+.nav-menu-toggle-icon {
+  display: grid;
+  place-items: center;
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-menu-toggle[data-open="true"] .nav-menu-toggle-icon {
+  transform: rotate(90deg);
+}
+
+.mobile-nav-panel {
+  background-image:
+    radial-gradient(ellipse at 95% 0%, hsl(var(--primary) / 0.1), transparent 38%),
+    linear-gradient(145deg, hsl(var(--background) / 0.98), hsl(var(--background) / 0.94));
+}
+
+.mobile-nav-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-mobile-header::after {
+  position: absolute;
+  right: 1.25rem;
+  bottom: -1px;
+  left: 1.25rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.34), transparent);
+  content: "";
+  pointer-events: none;
+}
+
+.nav-mobile-signal {
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-mobile-signal-dot {
+  position: relative;
+  width: 0.32rem;
+  height: 0.32rem;
+  animation: nav-led-breathe 3.4s ease-in-out infinite;
+}
+
+.nav-mobile-link {
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.nav-mobile-link:hover {
+  transform: translateY(-1px);
+}
+
+.nav-mobile-link-icon {
+  transition: color 180ms ease, background-color 180ms ease, transform 220ms ease;
+}
+
+.nav-mobile-link:hover .nav-mobile-link-icon {
+  transform: scale(1.06);
+}
+
+.nav-mobile-link.is-active .nav-mobile-link-icon {
+  box-shadow: inset 0 0 0 1px hsl(var(--primary) / 0.14);
+}
+
+.nav-mobile-active-dot {
+  box-shadow: 0 0 0.55rem hsl(var(--primary) / 0.8);
+  animation: nav-node-pulse 2.4s ease-in-out infinite;
+}
+
+.mobile-nav-panel-open .nav-mobile-link {
+  animation: nav-link-arrive 340ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.nav-theme-toggle:hover {
+  border-color: hsl(var(--primary) / 0.3);
+  background: hsl(var(--primary) / 0.08);
+  color: hsl(var(--primary));
+  box-shadow: 0 0.25rem 0.9rem hsl(var(--primary) / 0.08);
+}
+
+.nav-theme-glyph {
+  display: grid;
+  place-items: center;
+  transition: color 180ms ease, transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.nav-theme-glyph.is-animating {
+  transform: rotate(180deg) scale(0.85);
+}
+
+@keyframes nav-led-breathe {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+@keyframes nav-node-pulse {
+  0%, 100% { opacity: 0.65; box-shadow: 0 0 0.25rem hsl(var(--primary) / 0.48); }
+  50% { opacity: 1; box-shadow: 0 0 0.65rem hsl(var(--primary) / 0.9); }
+}
+
+@keyframes nav-circuit-flow {
+  0%, 100% { background-position: 100% 50%; opacity: 0.35; }
+  50% { background-position: 0% 50%; opacity: 0.8; }
+}
+
+@keyframes nav-link-arrive {
+  from { opacity: 0; transform: translateY(0.35rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-brand-led,
+  .nav-links-shell::before,
+  .nav-active-node,
+  .nav-mobile-signal-dot,
+  .nav-mobile-active-dot,
+  .mobile-nav-panel-open .nav-mobile-link {
+    animation: none;
+  }
+
+  .nav-link-chip,
+  .nav-link-icon,
+  .nav-menu-toggle,
+  .nav-menu-toggle-icon,
+  .nav-mobile-link,
+  .nav-mobile-link-icon,
+  .nav-theme-glyph {
+    transition: none;
+  }
+}
