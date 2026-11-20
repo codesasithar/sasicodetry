@@ -1,5 +1,6 @@
 import { ExternalLink, Github, Smartphone, Database, Eye, Gamepad2, Headset, ArrowRight } from "lucide-react";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
+import GameProjectVideo from "@/components/GameProjectVideo";
 
 const Projects = () => {
 const projects = [
@@ -81,6 +82,7 @@ style={{animationDelay: `${index * 0.2}s`}}
 <p className="text-muted-foreground mb-4 leading-relaxed">
 {project.description}
 </p>
+{project.category === "Gaming" && <GameProjectVideo />}
 </div>
 
 {/* Technologies */}

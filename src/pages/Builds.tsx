@@ -13,6 +13,7 @@ import CursorEffects from "@/components/CursorEffects";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollRobot from "@/components/ScrollRobot";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
+import GameProjectVideo from "@/components/GameProjectVideo";
 
 const builds = [
   {
@@ -109,6 +110,7 @@ const Builds = () => (
                   </div>
                   <h2 className="mb-4 text-2xl font-semibold leading-tight sm:text-3xl">{build.title}</h2>
                   <p className="mb-8 max-w-xl flex-1 leading-relaxed text-muted-foreground">{build.description}</p>
+                  {build.title.startsWith("Indian Roads") && <GameProjectVideo />}
                   <div className="flex flex-wrap gap-2 border-t border-border pt-5">
                     {build.technologies.map((technology) => (
                       <span key={technology} className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
