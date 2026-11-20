@@ -4663,6 +4663,147 @@
   transform: rotate(180deg) scale(0.85);
 }
 
+.nav-pill-paths {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.nav-pill-path {
+  display: flex;
+  min-width: 0;
+  min-height: 3.15rem;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border) / 0.58);
+  border-radius: 0.9rem;
+  background: hsl(var(--card) / 0.48);
+  text-align: left;
+  transition: transform 200ms ease, background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.nav-pill-path-red:hover {
+  border-color: hsl(5 78% 56% / 0.48);
+  background: hsl(5 78% 56% / 0.07);
+  box-shadow: 0 0.35rem 1.1rem hsl(5 78% 56% / 0.1);
+}
+
+.nav-pill-path-blue:hover {
+  border-color: hsl(211 86% 62% / 0.48);
+  background: hsl(211 86% 62% / 0.07);
+  box-shadow: 0 0.35rem 1.1rem hsl(211 86% 62% / 0.1);
+}
+
+.nav-pill-path:hover {
+  transform: translateY(-1px);
+}
+
+.nav-pill-path:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.nav-pill-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.nav-pill-label {
+  color: hsl(var(--muted-foreground));
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+}
+
+.nav-pill-action {
+  overflow: hidden;
+  color: hsl(var(--foreground));
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-capsule {
+  position: relative;
+  display: block;
+  width: 2.25rem;
+  height: 0.85rem;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid hsl(0 0% 100% / 0.45);
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(4 82% 53%) 0 49%, hsl(0 0% 91%) 50% 100%);
+  box-shadow: 0 0.18rem 0.55rem hsl(4 80% 35% / 0.28), inset 0 1px hsl(0 0% 100% / 0.48);
+  transform: rotate(-28deg);
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms ease;
+}
+
+.nav-pill-path-blue .nav-capsule {
+  background: linear-gradient(90deg, hsl(211 88% 56%) 0 49%, hsl(0 0% 91%) 50% 100%);
+  box-shadow: 0 0.18rem 0.55rem hsl(211 82% 38% / 0.3), inset 0 1px hsl(0 0% 100% / 0.48);
+}
+
+.nav-capsule::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 49%;
+  width: 1px;
+  background: hsl(0 0% 18% / 0.17);
+  content: "";
+}
+
+.nav-capsule::after {
+  position: absolute;
+  top: 1px;
+  left: 0.2rem;
+  width: 42%;
+  height: 0.16rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.8), transparent);
+  content: "";
+  animation: nav-pill-glint 4.5s ease-in-out infinite;
+}
+
+.nav-pill-path-blue .nav-capsule::after {
+  animation-delay: 1.2s;
+}
+
+.nav-pill-path:hover .nav-capsule {
+  box-shadow: 0 0.25rem 0.7rem hsl(4 80% 35% / 0.35), inset 0 1px hsl(0 0% 100% / 0.6);
+  transform: rotate(-16deg) scale(1.08);
+}
+
+.nav-pill-path-blue:hover .nav-capsule {
+  box-shadow: 0 0.25rem 0.7rem hsl(211 82% 38% / 0.38), inset 0 1px hsl(0 0% 100% / 0.6);
+}
+
+.nav-pill-path-compact {
+  width: 2.6rem;
+  min-height: 2.2rem;
+  justify-content: center;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
+}
+
+.nav-pill-path-compact .nav-capsule {
+  width: 1.9rem;
+  height: 0.72rem;
+}
+
+.nav-pill-path-compact:hover {
+  background: hsl(var(--card) / 0.68);
+}
+
 @keyframes nav-led-breathe {
   0%, 100% { opacity: 0.72; }
   50% { opacity: 1; }
@@ -4683,6 +4824,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes nav-pill-glint {
+  0%, 70%, 100% { opacity: 0; transform: translateX(-0.25rem); }
+  78%, 94% { opacity: 0.9; transform: translateX(0.65rem); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav-brand-led,
   .nav-links-shell::before,
@@ -4695,11 +4841,17 @@
 
   .nav-link-chip,
   .nav-link-icon,
+  .nav-pill-path,
+  .nav-capsule,
   .nav-menu-toggle,
   .nav-menu-toggle-icon,
   .nav-mobile-link,
   .nav-mobile-link-icon,
   .nav-theme-glyph {
     transition: none;
+  }
+
+  .nav-capsule::after {
+    animation: none;
   }
 }

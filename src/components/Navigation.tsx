@@ -31,6 +31,42 @@ const navItems = [
   { id: "contact", label: "Contact", icon: Mail },
 ];
 
+const PILL_PATHS = [
+  { tone: "red", label: "RED PILL", action: "Explore projects", section: "projects" },
+  { tone: "blue", label: "BLUE PILL", action: "Meet the developer", section: "about" },
+] as const;
+
+const PillNavigation = ({
+  onNavigate,
+  compact = false,
+  className = "",
+}: {
+  onNavigate: (section: string) => void;
+  compact?: boolean;
+  className?: string;
+}) => (
+  <div className={`nav-pill-paths ${compact ? "nav-pill-paths-compact" : ""} ${className}`} aria-label="Choose a path">
+    {PILL_PATHS.map((path) => (
+      <button
+        key={path.tone}
+        type="button"
+        onClick={() => onNavigate(path.section)}
+        className={`nav-pill-path nav-pill-path-${path.tone} ${compact ? "nav-pill-path-compact" : ""}`}
+        aria-label={`${path.label}: ${path.action}`}
+        title={`${path.label} · ${path.action}`}
+      >
+        <span className="nav-capsule" aria-hidden="true"><span /></span>
+        {!compact && (
+          <span className="nav-pill-copy">
+            <span className="nav-pill-label">{path.label}</span>
+            <span className="nav-pill-action">{path.action}</span>
+          </span>
+        )}
+      </button>
+    ))}
+  </div>
+);
+
 const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -207,7 +243,9 @@ const Navigation = () => {
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
-            <div className="hidden items-center border-l border-border/70 pl-2 lg:flex">
+            <div className="hidden items-center gap-2 lg:flex">
+              <PillNavigation onNavigate={scrollToSection} compact className="hidden 2xl:flex" />
+              <span className="hidden h-6 w-px bg-border/70 2xl:block" aria-hidden="true" />
               <ThemeSwitcher />
             </div>
             <div className="flex items-center gap-2 lg:hidden">
@@ -254,9 +292,9 @@ const Navigation = () => {
                   <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
                   Section index <span className="text-muted-foreground/70">/ {String(navItems.length).padStart(2, "0")}</span>
                 </p>
-                <h2 className="m-0 text-lg font-semibold tracking-tight text-foreground sm:text-xl">Where to next?</h2>
+                <h2 className="m-0 text-lg font-semibold tracking-tight text-foreground sm:text-xl">Choose your path</h2>
               </div>
-              <span className="nav-mobile-signal mt-1 inline-flex items-center gap-1.5 rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1.5 font-mono text-[0.56rem] font-medium uppercase tracking-wider text-muted-foreground">
+              <span className="nav-mobile-signal mt-1 hidden items-center gap-1.5 rounded-full border border-primary/15 bg-primary/5 px-2.5 py-1.5 font-mono text-[0.56rem] font-medium uppercase tracking-wider text-muted-foreground min-[360px]:inline-flex">
                 <span className="nav-mobile-signal-dot" aria-hidden="true" /> ready
               </span>
               <button
@@ -268,7 +306,8 @@ const Navigation = () => {
                 <X className="h-3.5 w-3.5" />
               </button>
             </div>
-            <div className="grid h-[calc(100%-5.25rem)] grid-cols-2 content-start gap-2 overflow-y-auto p-3.5 sm:p-4">
+            <PillNavigation onNavigate={scrollToSection} className="px-3.5 pt-3 sm:px-4" />
+            <div className="grid h-[calc(100%-8.75rem)] grid-cols-2 content-start gap-2 overflow-y-auto p-3.5 pt-2 sm:p-4 sm:pt-2">
               {navItems.map((item, index) => {
                 const Icon = item.icon;
                 const active = isActive(item.id);
