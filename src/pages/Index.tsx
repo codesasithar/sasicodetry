@@ -69,10 +69,8 @@ const DeferredSection = ({ id, minHeight, load }: DeferredSectionProps) => {
 const DEFERRED_SECTIONS = [
   { id: "about", minHeight: "80vh", load: () => import("@/components/About") },
   { id: "projects", minHeight: "100vh", load: () => import("@/components/Projects") },
-  { id: "services", minHeight: "100vh", load: () => import("@/components/Services") },
   { id: "writings", minHeight: "130vh", load: () => import("@/components/Writings") },
   { id: "bookshelf", minHeight: "100vh", load: () => import("@/components/Bookshelf") },
-  { id: "news", minHeight: "110vh", load: () => import("@/components/News") },
   { id: "movies", minHeight: "180vh", load: () => import("@/components/Movies") },
   { id: "games", minHeight: "140vh", load: () => import("@/components/Games") },
   { id: "role-models", minHeight: "140vh", load: () => import("@/components/RoleModels") },
