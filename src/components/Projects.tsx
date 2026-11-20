@@ -33,6 +33,13 @@ technologies: ["Unity", "C#", "Game Design", "Android"],
 category: "Gaming"
 },
 {
+title: "BOYS — Game Project",
+description: "A standalone game project showcased through its playable video clip.",
+icon: Gamepad2,
+technologies: [],
+category: "Gaming"
+},
+{
 title: "Oculus VR Projects",
 description: "Contributed to immersive VR apps built in Unity, pushing the boundaries of user interaction.",
 icon: Headset,
@@ -82,11 +89,11 @@ style={{animationDelay: `${index * 0.2}s`}}
 <p className="text-muted-foreground mb-4 leading-relaxed">
 {project.description}
 </p>
-{project.category === "Gaming" && <GameProjectVideo />}
+{project.title === "BOYS — Game Project" && <GameProjectVideo />}
 </div>
 
 {/* Technologies */}
-<div className="mb-6">
+{project.technologies.length > 0 && <div className="mb-6">
 <div className="flex flex-wrap gap-2">
 {project.technologies.map((tech) => (
 <span
@@ -97,7 +104,7 @@ className="text-xs bg-secondary px-3 py-1 rounded-full text-secondary-foreground
 </span>
 ))}
 </div>
-</div>
+</div>}
 
 {/* Project Links */}
 <div className="flex space-x-4 pt-4 border-t border-border">

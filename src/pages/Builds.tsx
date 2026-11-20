@@ -53,13 +53,21 @@ const builds = [
     number: "04",
   },
   {
+    title: "BOYS — Game Project",
+    category: "Game project",
+    description: "A standalone game project showcased through its playable video clip.",
+    technologies: [],
+    icon: Gamepad2,
+    number: "05",
+  },
+  {
     title: "Oculus VR Projects",
     category: "Virtual reality",
     description:
       "Immersive Unity applications exploring natural interaction and the possibilities of room-scale VR.",
     technologies: ["Unity", "Oculus SDK", "VR", "C#"],
     icon: Headset,
-    number: "05",
+    number: "06",
   },
 ];
 
@@ -110,14 +118,16 @@ const Builds = () => (
                   </div>
                   <h2 className="mb-4 text-2xl font-semibold leading-tight sm:text-3xl">{build.title}</h2>
                   <p className="mb-8 max-w-xl flex-1 leading-relaxed text-muted-foreground">{build.description}</p>
-                  {build.title.startsWith("Indian Roads") && <GameProjectVideo />}
-                  <div className="flex flex-wrap gap-2 border-t border-border pt-5">
-                    {build.technologies.map((technology) => (
-                      <span key={technology} className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
-                        {technology}
-                      </span>
-                    ))}
-                  </div>
+                  {build.title === "BOYS — Game Project" && <GameProjectVideo />}
+                  {build.technologies.length > 0 && (
+                    <div className="flex flex-wrap gap-2 border-t border-border pt-5">
+                      {build.technologies.map((technology) => (
+                        <span key={technology} className="rounded-md bg-secondary px-2.5 py-1 text-xs font-medium text-secondary-foreground">
+                          {technology}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <span className="absolute bottom-5 right-5 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" aria-hidden="true">
                     <ArrowUpRight className="h-5 w-5" />
                   </span>
