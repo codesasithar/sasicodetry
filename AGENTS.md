@@ -1,0 +1,1 @@
+- Schedule desktop-only Three.js effects during browser idle time so they do not compete with the initial page render.

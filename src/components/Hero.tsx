@@ -216,7 +216,7 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
             <video
               ref={showreelRef}
               src="/videos/skills-video.mp4"
-              poster="/videos/skills-video-thumb.jpg"
+              poster="/videos/skills-video-thumb.webp"
               aria-label="Skills showreel"
               loop
               playsInline

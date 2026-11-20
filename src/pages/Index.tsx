@@ -45,7 +45,7 @@ const DeferredSection = ({ id, minHeight, load }: DeferredSectionProps) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
       observer.disconnect();
       loadSection();
-    }, { rootMargin: "1200px 0px", threshold: 0.01 });
+    }, { rootMargin: "500px 0px", threshold: 0.01 });
 
     observer.observe(placeholder);
     return () => {
@@ -85,10 +85,46 @@ const Index = ({ isReady }: { isReady: boolean }) => {
 
   useEffect(() => {
     const desktopPointer = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
-    const syncDrone = () => setShowDesktopDrone(desktopPointer.matches);
-    syncDrone();
-    desktopPointer.addEventListener("change", syncDrone);
-    return () => desktopPointer.removeEventListener("change", syncDrone);
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    let idleHandle: number | undefined;
+    let fallbackTimer: number | undefined;
+
+    const cancelPendingLoad = () => {
+      if (idleHandle !== undefined) idleWindow.cancelIdleCallback?.(idleHandle);
+      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      idleHandle = undefined;
+      fallbackTimer = undefined;
+    };
+
+    const scheduleDrone = () => {
+      cancelPendingLoad();
+      if (!desktopPointer.matches) {
+        setShowDesktopDrone(false);
+        return;
+      }
+
+      if (idleWindow.requestIdleCallback) {
+        idleHandle = idleWindow.requestIdleCallback(() => {
+          idleHandle = undefined;
+          setShowDesktopDrone(true);
+        }, { timeout: 2000 });
+      } else {
+        fallbackTimer = window.setTimeout(() => {
+          fallbackTimer = undefined;
+          setShowDesktopDrone(true);
+        }, 800);
+      }
+    };
+
+    scheduleDrone();
+    desktopPointer.addEventListener("change", scheduleDrone);
+    return () => {
+      desktopPointer.removeEventListener("change", scheduleDrone);
+      cancelPendingLoad();
+    };
   }, []);
 
   useEffect(() => {
