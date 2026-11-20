@@ -7,8 +7,8 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const duration = reducedMotion ? 250 : isMobile ? 450 : 900;
-    const fadeDuration = reducedMotion ? 80 : isMobile ? 160 : 300;
+    const duration = reducedMotion ? 120 : isMobile ? 180 : 280;
+    const fadeDuration = reducedMotion ? 60 : isMobile ? 100 : 130;
     const start = performance.now();
     let frame = 0;
     let lastProgress = -1;
