@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { BookOpen, ChevronDown, ChevronUp, Pin, Plus, X } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { BookOpen, ChevronDown, ChevronUp, Pin, Search, X } from "lucide-react";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -286,6 +286,8 @@ const DeskLamp = () => (
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [notesExpanded, setNotesExpanded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeGenre, setActiveGenre] = useState("All");
   const cardRef = useRef<HTMLDivElement>(null);
   const booksContainerRef = useRef<HTMLDivElement>(null);
   const detailsPaneRef = useRef<HTMLDivElement>(null);
@@ -294,6 +296,15 @@ const Bookshelf = () => {
   const [spotlightActive, setSpotlightActive] = useState(false);
 
   const pendingRef = useRef<{ x: number; y: number } | null>(null);
+
+  const genres = ["All", ...Array.from(new Set(books.map((book) => book.genre)))];
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const visibleBooks = books.filter((book) => {
+    const matchesGenre = activeGenre === "All" || book.genre === activeGenre;
+    const matchesQuery = !normalizedQuery ||
+      `${book.title} ${book.author} ${book.genre} ${book.summary}`.toLowerCase().includes(normalizedQuery);
+    return matchesGenre && matchesQuery;
+  });
 
   useEffect(() => {
     if (!selectedBook) return;
@@ -307,8 +318,16 @@ const Bookshelf = () => {
       }
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedBook(null);
+    };
+
     document.addEventListener("pointerdown", handlePointerDown);
-    return () => document.removeEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [selectedBook]);
 
   const scheduleSpotlight = (clientX: number, clientY: number) => {
@@ -351,12 +370,25 @@ const Bookshelf = () => {
 
   const AnimatedBook = ({ book, sizeClasses }: { book: Book; sizeClasses: string }) => {
     const isOpen = selectedBook?.id === book.id;
+    const arrivalIndex = books.findIndex((entry) => entry.id === book.id);
 
     return (
       <div
-        className={`relative group cursor-pointer ${sizeClasses}`}
-        style={{ perspective: "1000px" }}
+        role="button"
+        tabIndex={0}
+        className={`library-book relative group cursor-pointer p-0 border-0 bg-transparent text-left ${sizeClasses}`}
+        style={{ perspective: "1000px", "--book-index": arrivalIndex } as CSSProperties}
+        data-is-open={isOpen}
+        aria-label={`${isOpen ? "Close" : "Open"} details for ${book.title} by ${book.author}`}
+        aria-expanded={isOpen}
+        aria-controls="book-details-pane"
         onClick={() => setSelectedBook(isOpen ? null : book)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            setSelectedBook(isOpen ? null : book);
+          }
+        }}
       >
         <div
           className="relative w-full h-full transition-all duration-500 ease-out combine-3d-transforms"
@@ -438,9 +470,9 @@ const Bookshelf = () => {
   };
 
   // Dynamically divide the books array into equal subsets for even shelf distribution
-  const half = Math.ceil(books.length / 2);
-  const shelfOneBooks = books.slice(0, half);
-  const shelfTwoBooks = books.slice(half);
+  const half = Math.ceil(visibleBooks.length / 2);
+  const shelfOneBooks = visibleBooks.slice(0, half);
+  const shelfTwoBooks = visibleBooks.slice(half);
 
   return (
     <section id="bookshelf" className="py-16 sm:py-20 bg-background px-4 sm:px-6">
@@ -522,6 +554,7 @@ const Bookshelf = () => {
                     className="library-note"
                     data-tone={note.tone}
                     data-note-index={index + 1}
+                    style={{ "--note-index": index } as CSSProperties}
                   >
                     <Pin className="library-note-pin" size={18} strokeWidth={1.8} aria-hidden="true" />
                     <p className="library-note-line">“{note.line}”</p>
@@ -531,88 +564,152 @@ const Bookshelf = () => {
               </div>
             </section>
 
-            <div className="flex items-center gap-2 mb-6">
-              <Button size="sm" variant="outline" className="ml-auto">
-                <Plus className="h-4 w-4" />
-              </Button>
+            <div className="library-toolbar" role="search" aria-label="Find a book">
+              <div className="library-search">
+                <Search className="library-search-icon" size={17} aria-hidden="true" />
+                <label className="sr-only" htmlFor="library-search-input">
+                  Search books by title, author, genre, or idea
+                </label>
+                <input
+                  id="library-search-input"
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => {
+                    setSearchQuery(event.target.value);
+                    setSelectedBook(null);
+                  }}
+                  placeholder="Search your library…"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    className="library-search-clear"
+                    aria-label="Clear search"
+                    onClick={() => { setSearchQuery(""); setSelectedBook(null); }}
+                  >
+                    <X size={15} aria-hidden="true" />
+                  </button>
+                )}
+              </div>
+              <div className="library-filter-list" role="group" aria-label="Filter by genre">
+                {genres.map((genre) => (
+                  <button
+                    type="button"
+                    className="library-filter-chip"
+                    data-active={activeGenre === genre}
+                    aria-pressed={activeGenre === genre}
+                    key={genre}
+                    onClick={() => { setActiveGenre(genre); setSelectedBook(null); }}
+                  >
+                    {genre}
+                  </button>
+                ))}
+              </div>
+              <p className="library-result-count" aria-live="polite">
+                <span>{visibleBooks.length}</span> of {books.length} books
+              </p>
             </div>
 
             {/* Books container (listens for outside clicks to close a book) */}
             <div ref={booksContainerRef}>
-              {/* Mobile Layout */}
-              <div className="library-wood-rack library-mobile-rack md:hidden">
-                <div className="library-rack-nameplate" aria-hidden="true">
-                  <span>THE READING ROOM</span>
-                  <span>{String(books.length).padStart(2, "0")} VOLUMES</span>
+              {visibleBooks.length === 0 ? (
+                <div className="library-empty-state">
+                  <BookOpen size={26} aria-hidden="true" />
+                  <p>No books match these filters.</p>
+                  <button
+                    type="button"
+                    onClick={() => { setSearchQuery(""); setActiveGenre("All"); }}
+                  >
+                    Clear filters
+                  </button>
                 </div>
-                {Array.from({ length: Math.ceil(books.length / 3) }, (_, shelfIndex) => (
-                  <div className="library-mobile-shelf" key={shelfIndex}>
-                    <div className="grid grid-cols-3 items-end gap-x-4 px-2">
-                      {books.slice(shelfIndex * 3, shelfIndex * 3 + 3).map((book) => (
-                        <AnimatedBook
-                          key={book.id}
-                          book={book}
-                          sizeClasses="aspect-[2/3] w-full"
-                        />
-                      ))}
+              ) : (
+                <>
+                  {/* Mobile Layout */}
+                  <div className="library-wood-rack library-mobile-rack md:hidden">
+                    <div className="library-rack-nameplate" aria-hidden="true">
+                      <span>THE READING ROOM</span>
+                      <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
                     </div>
-                    <div className="library-mobile-shelf-plank" aria-hidden="true" />
-                  </div>
-                ))}
-              </div>
-
-              {/* Desktop: Bookshelf Layout */}
-              <div className="library-wood-rack library-desktop-rack hidden md:block pt-4">
-                <div className="library-rack-nameplate" aria-hidden="true">
-                  <span>THE READING ROOM</span>
-                  <span>{String(books.length).padStart(2, "0")} VOLUMES</span>
-                </div>
-                {/* Shelf 1 */}
-                <div className="relative">
-                  {/* Reading lights across the shelves */}
-                  <div className="reading-light-bar" aria-hidden="true">
-                    {[0, 1, 2, 3].map((i) => (
-                      <div key={i} className="reading-light" style={{ animationDelay: `${i * 0.6}s` }}>
-                        <div className="reading-light-housing" />
-                        <div className="flex justify-center -mt-1">
-                          <div className="reading-light-bulb" style={{ animationDelay: `${i * 0.4}s` }} />
+                    {Array.from({ length: Math.ceil(visibleBooks.length / 3) }, (_, shelfIndex) => (
+                      <div className="library-mobile-shelf" key={shelfIndex}>
+                        <div className="grid grid-cols-3 items-end gap-x-4 px-2">
+                          {visibleBooks.slice(shelfIndex * 3, shelfIndex * 3 + 3).map((book) => (
+                            <AnimatedBook
+                              key={book.id}
+                              book={book}
+                              sizeClasses="aspect-[2/3] w-full"
+                            />
+                          ))}
                         </div>
-                        <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
+                        <div className="library-mobile-shelf-plank" aria-hidden="true" />
                       </div>
                     ))}
                   </div>
-                  <div className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
-                    {shelfOneBooks.map((book) => (
-                      <AnimatedBook 
-                        key={book.id} 
-                        book={book} 
-                        sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
-                      />
-                    ))}
-                  </div>
-                  <div className="library-wood-shelf-lip" aria-hidden="true" />
-                </div>
 
-                {/* Shelf 2 */}
-                <div className="relative">
-                  <div className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm">
-                    {shelfTwoBooks.map((book) => (
-                      <AnimatedBook 
-                        key={book.id} 
-                        book={book} 
-                        sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
-                      />
-                    ))}
+                  {/* Desktop: Bookshelf Layout */}
+                  <div className="library-wood-rack library-desktop-rack hidden md:block pt-4">
+                    <div className="library-rack-nameplate" aria-hidden="true">
+                      <span>THE READING ROOM</span>
+                      <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
+                    </div>
+                    {/* Shelf 1 */}
+                    <div className="relative">
+                      {/* Reading lights across the shelves */}
+                      <div className="reading-light-bar" aria-hidden="true">
+                        {[0, 1, 2, 3].map((i) => (
+                          <div key={i} className="reading-light" style={{ animationDelay: `${i * 0.6}s` }}>
+                            <div className="reading-light-housing" />
+                            <div className="flex justify-center -mt-1">
+                              <div className="reading-light-bulb" style={{ animationDelay: `${i * 0.4}s` }} />
+                            </div>
+                            <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
+                          </div>
+                        ))}
+                      </div>
+                      <div
+                        className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
+                        style={{ gridTemplateColumns: `repeat(${Math.min(5, shelfOneBooks.length)}, minmax(0, 1fr))` }}
+                      >
+                        {shelfOneBooks.map((book) => (
+                          <AnimatedBook
+                            key={book.id}
+                            book={book}
+                            sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
+                          />
+                        ))}
+                      </div>
+                      <div className="library-wood-shelf-lip" aria-hidden="true" />
+                    </div>
+
+                    {/* Shelf 2 */}
+                    {shelfTwoBooks.length > 0 && (
+                      <div className="relative">
+                        <div
+                          className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
+                          style={{ gridTemplateColumns: `repeat(${Math.min(5, shelfTwoBooks.length)}, minmax(0, 1fr))` }}
+                        >
+                          {shelfTwoBooks.map((book) => (
+                            <AnimatedBook
+                              key={book.id}
+                              book={book}
+                              sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
+                            />
+                          ))}
+                        </div>
+                        <div className="library-wood-shelf-lip" aria-hidden="true" />
+                      </div>
+                    )}
                   </div>
-                  <div className="library-wood-shelf-lip" aria-hidden="true" />
-                </div>
-              </div>
+                </>
+              )}
             </div>
 
             {/* Book Details Pane */}
             {selectedBook && (
               <div
                 ref={detailsPaneRef}
+                id="book-details-pane"
                 className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30 relative"
               >
                 <button
