@@ -36,6 +36,22 @@ const PILL_PATHS = [
   { tone: "blue", label: "BLUE PILL", action: "Meet the developer", section: "about" },
 ] as const;
 
+type ReadingNavigationState = {
+  isReading: boolean;
+  title: string;
+  minutesRemaining: number;
+  progress: number;
+};
+
+const INITIAL_READING_STATE: ReadingNavigationState = {
+  isReading: false,
+  title: "",
+  minutesRemaining: 0,
+  progress: 0,
+};
+
+const countWords = (text: string) => text.trim().split(/\s+/).filter(Boolean).length;
+
 const PillNavigation = ({
   onNavigate,
   compact = false,
@@ -71,6 +87,7 @@ const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [reading, setReading] = useState<ReadingNavigationState>(INITIAL_READING_STATE);
   const [activeSection, setActiveSection] = useState(() =>
     location.pathname === "/builds" ? "builds" : location.hash.slice(1) || "home"
   );
@@ -82,6 +99,104 @@ const Navigation = () => {
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = previousOverflow; };
   }, [isOpen]);
+
+  useEffect(() => {
+    let main: HTMLElement | null = null;
+    let hero: HTMLElement | null = null;
+    let readingContent: HTMLElement | null = null;
+    let articleTitle = "";
+    let totalWords = 0;
+    let frame = 0;
+    let mutations: MutationObserver | null = null;
+    let resizes: ResizeObserver | null = null;
+
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateReadingState);
+    };
+
+    const updateReadingState = () => {
+      frame = 0;
+      if (!main || !readingContent) return;
+
+      const heroBottom = hero
+        ? hero.getBoundingClientRect().bottom + window.scrollY
+        : main.getBoundingClientRect().top + window.scrollY;
+      const mainBottom = readingContent.getBoundingClientRect().bottom + window.scrollY;
+      const isReading = window.scrollY > heroBottom + 8;
+      const lastScroll = Math.max(heroBottom, mainBottom - window.innerHeight);
+      const progress = isReading
+        ? Math.max(0, Math.min(1, (window.scrollY - heroBottom) / Math.max(1, lastScroll - heroBottom)))
+        : 0;
+
+      const headingThreshold = window.innerHeight * 0.38;
+      const visibleHeadings = Array.from(main.querySelectorAll<HTMLElement>("h1, h2, h3"))
+        .filter((heading) => heading.getBoundingClientRect().top <= headingThreshold);
+      const currentHeading = visibleHeadings[visibleHeadings.length - 1];
+      const title = articleTitle || currentHeading?.innerText.trim() || document.title;
+      const minutesRemaining = Math.ceil((totalWords * (1 - progress)) / 220);
+      const next: ReadingNavigationState = {
+        isReading,
+        title,
+        minutesRemaining,
+        progress: Math.round(progress * 1000) / 10,
+      };
+
+      setReading((current) => current.isReading === next.isReading
+        && current.title === next.title
+        && current.minutesRemaining === next.minutesRemaining
+        && current.progress === next.progress
+        ? current
+        : next);
+    };
+
+    const refreshContent = () => {
+      const nextMain = document.querySelector<HTMLElement>(".site-main")
+        ?? document.querySelector<HTMLElement>("main");
+      if (!nextMain) return;
+
+      main = nextMain;
+      const candidates = Array.from(main.querySelectorAll<HTMLElement>("article"));
+      const singleArticle = main.matches("article")
+        ? main
+        : candidates.length === 1 && countWords(candidates[0].innerText) >= 180
+          ? candidates[0]
+          : null;
+      readingContent = singleArticle ?? main;
+      articleTitle = singleArticle?.querySelector<HTMLElement>("h1")?.innerText.trim() ?? "";
+      hero = main.querySelector<HTMLElement>("#home")
+        ?? main.querySelector<HTMLElement>("header")
+        ?? main.querySelector<HTMLElement>("section[id]")
+        ?? main.querySelector<HTMLElement>("h1")?.parentElement
+        ?? main.firstElementChild as HTMLElement | null;
+
+      const pageWords = countWords(readingContent.innerText);
+      const heroWords = hero && readingContent.contains(hero) ? countWords(hero.innerText) : 0;
+      totalWords = Math.max(0, pageWords - heroWords);
+
+      mutations?.disconnect();
+      mutations = new MutationObserver(refreshContent);
+      mutations.observe(main, { childList: true, subtree: true });
+      resizes?.disconnect();
+      if (typeof ResizeObserver !== "undefined") {
+        resizes = new ResizeObserver(scheduleUpdate);
+        resizes.observe(readingContent);
+      }
+      scheduleUpdate();
+    };
+
+    refreshContent();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", refreshContent);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", refreshContent);
+      mutations?.disconnect();
+      resizes?.disconnect();
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -198,9 +313,9 @@ const Navigation = () => {
     <>
       <nav
         aria-label="Main navigation"
-        className="site-navigation fixed inset-x-0 top-0 z-[99999] h-16 border-b border-border/50 bg-background/75 backdrop-blur-2xl sm:h-[4.5rem]"
+        className={`site-navigation pointer-events-none fixed inset-x-3 top-3 z-[99999] h-16 sm:inset-x-4 sm:top-4 sm:h-[4.5rem] ${reading.isReading ? "is-reading" : ""}`}
       >
-        <div className="mx-auto flex h-full w-full items-center justify-between gap-3 px-4 sm:px-6 xl:px-10">
+        <div className="nav-glass-shell pointer-events-auto relative mx-auto flex h-full w-full max-w-[96rem] items-center justify-between gap-3 rounded-full border border-border/55 bg-background/75 px-4 shadow-lg backdrop-blur-2xl sm:px-6 xl:px-10">
           <button
             type="button"
             onClick={() => scrollToSection("home")}
@@ -213,7 +328,7 @@ const Navigation = () => {
             </span>
             <span className="leading-tight">
               <span className="block text-sm font-bold tracking-tight text-foreground sm:text-[0.95rem]">Sasi<span className="text-primary">Codes</span></span>
-              <span className="hidden text-[0.55rem] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:block">Developer <span className="text-primary/70">/</span> Builder</span>
+              <span className="nav-brand-subtitle hidden text-[0.55rem] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:block">Developer <span className="text-primary/70">/</span> Builder</span>
             </span>
           </button>
 
@@ -240,6 +355,24 @@ const Navigation = () => {
                 );
               })}
             </div>
+            <div className="nav-reading-status" aria-live="polite">
+              <span className="nav-reading-copy">
+                <span className="nav-reading-eyebrow">NOW READING</span>
+                <span className="nav-reading-title" title={reading.title}>{reading.title}</span>
+              </span>
+              <span className="nav-reading-divider" aria-hidden="true" />
+              <span className="nav-reading-time">
+                <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
+                {reading.minutesRemaining === 0 ? "Finished" : `${reading.minutesRemaining} min left`}
+              </span>
+            </div>
+          </div>
+
+          <div className="nav-reading-mobile" aria-live="polite">
+            <span className="nav-reading-mobile-title" title={reading.title}>{reading.title}</span>
+            <span className="nav-reading-mobile-time">
+              {reading.minutesRemaining === 0 ? "Finished" : `${reading.minutesRemaining} min left`}
+            </span>
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
@@ -266,6 +399,17 @@ const Navigation = () => {
             </div>
           </div>
         </div>
+        <div
+          className={`nav-reading-progress ${reading.isReading ? "is-visible" : ""}`}
+          role="progressbar"
+          aria-label="Page reading progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={reading.progress}
+          aria-hidden={!reading.isReading}
+        >
+          <span style={{ width: `${reading.progress}%` }} />
+        </div>
       </nav>
 
       {(
@@ -276,7 +420,7 @@ const Navigation = () => {
             aria-label="Close navigation menu"
             aria-hidden={!isOpen}
             onClick={() => setIsOpen(false)}
-            className={`mobile-nav-backdrop fixed inset-x-0 bottom-0 top-16 z-[99997] bg-background/45 backdrop-blur-sm sm:top-[4.5rem] lg:hidden ${isOpen ? "mobile-nav-backdrop-open" : ""}`}
+            className={`mobile-nav-backdrop fixed inset-x-0 bottom-0 top-20 z-[99997] bg-background/45 backdrop-blur-sm sm:top-24 lg:hidden ${isOpen ? "mobile-nav-backdrop-open" : ""}`}
           />
           <div
             id="mobile-site-nav"
@@ -284,7 +428,7 @@ const Navigation = () => {
             aria-modal={isOpen}
             aria-hidden={!isOpen}
             aria-label="Site sections"
-            className={`mobile-nav-panel fixed inset-x-3 bottom-3 top-16 z-[99998] overflow-hidden rounded-[1.35rem] border border-border/70 bg-background/95 shadow-2xl backdrop-blur-2xl sm:inset-x-auto sm:right-5 sm:top-[4.5rem] sm:w-[min(92vw,27rem)] lg:hidden ${isOpen ? "mobile-nav-panel-open" : ""}`}
+            className={`mobile-nav-panel fixed inset-x-3 bottom-3 top-20 z-[99998] overflow-hidden rounded-[1.35rem] border border-border/70 bg-background/95 shadow-2xl backdrop-blur-2xl sm:inset-x-auto sm:right-5 sm:top-24 sm:w-[min(92vw,27rem)] lg:hidden ${isOpen ? "mobile-nav-panel-open" : ""}`}
           >
             <div className="nav-mobile-header relative flex items-start justify-between gap-4 border-b border-border/60 px-5 pb-4 pt-5">
               <div>
