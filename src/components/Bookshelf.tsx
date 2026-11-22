@@ -391,12 +391,12 @@ const Bookshelf = () => {
         }}
       >
         <div
-          className="relative w-full h-full transition-all duration-500 ease-out combine-3d-transforms"
+          className="library-book-motion relative w-full h-full combine-3d-transforms"
           style={{
             transformStyle: "preserve-3d",
             transformOrigin: "left center",
             transform: isOpen 
-              ? "rotateY(-140deg) scale(1.05)" 
+              ? "translate3d(0, -0.7rem, 3rem) rotateY(-7deg) rotateZ(-1deg) scale(1.09)"
               : "rotateY(0deg) translateZ(0px) rotateX(0deg)"
           }}
           data-is-open={isOpen}
@@ -668,14 +668,17 @@ const Bookshelf = () => {
                         ))}
                       </div>
                       <div
-                        className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
-                        style={{ gridTemplateColumns: `repeat(${Math.min(5, shelfOneBooks.length)}, minmax(0, 1fr))` }}
+                        className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-2 sm:gap-x-3 lg:gap-x-4 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
+                        style={{
+                          gridTemplateColumns: `repeat(${Math.min(5, shelfOneBooks.length)}, max-content)`,
+                          justifyContent: "center",
+                        }}
                       >
                         {shelfOneBooks.map((book) => (
                           <AnimatedBook
                             key={book.id}
                             book={book}
-                            sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
+                            sizeClasses="w-[clamp(6.5rem,10vw,9rem)] aspect-[2/3]"
                           />
                         ))}
                       </div>
@@ -686,14 +689,17 @@ const Bookshelf = () => {
                     {shelfTwoBooks.length > 0 && (
                       <div className="relative">
                         <div
-                          className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-3 sm:gap-x-6 lg:gap-x-10 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
-                          style={{ gridTemplateColumns: `repeat(${Math.min(5, shelfTwoBooks.length)}, minmax(0, 1fr))` }}
+                          className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-2 sm:gap-x-3 lg:gap-x-4 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
+                          style={{
+                            gridTemplateColumns: `repeat(${Math.min(5, shelfTwoBooks.length)}, max-content)`,
+                            justifyContent: "center",
+                          }}
                         >
                           {shelfTwoBooks.map((book) => (
                             <AnimatedBook
                               key={book.id}
                               book={book}
-                              sizeClasses="w-[clamp(5rem,9vw,10rem)] aspect-[2/3]"
+                              sizeClasses="w-[clamp(6.5rem,10vw,9rem)] aspect-[2/3]"
                             />
                           ))}
                         </div>

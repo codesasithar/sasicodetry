@@ -4526,10 +4526,27 @@
 .library-book {
   z-index: 1;
   border-radius: 0.3rem;
+  --book-lean: 0deg;
   transform-origin: bottom center;
-  transition: transform 260ms cubic-bezier(0.2, 0.75, 0.25, 1), filter 260ms ease;
+  transform: rotate(var(--book-lean));
+  transition: transform 320ms cubic-bezier(0.2, 0.75, 0.25, 1), filter 320ms ease;
   animation: library-book-arrive 520ms cubic-bezier(0.18, 0.75, 0.24, 1) both;
   animation-delay: calc(var(--book-index, 0) * 42ms);
+}
+
+.library-book:nth-child(5n + 1) { --book-lean: -0.8deg; }
+.library-book:nth-child(5n + 2) { --book-lean: 0.5deg; }
+.library-book:nth-child(5n + 3) { --book-lean: -0.35deg; }
+.library-book:nth-child(5n + 4) { --book-lean: 0.75deg; }
+
+.library-book-motion {
+  transform-origin: left center;
+  transition: transform 620ms cubic-bezier(0.2, 1.08, 0.34, 1), filter 420ms ease;
+}
+
+.library-book[data-is-open="true"] .library-book-motion {
+  will-change: transform;
+  filter: drop-shadow(0 0.85rem 0.85rem hsl(12 48% 5% / 0.55)) drop-shadow(0 0 0.7rem hsl(var(--reading-light) / 0.32));
 }
 
 @keyframes library-book-arrive {
@@ -4540,13 +4557,13 @@
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .library-book:hover:not([data-is-open="true"]) {
     z-index: 4;
-    transform: translateY(-0.4rem) rotate(-1deg);
+    transform: translateY(-0.3rem) rotate(calc(var(--book-lean) - 0.5deg));
     filter: drop-shadow(0 0.5rem 0.65rem hsl(10 48% 6% / 0.48));
   }
 }
 
 .library-book[data-is-open="true"] {
-  z-index: 3;
+  z-index: 8;
   filter: drop-shadow(0 0 0.65rem hsl(var(--reading-light) / 0.48));
 }
 
@@ -4563,6 +4580,8 @@
     animation: none !important;
     transition: none !important;
   }
+  .library-book-motion { transition: none !important; }
+  .library-book[data-is-open="true"] .library-book-motion { will-change: auto; }
   .library-note { animation: none !important; }
   .library-filter-chip,
   .library-search-clear,
