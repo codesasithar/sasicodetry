@@ -6,57 +6,57 @@
 
 @layer base {
   :root {
-    /* Shared palette swatches */
-    --palette-deep-space: 198 29.4% 13.3%; /* #18262C */
-    --palette-royal-blue: 204.1 77.3% 25.9%; /* #0F4C75 */
-    --palette-sky-focus: 204.2 57.3% 45.9%; /* #3282B8 */
-    --palette-cloud: 203.8 86.3% 85.7%; /* #BBE1FA */
-    --palette-ash: 102.9 3.4% 40.6%; /* #666B64 */
-    --palette-mist: 172.5 14.8% 78.8%; /* #C1D1CF */
-    --palette-slate: 192.4 11.6% 51.2%; /* #748B91 */
-    --palette-steel: 225 2% 39.6%; /* #636467 */
-    --palette-charcoal: 196.4 19.3% 11.2%; /* #171F22 */
+    /* Graphite, electric cyan, and restrained lime technology palette */
+    --palette-deep-space: 215 28% 8%;
+    --palette-royal-blue: 194 92% 24%;
+    --palette-sky-focus: 187 92% 54%;
+    --palette-cloud: 190 32% 96%;
+    --palette-ash: 216 10% 42%;
+    --palette-mist: 186 20% 77%;
+    --palette-slate: 210 14% 50%;
+    --palette-steel: 215 12% 35%;
+    --palette-charcoal: 215 27% 12%;
     /* Core Background & Foreground */
-    --background: 198 29.4% 13.3%; /* Deep Space · #18262C */
-    --foreground: 203.8 86.3% 85.7%; /* Soft Cloud · #BBE1FA */
+    --background: 215 28% 8%;
+    --foreground: 190 25% 94%;
 
     /* Card & Surface Colors */
-    --card: 196.4 19.3% 11.2%; /* #171F22 */
-    --card-foreground: 203.8 86.3% 85.7%;
-    --card-hover: 192.4 11.6% 51.2%; /* #748B91 */
+    --card: 215 23% 11%;
+    --card-foreground: 190 25% 94%;
+    --card-hover: 215 20% 16%;
 
     /* Popover Colors */
-    --popover: 196.4 19.3% 11.2%;
-    --popover-foreground: 203.8 86.3% 85.7%;
+    --popover: 215 23% 11%;
+    --popover-foreground: 190 25% 94%;
 
-    /* Primary Cool Blue */
-    --primary: 204.1 77.3% 25.9%; /* Royal Blue · #0F4C75 */
-    --primary-foreground: 203.8 86.3% 85.7%;
-    --primary-glow: 204.2 57.3% 45.9%; /* Sky Focus · #3282B8 */
-    --primary-dark: 198 29.4% 13.3%;
+    /* Electric cyan */
+    --primary: 187 92% 54%;
+    --primary-foreground: 215 28% 8%;
+    --primary-glow: 187 92% 64%;
+    --primary-dark: 193 94% 34%;
 
-    /* Secondary Bright Cyan */
-    --secondary: 192.4 11.6% 51.2%; /* #748B91 */
-    --secondary-foreground: 196.4 19.3% 11.2%;
+    /* Graphite secondary */
+    --secondary: 215 18% 19%;
+    --secondary-foreground: 190 25% 94%;
 
     /* Muted Colors */
-    --muted: 225 2% 39.6%; /* #636467 */
-    --muted-foreground: 172.5 14.8% 78.8%; /* #C1D1CF */
+    --muted: 215 20% 15%;
+    --muted-foreground: 190 18% 82%;
 
-    /* Accent Electric Blue */
-    --accent: 204.2 57.3% 45.9%;
-    --accent-foreground: 196.4 19.3% 11.2%;
+    /* Restrained signal lime */
+    --accent: 83 78% 59%;
+    --accent-foreground: 215 28% 8%;
 
     /* Status Colors */
-    --destructive: 225 2% 39.6%;
-    --destructive-foreground: 203.8 86.3% 85.7%;
-    --success: 192.4 11.6% 51.2%;
-    --success-foreground: 196.4 19.3% 11.2%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 146 65% 45%;
+    --success-foreground: 215 28% 8%;
 
     /* Interactive Elements */
-    --border: 192.4 11.6% 51.2%;
-    --input: 196.4 19.3% 11.2%;
-    --ring: 204.2 57.3% 45.9%;
+    --border: 215 16% 24%;
+    --input: 215 23% 11%;
+    --ring: 187 92% 54%;
 
     /* Design System Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
@@ -82,14 +82,14 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 196.4 19.3% 11.2%;
-    --sidebar-foreground: 203.8 86.3% 85.7%;
-    --sidebar-primary: 204.1 77.3% 25.9%;
-    --sidebar-primary-foreground: 203.8 86.3% 85.7%;
-    --sidebar-accent: 225 2% 39.6%;
-    --sidebar-accent-foreground: 203.8 86.3% 85.7%;
-    --sidebar-border: 192.4 11.6% 51.2%;
-    --sidebar-ring: 204.2 57.3% 45.9%;
+    --sidebar-background: 215 23% 11%;
+    --sidebar-foreground: 190 25% 94%;
+    --sidebar-primary: 187 92% 54%;
+    --sidebar-primary-foreground: 215 28% 8%;
+    --sidebar-accent: 215 20% 15%;
+    --sidebar-accent-foreground: 190 25% 94%;
+    --sidebar-border: 215 16% 24%;
+    --sidebar-ring: 187 92% 54%;
 
     /* Wood colors for bookshelf */
     --wood-200: 172.5 14.8% 78.8%;
@@ -119,61 +119,69 @@
   }
 
   .dark {
-    --background: 198 29.4% 13.3%;
-    --foreground: 203.8 86.3% 85.7%;
-    --card: 196.4 19.3% 11.2%;
-    --card-foreground: 203.8 86.3% 85.7%;
-    --card-hover: 192.4 11.6% 51.2%;
-    --popover: 196.4 19.3% 11.2%;
-    --popover-foreground: 203.8 86.3% 85.7%;
-    --primary: 204.1 77.3% 25.9%;
-    --primary-foreground: 203.8 86.3% 85.7%;
-    --primary-glow: 204.2 57.3% 45.9%;
-    --primary-dark: 198 29.4% 13.3%;
-    --secondary: 192.4 11.6% 51.2%;
-    --secondary-foreground: 196.4 19.3% 11.2%;
-    --muted: 225 2% 39.6%;
-    --muted-foreground: 172.5 14.8% 78.8%;
-    --accent: 204.2 57.3% 45.9%;
-    --accent-foreground: 196.4 19.3% 11.2%;
-    --destructive: 225 2% 39.6%;
-    --destructive-foreground: 203.8 86.3% 85.7%;
-    --border: 192.4 11.6% 51.2%;
-    --input: 196.4 19.3% 11.2%;
-    --ring: 204.2 57.3% 45.9%;
+    --background: 215 28% 8%;
+    --foreground: 190 25% 94%;
+    --card: 215 23% 11%;
+    --card-foreground: 190 25% 94%;
+    --card-hover: 215 20% 16%;
+    --popover: 215 23% 11%;
+    --popover-foreground: 190 25% 94%;
+    --primary: 187 92% 54%;
+    --primary-foreground: 215 28% 8%;
+    --primary-glow: 187 92% 64%;
+    --primary-dark: 193 94% 34%;
+    --secondary: 215 18% 19%;
+    --secondary-foreground: 190 25% 94%;
+    --muted: 215 20% 15%;
+    --muted-foreground: 190 18% 82%;
+    --accent: 83 78% 59%;
+    --accent-foreground: 215 28% 8%;
+    --destructive: 0 72% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 16% 24%;
+    --input: 215 23% 11%;
+    --ring: 187 92% 54%;
   }
-
   .light {
-    --background: 203.8 86.3% 85.7%;
-    --foreground: 196.4 19.3% 11.2%;
-    --card: 172.5 14.8% 78.8%;
-    --card-foreground: 196.4 19.3% 11.2%;
-    --card-hover: 172.5 14.8% 78.8%;
-    --popover: 203.8 86.3% 85.7%;
-    --popover-foreground: 196.4 19.3% 11.2%;
-    --primary: 204.1 77.3% 25.9%;
-    --primary-foreground: 203.8 86.3% 85.7%;
-    --primary-glow: 204.2 57.3% 45.9%;
-    --primary-dark: 198 29.4% 13.3%;
-    --secondary: 192.4 11.6% 51.2%;
-    --secondary-foreground: 196.4 19.3% 11.2%;
-    --muted: 172.5 14.8% 78.8%;
-    --muted-foreground: 225 2% 39.6%;
-    --accent: 204.2 57.3% 45.9%;
-    --accent-foreground: 196.4 19.3% 11.2%;
-    --destructive: 225 2% 39.6%;
-    --destructive-foreground: 203.8 86.3% 85.7%;
-    --border: 192.4 11.6% 51.2%;
-    --input: 172.5 14.8% 78.8%;
-    --ring: 204.2 57.3% 45.9%;
-    --sidebar-background: 172.5 14.8% 78.8%;
-    --sidebar-foreground: 196.4 19.3% 11.2%;
-    --sidebar-primary: 204.1 77.3% 25.9%;
-    --sidebar-primary-foreground: 203.8 86.3% 85.7%;
-    --sidebar-accent: 172.5 14.8% 78.8%;
-    --sidebar-accent-foreground: 196.4 19.3% 11.2%;
-    --sidebar-border: 192.4 11.6% 51.2%;
-    --sidebar-ring: 204.2 57.3% 45.9%;
+    --palette-deep-space: 215 30% 15%;
+    --palette-royal-blue: 194 92% 28%;
+    --palette-sky-focus: 187 92% 36%;
+    --palette-cloud: 190 32% 98%;
+    --palette-ash: 216 10% 42%;
+    --palette-mist: 186 20% 78%;
+    --palette-slate: 210 14% 48%;
+    --palette-steel: 215 12% 36%;
+    --palette-charcoal: 215 27% 12%;
+    --background: 190 34% 97%;
+    --foreground: 215 30% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 30% 13%;
+    --card-hover: 190 30% 93%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 30% 13%;
+    --primary: 187 94% 32%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 187 92% 43%;
+    --primary-dark: 193 94% 25%;
+    --secondary: 190 22% 91%;
+    --secondary-foreground: 215 30% 13%;
+    --muted: 190 22% 92%;
+    --muted-foreground: 215 12% 40%;
+    --accent: 83 78% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 68% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 190 20% 83%;
+    --input: 190 30% 95%;
+    --ring: 187 94% 32%;
+    --sidebar-background: 190 30% 95%;
+    --sidebar-foreground: 215 30% 13%;
+    --sidebar-primary: 187 94% 32%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 190 22% 91%;
+    --sidebar-accent-foreground: 215 30% 13%;
+    --sidebar-border: 190 20% 83%;
+    --sidebar-ring: 187 94% 32%;
     --wood-200: 172.5 14.8% 78.8%;
     --wood-400: 192.4 11.6% 51.2%;
     --wood-500: 225 2% 39.6%;
