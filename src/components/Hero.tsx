@@ -12,7 +12,7 @@ const socials = [
   { href: "tel:+919443798476", icon: Phone, label: "Phone" },
 ];
 
-const ROLE_TITLE = "Developer.";
+const ROLE_TITLE = "Portfolio";
 
 const heroNotePool = [
   { id: "experience", tone: "gold", source: "The journey", text: "2+ years building. 5+ projects shipped." },
@@ -118,13 +118,12 @@ const Hero = ({ startTyping = true }: { startTyping?: boolean }) => {
 
           <h1
             id="hero-heading"
-            aria-label="Software Developer."
+            aria-label="Portfolio"
             className="mb-0 mt-5 max-w-[11ch] text-5xl font-semibold leading-[0.92] tracking-[-0.06em] text-foreground min-[380px]:text-6xl sm:mt-6 sm:text-7xl xl:text-8xl"
           >
-            <span className="block" aria-hidden="true">Software</span>
             <span className="block text-primary" aria-hidden="true">
               <span className="inline-grid align-baseline">
-                <span className="col-start-1 row-start-1" style={{ gridArea: "1 / 1", visibility: "hidden" }}>Developer.</span>
+                <span className="col-start-1 row-start-1" style={{ gridArea: "1 / 1", visibility: "hidden" }}>Portfolio</span>
                 <span className="col-start-1 row-start-1 whitespace-nowrap" style={{ gridArea: "1 / 1" }}>
                   {ROLE_TITLE.slice(0, typedCount)}
                   {typedCount < ROLE_TITLE.length && <span className="hero-title-cursor" aria-hidden="true" />}

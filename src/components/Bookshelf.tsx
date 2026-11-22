@@ -402,7 +402,7 @@ const Bookshelf = () => {
           data-is-open={isOpen}
         >
           <div 
-            className="w-full h-full transition-transform duration-300 ease-out group-hover:[transform:rotateY(-10deg)_translateZ(15px)] group-data-[is-open=true]:[transform:none]"
+            className="library-book-pages w-full h-full"
             style={{ transformStyle: "preserve-3d" }}
           >
             {/* Front Cover Layer */}
@@ -423,15 +423,15 @@ const Bookshelf = () => {
 
             {/* Inside Page Layer */}
             <div
-              className="absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col"
+              className="library-book-inside absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col"
               style={{
                 backfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
               }}
             >
               {isOpen ? (
-                <div className="flex-1 flex flex-col text-amber-900 font-serif overflow-hidden animate-fade-in">
-                  <div className="text-[9px] md:text-[10px] font-bold leading-tight line-clamp-2">
+                <div className="library-book-inside-copy flex-1 flex flex-col text-amber-900 font-serif overflow-hidden">
+                  <div className="text-[8px] md:text-[10px] font-bold leading-tight line-clamp-2">
                     {book.title}
                   </div>
                   <div className="text-[7px] md:text-[8px] italic opacity-80 mb-1 truncate">
@@ -440,7 +440,7 @@ const Bookshelf = () => {
                   <div className="text-[6px] md:text-[7px] uppercase tracking-wide opacity-70 mb-1">
                     {book.genre}
                   </div>
-                  <p className="text-[6px] md:text-[7px] leading-snug opacity-90 line-clamp-6 md:line-clamp-[8]">
+                  <p className="text-[7px] md:text-[8px] leading-snug opacity-90 line-clamp-6 md:line-clamp-[9]">
                     {book.summary}
                   </p>
                 </div>
@@ -716,7 +716,7 @@ const Bookshelf = () => {
               <div
                 ref={detailsPaneRef}
                 id="book-details-pane"
-                className="mt-8 p-4 bg-muted/50 rounded-lg animate-fade-in transition-all duration-300 border border-border/30 relative"
+                className="library-book-details mt-8 p-4 bg-muted/50 rounded-lg transition-all duration-300 border border-border/30 relative"
               >
                 <button
                   onClick={() => setSelectedBook(null)}
