@@ -4065,10 +4065,6 @@
 }
 
 @media (max-width: 767px) {
-  .matrix-background {
-    display: none !important;
-  }
-
   .site-main > section:not(#home) {
     content-visibility: auto;
     contain-intrinsic-size: auto 80vh;
@@ -6624,8 +6620,8 @@ body {
 .liquid-glass-lens {
   position: fixed;
   z-index: 100000;
-  width: var(--lens-size, 184px);
-  height: var(--lens-size, 184px);
+  width: var(--lens-size, 136px);
+  height: var(--lens-size, 136px);
   overflow: hidden;
   border: 1px solid hsl(var(--primary) / 0.28);
   border-radius: 50%;

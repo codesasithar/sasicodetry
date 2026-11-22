@@ -174,7 +174,6 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
     let resizeObserver: ResizeObserver | null = null;
     let removeInputListeners: (() => void) | undefined;
     let resumeAnimation: (() => void) | undefined;
-    const desktopPointer = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
     const idleWindow = window as Window & {
       requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
       cancelIdleCallback?: (handle: number) => void;
@@ -187,10 +186,9 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
     let hovering = false;
 
     const initialize = async () => {
-      if (!desktopPointer.matches) return;
       try {
         const THREE = await import("three");
-        if (disposed || !desktopPointer.matches || !canvasRef.current || !button) return;
+        if (disposed || !canvasRef.current || !button) return;
         threeRuntime = THREE;
 
         const canvas = canvasRef.current;
@@ -228,7 +226,8 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
           if (!renderer || !canvasRef.current) return;
           const { width, height } = canvasRef.current.getBoundingClientRect();
           if (width <= 0 || height <= 0) return;
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+          const maxPixelRatio = window.matchMedia("(pointer: coarse)").matches ? 1.35 : 2;
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio));
           renderer.setSize(width, height, false);
           camera.aspect = width / height;
           camera.updateProjectionMatrix();
@@ -278,7 +277,7 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
         const clock = new THREE.Clock();
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const animate = () => {
-          if (!renderer || !scene || disposed || !desktopPointer.matches || document.hidden) {
+          if (!renderer || !scene || disposed || document.hidden) {
             animationFrame = 0;
             return;
           }
@@ -313,7 +312,7 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
         };
 
         resumeAnimation = () => {
-          if (animationFrame || !desktopPointer.matches || document.hidden) return;
+          if (animationFrame || document.hidden) return;
           animationFrame = window.requestAnimationFrame(animate);
         };
         renderer.render(scene, camera);
@@ -333,12 +332,6 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
     };
     const scheduleInitialization = () => {
       cancelPendingInitialization();
-      if (!desktopPointer.matches) {
-        if (animationFrame) window.cancelAnimationFrame(animationFrame);
-        animationFrame = 0;
-        onReady(false);
-        return;
-      }
       if (renderer && scene) {
         onReady(true);
         resumeAnimation?.();
@@ -365,13 +358,11 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
       }
     };
 
-    desktopPointer.addEventListener("change", scheduleInitialization);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     scheduleInitialization();
 
     return () => {
       disposed = true;
-      desktopPointer.removeEventListener("change", scheduleInitialization);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelPendingInitialization();
       if (animationFrame) window.cancelAnimationFrame(animationFrame);

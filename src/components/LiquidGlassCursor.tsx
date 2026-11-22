@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const LENS_SIZE = 184;
+const LENS_SIZE = 136;
 const LENS_MAGNIFICATION = 1.12;
 const LENS_DISTORTION = 9;
 

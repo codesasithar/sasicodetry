@@ -99,6 +99,7 @@ const categories: Category[] = [
     movies: [
       { title: "Harry Potter", year: "Collection", trailer: "https://www.youtube.com/results?search_query=Harry+Potter++official+trailer", poster: "https://image.tmdb.org/t/p/w500/SJCnXVBJZh7X7ePLt6XMp6TZAj.jpg" },
       { title: "Life Of Pi", year: "2012", trailer: "https://www.youtube.com/results?search_query=Life+Of+Pi+2012+official+trailer", poster: "https://image.tmdb.org/t/p/w500/iLgRu4hhSr6V1uManX6ukDriiSc.jpg" },
+      { title: "Ramayana: Part 1", year: "2026", trailer: "https://www.youtube.com/results?search_query=Ramayana%3A+Part+1+2026+official+trailer", poster: "https://ramayanariseofalegend.com/assets/images/ipadbannerportrait.jpg" },
       { title: "The Hobbit: An Unexpected Journey", year: "2012", trailer: "https://www.youtube.com/results?search_query=The+Hobbit%3A+An+Unexpected+Journey+2012+official+trailer", poster: "https://image.tmdb.org/t/p/w500/yHA9Fc37VmpUA5UncTxxo3rTGVA.jpg" },
       { title: "The Hobbit: The Battle Of The Five Armies", year: "2014", trailer: "https://www.youtube.com/results?search_query=The+Hobbit%3A+The+Battle+Of+The+Five+Armies+2014+official+trailer", poster: "https://image.tmdb.org/t/p/w500/xT98tLqatZPQApyRmlPL12LtiWp.jpg" },
       { title: "The Hobbit: The Desolation Of Smaug", year: "2013", trailer: "https://www.youtube.com/results?search_query=The+Hobbit%3A+The+Desolation+Of+Smaug+2013+official+trailer", poster: "https://image.tmdb.org/t/p/w500/xQYiXsheRCDBA39DOrmaw1aSpbk.jpg" },

@@ -7,14 +7,20 @@ const MatrixBackground = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    if (window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+    const mobileViewport = window.matchMedia('(max-width: 767px)');
+    let fontSize = mobileViewport.matches ? 18 : 14;
+    let drops: number[] = [];
+
     // Set canvas size to window size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      fontSize = mobileViewport.matches ? 18 : 14;
+      drops = Array.from({ length: Math.floor(canvas.width / fontSize) }, () => 1);
     };
 
     resizeCanvas();
@@ -25,17 +31,6 @@ const MatrixBackground = () => {
 
     // Create array of characters
     const matrixChars = matrix.split("");
-
-    const fontSize = 14;
-    const columns = Math.floor(canvas.width / fontSize);
-
-    // Array to hold y-position of each column
-    const drops: number[] = [];
-
-    // Initialize drops array
-    for (let x = 0; x < columns; x++) {
-      drops[x] = 1;
-    }
 
     // Draw function
     const draw = () => {
@@ -71,17 +66,24 @@ const MatrixBackground = () => {
     };
 
     // Animation loop
-    const animate = () => {
+    let lastFrame = 0;
+    const animate = (time: number) => {
       if (document.hidden) {
         animationRef.current = undefined;
+        lastFrame = 0;
         return;
       }
-      draw();
+      const frameInterval = mobileViewport.matches ? 1000 / 30 : 0;
+      if (!lastFrame || !frameInterval || time - lastFrame >= frameInterval) {
+        draw();
+        lastFrame = time;
+      }
       animationRef.current = requestAnimationFrame(animate);
     };
 
     const onVisibilityChange = () => {
       if (!document.hidden && !animationRef.current) {
+        lastFrame = 0;
         animationRef.current = requestAnimationFrame(animate);
       }
     };
