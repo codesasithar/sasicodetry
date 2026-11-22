@@ -4,6 +4,7 @@ import "@/App.css";
 // 1. Critical "Above-the-Fold" Components (Load immediately)
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import MatrixBackground from "@/components/MatrixBackground";
 
 // 2. Global UI Utilities (Lightweight, but can load right after)
 import ScrollToTop from "@/components/ScrollToTop";
@@ -110,6 +111,7 @@ const Index = ({ isReady }: { isReady: boolean }) => {
 
   return (
     <>
+      {isReady && <MatrixBackground />}
       {/* All your content with proper layering */}
       <div className="min-h-screen relative z-10">
         {/* Utilities */}

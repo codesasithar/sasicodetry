@@ -11,9 +11,6 @@ const MatrixBackground = () => {
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const paletteInk = getComputedStyle(document.documentElement).getPropertyValue('--palette-charcoal').trim();
-    const paletteAsh = getComputedStyle(document.documentElement).getPropertyValue('--palette-ash').trim();
-
     // Set canvas size to window size
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -42,12 +39,11 @@ const MatrixBackground = () => {
 
     // Draw function
     const draw = () => {
-      // Keep the fading trail and glyphs aligned with the site palette.
-      ctx.fillStyle = `hsl(${paletteInk} / 0.04)`;
+      // Keep the familiar dark trail and classic green Matrix glyphs.
+      ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Cool gray characters replace the old neon-green matrix.
-      ctx.fillStyle = `hsl(${paletteAsh})`;
+      ctx.fillStyle = "#00ff00";
       ctx.font = fontSize + "px 'Courier New', monospace";
 
       // Loop over drops
@@ -56,7 +52,7 @@ const MatrixBackground = () => {
         const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
 
         // Draw the character
-        ctx.fillStyle = `hsl(${paletteAsh})`;
+        ctx.fillStyle = "#00ff00";
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
         // Make the leading character slightly brighter (white)
@@ -113,7 +109,7 @@ const MatrixBackground = () => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: -1,
+        zIndex: 0,
         pointerEvents: 'none',
       }}
     />
