@@ -1,18 +1,13 @@
-import { Suspense, lazy, useEffect, useRef, useState, type ComponentType } from "react";
+import { useEffect, useRef, useState, type ComponentType } from "react";
 import "@/App.css";
 
 // 1. Critical "Above-the-Fold" Components (Load immediately)
-import MatrixBackground from "@/components/MatrixBackground";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 
 // 2. Global UI Utilities (Lightweight, but can load right after)
-import CursorEffects from "@/components/CursorEffects";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollRobot from "@/components/ScrollRobot";
-
-// 3. Lazy Load Heavy "Below-the-Fold" Sections
-const FlyingDrone = lazy(() => import("@/components/FlyingDrone"));
 
 type DeferredSectionModule = { default: ComponentType };
 type DeferredSectionProps = {
@@ -79,52 +74,6 @@ const DEFERRED_SECTIONS = [
 ];
 
 const Index = ({ isReady }: { isReady: boolean }) => {
-  const [showDesktopDrone, setShowDesktopDrone] = useState(false);
-
-  useEffect(() => {
-    const desktopPointer = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
-    const idleWindow = window as Window & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
-      cancelIdleCallback?: (handle: number) => void;
-    };
-    let idleHandle: number | undefined;
-    let fallbackTimer: number | undefined;
-
-    const cancelPendingLoad = () => {
-      if (idleHandle !== undefined) idleWindow.cancelIdleCallback?.(idleHandle);
-      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
-      idleHandle = undefined;
-      fallbackTimer = undefined;
-    };
-
-    const scheduleDrone = () => {
-      cancelPendingLoad();
-      if (!desktopPointer.matches) {
-        setShowDesktopDrone(false);
-        return;
-      }
-
-      if (idleWindow.requestIdleCallback) {
-        idleHandle = idleWindow.requestIdleCallback(() => {
-          idleHandle = undefined;
-          setShowDesktopDrone(true);
-        }, { timeout: 2000 });
-      } else {
-        fallbackTimer = window.setTimeout(() => {
-          fallbackTimer = undefined;
-          setShowDesktopDrone(true);
-        }, 800);
-      }
-    };
-
-    scheduleDrone();
-    desktopPointer.addEventListener("change", scheduleDrone);
-    return () => {
-      desktopPointer.removeEventListener("change", scheduleDrone);
-      cancelPendingLoad();
-    };
-  }, []);
-
   useEffect(() => {
     const main = document.querySelector<HTMLElement>(".site-main");
     if (!main) return;
@@ -161,16 +110,9 @@ const Index = ({ isReady }: { isReady: boolean }) => {
 
   return (
     <>
-      {/* Matrix background - appears behind everything */}
-      <MatrixBackground />
-      
       {/* All your content with proper layering */}
       <div className="min-h-screen relative z-10">
         {/* Utilities */}
-        <Suspense fallback={null}>
-          {showDesktopDrone && <FlyingDrone />}
-        </Suspense>
-        <CursorEffects />
         <Navigation />
         <ScrollToTop />
         <ScrollRobot />

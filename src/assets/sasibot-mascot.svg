@@ -1,31 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 180" fill="none">
   <defs>
     <linearGradient id="shell" x1="24" y1="31" x2="75" y2="141" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#C1D1CF"/><stop offset=".55" stop-color="#748B91"/><stop offset="1" stop-color="#666B64"/>
+      <stop stop-color="#53D68A"/><stop offset=".55" stop-color="#29AE70"/><stop offset="1" stop-color="#168858"/>
     </linearGradient>
     <linearGradient id="arm" x1="18" y1="67" x2="18" y2="125" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#C1D1CF"/><stop offset="1" stop-color="#666B64"/>
+      <stop stop-color="#53D68A"/><stop offset="1" stop-color="#168858"/>
     </linearGradient>
     <filter id="soft-shadow" x="-30%" y="-30%" width="160%" height="180%">
       <feGaussianBlur stdDeviation="3"/>
     </filter>
   </defs>
-  <ellipse cx="50" cy="169" rx="25" ry="4" fill="#171F22" opacity=".2" filter="url(#soft-shadow)"/>
+  <ellipse cx="50" cy="169" rx="25" ry="4" fill="#0B0F14" opacity=".2" filter="url(#soft-shadow)"/>
   <path d="M38 27 32 13M62 27l6-14" stroke="url(#shell)" stroke-width="3.5" stroke-linecap="round"/>
-  <circle cx="32" cy="12" r="2.5" fill="#3282B8"/><circle cx="68" cy="12" r="2.5" fill="#3282B8"/>
+  <circle cx="32" cy="12" r="2.5" fill="#5B84FF"/><circle cx="68" cy="12" r="2.5" fill="#5B84FF"/>
   <rect x="22" y="57" width="56" height="79" rx="26" fill="url(#shell)"/>
   <path d="M22 58a28 28 0 0 1 56 0v2H22v-2Z" fill="url(#shell)"/>
-  <path d="M25 61h50" stroke="#666B64" stroke-opacity=".52" stroke-width="1.5"/>
+  <path d="M25 61h50" stroke="#168858" stroke-opacity=".52" stroke-width="1.5"/>
   <path d="M22 70 15 118M78 70l7 48" stroke="url(#arm)" stroke-width="13" stroke-linecap="round"/>
-  <circle cx="14" cy="123" r="7" fill="#748B91"/><circle cx="86" cy="123" r="7" fill="#748B91"/>
+  <circle cx="14" cy="123" r="7" fill="#29AE70"/><circle cx="86" cy="123" r="7" fill="#29AE70"/>
   <path d="M39 133v22M61 133v22" stroke="url(#shell)" stroke-width="13" stroke-linecap="round"/>
-  <path d="M33 159c0-3 2.5-5.5 5.5-5.5h2c3 0 5.5 2.5 5.5 5.5v2H33v-2ZM54 159c0-3 2.5-5.5 5.5-5.5h2c3 0 5.5 2.5 5.5 5.5v2H54v-2Z" fill="#666B64"/>
-  <ellipse cx="40" cy="43" rx="5.2" ry="6.2" fill="#BBE1FA"/>
-  <ellipse cx="60" cy="43" rx="5.2" ry="6.2" fill="#BBE1FA"/>
-  <circle cx="41.4" cy="44.2" r="2.7" fill="#18262C"/>
-  <circle cx="61.4" cy="44.2" r="2.7" fill="#18262C"/>
-  <circle cx="40.5" cy="43.2" r=".9" fill="#3282B8"/>
-  <circle cx="60.5" cy="43.2" r=".9" fill="#3282B8"/>
-  <circle cx="50" cy="98" r="6" fill="#666B64"/>
-  <circle cx="50" cy="98" r="3.5" fill="#3282B8"/>
+  <path d="M33 159c0-3 2.5-5.5 5.5-5.5h2c3 0 5.5 2.5 5.5 5.5v2H33v-2ZM54 159c0-3 2.5-5.5 5.5-5.5h2c3 0 5.5 2.5 5.5 5.5v2H54v-2Z" fill="#293444"/>
+  <ellipse cx="40" cy="43" rx="5.2" ry="6.2" fill="#F4F7FC"/>
+  <ellipse cx="60" cy="43" rx="5.2" ry="6.2" fill="#F4F7FC"/>
+  <circle cx="41.4" cy="44.2" r="2.7" fill="#0B0F14"/>
+  <circle cx="61.4" cy="44.2" r="2.7" fill="#0B0F14"/>
+  <circle cx="40.5" cy="43.2" r=".9" fill="#5B84FF"/>
+  <circle cx="60.5" cy="43.2" r=".9" fill="#5B84FF"/>
+  <circle cx="50" cy="98" r="6" fill="#293444"/>
+  <circle cx="50" cy="98" r="3.5" fill="#5B84FF"/>
 </svg>

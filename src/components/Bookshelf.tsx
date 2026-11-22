@@ -4,7 +4,6 @@ import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
 
 // Existing asset imports
 const briefHistoryOfTime = "/lovable-uploads/9187ac54-4777-4333-b976-3dfd06f39c82.webp";
@@ -123,6 +122,20 @@ const books: Book[] = [
   }
 ];
 
+const ShelfCactus = () => (
+  <svg className="library-cactus" viewBox="0 0 88 132" role="img" aria-label="A small cactus in a modern planter">
+    <ellipse cx="44" cy="126" rx="25" ry="3" fill="hsl(var(--palette-deep-space) / 0.3)" />
+    <path className="library-cactus-body" d="M31 90V36c0-9 6-16 14-16s14 7 14 16v54H31Z" />
+    <path className="library-cactus-body" d="M32 62h-5v-9c0-6-4-10-9-10s-9 4-9 10v13c0 9 7 16 16 16h7V72h-7c-3 0-5-2-5-6V53c0-2 1-3 2-3s2 1 2 3v16h8V62Z" />
+    <path className="library-cactus-body" d="M56 50h6v-8c0-6 4-10 9-10s9 4 9 10v13c0 9-7 16-16 16h-8V61h8c3 0 5-2 5-6V42c0-2-1-3-2-3s-2 1-2 3v15h-9V50Z" />
+    <path className="library-cactus-rib" d="M39 31v51M47 29v55M54 36v44M17 48v13M72 39v14" />
+    <path className="library-cactus-shade" d="M45 20c8 0 14 7 14 16v54H45V20Z" opacity=".2" />
+    <path className="library-cactus-pot" d="M25 92h38l-4 30H29l-4-30Z" />
+    <rect className="library-cactus-rim" x="22" y="88" width="44" height="7" rx="2" />
+    <path d="M32 101h24" stroke="hsl(var(--palette-cloud) / 0.24)" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
 const libraryNotes = [
   {
     book: "A Brief History of Time",
@@ -206,98 +219,14 @@ const libraryNotes = [
   },
 ];
 
-const DeskLamp = () => (
-  <svg
-    className="desk-lamp-svg arc-lamp-svg"
-    width="192"
-    height="137"
-    viewBox="0 0 210 150"
-    fill="none"
-    aria-hidden
-    focusable="false"
-  >
-    <defs>
-      <linearGradient id="lampBody" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="hsl(var(--palette-slate))" />
-        <stop offset="55%" stopColor="hsl(var(--palette-ash))" />
-        <stop offset="100%" stopColor="hsl(var(--palette-deep-space))" />
-      </linearGradient>
-      <linearGradient id="lampShade" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="hsl(var(--palette-ash))" />
-        <stop offset="100%" stopColor="hsl(var(--palette-charcoal))" />
-      </linearGradient>
-      <radialGradient id="lampBeam" cx="42%" cy="0%" r="85%">
-        <stop offset="0%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.5" />
-        <stop offset="45%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.2" />
-        <stop offset="100%" stopColor="hsl(var(--palette-mist))" stopOpacity="0" />
-      </radialGradient>
-      <radialGradient id="bulbHalo" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.85" />
-        <stop offset="45%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="hsl(var(--palette-mist))" stopOpacity="0" />
-      </radialGradient>
-    </defs>
-
-    {/* Warm light cone aimed down at the books */}
-    <path
-      className="lamp-glow-pulse"
-      d="M138 66 L170 84 L218 150 L104 150 Z"
-      fill="url(#lampBeam)"
-    />
-
-    {/* Soft halo around the bulb */}
-    <circle className="lamp-bulb-pulse" cx="154" cy="76" r="19" fill="url(#bulbHalo)" />
-
-    {/* Shade */}
-    <path d="M146 44 L182 60 L170 84 L138 66 Z" fill="url(#lampShade)" />
-    <path d="M138 66 L170 84" stroke="hsl(var(--palette-mist) / 0.45)" strokeWidth="1.5" />
-    {/* Glowing bulb at the shade opening */}
-    <ellipse
-      className="lamp-bulb-pulse"
-      cx="154"
-      cy="76"
-      rx="12"
-      ry="4.5"
-      fill="hsl(var(--palette-mist))"
-      transform="rotate(29 154 76)"
-    />
-
-    {/* Curved arc arm */}
-    <path d="M40 58 C 42 14 148 4 154 46" stroke="url(#lampBody)" strokeWidth="5" strokeLinecap="round" />
-    {/* Electric-cyan tech trace riding the arm */}
-    <path
-      className="arc-arm-dash"
-      d="M40 58 C 42 14 148 4 154 46"
-      stroke="hsl(var(--palette-sky-focus))"
-      strokeOpacity="0.45"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeDasharray="1.5 6"
-    />
-
-    {/* Stem and base: keep the support clearly visible between the arm and foot. */}
-    <path className="lamp-stem" d="M40 138 L40 58" stroke="url(#lampBody)" strokeWidth="7" strokeLinecap="round" />
-    <path className="lamp-stem-highlight" d="M38.5 132 L38.5 64" strokeLinecap="round" />
-    {/* Joint sits over the stem so the arm reads as one connected assembly. */}
-    <circle cx="40" cy="58" r="5" fill="hsl(var(--palette-deep-space))" stroke="url(#lampBody)" strokeWidth="2" />
-    <rect x="16" y="136" width="52" height="9" rx="4.5" fill="url(#lampBody)" />
-  </svg>
-);
-
 const Bookshelf = () => {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [notesExpanded, setNotesExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeGenre, setActiveGenre] = useState("All");
   const [readerOrigin, setReaderOrigin] = useState({ x: 0, y: 0, scaleX: 0.25, scaleY: 0.35 });
-  const cardRef = useRef<HTMLDivElement>(null);
-  const spotlightRef = useRef<HTMLDivElement>(null);
   const readerSpreadRef = useRef<HTMLDivElement>(null);
   const readerSourceRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const [spotlightActive, setSpotlightActive] = useState(false);
-
-  const pendingRef = useRef<{ x: number; y: number } | null>(null);
 
   const genres = ["All", ...Array.from(new Set(books.map((book) => book.genre)))];
   const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -333,26 +262,6 @@ const Bookshelf = () => {
       scaleY: source.height / height,
     });
   }, [selectedBook]);
-
-  const scheduleSpotlight = (clientX: number, clientY: number) => {
-    const card = cardRef.current;
-    const spot = spotlightRef.current;
-    if (!card || !spot) return;
-    const rect = card.getBoundingClientRect();
-    pendingRef.current = {
-      x: clientX - rect.left,
-      y: clientY - rect.top,
-    };
-    if (rafRef.current != null) return;
-    rafRef.current = requestAnimationFrame(() => {
-      rafRef.current = null;
-      const p = pendingRef.current;
-      const s = spotlightRef.current;
-      if (!p || !s) return;
-      s.style.setProperty("--spot-x", `${p.x}px`);
-      s.style.setProperty("--spot-y", `${p.y}px`);
-    });
-  };
 
   const getStatusColor = (status: Book['status']) => {
     switch (status) {
@@ -478,40 +387,9 @@ const Bookshelf = () => {
         
         <div className="w-full">
           <Card
-            ref={cardRef}
-            onMouseMove={(e) => { scheduleSpotlight(e.clientX, e.clientY); setSpotlightActive(true); }}
-            onMouseLeave={() => setSpotlightActive(false)}
-            onTouchMove={(e) => { scheduleSpotlight(e.touches[0].clientX, e.touches[0].clientY); setSpotlightActive(true); }}
-            onTouchEnd={() => setSpotlightActive(false)}
             style={{ touchAction: "pan-y" }}
-            className="relative bg-background/90 backdrop-blur-sm border-primary/20 p-3 sm:p-4 md:p-6 overflow-hidden"
+            className="relative border-border bg-card p-3 shadow-none sm:p-4 md:p-6 overflow-hidden"
           >
-            {/* Cursor-following spotlight */}
-            <div
-              ref={spotlightRef}
-              aria-hidden
-              className="pointer-events-none absolute inset-0 z-30 transition-opacity duration-500 mix-blend-screen"
-              style={{
-                opacity: spotlightActive ? 1 : 0,
-                background:
-                  "radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), hsl(var(--palette-mist) / 0.35), hsl(var(--palette-mist) / 0.15) 35%, hsl(var(--palette-charcoal) / 0) 65%)",
-              }}
-            />
-            {/* Study lamp + framed photo sitting on top of the shelf */}
-            <div className="flex items-end justify-between gap-4 px-2 sm:px-8 mb-2 select-none">
-              <div className="hidden md:block" aria-hidden>
-                <DeskLamp />
-              </div>
-              <figure className="shelf-photo-frame mx-auto md:mx-0">
-                <img
-                  src={deskPhoto.url}
-                  alt="Sasithar at his desk with his favourite books and an Einstein figurine"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            </div>
-
             {/* Pinned reading notes inspired by the books on the shelf */}
             <section className="library-notes" data-collapsed={!notesExpanded} aria-labelledby="library-notes-title">
               <div className="library-notes-heading">
@@ -614,9 +492,12 @@ const Bookshelf = () => {
                 <>
                   {/* Mobile Layout */}
                   <div className="library-wood-rack library-mobile-rack md:hidden">
-                    <div className="library-rack-nameplate" aria-hidden="true">
-                      <span>THE READING ROOM</span>
-                      <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
+                    <div className="library-mobile-header">
+                      <div className="library-rack-nameplate" aria-hidden="true">
+                        <span>THE READING ROOM</span>
+                        <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
+                      </div>
+                      <ShelfCactus />
                     </div>
                     {Array.from({ length: Math.ceil(visibleBooks.length / 3) }, (_, shelfIndex) => (
                       <div className="library-mobile-shelf" key={shelfIndex}>
@@ -657,10 +538,11 @@ const Bookshelf = () => {
                       <div
                         className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-2 sm:gap-x-3 lg:gap-x-4 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
                         style={{
-                          gridTemplateColumns: `repeat(${Math.min(5, shelfOneBooks.length)}, max-content)`,
+                          gridTemplateColumns: `max-content repeat(${Math.min(5, shelfOneBooks.length)}, max-content)`,
                           justifyContent: "center",
                         }}
                       >
+                        <ShelfCactus />
                         {shelfOneBooks.map((book) => (
                           <AnimatedBook
                             key={book.id}

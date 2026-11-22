@@ -24,30 +24,30 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   root.add(body);
 
   const greenShell = new THREE.MeshPhysicalMaterial({
-    color: 0x748b91,
-    metalness: 0.18,
-    roughness: 0.24,
-    clearcoat: 0.95,
-    clearcoatRoughness: 0.16,
+    color: 0x31b978,
+    metalness: 0.02,
+    roughness: 0.72,
+    clearcoat: 0.08,
+    clearcoatRoughness: 0.7,
   });
   const lightShell = new THREE.MeshPhysicalMaterial({
-    color: 0xc1d1cf,
-    metalness: 0.16,
-    roughness: 0.2,
-    clearcoat: 1,
-    clearcoatRoughness: 0.13,
+    color: 0xe4eaf2,
+    metalness: 0.02,
+    roughness: 0.76,
+    clearcoat: 0.06,
+    clearcoatRoughness: 0.72,
   });
   const trim = new THREE.MeshPhysicalMaterial({
-    color: 0x3282b8,
-    metalness: 0.38,
-    roughness: 0.22,
-    clearcoat: 0.8,
-    emissive: 0x0f4c75,
+    color: 0x5b84ff,
+    metalness: 0.04,
+    roughness: 0.68,
+    clearcoat: 0.08,
+    emissive: 0x2449a8,
   });
-  const seam = new THREE.MeshStandardMaterial({ color: 0x636467, metalness: 0.16, roughness: 0.4 });
-  const eyeWhite = new THREE.MeshPhysicalMaterial({ color: 0xbbe1fa, roughness: 0.16, clearcoat: 1 });
-  const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x18262c, metalness: 0.28, roughness: 0.16 });
-  const iris = new THREE.MeshStandardMaterial({ color: 0x3282b8, metalness: 0.2, roughness: 0.18, emissive: 0x0f4c75 });
+  const seam = new THREE.MeshStandardMaterial({ color: 0x293444, metalness: 0.03, roughness: 0.74 });
+  const eyeWhite = new THREE.MeshPhysicalMaterial({ color: 0xf4f7fc, roughness: 0.68, clearcoat: 0.08 });
+  const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x0b0f14, metalness: 0.04, roughness: 0.62 });
+  const iris = new THREE.MeshStandardMaterial({ color: 0x5b84ff, metalness: 0.04, roughness: 0.6, emissive: 0x2449a8 });
   const sphereGeometry = new THREE.SphereGeometry(1, 56, 40);
 
   const sphere = (parent: THREE.Group, material: THREE.Material, position: Vec3, scale: Vec3) => {
@@ -110,7 +110,7 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   // A soft, elliptical contact shadow grounds the floating mascot on transparent pages.
   const shadow = new THREE.Mesh(
     new THREE.CircleGeometry(0.72, 64),
-    new THREE.MeshBasicMaterial({ color: 0x171f22, transparent: true, opacity: 0.26, depthWrite: false }),
+    new THREE.MeshBasicMaterial({ color: 0x0b0f14, transparent: true, opacity: 0.26, depthWrite: false }),
   );
   shadow.rotation.x = -Math.PI / 2;
   shadow.scale.set(1, 0.4, 1);
@@ -206,14 +206,14 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
         renderer.toneMappingExposure = 1.1;
 
         scene = new THREE.Scene();
-        scene.add(new THREE.HemisphereLight(0xc1d1cf, 0x171f22, 2.1));
-        const keyLight = new THREE.DirectionalLight(0xbbe1fa, 3.2);
+        scene.add(new THREE.HemisphereLight(0xe4eaf2, 0x10151d, 2.1));
+        const keyLight = new THREE.DirectionalLight(0xf4f7fc, 3.2);
         keyLight.position.set(-3.5, 5, 5);
         scene.add(keyLight);
-        const coolRim = new THREE.DirectionalLight(0x3282b8, 2.8);
+        const coolRim = new THREE.DirectionalLight(0x5b84ff, 2.8);
         coolRim.position.set(3.5, 3, -3);
         scene.add(coolRim);
-        const warmFill = new THREE.DirectionalLight(0x748b91, 1.25);
+        const warmFill = new THREE.DirectionalLight(0x82d5a8, 1.25);
         warmFill.position.set(-4, 1, 2);
         scene.add(warmFill);
 

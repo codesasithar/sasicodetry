@@ -33,7 +33,7 @@ const ScrollToTop = () => {
         h-12 w-12 sm:h-14 sm:w-14 rounded-full
         flex items-center justify-center
         border-2 border-primary/80 bg-background/90 backdrop-blur text-primary
-        shadow-[0_0_26px_hsl(var(--primary)/0.5)]
+        shadow-none
         transition-all duration-300 ease-in-out
         hover:scale-110 hover:-translate-y-1 hover:bg-primary hover:text-primary-foreground
         ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16 pointer-events-none"}
