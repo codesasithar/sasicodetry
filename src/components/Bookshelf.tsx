@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { BookOpen, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Pause, Pin, Play, Search, X } from "lucide-react";
+import { BookOpen, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Pin, Search, X } from "lucide-react";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -227,7 +227,8 @@ const Bookshelf = () => {
   const [featuredBookId, setFeaturedBookId] = useState(books[0]?.id ?? "");
   const [isShelfPaused, setIsShelfPaused] = useState(false);
   const [isShelfPointerOver, setIsShelfPointerOver] = useState(false);
-  const [shelfViewportWidth, setShelfViewportWidth] = useState(() => window.innerWidth);
+  const shelfTrackRef = useRef<HTMLDivElement>(null);
+  const featuredCoverRef = useRef<HTMLButtonElement>(null);
   const [readerOrigin, setReaderOrigin] = useState({ x: 0, y: 0, scaleX: 0.25, scaleY: 0.35 });
   const readerSpreadRef = useRef<HTMLDivElement>(null);
   const readerSourceRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null);
@@ -240,43 +241,50 @@ const Bookshelf = () => {
       `${book.title} ${book.author} ${book.genre} ${book.summary}`.toLowerCase().includes(normalizedQuery);
     return matchesGenre && matchesQuery;
   });
-  const featuredShelfBooks = visibleBooks.slice(0, Math.ceil(visibleBooks.length / 2));
-  const featuredShelfKey = featuredShelfBooks.map((book) => book.id).join("|");
-  const activeFeaturedBookId = featuredShelfBooks.some((book) => book.id === featuredBookId)
+  const visibleBookKey = visibleBooks.map((book) => book.id).join("|");
+  const activeFeaturedBookId = visibleBooks.some((book) => book.id === featuredBookId)
     ? featuredBookId
-    : featuredShelfBooks[0]?.id ?? "";
-
-  useEffect(() => {
-    const updateShelfViewport = () => setShelfViewportWidth(window.innerWidth);
-    window.addEventListener("resize", updateShelfViewport, { passive: true });
-    return () => window.removeEventListener("resize", updateShelfViewport);
-  }, []);
+    : visibleBooks[0]?.id ?? "";
+  const activeBook = visibleBooks.find((book) => book.id === activeFeaturedBookId) ?? null;
+  const activeBookIndex = activeBook ? visibleBooks.findIndex((book) => book.id === activeBook.id) : -1;
 
   useEffect(() => {
     if (
       isShelfPaused
       || isShelfPointerOver
       || selectedBook
-      || featuredShelfBooks.length < 2
+      || visibleBooks.length < 2
       || window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) return;
 
-    const shelfBookIds = featuredShelfBooks.map((book) => book.id);
+    const shelfBookIds = visibleBooks.map((book) => book.id);
     const timer = window.setInterval(() => {
       setFeaturedBookId((currentId) => {
         const currentIndex = shelfBookIds.indexOf(currentId);
         return shelfBookIds[(currentIndex + 1 + shelfBookIds.length) % shelfBookIds.length];
       });
-    }, 4200);
+    }, 5200);
 
     return () => window.clearInterval(timer);
-  }, [featuredShelfKey, isShelfPaused, isShelfPointerOver, selectedBook]);
+  }, [visibleBookKey, isShelfPaused, isShelfPointerOver, selectedBook]);
+
+  useEffect(() => {
+    if (!activeFeaturedBookId) return;
+    const selectedVolume = Array.from(shelfTrackRef.current?.querySelectorAll<HTMLElement>("[data-book-id]") ?? [])
+      .find((volume) => volume.dataset.bookId === activeFeaturedBookId);
+    const shelf = shelfTrackRef.current;
+    if (!selectedVolume || !shelf) return;
+    const volumeOffset = selectedVolume.getBoundingClientRect().left - shelf.getBoundingClientRect().left + shelf.scrollLeft;
+    shelf.scrollTo({
+      left: volumeOffset - (shelf.clientWidth - selectedVolume.offsetWidth) / 2,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }, [activeFeaturedBookId]);
 
   const moveFeaturedBook = (offset: number) => {
-    if (!featuredShelfBooks.length) return;
-    const currentIndex = featuredShelfBooks.findIndex((book) => book.id === activeFeaturedBookId);
-    const nextIndex = (currentIndex + offset + featuredShelfBooks.length) % featuredShelfBooks.length;
-    setFeaturedBookId(featuredShelfBooks[nextIndex].id);
+    if (!visibleBooks.length) return;
+    const nextIndex = (activeBookIndex + offset + visibleBooks.length) % visibleBooks.length;
+    setFeaturedBookId(visibleBooks[nextIndex].id);
   };
 
   const selectBook = (book: Book, element: HTMLElement) => {
@@ -305,15 +313,6 @@ const Bookshelf = () => {
     });
   }, [selectedBook]);
 
-  const getStatusColor = (status: Book['status']) => {
-    switch (status) {
-      case "read": return "text-foreground";
-      case "reading": return "text-primary-glow";
-      case "to-read": return "text-secondary";
-      default: return "text-muted-foreground";
-    }
-  };
-
   const getStatusText = (status: Book['status']) => {
     switch (status) {
       case "read": return "Completed";
@@ -323,117 +322,9 @@ const Bookshelf = () => {
     }
   };
 
-  const AnimatedBook = ({
-    book,
-    sizeClasses,
-    featureIndex,
-    featured = false,
-  }: {
-    book: Book;
-    sizeClasses: string;
-    featureIndex?: number;
-    featured?: boolean;
-  }) => {
-    const arrivalIndex = books.findIndex((entry) => entry.id === book.id);
-    const featureCenterIndex = (featuredShelfBooks.length - 1) / 2;
-    const featuredPosition = featuredShelfBooks.findIndex((entry) => entry.id === activeFeaturedBookId);
-    const shelfGap = shelfViewportWidth >= 1024 ? 16 : shelfViewportWidth >= 640 ? 12 : 8;
-    const featuredBookWidth = Math.max(104, Math.min(144, shelfViewportWidth * 0.1));
-    const featureStep = featuredBookWidth + shelfGap;
-    const spineSpacing = 32;
-    const featureShift = featureIndex === undefined
-      ? "0px"
-      : ((featureCenterIndex - featureIndex) * featureStep).toFixed(1) + "px";
-    const spineShift = featureIndex === undefined
-      ? "0px"
-      : ((featureCenterIndex - featureIndex) * featureStep + (featureIndex - featuredPosition) * spineSpacing).toFixed(1) + "px";
-
-    return (
-      <div
-        role="button"
-        tabIndex={0}
-        className={`library-book relative group cursor-pointer p-0 border-0 bg-transparent text-left ${sizeClasses}`}
-        style={{
-          perspective: "850px",
-          "--book-index": arrivalIndex,
-          "--featured-shift": featureShift,
-          "--spine-shift": spineShift,
-        } as CSSProperties}
-        data-feature-mode={featureIndex === undefined ? undefined : "true"}
-        data-featured={featureIndex === undefined ? undefined : featured}
-        aria-label={`Open ${book.title} by ${book.author}`}
-        aria-expanded={selectedBook?.id === book.id}
-        aria-controls="book-details-pane"
-        onClick={(event) => selectBook(book, event.currentTarget)}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            selectBook(book, event.currentTarget);
-          }
-        }}
-      >
-        <div
-          className="library-book-motion relative w-full h-full combine-3d-transforms"
-          style={{
-            transformStyle: "preserve-3d",
-            transformOrigin: "left center",
-          }}
-        >
-          <div className="library-book-spine" aria-hidden="true"><span>{book.title}</span></div>
-          <div className="library-book-block" aria-hidden="true" />
-          <div 
-            className="library-book-pages w-full h-full"
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            {/* Front Cover Layer */}
-            <div
-              className="library-book-cover absolute inset-0 w-full h-full rounded-r shadow-lg overflow-hidden border border-border/20 z-20 bg-gradient-to-b from-background to-muted transition-shadow duration-300 group-hover:shadow-xl"
-              style={{ backfaceVisibility: "hidden" }}
-            >
-              <img
-                src={book.cover}
-                alt={book.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-background/40 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-background/10 to-transparent pointer-events-none" />
-            </div>
-
-            {/* Inside Page Layer */}
-            <div
-              className="library-book-inside absolute inset-0 w-full h-full rounded-r shadow-inner p-2 border z-10 flex flex-col"
-              style={{
-                backfaceVisibility: "hidden",
-                transform: "rotateY(180deg)",
-              }}
-            >
-              <div className="space-y-1.5 opacity-60">
-                <div className="h-2 rounded w-5/6" />
-                <div className="h-2 rounded w-full" />
-                <div className="h-2 rounded w-4/5" />
-                <div className="h-2 rounded w-11/12" />
-                <div className="h-2 rounded w-3/4" />
-              </div>
-              <div className="mt-auto text-[10px] font-serif font-semibold truncate text-center select-none">
-                {book.title}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Outer Glow Highlight Effect on Hover */}
-        <div className="absolute -inset-2 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-md pointer-events-none" />
-        <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary z-30 pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
-      </div>
-    );
+  const openFeaturedBook = () => {
+    if (activeBook && featuredCoverRef.current) selectBook(activeBook, featuredCoverRef.current);
   };
-
-  // Dynamically divide the books array into equal subsets for even shelf distribution
-  const half = Math.ceil(visibleBooks.length / 2);
-  const shelfOneBooks = visibleBooks.slice(0, half);
-  const shelfTwoBooks = visibleBooks.slice(half);
 
   return (
     <section id="bookshelf" className="py-16 sm:py-20 bg-background px-4 sm:px-6">
@@ -540,7 +431,7 @@ const Bookshelf = () => {
               </p>
             </div>
 
-            {/* Books container (listens for outside clicks to close a book) */}
+            {/* Focused book display and compact, browsable shelf */}
             <div>
               {visibleBooks.length === 0 ? (
                 <div className="library-empty-state">
@@ -553,131 +444,100 @@ const Bookshelf = () => {
                     Clear filters
                   </button>
                 </div>
-              ) : (
-                <>
-                  {/* Mobile Layout */}
-                  <div className="library-wood-rack library-mobile-rack md:hidden">
-                    <div className="library-mobile-header">
-                      <div className="library-rack-nameplate" aria-hidden="true">
-                        <span>THE READING ROOM</span>
-                        <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
-                      </div>
-                      <ShelfCactus />
+              ) : activeBook ? (
+                <div
+                  className="library-gallery"
+                  data-paused={isShelfPaused}
+                  onPointerEnter={() => setIsShelfPointerOver(true)}
+                  onPointerLeave={() => setIsShelfPointerOver(false)}
+                  onFocusCapture={() => setIsShelfPointerOver(true)}
+                  onBlurCapture={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                      setIsShelfPointerOver(false);
+                    }
+                  }}
+                >
+                  <div className="library-feature">
+                    <div className="library-feature-art-wrap">
+                      <button
+                        ref={featuredCoverRef}
+                        type="button"
+                        className="library-feature-cover"
+                        aria-label={`Open ${activeBook.title} by ${activeBook.author}`}
+                        onClick={openFeaturedBook}
+                      >
+                        <img src={activeBook.cover} alt="" decoding="async" />
+                        <span className="library-feature-cover-edge" aria-hidden="true" />
+                      </button>
+                      <span className="library-feature-orbit" aria-hidden="true" />
                     </div>
-                    {Array.from({ length: Math.ceil(visibleBooks.length / 3) }, (_, shelfIndex) => (
-                      <div className="library-mobile-shelf" key={shelfIndex}>
-                        <div className="grid grid-cols-3 items-end gap-x-4 px-2">
-                          {visibleBooks.slice(shelfIndex * 3, shelfIndex * 3 + 3).map((book) => (
-                            <AnimatedBook
-                              key={book.id}
-                              book={book}
-                              sizeClasses="aspect-[2/3] w-full"
-                            />
-                          ))}
-                        </div>
-                        <div className="library-mobile-shelf-plank" aria-hidden="true" />
-                      </div>
+                    <div className="library-feature-copy" key={activeBook.id}>
+                      <p className="library-feature-kicker">
+                        <span>{getStatusText(activeBook.status)}</span>
+                        <i aria-hidden="true" />
+                        <span>{activeBook.genre}</span>
+                      </p>
+                      <p className="library-feature-index">VOLUME {String(activeBookIndex + 1).padStart(2, "0")} / {String(visibleBooks.length).padStart(2, "0")}</p>
+                      <h3>{activeBook.title}</h3>
+                      <p className="library-feature-author">by {activeBook.author}</p>
+                      <p className="library-feature-summary">{activeBook.summary}</p>
+                      <button type="button" className="library-open-book" onClick={openFeaturedBook}>
+                        <BookOpen size={16} aria-hidden="true" />
+                        <span>Open this book</span>
+                        <ChevronRight size={16} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="library-shelf-controls-row">
+                    <div className="library-shelf-label">
+                      <span className="library-shelf-led" aria-hidden="true" />
+                      <span>THE READING ROOM</span>
+                    </div>
+                    <div className="library-feature-controls" role="group" aria-label="Book carousel controls">
+                      <button type="button" aria-label="Previous book" onClick={() => moveFeaturedBook(-1)}>
+                        <ChevronLeft size={17} aria-hidden="true" />
+                      </button>
+                      <button
+                        type="button"
+                        className="library-auto-toggle"
+                        aria-pressed={isShelfPaused}
+                        aria-label={isShelfPaused ? "Resume automatic book rotation" : "Pause automatic book rotation"}
+                        onClick={() => setIsShelfPaused((paused) => !paused)}
+                      >
+                        <span aria-hidden="true">{isShelfPaused ? "▶" : "Ⅱ"}</span>
+                        <span>{isShelfPaused ? "Play" : "Auto"}</span>
+                      </button>
+                      <button type="button" aria-label="Next book" onClick={() => moveFeaturedBook(1)}>
+                        <ChevronRight size={17} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div ref={shelfTrackRef} className="library-volume-track" role="group" aria-label="Browse books">
+                    {visibleBooks.map((book) => (
+                      <button
+                        key={book.id}
+                        type="button"
+                        className="library-volume"
+                        data-book-id={book.id}
+                        data-active={book.id === activeFeaturedBookId}
+                        aria-pressed={book.id === activeFeaturedBookId}
+                        aria-label={`Show ${book.title} by ${book.author}`}
+                        onClick={() => setFeaturedBookId(book.id)}
+                      >
+                        <span className="library-volume-cover"><img src={book.cover} alt="" loading="lazy" decoding="async" /></span>
+                        <span className="library-volume-title">{book.title}</span>
+                        <span className="library-volume-author">{book.author}</span>
+                      </button>
                     ))}
                   </div>
-
-                  {/* Desktop: Bookshelf Layout */}
-                  <div
-                    className="library-wood-rack library-desktop-rack hidden md:block pt-4"
-                    onPointerEnter={() => setIsShelfPointerOver(true)}
-                    onPointerLeave={() => setIsShelfPointerOver(false)}
-                    onFocusCapture={() => setIsShelfPointerOver(true)}
-                    onBlurCapture={(event) => {
-                      if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                        setIsShelfPointerOver(false);
-                      }
-                    }}
-                  >
-                    <div className="library-rack-toolbar">
-                      <div className="library-rack-nameplate">
-                        <span>FAVORITE BOOKS</span>
-                        <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
-                      </div>
-                      <div className="library-shelf-motion-controls" role="group" aria-label="Featured book controls">
-                        <Button type="button" size="icon" variant="outline" aria-label="Previous featured book" onClick={() => moveFeaturedBook(-1)}>
-                          <ChevronLeft aria-hidden="true" />
-                        </Button>
-                        <Button
-                          type="button"
-                          size="sm"
-                          variant="outline"
-                          aria-pressed={isShelfPaused}
-                          aria-label={isShelfPaused ? "Resume automatic book turning" : "Pause automatic book turning"}
-                          onClick={() => setIsShelfPaused((paused) => !paused)}
-                        >
-                          {isShelfPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
-                          <span>{isShelfPaused ? "Play" : "Auto"}</span>
-                        </Button>
-                        <Button type="button" size="icon" variant="outline" aria-label="Next featured book" onClick={() => moveFeaturedBook(1)}>
-                          <ChevronRight aria-hidden="true" />
-                        </Button>
-                      </div>
-                    </div>
-                    {/* Shelf 1 */}
-                    <div className="relative">
-                      {/* Reading lights across the shelves */}
-                      <div className="reading-light-bar" aria-hidden="true">
-                        {[0, 1, 2, 3].map((i) => (
-                          <div key={i} className="reading-light" style={{ animationDelay: `${i * 0.6}s` }}>
-                            <div className="reading-light-housing" />
-                            <div className="flex justify-center -mt-1">
-                              <div className="reading-light-bulb" style={{ animationDelay: `${i * 0.4}s` }} />
-                            </div>
-                            <div className="reading-light-beam" style={{ animationDelay: `${i * 0.8}s` }} />
-                          </div>
-                        ))}
-                      </div>
-                      <div
-                        className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-2 sm:gap-x-3 lg:gap-x-4 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
-                        style={{
-                          gridTemplateColumns: `max-content repeat(${Math.min(5, shelfOneBooks.length)}, max-content)`,
-                          justifyContent: "center",
-                        }}
-                      >
-                        <ShelfCactus />
-                        {shelfOneBooks.map((book, featureIndex) => (
-                          <AnimatedBook
-                            key={book.id}
-                            book={book}
-                            sizeClasses="w-[clamp(6.5rem,10vw,9rem)] aspect-[2/3]"
-                            featureIndex={featureIndex}
-                            featured={book.id === activeFeaturedBookId}
-                          />
-                        ))}
-                      </div>
-                      <div className="library-wood-shelf-lip" aria-hidden="true" />
-                    </div>
-
-                    {/* Shelf 2 */}
-                    {shelfTwoBooks.length > 0 && (
-                      <div className="relative">
-                        <div
-                          className="library-wood-shelf grid grid-cols-5 items-end justify-items-center gap-x-2 sm:gap-x-3 lg:gap-x-4 pb-4 px-3 sm:px-6 lg:px-10 pt-4 rounded-t-sm"
-                          style={{
-                            gridTemplateColumns: `repeat(${Math.min(5, shelfTwoBooks.length)}, max-content)`,
-                            justifyContent: "center",
-                          }}
-                        >
-                          {shelfTwoBooks.map((book) => (
-                            <AnimatedBook
-                              key={book.id}
-                              book={book}
-                              sizeClasses="w-[clamp(6.5rem,10vw,9rem)] aspect-[2/3]"
-                            />
-                          ))}
-                        </div>
-                        <div className="library-wood-shelf-lip" aria-hidden="true" />
-                      </div>
-                    )}
+                  <div className="library-shelf-progress" aria-hidden="true">
+                    <span style={{ width: `${((activeBookIndex + 1) / visibleBooks.length) * 100}%` }} />
                   </div>
-                </>
-              )}
+                </div>
+              ) : null}
             </div>
-
             {/* Stats Footer */}
             <div className="mt-6 pt-4 border-t border-border/50">
               <div className="flex justify-between text-sm text-muted-foreground">

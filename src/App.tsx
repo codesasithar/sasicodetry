@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BootLoader from "./components/BootLoader";
+import LiquidGlassCursor from "./components/LiquidGlassCursor";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => {
         }}
       />
     )}
+    <LiquidGlassCursor />
     <TooltipProvider>
       <Toaster />
       <Sonner />
