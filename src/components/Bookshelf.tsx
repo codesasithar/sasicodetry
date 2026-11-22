@@ -401,13 +401,14 @@ const Bookshelf = () => {
           }}
           data-is-open={isOpen}
         >
+          <div className="library-book-block" aria-hidden="true" />
           <div 
             className="library-book-pages w-full h-full"
             style={{ transformStyle: "preserve-3d" }}
           >
             {/* Front Cover Layer */}
             <div
-              className="absolute inset-0 w-full h-full rounded-r shadow-lg overflow-hidden border border-border/20 z-20 bg-gradient-to-b from-background to-muted transition-shadow duration-300 group-hover:shadow-xl"
+              className="library-book-cover absolute inset-0 w-full h-full rounded-r shadow-lg overflow-hidden border border-border/20 z-20 bg-gradient-to-b from-background to-muted transition-shadow duration-300 group-hover:shadow-xl"
               style={{ backfaceVisibility: "hidden" }}
             >
               <img
