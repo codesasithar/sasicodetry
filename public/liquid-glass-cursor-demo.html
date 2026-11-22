@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#040a08">
+  <title>Liquid Glass Cursor — SasiCodes</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #e8f1ef;
+      --muted: #98aaa5;
+      --cyan: #10d9ef;
+      --cyan-soft: rgba(16, 217, 239, .22);
+      --green: #00ff58;
+      --surface: rgba(5, 16, 16, .75);
+      --line: rgba(157, 202, 199, .18);
+      --paper-ink: #17241f;
+      --mint: #9ce8bd;
+      --peach: #ffd09c;
+      --note-cyan: #91e8ee;
+      --lens-size: 184px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #040a08;
+      color: var(--ink);
+    }
+
+    * { box-sizing: border-box; }
+    html { min-width: 320px; scroll-behavior: smooth; }
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 50% -20%, rgba(0, 210, 130, .12), transparent 55%),
+        #040a08;
+      color: var(--ink);
+    }
+
+    button, input { font: inherit; }
+    a { color: inherit; }
+    ::selection { color: #001316; background: var(--cyan); }
+
+    .page-scene {
+      position: relative;
+      isolation: isolate;
+      min-height: 226vh;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 5%, rgba(0, 255, 88, .1), transparent 42%),
+        linear-gradient(180deg, rgba(2, 12, 8, .42), rgba(3, 8, 12, .78) 78%),
+        #040a08;
+    }
+
+    .matrix-field {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: .42;
+      background:
+        radial-gradient(ellipse at center, transparent 8%, rgba(0, 0, 0, .26) 74%),
+        linear-gradient(90deg, rgba(0, 0, 0, .28), transparent 28%, transparent 72%, rgba(0, 0, 0, .28));
+    }
+
+    .matrix-stream {
+      position: absolute;
+      top: -18%;
+      color: var(--green);
+      font: 500 12px/1.58 "Courier New", monospace;
+      letter-spacing: .28em;
+      white-space: pre;
+      writing-mode: vertical-rl;
+      text-shadow: 0 0 8px rgba(0, 255, 88, .36);
+      opacity: var(--stream-opacity, .58);
+      animation: matrix-fall var(--stream-speed, 22s) linear var(--stream-delay, 0s) infinite;
+    }
+
+    @keyframes matrix-fall {
+      from { transform: translateY(-14%); }
+      to { transform: translateY(250vh); }
+    }
+
+    .site-nav {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      width: min(1370px, calc(100% - 52px));
+      height: 78px;
+      margin: 0 auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(16, 217, 239, .48);
+      border-radius: 13px;
+      background: linear-gradient(145deg, rgba(16, 217, 239, .18), rgba(7, 31, 34, .8));
+      box-shadow: inset 0 1px rgba(255, 255, 255, .12), 0 0 24px rgba(16, 217, 239, .12);
+      color: var(--cyan);
+      font: 700 14px "Courier New", monospace;
+    }
+
+    .brand-name { display: block; font-size: 14px; font-weight: 750; letter-spacing: -.035em; }
+    .brand-name span { color: var(--cyan); }
+    .brand-subtitle {
+      display: block;
+      margin-top: 3px;
+      color: #9aa9a9;
+      font: 600 8px "Courier New", monospace;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(7, 14, 18, .76);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, .25), inset 0 1px rgba(255, 255, 255, .06);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-links a {
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: #b2c2c0;
+      font-size: 11px;
+      text-decoration: none;
+      transition: color .2s ease, background .2s ease;
+    }
+
+    .nav-links a:hover { color: white; background: rgba(16, 217, 239, .1); }
+
+    .nav-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #aac3be;
+      font-size: 11px;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 13px var(--cyan);
+    }
+
+    .hero {
+      display: grid;
+      width: min(1260px, calc(100% - 80px));
+      min-height: 74vh;
+      margin: 0 auto;
+      padding: 45px 0 70px;
+      grid-template-columns: minmax(0, 1.04fr) minmax(320px, .96fr);
+      align-items: center;
+      gap: clamp(40px, 8vw, 120px);
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 20px;
+      color: #b7cbc8;
+      font-size: 13px;
+    }
+
+    .availability .live-dot { width: 8px; height: 8px; }
+
+    h1 {
+      max-width: 660px;
+      margin: 0;
+      color: var(--cyan);
+      font-size: clamp(58px, 8.4vw, 112px);
+      font-weight: 720;
+      letter-spacing: -.075em;
+      line-height: .94;
+      text-shadow: 0 0 45px rgba(16, 217, 239, .1);
+    }
+
+    .hero-copy {
+      max-width: 490px;
+      margin: 24px 0 28px;
+      color: #b4c0c2;
+      font-size: clamp(15px, 1.5vw, 18px);
+      line-height: 1.68;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; }
+
+    .primary-link {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 22px;
+      border: 1px solid rgba(16, 217, 239, .44);
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 9px 30px rgba(16, 217, 239, .22);
+      color: #041013;
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .primary-link:hover { transform: translateY(-2px); box-shadow: 0 13px 34px rgba(16, 217, 239, .3); }
+
+    .hero-art {
+      position: relative;
+      display: grid;
+      min-height: 420px;
+      place-items: center;
+    }
+
+    .art-halo {
+      position: absolute;
+      width: min(88%, 420px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(17, 215, 236, .13);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 52%, rgba(16, 217, 239, .13), transparent 57%),
+        radial-gradient(circle, rgba(7, 19, 26, .13), transparent 72%);
+      box-shadow: inset 0 0 50px rgba(16, 217, 239, .05), 0 0 90px rgba(0, 255, 151, .07);
+    }
+
+    .art-halo::before, .art-halo::after {
+      position: absolute;
+      inset: 12%;
+      border: 1px solid rgba(40, 225, 245, .13);
+      border-radius: 50%;
+      content: "";
+      transform: rotate(-24deg) scaleY(.46);
+    }
+
+    .art-halo::after { transform: rotate(34deg) scaleY(.52); }
+
+    .art-card {
+      position: relative;
+      z-index: 1;
+      width: min(330px, 80%);
+      padding: 25px;
+      border: 1px solid rgba(135, 206, 214, .27);
+      border-radius: 26px;
+      background: linear-gradient(140deg, rgba(12, 35, 40, .88), rgba(6, 14, 23, .84));
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .45), inset 0 1px rgba(255, 255, 255, .09);
+      backdrop-filter: blur(18px);
+      transform: rotate(3deg);
+    }
+
+    .art-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      color: #9fb8b8;
+      font: 600 9px "Courier New", monospace;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .art-card-top b { color: var(--cyan); font-weight: 600; }
+    .art-card svg { display: block; width: 100%; height: auto; }
+
+    .art-caption {
+      margin: 17px 0 0;
+      color: #d6e7e5;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .art-caption span { color: var(--cyan); }
+
+    .notes-section, .work-section {
+      width: min(1160px, calc(100% - 64px));
+      margin: 0 auto;
+    }
+
+    .notes-board {
+      padding: clamp(20px, 3vw, 34px);
+      border: 1px solid rgba(236, 190, 122, .78);
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(105, 69, 42, .94), rgba(132, 91, 53, .96)),
+        #805536;
+      box-shadow:
+        inset 0 0 0 6px rgba(231, 184, 113, .18),
+        inset 0 1px rgba(255, 242, 209, .28),
+        0 22px 65px rgba(0, 0, 0, .32);
+    }
+
+    .notes-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin: 0 0 20px;
+    }
+
+    .eyebrow {
+      display: block;
+      margin-bottom: 7px;
+      color: #e7c996;
+      font: 600 9px "Courier New", monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      color: #eff5f3;
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: -.045em;
+    }
+
+    .shuffle {
+      padding: 9px 13px;
+      border: 1px solid rgba(255, 237, 198, .28);
+      border-radius: 9px;
+      background: rgba(45, 31, 23, .3);
+      color: #fff0d0;
+      font-size: 11px;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .note {
+      position: relative;
+      min-height: 160px;
+      padding: 22px 19px 17px;
+      border: 1px solid rgba(28, 43, 35, .1);
+      border-radius: 2px 3px 5px 2px;
+      box-shadow: 0 8px 15px rgba(29, 20, 13, .22), inset 0 1px rgba(255, 255, 255, .32);
+      color: var(--paper-ink);
+      transform: rotate(var(--tilt, 0deg));
+      background-image:
+        repeating-linear-gradient(0deg, rgba(66, 64, 45, .035) 0, rgba(66, 64, 45, .035) 1px, transparent 1px, transparent 4px),
+        linear-gradient(110deg, rgba(255, 255, 255, .16), transparent 45%, rgba(89, 107, 76, .04));
+    }
+
+    .note::before {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 32%, #ffeed1 0 13%, #b44339 17% 64%, #6a2726 70%);
+      box-shadow: 0 2px 3px rgba(36, 22, 17, .3);
+      content: "";
+      transform: translateX(-50%);
+    }
+
+    .note:nth-child(1) { --tilt: -.65deg; background-color: var(--mint); }
+    .note:nth-child(2) { --tilt: .55deg; background-color: var(--peach); }
+    .note:nth-child(3) { --tilt: -.25deg; background-color: var(--note-cyan); }
+
+    .note p {
+      margin: 10px 0 18px;
+      font-size: clamp(14px, 1.3vw, 16px);
+      font-weight: 730;
+      letter-spacing: -.02em;
+      line-height: 1.42;
+    }
+
+    .note small {
+      color: rgba(26, 49, 43, .63);
+      font: 600 8px "Courier New", monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .work-section { padding: 120px 0 90px; }
+
+    .section-topline {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .section-topline .eyebrow { color: var(--cyan); }
+    .section-topline p { max-width: 350px; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .work-card {
+      min-height: 185px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: linear-gradient(150deg, rgba(14, 28, 31, .87), rgba(6, 14, 19, .86));
+      box-shadow: 0 17px 45px rgba(0, 0, 0, .18), inset 0 1px rgba(255, 255, 255, .045);
+    }
+
+    .work-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 22px;
+      place-items: center;
+      border: 1px solid rgba(16, 217, 239, .2);
+      border-radius: 11px;
+      background: rgba(16, 217, 239, .08);
+      color: var(--cyan);
+      font: 700 14px "Courier New", monospace;
+    }
+
+    .work-card h3 { margin: 0 0 8px; font-size: 15px; letter-spacing: -.03em; }
+    .work-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+    .footer {
+      display: flex;
+      width: min(1160px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 24px 0 42px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      color: #8fa19f;
+      font: 10px "Courier New", monospace;
+    }
+
+    .footer strong { color: var(--cyan); font-weight: 600; }
+
+    .lens-controls {
+      position: fixed;
+      z-index: 80;
+      right: 22px;
+      bottom: 20px;
+      width: min(292px, calc(100vw - 28px));
+      padding: 17px 18px 15px;
+      border: 1px solid rgba(155, 204, 203, .22);
+      border-radius: 17px;
+      background: rgba(5, 15, 17, .86);
+      box-shadow: 0 18px 52px rgba(0, 0, 0, .4), inset 0 1px rgba(255, 255, 255, .08);
+      backdrop-filter: blur(20px);
+    }
+
+    .controls-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .controls-title strong { font-size: 12px; letter-spacing: -.015em; }
+    .controls-title span {
+      color: var(--cyan);
+      font: 600 8px "Courier New", monospace;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .control-row + .control-row { margin-top: 11px; }
+
+    .control-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      color: #c2cecd;
+      font-size: 10px;
+    }
+
+    .control-label output { color: var(--cyan); font: 600 10px "Courier New", monospace; }
+    input[type="range"] { display: block; width: 100%; height: 14px; margin: 0; accent-color: var(--cyan); cursor: pointer; }
+
+    .lens-status {
+      display: flex;
+      min-height: 24px;
+      margin: 12px 0 9px;
+      align-items: center;
+      gap: 7px;
+      color: #a7bbb8;
+      font: 9px "Courier New", monospace;
+    }
+
+    .lens-status::before {
+      width: 6px;
+      height: 6px;
+      flex: 0 0 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(0, 255, 88, .7);
+      content: "";
+    }
+
+    .lens-status.is-fallback::before { background: #ffd27d; box-shadow: 0 0 10px rgba(255, 210, 125, .55); }
+    .lens-status.is-off::before { background: #73827f; box-shadow: none; }
+
+    .tuning-note {
+      margin: 0;
+      padding-top: 9px;
+      border-top: 1px solid rgba(157, 202, 199, .13);
+      color: #8ea09d;
+      font-size: 9px;
+      line-height: 1.55;
+    }
+
+    .tuning-note code { color: #c4f6ee; font: 9px "Courier New", monospace; }
+
+    .glass-lens {
+      position: fixed;
+      z-index: 60;
+      top: 0;
+      left: 0;
+      width: var(--lens-size);
+      height: var(--lens-size);
+      overflow: hidden;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(-200px, -200px, 0);
+      transition: opacity .22s ease;
+      will-change: transform;
+    }
+
+    .glass-lens.is-active { opacity: 1; }
+
+    .glass-lens__warp {
+      position: absolute;
+      inset: 3px;
+      overflow: hidden;
+      border: 1px solid rgba(213, 255, 255, .48);
+      border-radius: inherit;
+      background: rgba(207, 253, 255, .055);
+      box-shadow:
+        inset 0 0 18px rgba(132, 244, 255, .13),
+        inset 0 1px rgba(255, 255, 255, .6),
+        0 0 18px rgba(16, 217, 239, .13);
+      filter: url("#liquid-glass-displacement");
+    }
+
+    .glass-lens__scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-height: 0;
+      overflow: visible;
+      transform-origin: 0 0;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .glass-lens::before {
+      position: absolute;
+      z-index: 2;
+      inset: 4px;
+      border: 1px solid rgba(227, 255, 255, .24);
+      border-radius: 50%;
+      background:
+        radial-gradient(ellipse at 29% 19%, rgba(255, 255, 255, .21), transparent 36%),
+        linear-gradient(143deg, rgba(192, 255, 255, .075), transparent 47%, rgba(78, 227, 248, .035));
+      box-shadow: inset 0 1px 8px rgba(255, 255, 255, .15);
+      content: "";
+      pointer-events: none;
+    }
+
+    .glass-lens::after {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      background: conic-gradient(from 225deg,
+        rgba(89, 255, 250, .68),
+        rgba(160, 255, 201, .32) 22%,
+        rgba(255, 151, 213, .36) 45%,
+        rgba(128, 177, 255, .52) 68%,
+        rgba(89, 255, 250, .68)) border-box;
+      mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: .6;
+      filter: drop-shadow(0 0 5px rgba(89, 255, 250, .36));
+      content: "";
+      pointer-events: none;
+    }
+
+    .glass-lens.is-highlight .glass-lens__warp { display: none; }
+
+    .glass-lens.is-highlight {
+      border: 1px solid rgba(226, 255, 255, .5);
+      background:
+        radial-gradient(ellipse at 31% 23%, rgba(255, 255, 255, .23), transparent 40%),
+        linear-gradient(145deg, rgba(150, 250, 255, .13), rgba(104, 193, 221, .045) 55%, rgba(209, 167, 255, .085));
+      box-shadow: inset 0 1px 15px rgba(255, 255, 255, .17), 0 0 20px rgba(16, 217, 239, .14);
+      backdrop-filter: blur(3px) saturate(1.18);
+    }
+
+    .glass-lens[hidden] { display: none; }
+
+    .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hint { margin-left: auto; }
+      .hero { width: min(680px, calc(100% - 44px)); min-height: auto; padding: 64px 0 75px; grid-template-columns: 1fr; gap: 8px; }
+      .hero-art { min-height: 340px; }
+      .notes-section, .work-section { width: min(680px, calc(100% - 44px)); }
+      .work-section { padding-top: 82px; }
+    }
+
+    @media (max-width: 620px) {
+      .site-nav { width: calc(100% - 32px); height: 68px; }
+      .brand-mark { width: 37px; height: 37px; border-radius: 11px; }
+      .brand-subtitle { font-size: 7px; }
+      .nav-hint { font-size: 9px; }
+      .hero { width: calc(100% - 38px); padding-top: 54px; }
+      h1 { font-size: clamp(54px, 15vw, 78px); }
+      .hero-art { min-height: 295px; }
+      .art-card { width: min(290px, 78%); padding: 20px; }
+      .notes-section, .work-section, .footer { width: calc(100% - 32px); }
+      .notes-heading { align-items: start; }
+      .note-grid, .work-grid { grid-template-columns: 1fr; }
+      .note { min-height: 128px; }
+      .note:nth-child(2) { transform: rotate(.3deg); }
+      .note:nth-child(3) { transform: rotate(-.2deg); }
+      .section-topline { align-items: start; flex-direction: column; }
+      .work-section { padding: 80px 0 55px; }
+      .footer { align-items: start; flex-direction: column; }
+      .lens-controls { right: 12px; bottom: 12px; width: min(270px, calc(100vw - 24px)); padding: 13px 14px 12px; }
+    }
+
+    @media (max-width: 767px), (prefers-reduced-motion: reduce) {
+      .matrix-field { opacity: .18; }
+      .matrix-stream { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass-displacement" x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".018 .026" numOctaves="2" seed="8" result="glassNoise"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="glassNoise" scale="9" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+      </filter>
+    </defs>
+  </svg>
+
+  <main class="page-scene" id="page-scene">
+    <div class="matrix-field" id="matrix-field" aria-hidden="true"></div>
+
+    <header class="site-nav">
+      <a class="brand" href="#top" aria-label="SasiCodes home">
+        <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
+        <span>
+          <span class="brand-name">Sasi<span>Codes</span></span>
+          <span class="brand-subtitle">Developer / Builder</span>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Demo navigation">
+        <a href="#about">About</a>
+        <a href="#notes">Field notes</a>
+        <a href="#work">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <span class="nav-hint"><i class="live-dot" aria-hidden="true"></i> Move your pointer</span>
+    </header>
+
+    <section class="hero" id="top">
+      <div id="about">
+        <div class="availability"><i class="live-dot" aria-hidden="true"></i> Available for thoughtful projects</div>
+        <h1>Make the<br>details feel.</h1>
+        <p class="hero-copy">A small study in liquid glass: a clear, gently magnifying lens that drifts behind your pointer and bends the Matrix world beneath it.</p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#notes">Explore the details <span aria-hidden="true">&nbsp;↗</span></a>
+          <span class="nav-hint">No custom cursor. Clicks stay yours.</span>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Abstract luminous digital artwork">
+        <div class="art-halo" aria-hidden="true"></div>
+        <article class="art-card">
+          <div class="art-card-top"><span>Glass study / 01</span><b>● live</b></div>
+          <svg viewBox="0 0 320 250" role="img" aria-label="A glowing cyan geometric orb with connected points">
+            <defs>
+              <radialGradient id="orb-fill" cx="35%" cy="28%">
+                <stop offset="0" stop-color="#b4fff4" stop-opacity=".95"></stop>
+                <stop offset=".28" stop-color="#1be4f2" stop-opacity=".38"></stop>
+                <stop offset="1" stop-color="#0c2530" stop-opacity=".02"></stop>
+              </radialGradient>
+              <filter id="orb-glow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+                <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+              </filter>
+            </defs>
+            <circle cx="160" cy="122" r="87" fill="url(#orb-fill)" stroke="#49edf2" stroke-opacity=".28"></circle>
+            <ellipse cx="160" cy="122" rx="104" ry="37" fill="none" stroke="#59f3f2" stroke-opacity=".52" transform="rotate(-24 160 122)"></ellipse>
+            <ellipse cx="160" cy="122" rx="105" ry="34" fill="none" stroke="#7fece0" stroke-opacity=".3" transform="rotate(44 160 122)"></ellipse>
+            <path d="M62 160 116 89l62 77 77-72M84 79l55 112 80-19M104 151l135-24" fill="none" stroke="#5cecf4" stroke-opacity=".34"></path>
+            <g filter="url(#orb-glow)" fill="#d4fffb">
+              <circle cx="62" cy="160" r="4"></circle><circle cx="116" cy="89" r="4"></circle><circle cx="178" cy="166" r="4"></circle>
+              <circle cx="255" cy="94" r="4"></circle><circle cx="84" cy="79" r="3"></circle><circle cx="139" cy="191" r="3"></circle>
+              <circle cx="219" cy="172" r="3"></circle><circle cx="104" cy="151" r="3"></circle><circle cx="239" cy="127" r="3"></circle>
+            </g>
+            <circle cx="160" cy="122" r="20" fill="none" stroke="#aafff8" stroke-opacity=".72"></circle>
+            <circle cx="160" cy="122" r="6" fill="#ddfffb"></circle>
+          </svg>
+          <p class="art-caption">Thoughtful motion, <span>clear intent.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="notes-section" id="notes" aria-labelledby="notes-title">
+      <div class="notes-board">
+        <div class="notes-heading">
+          <div><span class="eyebrow">Field notes / pinned</span><h2 id="notes-title">A few things on my mind</h2></div>
+          <button class="shuffle" type="button" aria-label="Shuffle pinned notes">✣ &nbsp;Shuffle</button>
+        </div>
+        <div class="note-grid">
+          <article class="note"><p>Build for the rough edges, and apps stay resilient.</p><small>Studio rule · 01</small></article>
+          <article class="note"><p>Good interfaces make complex things feel calm.</p><small>Design note · 02</small></article>
+          <article class="note"><p>Keep the wonder. Let the details do the work.</p><small>Field note · 03</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-section" id="work" aria-labelledby="work-title">
+      <div class="section-topline">
+        <div><span class="eyebrow">Selected experiments / 2026</span><h2 id="work-title">A little depth goes a long way.</h2></div>
+        <p>Move across the lettering, panels, and artwork. The lens gently enlarges this scene while its edge catches a soft spectral glint.</p>
+      </div>
+      <div class="work-grid">
+        <article class="work-card"><span class="work-icon" aria-hidden="true">&lt;/&gt;</span><h3>Built with intent</h3><p>Small details create a more human relationship with the interface.</p></article>
+        <article class="work-card"><span class="work-icon" aria-hidden="true">◎</span><h3>Motion with meaning</h3><p>Movement follows the hand with a soft lag, then settles naturally.</p></article>
+        <article class="work-card"><span class="work-icon" aria-hidden="true">✳</span><h3>Glass, not chrome</h3><p>A quiet rainbow fringe hints at the refraction without stealing focus.</p></article>
+      </div>
+    </section>
+
+    <footer class="footer" id="contact"><span>© 2026 <strong>SasiCodes</strong> / liquid glass cursor study</span><span>One file · no dependencies · native pointer preserved</span></footer>
+  </main>
+
+  <aside class="lens-controls" aria-label="Liquid glass lens tuning controls">
+    <div class="controls-title"><strong>Liquid glass cursor</strong><span>Live tuning</span></div>
+    <div class="control-row">
+      <label class="control-label" for="lens-size"><span>Lens size</span><output id="lens-size-value" for="lens-size">184 px</output></label>
+      <input id="lens-size" type="range" min="120" max="260" step="2" value="184">
+    </div>
+    <div class="control-row">
+      <label class="control-label" for="lens-distortion"><span>Distortion</span><output id="lens-distortion-value" for="lens-distortion">9 / 20</output></label>
+      <input id="lens-distortion" type="range" min="0" max="20" step="1" value="9">
+    </div>
+    <div class="lens-status" id="lens-status" role="status">Preparing the clear lens…</div>
+    <p class="tuning-note">Code knobs: <code>CONFIG.lensSize</code> and <code>CONFIG.distortion</code> near the bottom of this file.</p>
+  </aside>
+
+  <div class="glass-lens" id="glass-lens" aria-hidden="true" hidden>
+    <div class="glass-lens__warp" id="lens-warp"><div class="glass-lens__scene" id="lens-scene"></div></div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      // TUNING KNOBS — update these defaults to change the starting lens.
+      // lensSize is in pixels. distortion is the SVG displacement scale (0–20).
+      const CONFIG = {
+        lensSize: 184,
+        magnification: 1.12,
+        distortion: 9
+      };
+
+      const stage = document.getElementById("page-scene");
+      const matrixField = document.getElementById("matrix-field");
+      const lens = document.getElementById("glass-lens");
+      const warp = document.getElementById("lens-warp");
+      const lensScene = document.getElementById("lens-scene");
+      const status = document.getElementById("lens-status");
+      const sizeInput = document.getElementById("lens-size");
+      const distortionInput = document.getElementById("lens-distortion");
+      const sizeOutput = document.getElementById("lens-size-value");
+      const distortionOutput = document.getElementById("lens-distortion-value");
+      const distortionMap = document.querySelector("#liquid-glass-displacement feDisplacementMap");
+      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const coarsePointer = window.matchMedia("(pointer: coarse)");
+      const touchAvailable = ("ontouchstart" in window) || coarsePointer.matches;
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      let animationFrame = 0;
+      let cloneReady = false;
+      let distortionAvailable = false;
+      let lensDisabled = false;
+
+      function idle(callback) {
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(callback, { timeout: 900 });
+        } else {
+          window.setTimeout(callback, 24);
+        }
+      }
+
+      function buildMatrixStreams() {
+        const glyphs = "アィゥエォカガキギクグケゲコゴサザシジスズセゼソゾタダチヂツヅテデトドナニヌネノハバパヒビピフヘベペマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+        const columnCount = Math.max(26, Math.floor(window.innerWidth / 26));
+        const length = Math.max(54, Math.ceil(window.innerHeight / 15));
+        for (let index = 0; index < columnCount; index += 1) {
+          const stream = document.createElement("span");
+          stream.className = "matrix-stream";
+          stream.textContent = Array.from({ length: length }, function () {
+            return glyphs[Math.floor(Math.random() * glyphs.length)];
+          }).join("\n");
+          stream.style.left = ((index / columnCount) * 100).toFixed(2) + "%";
+          stream.style.setProperty("--stream-speed", (15 + Math.random() * 22).toFixed(1) + "s");
+          stream.style.setProperty("--stream-delay", (-Math.random() * 25).toFixed(1) + "s");
+          stream.style.setProperty("--stream-opacity", (0.24 + Math.random() * 0.5).toFixed(2));
+          matrixField.appendChild(stream);
+        }
+      }
+
+      function rebuildLensScene() {
+        const rect = stage.getBoundingClientRect();
+        lensScene.innerHTML = "";
+        const clone = stage.cloneNode(true);
+        clone.removeAttribute("id");
+        clone.className = "page-scene glass-lens__scene";
+        clone.setAttribute("aria-hidden", "true");
+        clone.inert = true;
+        clone.style.width = rect.width + "px";
+        clone.style.height = Math.max(stage.scrollHeight, rect.height) + "px";
+        clone.style.minHeight = "0";
+        clone.querySelectorAll("[id]").forEach(function (element) { element.removeAttribute("id"); });
+        clone.querySelectorAll("a, button, input, select, textarea, [tabindex]").forEach(function (element) {
+          element.setAttribute("tabindex", "-1");
+        });
+        lensScene.appendChild(clone);
+        cloneReady = true;
+        scheduleRender();
+      }
+
+      function syncControls() {
+        document.documentElement.style.setProperty("--lens-size", CONFIG.lensSize + "px");
+        lens.style.width = CONFIG.lensSize + "px";
+        lens.style.height = CONFIG.lensSize + "px";
+        sizeInput.value = String(CONFIG.lensSize);
+        sizeOutput.value = CONFIG.lensSize + " px";
+        sizeOutput.textContent = CONFIG.lensSize + " px";
+        distortionInput.value = String(CONFIG.distortion);
+        distortionOutput.value = CONFIG.distortion + " / 20";
+        distortionOutput.textContent = CONFIG.distortion + " / 20";
+        distortionMap.setAttribute("scale", String(CONFIG.distortion));
+      }
+
+      function renderLens() {
+        animationFrame = 0;
+        if (lensDisabled || !cloneReady || lens.hidden) return;
+        currentX += (targetX - currentX) * 0.17;
+        currentY += (targetY - currentY) * 0.17;
+        const half = CONFIG.lensSize / 2;
+        lens.style.transform = "translate3d(" + (currentX - half) + "px," + (currentY - half) + "px,0)";
+        const rect = stage.getBoundingClientRect();
+        const sourceX = currentX - rect.left;
+        const sourceY = currentY - rect.top;
+        const offsetX = half - sourceX * CONFIG.magnification;
+        const offsetY = half - sourceY * CONFIG.magnification;
+        const scene = lensScene.firstElementChild;
+        if (scene) {
+          scene.style.transform = "translate3d(" + offsetX + "px," + offsetY + "px,0) scale(" + CONFIG.magnification + ")";
+        }
+        if (Math.abs(targetX - currentX) > 0.12 || Math.abs(targetY - currentY) > 0.12) {
+          animationFrame = window.requestAnimationFrame(renderLens);
+        }
+      }
+
+      function scheduleRender() {
+        if (!animationFrame && !lensDisabled && cloneReady && !lens.hidden) {
+          animationFrame = window.requestAnimationFrame(renderLens);
+        }
+      }
+
+      function updateMode() {
+        lensDisabled = motionPreference.matches || touchAvailable;
+        if (lensDisabled) {
+          lens.hidden = true;
+          lens.classList.remove("is-active");
+          status.textContent = motionPreference.matches ? "Off for reduced motion" : "Off for touch input";
+          status.classList.add("is-off");
+          sizeInput.disabled = true;
+          distortionInput.disabled = true;
+          if (animationFrame) window.cancelAnimationFrame(animationFrame);
+          animationFrame = 0;
+          return;
+        }
+
+        lens.hidden = false;
+        sizeInput.disabled = false;
+        distortionInput.disabled = !distortionAvailable;
+        lens.classList.toggle("is-highlight", !distortionAvailable);
+        status.classList.remove("is-off");
+        if (distortionAvailable) {
+          status.textContent = "Liquid refraction active · native pointer intact";
+          status.classList.remove("is-fallback");
+        } else {
+          status.textContent = "Highlight fallback · distortion unavailable";
+          status.classList.add("is-fallback");
+        }
+        if (!cloneReady) idle(rebuildLensScene);
+      }
+
+      function onPointerMove(event) {
+        if (lensDisabled || event.pointerType === "touch") return;
+        targetX = event.clientX;
+        targetY = event.clientY;
+        lens.classList.add("is-active");
+        scheduleRender();
+      }
+
+      sizeInput.addEventListener("input", function () {
+        CONFIG.lensSize = Number(sizeInput.value);
+        syncControls();
+        scheduleRender();
+      });
+
+      distortionInput.addEventListener("input", function () {
+        CONFIG.distortion = Number(distortionInput.value);
+        syncControls();
+      });
+
+      window.addEventListener("pointermove", onPointerMove, { passive: true });
+      window.addEventListener("scroll", scheduleRender, { passive: true });
+      window.addEventListener("resize", function () {
+        targetX = Math.min(targetX, window.innerWidth);
+        targetY = Math.min(targetY, window.innerHeight);
+        idle(rebuildLensScene);
+        scheduleRender();
+      }, { passive: true });
+      window.addEventListener("blur", function () { lens.classList.remove("is-active"); });
+      window.addEventListener("focus", function () { if (!lensDisabled) scheduleRender(); });
+
+      if (motionPreference.addEventListener) motionPreference.addEventListener("change", updateMode);
+      if (coarsePointer.addEventListener) coarsePointer.addEventListener("change", updateMode);
+
+      syncControls();
+      distortionAvailable = !!(window.CSS && window.CSS.supports && window.CSS.supports("filter", "url(#liquid-glass-displacement)"));
+      updateMode();
+      idle(buildMatrixStreams);
+    }());
+  </script>
+</body>
+</html>

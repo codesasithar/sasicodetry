@@ -1,5 +1,5 @@
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
-import { BookOpen, ChevronDown, ChevronUp, Pin, Search, X } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { BookOpen, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Pause, Pin, Play, Search, X } from "lucide-react";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -224,6 +224,10 @@ const Bookshelf = () => {
   const [notesExpanded, setNotesExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeGenre, setActiveGenre] = useState("All");
+  const [featuredBookId, setFeaturedBookId] = useState(books[0]?.id ?? "");
+  const [isShelfPaused, setIsShelfPaused] = useState(false);
+  const [isShelfPointerOver, setIsShelfPointerOver] = useState(false);
+  const [shelfViewportWidth, setShelfViewportWidth] = useState(() => window.innerWidth);
   const [readerOrigin, setReaderOrigin] = useState({ x: 0, y: 0, scaleX: 0.25, scaleY: 0.35 });
   const readerSpreadRef = useRef<HTMLDivElement>(null);
   const readerSourceRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null);
@@ -236,6 +240,44 @@ const Bookshelf = () => {
       `${book.title} ${book.author} ${book.genre} ${book.summary}`.toLowerCase().includes(normalizedQuery);
     return matchesGenre && matchesQuery;
   });
+  const featuredShelfBooks = visibleBooks.slice(0, Math.ceil(visibleBooks.length / 2));
+  const featuredShelfKey = featuredShelfBooks.map((book) => book.id).join("|");
+  const activeFeaturedBookId = featuredShelfBooks.some((book) => book.id === featuredBookId)
+    ? featuredBookId
+    : featuredShelfBooks[0]?.id ?? "";
+
+  useEffect(() => {
+    const updateShelfViewport = () => setShelfViewportWidth(window.innerWidth);
+    window.addEventListener("resize", updateShelfViewport, { passive: true });
+    return () => window.removeEventListener("resize", updateShelfViewport);
+  }, []);
+
+  useEffect(() => {
+    if (
+      isShelfPaused
+      || isShelfPointerOver
+      || selectedBook
+      || featuredShelfBooks.length < 2
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) return;
+
+    const shelfBookIds = featuredShelfBooks.map((book) => book.id);
+    const timer = window.setInterval(() => {
+      setFeaturedBookId((currentId) => {
+        const currentIndex = shelfBookIds.indexOf(currentId);
+        return shelfBookIds[(currentIndex + 1 + shelfBookIds.length) % shelfBookIds.length];
+      });
+    }, 4200);
+
+    return () => window.clearInterval(timer);
+  }, [featuredShelfKey, isShelfPaused, isShelfPointerOver, selectedBook]);
+
+  const moveFeaturedBook = (offset: number) => {
+    if (!featuredShelfBooks.length) return;
+    const currentIndex = featuredShelfBooks.findIndex((book) => book.id === activeFeaturedBookId);
+    const nextIndex = (currentIndex + offset + featuredShelfBooks.length) % featuredShelfBooks.length;
+    setFeaturedBookId(featuredShelfBooks[nextIndex].id);
+  };
 
   const selectBook = (book: Book, element: HTMLElement) => {
     const rect = element.getBoundingClientRect();
@@ -284,18 +326,41 @@ const Bookshelf = () => {
   const AnimatedBook = ({
     book,
     sizeClasses,
+    featureIndex,
+    featured = false,
   }: {
     book: Book;
     sizeClasses: string;
+    featureIndex?: number;
+    featured?: boolean;
   }) => {
     const arrivalIndex = books.findIndex((entry) => entry.id === book.id);
+    const featureCenterIndex = (featuredShelfBooks.length - 1) / 2;
+    const featuredPosition = featuredShelfBooks.findIndex((entry) => entry.id === activeFeaturedBookId);
+    const shelfGap = shelfViewportWidth >= 1024 ? 16 : shelfViewportWidth >= 640 ? 12 : 8;
+    const featuredBookWidth = Math.max(104, Math.min(144, shelfViewportWidth * 0.1));
+    const featureStep = featuredBookWidth + shelfGap;
+    const spineSpacing = 32;
+    const featureShift = featureIndex === undefined
+      ? "0px"
+      : ((featureCenterIndex - featureIndex) * featureStep).toFixed(1) + "px";
+    const spineShift = featureIndex === undefined
+      ? "0px"
+      : ((featureCenterIndex - featureIndex) * featureStep + (featureIndex - featuredPosition) * spineSpacing).toFixed(1) + "px";
 
     return (
       <div
         role="button"
         tabIndex={0}
         className={`library-book relative group cursor-pointer p-0 border-0 bg-transparent text-left ${sizeClasses}`}
-        style={{ perspective: "850px", "--book-index": arrivalIndex } as CSSProperties}
+        style={{
+          perspective: "850px",
+          "--book-index": arrivalIndex,
+          "--featured-shift": featureShift,
+          "--spine-shift": spineShift,
+        } as CSSProperties}
+        data-feature-mode={featureIndex === undefined ? undefined : "true"}
+        data-featured={featureIndex === undefined ? undefined : featured}
         aria-label={`Open ${book.title} by ${book.author}`}
         aria-expanded={selectedBook?.id === book.id}
         aria-controls="book-details-pane"
@@ -314,7 +379,7 @@ const Bookshelf = () => {
             transformOrigin: "left center",
           }}
         >
-          <div className="library-book-spine" aria-hidden="true" />
+          <div className="library-book-spine" aria-hidden="true"><span>{book.title}</span></div>
           <div className="library-book-block" aria-hidden="true" />
           <div 
             className="library-book-pages w-full h-full"
@@ -516,10 +581,41 @@ const Bookshelf = () => {
                   </div>
 
                   {/* Desktop: Bookshelf Layout */}
-                  <div className="library-wood-rack library-desktop-rack hidden md:block pt-4">
-                    <div className="library-rack-nameplate" aria-hidden="true">
-                      <span>THE READING ROOM</span>
-                      <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
+                  <div
+                    className="library-wood-rack library-desktop-rack hidden md:block pt-4"
+                    onPointerEnter={() => setIsShelfPointerOver(true)}
+                    onPointerLeave={() => setIsShelfPointerOver(false)}
+                    onFocusCapture={() => setIsShelfPointerOver(true)}
+                    onBlurCapture={(event) => {
+                      if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                        setIsShelfPointerOver(false);
+                      }
+                    }}
+                  >
+                    <div className="library-rack-toolbar">
+                      <div className="library-rack-nameplate">
+                        <span>FAVORITE BOOKS</span>
+                        <span>{String(visibleBooks.length).padStart(2, "0")} VOLUMES</span>
+                      </div>
+                      <div className="library-shelf-motion-controls" role="group" aria-label="Featured book controls">
+                        <Button type="button" size="icon" variant="outline" aria-label="Previous featured book" onClick={() => moveFeaturedBook(-1)}>
+                          <ChevronLeft aria-hidden="true" />
+                        </Button>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          aria-pressed={isShelfPaused}
+                          aria-label={isShelfPaused ? "Resume automatic book turning" : "Pause automatic book turning"}
+                          onClick={() => setIsShelfPaused((paused) => !paused)}
+                        >
+                          {isShelfPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+                          <span>{isShelfPaused ? "Play" : "Auto"}</span>
+                        </Button>
+                        <Button type="button" size="icon" variant="outline" aria-label="Next featured book" onClick={() => moveFeaturedBook(1)}>
+                          <ChevronRight aria-hidden="true" />
+                        </Button>
+                      </div>
                     </div>
                     {/* Shelf 1 */}
                     <div className="relative">
@@ -543,11 +639,13 @@ const Bookshelf = () => {
                         }}
                       >
                         <ShelfCactus />
-                        {shelfOneBooks.map((book) => (
+                        {shelfOneBooks.map((book, featureIndex) => (
                           <AnimatedBook
                             key={book.id}
                             book={book}
                             sizeClasses="w-[clamp(6.5rem,10vw,9rem)] aspect-[2/3]"
+                            featureIndex={featureIndex}
+                            featured={book.id === activeFeaturedBookId}
                           />
                         ))}
                       </div>
