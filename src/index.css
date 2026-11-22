@@ -3113,276 +3113,501 @@
   }
 }
 
-/* === Quantum computing boot sequence === */
-.quantum-boot-screen {
+/* ---------- Creative portfolio loading screen ---------- */
+.creative-loader {
+  --loader-accent: hsl(var(--primary));
+  --loader-quiet: hsl(var(--foreground) / 0.56);
   isolation: isolate;
   color: hsl(var(--foreground));
   background:
-    radial-gradient(42rem 34rem at 50% 35%, hsl(var(--primary) / 0.14), transparent 72%),
-    radial-gradient(30rem 24rem at 12% 88%, hsl(var(--accent) / 0.1), transparent 70%),
+    radial-gradient(46rem 38rem at 78% 46%, hsl(var(--primary) / 0.1), transparent 70%),
+    radial-gradient(38rem 28rem at 8% 100%, hsl(var(--accent) / 0.055), transparent 72%),
     hsl(var(--background));
 }
 
-.quantum-boot-screen::after {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, transparent 40%, hsl(var(--background) / 0.24));
-  content: "";
-  pointer-events: none;
-}
-
-.quantum-boot-grid {
+.creative-loader-grid {
   position: absolute;
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, hsl(var(--palette-charcoal)) 5%, transparent 78%);
+    linear-gradient(hsl(var(--foreground) / 0.027) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--foreground) / 0.027) 1px, transparent 1px);
+  background-size: 76px 76px;
+  mask-image: radial-gradient(ellipse at 72% 48%, hsl(var(--foreground)) 4%, transparent 78%);
   pointer-events: none;
 }
 
-.quantum-boot-glow {
+.creative-loader-light {
   position: absolute;
-  width: min(45vw, 28rem);
+  z-index: -1;
+  width: min(48vw, 34rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  filter: blur(70px);
+  filter: blur(92px);
   opacity: 0.12;
   pointer-events: none;
 }
 
-.quantum-boot-glow-one {
-  top: -20%;
-  left: -12%;
+.creative-loader-light-one {
+  top: 5%;
+  right: 8%;
   background: hsl(var(--primary));
 }
 
-.quantum-boot-glow-two {
-  right: -14%;
-  bottom: -25%;
+.creative-loader-light-two {
+  bottom: -30%;
+  left: -10%;
   background: hsl(var(--accent));
+  opacity: 0.055;
 }
 
-.quantum-orbit-stage {
-  position: relative;
-  width: min(68vw, 18rem);
-  aspect-ratio: 1;
+.creative-loader-shell {
+  display: flex;
+  width: min(100%, 112rem);
+  min-height: 100svh;
+  flex-direction: column;
   margin-inline: auto;
-  perspective: 900px;
-  animation: quantum-stage-float 5s ease-in-out infinite;
+  padding: clamp(1.25rem, 3.4vw, 3.5rem) clamp(1.4rem, 6.8vw, 7.5rem) clamp(1.4rem, 3vw, 2.75rem);
 }
 
-.quantum-probability-cloud {
-  position: absolute;
-  inset: 22%;
+.creative-loader-header,
+.creative-loader-brand,
+.creative-loader-live,
+.creative-loader-footer-note,
+.creative-loader-progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.creative-loader-header {
+  min-height: 3.5rem;
+  border-bottom: 1px solid hsl(var(--foreground) / 0.1);
+}
+
+.creative-loader-brand {
+  justify-content: flex-start;
+  gap: 0.85rem;
+}
+
+.creative-loader-mark {
+  position: relative;
+  display: grid;
+  width: 2.55rem;
+  height: 2.55rem;
+  place-items: center;
+  border: 1px solid hsl(var(--foreground) / 0.22);
   border-radius: 50%;
-  background: radial-gradient(circle, hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.08) 45%, transparent 72%);
-  filter: blur(7px);
-  animation: quantum-cloud-pulse 3s ease-in-out infinite;
 }
 
-.quantum-orbit {
+.creative-loader-mark i {
   position: absolute;
-  inset: 9%;
-  border: 1px solid hsl(var(--primary) / 0.42);
+  display: block;
+  width: 1.05rem;
+  height: 0.32rem;
+  border: 1px solid hsl(var(--primary) / 0.88);
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+
+.creative-loader-mark i:nth-child(2) { transform: rotate(35deg); }
+.creative-loader-mark i:nth-child(3) { width: 0.28rem; height: 0.28rem; border: 0; background: hsl(var(--accent)); }
+
+.creative-loader-brand-copy {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.creative-loader-brand-copy strong {
+  font-size: 0.77rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+}
+
+.creative-loader-brand-copy > span,
+.creative-loader-live,
+.creative-loader-kicker,
+.creative-loader-art-note,
+.creative-loader-progress-heading,
+.creative-loader-footer-note {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+
+.creative-loader-brand-copy > span,
+.creative-loader-footer-note { color: var(--loader-quiet); }
+
+.creative-loader-live {
+  justify-content: flex-start;
+  gap: 0.62rem;
+  color: var(--loader-quiet);
+  font-size: 0.55rem;
+}
+
+.creative-loader-live i {
+  width: 0.4rem;
+  height: 0.4rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: hsl(var(--accent));
+  box-shadow: 0 0 0.85rem hsl(var(--accent) / 0.75);
+  animation: creative-loader-signal 2.2s ease-in-out infinite;
+}
+
+.creative-loader-main {
+  display: grid;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1.08fr) minmax(16rem, 0.92fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  padding-block: clamp(1rem, 3vh, 2rem);
+}
+
+.creative-loader-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  animation: creative-loader-arrive 760ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.creative-loader-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 clamp(1.35rem, 3vh, 2rem);
+  color: var(--loader-quiet);
+  font-size: 0.6rem;
+}
+
+.creative-loader-kicker span {
+  display: inline-grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  place-items: center;
+  border: 1px solid hsl(var(--primary) / 0.55);
+  border-radius: 50%;
+  color: hsl(var(--primary));
+  font-size: 0.52rem;
+}
+
+.creative-loader-copy h1 {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: clamp(4.25rem, 7.4vw, 8rem);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 0.89;
+}
+
+.creative-loader-copy h1 em {
+  color: hsl(var(--primary));
+  font-weight: 400;
+}
+
+.creative-loader-description {
+  max-width: 28rem;
+  margin: clamp(1.5rem, 3.7vh, 2.4rem) 0 0;
+  color: var(--loader-quiet);
+  font-size: clamp(0.92rem, 1.3vw, 1.1rem);
+  line-height: 1.8;
+}
+
+.creative-loader-art {
+  position: relative;
+  display: grid;
+  width: min(31vw, 27rem);
+  aspect-ratio: 1;
+  place-items: center;
+  justify-self: center;
+  perspective: 900px;
+  animation: creative-loader-art-arrive 1100ms cubic-bezier(0.18, 0.72, 0.18, 1) both;
+}
+
+.creative-loader-art::before,
+.creative-loader-art::after {
+  position: absolute;
+  inset: 13%;
+  border: 1px solid hsl(var(--foreground) / 0.065);
+  border-radius: 50%;
+  content: "";
+}
+
+.creative-loader-art::after {
+  inset: 3%;
+  border-color: hsl(var(--primary) / 0.11);
+  transform: rotate(-18deg) scaleY(0.53);
+}
+
+.creative-loader-orb {
+  position: relative;
+  width: 44%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid hsl(var(--foreground) / 0.32);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 28% 20%, hsl(var(--foreground) / 0.95) 0%, hsl(var(--primary) / 0.84) 8%, transparent 31%),
+    radial-gradient(ellipse at 71% 77%, hsl(var(--accent) / 0.57), transparent 39%),
+    radial-gradient(ellipse at 37% 61%, hsl(var(--primary) / 0.54), transparent 56%),
+    linear-gradient(145deg, hsl(var(--primary) / 0.34), hsl(var(--background)) 71%);
+  box-shadow:
+    inset -1.5rem -1rem 3rem hsl(var(--background) / 0.72),
+    inset 0.75rem 0.35rem 1.5rem hsl(var(--foreground) / 0.14),
+    0 0 2.5rem hsl(var(--primary) / 0.16),
+    0 2.5rem 5rem hsl(var(--background) / 0.65);
+  animation: creative-loader-breathe 5s ease-in-out infinite;
+}
+
+.creative-loader-orb-glint {
+  position: absolute;
+  top: 11%;
+  left: 19%;
+  width: 27%;
+  height: 11%;
+  border-radius: 50%;
+  background: hsl(var(--foreground) / 0.62);
+  filter: blur(0.5rem);
+  transform: rotate(-38deg);
+}
+
+.creative-loader-orb-ribbon {
+  position: absolute;
+  top: 25%;
+  left: -24%;
+  width: 148%;
+  height: 48%;
+  border: 1px solid hsl(var(--foreground) / 0.43);
+  border-radius: 50%;
+  background: linear-gradient(180deg, transparent 34%, hsl(var(--primary) / 0.18) 50%, transparent 67%);
+  box-shadow: 0 0 1.6rem hsl(var(--primary) / 0.24);
+  transform: rotate(-42deg);
+}
+
+.creative-loader-orb-core {
+  position: absolute;
+  right: 20%;
+  bottom: 18%;
+  width: 0.44rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: hsl(var(--accent));
+  box-shadow: 0 0 1rem hsl(var(--accent) / 0.9);
+}
+
+.creative-loader-orbit {
+  position: absolute;
+  width: 73%;
+  aspect-ratio: 1;
+  border: 1px solid hsl(var(--primary) / 0.27);
   border-radius: 50%;
   transform-style: preserve-3d;
-  will-change: transform;
 }
 
-.quantum-orbit-one {
-  transform: rotateX(68deg) rotateZ(0deg);
-  animation: quantum-orbit-one 9s linear infinite;
+.creative-loader-orbit-one {
+  transform: rotateX(68deg) rotateZ(-28deg);
+  animation: creative-loader-orbit-one 15s linear infinite;
 }
 
-.quantum-orbit-two {
-  border-color: hsl(var(--accent) / 0.5);
-  transform: rotateX(68deg) rotateZ(60deg);
-  animation: quantum-orbit-two 12s linear infinite reverse;
+.creative-loader-orbit-two {
+  width: 86%;
+  border-color: hsl(var(--accent) / 0.24);
+  transform: rotateX(68deg) rotateZ(50deg);
+  animation: creative-loader-orbit-two 19s linear infinite reverse;
 }
 
-.quantum-orbit-three {
-  border-color: hsl(var(--primary) / 0.25);
-  transform: rotateX(68deg) rotateY(58deg) rotateZ(120deg);
-  animation: quantum-orbit-three 15s linear infinite;
+.creative-loader-orbit-three {
+  width: 94%;
+  border-color: hsl(var(--foreground) / 0.1);
+  transform: rotateX(68deg) rotateY(42deg) rotateZ(-15deg);
 }
 
-.quantum-electron {
+.creative-loader-orbit span {
   position: absolute;
   top: 50%;
   left: 0;
-  width: 0.52rem;
-  height: 0.52rem;
+  width: 0.44rem;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: hsl(var(--primary));
-  box-shadow: 0 0 0.55rem hsl(var(--primary) / 0.95), 0 0 1.2rem hsl(var(--primary) / 0.6);
+  box-shadow: 0 0 0.9rem hsl(var(--primary) / 0.9);
   transform: translate(-50%, -50%);
 }
 
-.quantum-electron-accent {
-  width: 0.42rem;
-  height: 0.42rem;
+.creative-loader-orbit-two span {
+  width: 0.3rem;
   background: hsl(var(--accent));
-  box-shadow: 0 0 0.55rem hsl(var(--accent) / 0.95), 0 0 1.2rem hsl(var(--accent) / 0.6);
+  box-shadow: 0 0 0.8rem hsl(var(--accent) / 0.85);
 }
 
-.quantum-electron-soft {
-  width: 0.35rem;
-  height: 0.35rem;
-  opacity: 0.8;
-}
-
-.quantum-nucleus {
+.creative-loader-star {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  width: 5rem;
-  height: 5rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid hsl(var(--primary) / 0.52);
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 28%, hsl(var(--primary) / 0.3), hsl(var(--background) / 0.9) 72%);
-  box-shadow: 0 0 1.5rem hsl(var(--primary) / 0.24), inset 0 0 1.2rem hsl(var(--primary) / 0.14);
-  transform: translate(-50%, -50%);
-}
-
-.quantum-nucleus::before {
-  position: absolute;
-  inset: -0.7rem;
-  border: 1px solid hsl(var(--primary) / 0.24);
-  border-radius: inherit;
-  content: "";
-  animation: quantum-nucleus-pulse 2.4s ease-out infinite;
-}
-
-.quantum-nucleus span {
-  color: hsl(var(--foreground));
+  color: hsl(var(--foreground) / 0.85);
   font-family: Georgia, serif;
-  font-size: 1.85rem;
-  line-height: 1;
-  text-shadow: 0 0 1rem hsl(var(--primary) / 0.8);
+  animation: creative-loader-twinkle 3.2s ease-in-out infinite;
 }
 
-.quantum-nucleus small {
-  margin-top: 0.28rem;
-  color: hsl(var(--primary));
-  font-family: var(--font-mono, monospace);
-  font-size: 0.48rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-}
+.creative-loader-star-one { top: 23%; right: 16%; color: hsl(var(--accent)); font-size: 1.1rem; }
+.creative-loader-star-two { bottom: 21%; left: 13%; font-size: 1.35rem; animation-delay: -1.6s; }
 
-.quantum-node {
+.creative-loader-art-note {
   position: absolute;
-  width: 0.22rem;
-  height: 0.22rem;
-  border-radius: 50%;
-  background: hsl(var(--accent));
-  box-shadow: 0 0 0.75rem hsl(var(--accent) / 0.9);
-  animation: quantum-node-blink 2.8s ease-in-out infinite;
+  right: 0;
+  bottom: 13%;
+  color: var(--loader-quiet);
+  font-size: 0.54rem;
 }
 
-.quantum-node-one { top: 14%; left: 28%; animation-delay: -0.3s; }
-.quantum-node-two { top: 29%; right: 13%; animation-delay: -1.2s; }
-.quantum-node-three { right: 20%; bottom: 14%; animation-delay: -1.9s; }
-.quantum-node-four { bottom: 24%; left: 10%; animation-delay: -0.8s; }
+.creative-loader-art-note span {
+  padding-left: 0.45rem;
+  color: hsl(var(--accent));
+}
 
-.quantum-progress-track {
-  height: 3px;
+.creative-loader-footer {
+  padding-top: 1.1rem;
+  border-top: 1px solid hsl(var(--foreground) / 0.12);
+}
+
+.creative-loader-progress-heading {
+  margin-bottom: 0.75rem;
+  color: var(--loader-quiet);
+  font-size: 0.56rem;
+}
+
+.creative-loader-percent {
+  color: hsl(var(--foreground));
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.creative-loader-percent small {
+  padding-left: 0.12rem;
+  color: hsl(var(--primary));
+  font-size: 0.58rem;
+}
+
+.creative-loader-progress {
+  height: 2px;
   overflow: hidden;
   border-radius: 999px;
-  background: hsl(var(--primary) / 0.16);
-  box-shadow: 0 0 1.2rem hsl(var(--primary) / 0.08);
+  background: hsl(var(--foreground) / 0.12);
 }
 
-.quantum-progress-fill {
-  position: relative;
+.creative-loader-progress span {
+  display: block;
   height: 100%;
-  overflow: hidden;
   border-radius: inherit;
   background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
-  box-shadow: 0 0 0.85rem hsl(var(--primary) / 0.5);
-  transition: width 120ms linear;
+  box-shadow: 0 0 0.9rem hsl(var(--primary) / 0.65);
+  transition: width 160ms linear;
 }
 
-.quantum-progress-fill::after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 2rem;
-  background: linear-gradient(90deg, transparent, hsl(var(--foreground) / 0.8));
-  content: "";
-  animation: quantum-progress-sheen 1.4s ease-in-out infinite;
+.creative-loader-footer-note {
+  gap: 1rem;
+  margin-top: 0.9rem;
+  font-size: 0.49rem;
+  letter-spacing: 0.14em;
 }
 
-.quantum-boot-exit {
+.creative-loader-footer-note i,
+.creative-loader-footer-note b {
+  padding-inline: 0.24rem;
+  color: hsl(var(--primary));
+  font-weight: 500;
+}
+
+.creative-loader-exit {
   pointer-events: none;
-  animation: quantum-boot-exit 650ms ease-in forwards;
+  animation: creative-loader-exit 480ms ease-in forwards;
 }
 
-@keyframes quantum-orbit-one {
-  from { transform: rotateX(68deg) rotateZ(0deg); }
-  to { transform: rotateX(68deg) rotateZ(360deg); }
+@keyframes creative-loader-arrive {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes quantum-orbit-two {
-  from { transform: rotateX(68deg) rotateZ(60deg); }
-  to { transform: rotateX(68deg) rotateZ(420deg); }
+@keyframes creative-loader-art-arrive {
+  from { opacity: 0; transform: scale(0.92) rotate(-5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
 }
 
-@keyframes quantum-orbit-three {
-  from { transform: rotateX(68deg) rotateY(58deg) rotateZ(120deg); }
-  to { transform: rotateX(68deg) rotateY(58deg) rotateZ(480deg); }
+@keyframes creative-loader-orbit-one {
+  to { transform: rotateX(68deg) rotateZ(332deg); }
 }
 
-@keyframes quantum-stage-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-0.35rem); }
+@keyframes creative-loader-orbit-two {
+  to { transform: rotateX(68deg) rotateZ(410deg); }
 }
 
-@keyframes quantum-cloud-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(0.88); }
-  50% { opacity: 1; transform: scale(1.12); }
+@keyframes creative-loader-breathe {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-0.5rem) rotate(2deg); }
 }
 
-@keyframes quantum-nucleus-pulse {
-  0% { opacity: 0.75; transform: scale(0.86); }
-  85%, 100% { opacity: 0; transform: scale(1.3); }
+@keyframes creative-loader-twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.82); }
+  50% { opacity: 1; transform: scale(1.08); }
 }
 
-@keyframes quantum-node-blink {
-  0%, 100% { opacity: 0.25; transform: scale(0.75); }
-  50% { opacity: 1; transform: scale(1.35); }
+@keyframes creative-loader-signal {
+  0%, 100% { opacity: 0.62; box-shadow: 0 0 0.4rem hsl(var(--accent) / 0.45); }
+  50% { opacity: 1; box-shadow: 0 0 0.95rem hsl(var(--accent) / 0.9); }
 }
 
-@keyframes quantum-progress-sheen {
-  0%, 100% { opacity: 0; transform: translateX(-1rem); }
-  50% { opacity: 0.8; transform: translateX(0); }
-}
-
-@keyframes quantum-boot-exit {
+@keyframes creative-loader-exit {
   to { opacity: 0; visibility: hidden; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .quantum-orbit-stage,
-  .quantum-orbit,
-  .quantum-probability-cloud,
-  .quantum-nucleus::before,
-  .quantum-node,
-  .quantum-progress-fill::after {
-    animation: none !important;
+@media (max-width: 767px) {
+  .creative-loader-shell {
+    padding: 1.15rem 1.25rem max(1.35rem, env(safe-area-inset-bottom));
   }
 
-  .quantum-boot-exit {
+  .creative-loader-header { min-height: 3.1rem; }
+  .creative-loader-mark { width: 2.2rem; height: 2.2rem; }
+  .creative-loader-live { font-size: 0.47rem; letter-spacing: 0.1em; }
+
+  .creative-loader-main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    align-content: center;
+    padding-block: 1rem 1.45rem;
+  }
+
+  .creative-loader-art {
+    width: min(54vw, 15rem);
+    margin-bottom: 0.25rem;
+  }
+
+  .creative-loader-art-note { display: none; }
+  .creative-loader-copy { text-align: center; }
+  .creative-loader-kicker { justify-content: center; margin-bottom: 1rem; font-size: 0.49rem; }
+  .creative-loader-kicker span { width: 1.5rem; height: 1.5rem; }
+  .creative-loader-copy h1 { font-size: clamp(3.4rem, 16vw, 5.2rem); }
+  .creative-loader-description { max-width: 22rem; margin: 1rem auto 0; font-size: 0.86rem; line-height: 1.65; }
+  .creative-loader-footer { padding-top: 0.9rem; }
+  .creative-loader-footer-note { font-size: 0.42rem; letter-spacing: 0.09em; }
+}
+
+@media (max-height: 700px) and (min-width: 768px) {
+  .creative-loader-shell { padding-block: 1.15rem; }
+  .creative-loader-main { padding-block: 1rem; }
+  .creative-loader-art { width: min(30vw, 24rem); }
+  .creative-loader-copy h1 { font-size: clamp(4rem, 8vw, 7.5rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creative-loader *,
+  .creative-loader *::before,
+  .creative-loader *::after {
     animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
   }
 }
 

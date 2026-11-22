@@ -7,19 +7,21 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const duration = reducedMotion ? 120 : isMobile ? 180 : 280;
-    const fadeDuration = reducedMotion ? 60 : isMobile ? 100 : 130;
+    const duration = reducedMotion ? 680 : isMobile ? 950 : 1300;
+    const fadeDuration = reducedMotion ? 70 : 480;
+    const previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
     const start = performance.now();
     let frame = 0;
-    let lastProgress = -1;
+    let lastPaint = 0;
 
     const updateProgress = (now: number) => {
-      const nextProgress = Math.min(100, Math.floor(((now - start) / duration) * 10) * 10);
-      if (nextProgress !== lastProgress) {
-        lastProgress = nextProgress;
-        setProgress(nextProgress);
+      const ratio = Math.min(1, (now - start) / duration);
+      if (now - lastPaint >= 32 || ratio === 1) {
+        setProgress(Math.round(ratio * 100));
+        lastPaint = now;
       }
-      if (nextProgress < 100) frame = window.requestAnimationFrame(updateProgress);
+      if (ratio < 1) frame = window.requestAnimationFrame(updateProgress);
     };
 
     frame = window.requestAnimationFrame(updateProgress);
@@ -33,82 +35,84 @@ const BootLoader = ({ onDone }: { onDone?: () => void }) => {
       window.cancelAnimationFrame(frame);
       window.clearTimeout(fadeTimer);
       window.clearTimeout(doneTimer);
+      document.documentElement.style.overflow = previousOverflow;
     };
   }, [onDone]);
 
   if (phase === "gone") return null;
 
-  const progressLabel = progress < 36
-    ? "INITIALIZING QUBITS"
+  const progressLabel = progress < 34
+    ? "GATHERING THE DETAILS"
     : progress < 78
-      ? "CALIBRATING COHERENCE"
-      : "ESTABLISHING ENTANGLEMENT";
+      ? "BRINGING IDEAS TO LIFE"
+      : "MAKING ROOM FOR WONDER";
 
   return (
     <div
-      className={`quantum-boot-screen fixed inset-0 z-[10050] overflow-hidden ${phase === "fading" ? "quantum-boot-exit" : ""}`}
+      className={`creative-loader fixed inset-0 z-[10050] overflow-hidden ${phase === "fading" ? "creative-loader-exit" : ""}`}
       role="status"
-      aria-label="Loading quantum computing experience"
+      aria-label="Preparing your portfolio experience"
     >
-      <div className="quantum-boot-grid" aria-hidden="true" />
-      <div className="quantum-boot-glow quantum-boot-glow-one" aria-hidden="true" />
-      <div className="quantum-boot-glow quantum-boot-glow-two" aria-hidden="true" />
+      <div className="creative-loader-grid" aria-hidden="true" />
+      <div className="creative-loader-light creative-loader-light-one" aria-hidden="true" />
+      <div className="creative-loader-light creative-loader-light-two" aria-hidden="true" />
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-12">
-        <div className="w-full max-w-xl text-center">
-          <div className="quantum-orbit-stage mb-8 sm:mb-10" aria-hidden="true">
-            <div className="quantum-probability-cloud" />
-            <div className="quantum-orbit quantum-orbit-one">
-              <span className="quantum-electron" />
-            </div>
-            <div className="quantum-orbit quantum-orbit-two">
-              <span className="quantum-electron quantum-electron-accent" />
-            </div>
-            <div className="quantum-orbit quantum-orbit-three">
-              <span className="quantum-electron quantum-electron-soft" />
-            </div>
-            <div className="quantum-nucleus">
-              <span>ψ</span>
-              <small>QUBIT</small>
-            </div>
-            <span className="quantum-node quantum-node-one" />
-            <span className="quantum-node quantum-node-two" />
-            <span className="quantum-node quantum-node-three" />
-            <span className="quantum-node quantum-node-four" />
+      <div className="creative-loader-shell">
+        <header className="creative-loader-header">
+          <div className="creative-loader-brand">
+            <span className="creative-loader-mark" aria-hidden="true"><i /><i /><i /></span>
+            <span className="creative-loader-brand-copy">
+              <strong>SASITHAR</strong>
+              <span>CREATIVE PORTFOLIO</span>
+            </span>
           </div>
+          <span className="creative-loader-live"><i /> A LITTLE WORLD IN THE MAKING</span>
+        </header>
 
-          <p className="font-mono text-[0.62rem] font-semibold tracking-[0.28em] text-primary sm:text-xs">
-            QUANTUM COMPUTING <span className="px-1 text-accent">/</span> SYSTEM BOOT
-          </p>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
-            Computing in<br />
-            <span className="text-primary">superposition.</span>
-          </h1>
-          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Preparing qubits, calibrating coherence, and linking entangled states.
-          </p>
+        <main className="creative-loader-main">
+          <section className="creative-loader-copy">
+            <p className="creative-loader-kicker"><span>01</span> DESIGN · CODE · CURIOSITY</p>
+            <h1>Ideas, taking<br /><em>shape.</em></h1>
+            <p className="creative-loader-description">
+              A portfolio of thoughtful design, curious experiments, and technology made human.
+            </p>
+          </section>
 
+          <div className="creative-loader-art" aria-hidden="true">
+            <div className="creative-loader-orbit creative-loader-orbit-one"><span /></div>
+            <div className="creative-loader-orbit creative-loader-orbit-two"><span /></div>
+            <div className="creative-loader-orbit creative-loader-orbit-three" />
+            <div className="creative-loader-orb">
+              <span className="creative-loader-orb-glint" />
+              <span className="creative-loader-orb-ribbon" />
+              <span className="creative-loader-orb-core" />
+            </div>
+            <span className="creative-loader-star creative-loader-star-one">✦</span>
+            <span className="creative-loader-star creative-loader-star-two">✧</span>
+            <span className="creative-loader-art-note">STAY CURIOUS <span>✳</span></span>
+          </div>
+        </main>
+
+        <footer className="creative-loader-footer">
+          <div className="creative-loader-progress-heading">
+            <span>{progressLabel}</span>
+            <span className="creative-loader-percent">{String(progress).padStart(2, "0")}<small>%</small></span>
+          </div>
           <div
-            className="mx-auto mt-9 w-full max-w-sm"
+            className="creative-loader-progress"
             role="progressbar"
-            aria-label="Quantum system initialization"
+            aria-label="Portfolio loading progress"
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={progress}
           >
-            <div className="quantum-progress-track">
-              <div className="quantum-progress-fill" style={{ width: `${progress}%` }} />
-            </div>
-            <div className="mt-3 flex items-center justify-between font-mono text-[0.6rem] tracking-[0.14em] text-muted-foreground sm:text-[0.65rem]">
-              <span>{progressLabel}</span>
-              <span className="tabular-nums text-foreground">{String(progress).padStart(2, "0")}%</span>
-            </div>
+            <span style={{ width: `${progress}%` }} />
           </div>
-
-          <p className="mt-8 font-mono text-[0.55rem] tracking-[0.2em] text-muted-foreground/65">
-            0 · 1 · ψ <span className="mx-2 text-primary/60">—</span> YOUR EXPERIENCE IS ABOUT TO COLLAPSE INTO VIEW
-          </p>
-        </div>
+          <div className="creative-loader-footer-note">
+            <span>MADE WITH INTENTION <i>·</i> OPENED WITH WONDER</span>
+            <span>PORTFOLIO <b>—</b> 01 / 01</span>
+          </div>
+        </footer>
       </div>
     </div>
   );
