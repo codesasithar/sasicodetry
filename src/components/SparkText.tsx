@@ -33,16 +33,16 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
             display: inline-block;
             font-weight: 500;
             letter-spacing: 0.07em;
-            color: #ffffff;
+            color: hsl(var(--palette-cloud));
             position: relative;
             animation: minimal-glow 4s ease-in-out infinite alternate;
           }
 
           @keyframes minimal-glow {
-            0% { text-shadow: 0 0 4px rgba(0, 240, 255, 0.2); }
+            0% { text-shadow: 0 0 4px hsl(var(--palette-sky-focus) / 0.2); }
             100% {
-              text-shadow: 0 0 12px rgba(0, 240, 255, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
-              color: #f8fafc;
+              text-shadow: 0 0 12px hsl(var(--palette-sky-focus) / 0.6), 0 0 20px hsl(var(--palette-sky-focus) / 0.3);
+              color: hsl(var(--palette-cloud));
             }
           }
         `}</style>
@@ -133,9 +133,9 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
         }
 
         @keyframes letter-lightning-shock {
-          0% { transform: scale(1); color: #fff; text-shadow: 0 0 10px #00f0ff, 0 0 20px #3b82f6; }
-          15% { transform: scale(var(--exp-scale, 1.25)); color: #fff; text-shadow: 0 0 30px #00f0ff, 0 0 60px #fff; }
-          35% { color: #00f0ff; }
+          0% { transform: scale(1); color: hsl(var(--palette-cloud)); text-shadow: 0 0 10px hsl(var(--palette-sky-focus)), 0 0 20px hsl(var(--palette-sky-focus)); }
+          15% { transform: scale(var(--exp-scale, 1.25)); color: hsl(var(--palette-cloud)); text-shadow: 0 0 30px hsl(var(--palette-sky-focus)), 0 0 60px hsl(var(--palette-cloud)); }
+          35% { color: hsl(var(--palette-sky-focus)); }
           100% { transform: scale(1); }
         }
 
@@ -155,7 +155,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           position: absolute;
           width: 60px;
           height: 60px;
-          background: radial-gradient(circle, #ffffff 20%, rgba(0, 240, 255, 0.85) 50%, rgba(59, 130, 246, 0.3) 75%, transparent 100%);
+          background: radial-gradient(circle, hsl(var(--palette-cloud)) 20%, hsl(var(--palette-sky-focus) / 0.85) 50%, hsl(var(--palette-sky-focus) / 0.3) 75%, transparent 100%);
           transform: translate(-50%, -50%) scale(0);
           animation: core-discharge var(--duration, 0.3s) cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
           will-change: transform, opacity;
@@ -175,11 +175,11 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
           transform: translate(-50%, -50%);
           overflow: visible !important;
           fill: none;
-          stroke: #ffffff;
+          stroke: hsl(var(--palette-cloud));
           stroke-width: 1.8px;
           stroke-linecap: round;
           stroke-linejoin: round;
-          filter: drop-shadow(0 0 4px #00f0ff) drop-shadow(0 0 10px #3b82f6);
+          filter: drop-shadow(0 0 4px hsl(var(--palette-sky-focus))) drop-shadow(0 0 10px hsl(var(--palette-sky-focus)));
           opacity: 0;
           animation: bolt-crackle var(--duration, 0.3s) steps(5, end) forwards;
           will-change: opacity, filter;
@@ -188,7 +188,7 @@ const SparkText: React.FC<SparkTextProps> = ({ text, className, style }) => {
         @keyframes bolt-crackle {
           0% { opacity: 0; stroke-dasharray: 400; stroke-dashoffset: 400; }
           10% { opacity: 1; stroke-dashoffset: 150; }
-          25% { opacity: 0.6; filter: brightness(1.8) drop-shadow(0 0 6px #00f0ff); }
+          25% { opacity: 0.6; filter: brightness(1.8) drop-shadow(0 0 6px hsl(var(--palette-sky-focus))); }
           45% { opacity: 1; stroke-dashoffset: 0; }
           65% { opacity: 0.8; }
           100% { opacity: 0; }

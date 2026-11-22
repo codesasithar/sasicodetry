@@ -332,8 +332,8 @@ const MovieCard = ({
         <button type="button" className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset">
           <div className="relative aspect-[2/3] overflow-hidden bg-muted">
             <MoviePoster movie={movie} className="transition-transform duration-300 group-hover:scale-[1.03]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-75 transition-opacity group-hover:opacity-100" />
-            <span className="absolute bottom-2 left-2 right-2 line-clamp-2 text-xs font-medium text-white/90 sm:text-sm">
+            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent opacity-75 transition-opacity group-hover:opacity-100" />
+            <span className="absolute bottom-2 left-2 right-2 line-clamp-2 text-xs font-medium text-foreground/90 sm:text-sm">
               {category}
             </span>
             <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
@@ -357,7 +357,7 @@ const MovieCard = ({
       <button
         type="button"
         className={cn(
-          "absolute right-2 top-2 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-black/45 text-white shadow-sm backdrop-blur transition hover:scale-105 hover:bg-black/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+          "absolute right-2 top-2 z-10 grid h-9 w-9 place-items-center rounded-full border border-foreground/20 bg-background/45 text-foreground shadow-sm backdrop-blur transition hover:scale-105 hover:bg-background/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
           isFavorite && "border-primary/50 bg-primary text-primary-foreground hover:bg-primary/90"
         )}
         aria-label={isFavorite ? `Remove ${movie.title} from saved movies` : `Save ${movie.title}`}

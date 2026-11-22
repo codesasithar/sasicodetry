@@ -67,7 +67,7 @@ const AudioPlayerCompact = () => {
   return (
     <>
       {showAutoplayPrompt && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 animate-fade-in">
+        <div className="fixed inset-0 bg-background/60 flex items-center justify-center z-50 animate-fade-in">
           <div className="bg-background/95 backdrop-blur-sm border border-primary/30 rounded-xl p-6 max-w-xs mx-4 shadow-2xl animate-scale-in transform-gpu">
             <div className="text-center">
               <div className="mb-3 animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>

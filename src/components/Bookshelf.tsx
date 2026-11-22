@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { BookOpen, ChevronDown, ChevronUp, Pin, Search, X } from "lucide-react";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import deskPhoto from "@/assets/desk-photo.jpg.asset.json";
 
 // Existing asset imports
@@ -217,23 +218,23 @@ const DeskLamp = () => (
   >
     <defs>
       <linearGradient id="lampBody" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="hsl(30 26% 62%)" />
-        <stop offset="55%" stopColor="hsl(25 30% 42%)" />
-        <stop offset="100%" stopColor="hsl(22 36% 24%)" />
+        <stop offset="0%" stopColor="hsl(var(--palette-slate))" />
+        <stop offset="55%" stopColor="hsl(var(--palette-ash))" />
+        <stop offset="100%" stopColor="hsl(var(--palette-deep-space))" />
       </linearGradient>
       <linearGradient id="lampShade" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="hsl(27 30% 48%)" />
-        <stop offset="100%" stopColor="hsl(20 40% 18%)" />
+        <stop offset="0%" stopColor="hsl(var(--palette-ash))" />
+        <stop offset="100%" stopColor="hsl(var(--palette-charcoal))" />
       </linearGradient>
       <radialGradient id="lampBeam" cx="42%" cy="0%" r="85%">
-        <stop offset="0%" stopColor="hsl(48 100% 78%)" stopOpacity="0.5" />
-        <stop offset="45%" stopColor="hsl(40 100% 66%)" stopOpacity="0.2" />
-        <stop offset="100%" stopColor="hsl(40 100% 66%)" stopOpacity="0" />
+        <stop offset="0%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.5" />
+        <stop offset="45%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.2" />
+        <stop offset="100%" stopColor="hsl(var(--palette-mist))" stopOpacity="0" />
       </radialGradient>
       <radialGradient id="bulbHalo" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="hsl(48 100% 86%)" stopOpacity="0.85" />
-        <stop offset="45%" stopColor="hsl(42 100% 70%)" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="hsl(42 100% 70%)" stopOpacity="0" />
+        <stop offset="0%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.85" />
+        <stop offset="45%" stopColor="hsl(var(--palette-mist))" stopOpacity="0.3" />
+        <stop offset="100%" stopColor="hsl(var(--palette-mist))" stopOpacity="0" />
       </radialGradient>
     </defs>
 
@@ -249,7 +250,7 @@ const DeskLamp = () => (
 
     {/* Shade */}
     <path d="M146 44 L182 60 L170 84 L138 66 Z" fill="url(#lampShade)" />
-    <path d="M138 66 L170 84" stroke="hsl(45 100% 80% / 0.45)" strokeWidth="1.5" />
+    <path d="M138 66 L170 84" stroke="hsl(var(--palette-mist) / 0.45)" strokeWidth="1.5" />
     {/* Glowing bulb at the shade opening */}
     <ellipse
       className="lamp-bulb-pulse"
@@ -257,7 +258,7 @@ const DeskLamp = () => (
       cy="76"
       rx="12"
       ry="4.5"
-      fill="hsl(50 100% 84%)"
+      fill="hsl(var(--palette-mist))"
       transform="rotate(29 154 76)"
     />
 
@@ -267,7 +268,7 @@ const DeskLamp = () => (
     <path
       className="arc-arm-dash"
       d="M40 58 C 42 14 148 4 154 46"
-      stroke="hsl(190 100% 50%)"
+      stroke="hsl(var(--palette-sky-focus))"
       strokeOpacity="0.45"
       strokeWidth="1.5"
       strokeLinecap="round"
@@ -278,7 +279,7 @@ const DeskLamp = () => (
     <path className="lamp-stem" d="M40 138 L40 58" stroke="url(#lampBody)" strokeWidth="7" strokeLinecap="round" />
     <path className="lamp-stem-highlight" d="M38.5 132 L38.5 64" strokeLinecap="round" />
     {/* Joint sits over the stem so the arm reads as one connected assembly. */}
-    <circle cx="40" cy="58" r="5" fill="hsl(22 36% 20%)" stroke="url(#lampBody)" strokeWidth="2" />
+    <circle cx="40" cy="58" r="5" fill="hsl(var(--palette-deep-space))" stroke="url(#lampBody)" strokeWidth="2" />
     <rect x="16" y="136" width="52" height="9" rx="4.5" fill="url(#lampBody)" />
   </svg>
 );
@@ -288,10 +289,11 @@ const Bookshelf = () => {
   const [notesExpanded, setNotesExpanded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeGenre, setActiveGenre] = useState("All");
+  const [readerOrigin, setReaderOrigin] = useState({ x: 0, y: 0, scaleX: 0.25, scaleY: 0.35 });
   const cardRef = useRef<HTMLDivElement>(null);
-  const booksContainerRef = useRef<HTMLDivElement>(null);
-  const detailsPaneRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
+  const readerSpreadRef = useRef<HTMLDivElement>(null);
+  const readerSourceRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null);
   const rafRef = useRef<number | null>(null);
   const [spotlightActive, setSpotlightActive] = useState(false);
 
@@ -306,28 +308,30 @@ const Bookshelf = () => {
     return matchesGenre && matchesQuery;
   });
 
-  useEffect(() => {
-    if (!selectedBook) return;
+  const selectBook = (book: Book, element: HTMLElement) => {
+    const rect = element.getBoundingClientRect();
+    readerSourceRef.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height };
+    setSelectedBook(book);
+  };
 
-    const handlePointerDown = (e: PointerEvent) => {
-      const target = e.target as Node;
-      const inBooks = booksContainerRef.current?.contains(target);
-      const inDetails = detailsPaneRef.current?.contains(target);
-      if (!inBooks && !inDetails) {
-        setSelectedBook(null);
-      }
-    };
+  useLayoutEffect(() => {
+    const source = readerSourceRef.current;
+    const spread = readerSpreadRef.current;
+    if (!selectedBook || !source || !spread) return;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedBook(null);
-    };
+    const bounds = spread.getBoundingClientRect();
+    const centerX = bounds.left + bounds.width / 2;
+    const centerY = bounds.top + bounds.height / 2;
+    const width = spread.offsetWidth;
+    const height = spread.offsetHeight;
+    if (!width || !height) return;
 
-    document.addEventListener("pointerdown", handlePointerDown);
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", handlePointerDown);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    setReaderOrigin({
+      x: source.left - centerX,
+      y: source.top + source.height / 2 - centerY,
+      scaleX: (source.width * 2) / width,
+      scaleY: source.height / height,
+    });
   }, [selectedBook]);
 
   const scheduleSpotlight = (clientX: number, clientY: number) => {
@@ -352,9 +356,9 @@ const Bookshelf = () => {
 
   const getStatusColor = (status: Book['status']) => {
     switch (status) {
-      case "read": return "text-emerald-400";
-      case "reading": return "text-blue-400";
-      case "to-read": return "text-yellow-400";
+      case "read": return "text-foreground";
+      case "reading": return "text-primary-glow";
+      case "to-read": return "text-secondary";
       default: return "text-muted-foreground";
     }
   };
@@ -368,8 +372,13 @@ const Bookshelf = () => {
     }
   };
 
-  const AnimatedBook = ({ book, sizeClasses }: { book: Book; sizeClasses: string }) => {
-    const isOpen = selectedBook?.id === book.id;
+  const AnimatedBook = ({
+    book,
+    sizeClasses,
+  }: {
+    book: Book;
+    sizeClasses: string;
+  }) => {
     const arrivalIndex = books.findIndex((entry) => entry.id === book.id);
 
     return (
@@ -377,16 +386,15 @@ const Bookshelf = () => {
         role="button"
         tabIndex={0}
         className={`library-book relative group cursor-pointer p-0 border-0 bg-transparent text-left ${sizeClasses}`}
-        style={{ perspective: "1000px", "--book-index": arrivalIndex } as CSSProperties}
-        data-is-open={isOpen}
-        aria-label={`${isOpen ? "Close" : "Open"} details for ${book.title} by ${book.author}`}
-        aria-expanded={isOpen}
+        style={{ perspective: "850px", "--book-index": arrivalIndex } as CSSProperties}
+        aria-label={`Open ${book.title} by ${book.author}`}
+        aria-expanded={selectedBook?.id === book.id}
         aria-controls="book-details-pane"
-        onClick={() => setSelectedBook(isOpen ? null : book)}
+        onClick={(event) => selectBook(book, event.currentTarget)}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            setSelectedBook(isOpen ? null : book);
+            selectBook(book, event.currentTarget);
           }
         }}
       >
@@ -395,12 +403,9 @@ const Bookshelf = () => {
           style={{
             transformStyle: "preserve-3d",
             transformOrigin: "left center",
-            transform: isOpen 
-              ? "translate3d(0, -0.7rem, 3rem) rotateY(-7deg) rotateZ(-1deg) scale(1.09)"
-              : "rotateY(0deg) translateZ(0px) rotateX(0deg)"
           }}
-          data-is-open={isOpen}
         >
+          <div className="library-book-spine" aria-hidden="true" />
           <div className="library-book-block" aria-hidden="true" />
           <div 
             className="library-book-pages w-full h-full"
@@ -418,54 +423,35 @@ const Bookshelf = () => {
                 loading="lazy"
                 decoding="async"
               />
-              <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-black/40 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 left-0 w-3 bg-gradient-to-r from-background/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-background/10 to-transparent pointer-events-none" />
             </div>
 
             {/* Inside Page Layer */}
             <div
-              className="library-book-inside absolute inset-0 w-full h-full bg-amber-50 rounded-r shadow-inner p-2 border border-amber-200/60 z-10 flex flex-col"
+              className="library-book-inside absolute inset-0 w-full h-full rounded-r shadow-inner p-2 border z-10 flex flex-col"
               style={{
                 backfaceVisibility: "hidden",
                 transform: "rotateY(180deg)",
               }}
             >
-              {isOpen ? (
-                <div className="library-book-inside-copy flex-1 flex flex-col text-amber-900 font-serif overflow-hidden">
-                  <div className="text-[8px] md:text-[10px] font-bold leading-tight line-clamp-2">
-                    {book.title}
-                  </div>
-                  <div className="text-[7px] md:text-[8px] italic opacity-80 mb-1 truncate">
-                    {book.author}
-                  </div>
-                  <div className="text-[6px] md:text-[7px] uppercase tracking-wide opacity-70 mb-1">
-                    {book.genre}
-                  </div>
-                  <p className="text-[7px] md:text-[8px] leading-snug opacity-90 line-clamp-6 md:line-clamp-[9]">
-                    {book.summary}
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div className="space-y-1.5 opacity-60">
-                    <div className="h-2 bg-amber-900/20 rounded w-5/6" />
-                    <div className="h-2 bg-amber-900/20 rounded w-full" />
-                    <div className="h-2 bg-amber-900/20 rounded w-4/5" />
-                    <div className="h-2 bg-amber-900/20 rounded w-11/12" />
-                    <div className="h-2 bg-amber-900/20 rounded w-3/4" />
-                  </div>
-                  <div className="mt-auto text-[10px] text-amber-800 font-serif font-semibold truncate text-center select-none">
-                    {book.title}
-                  </div>
-                </>
-              )}
+              <div className="space-y-1.5 opacity-60">
+                <div className="h-2 rounded w-5/6" />
+                <div className="h-2 rounded w-full" />
+                <div className="h-2 rounded w-4/5" />
+                <div className="h-2 rounded w-11/12" />
+                <div className="h-2 rounded w-3/4" />
+              </div>
+              <div className="mt-auto text-[10px] font-serif font-semibold truncate text-center select-none">
+                {book.title}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Outer Glow Highlight Effect on Hover */}
         <div className="absolute -inset-2 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-md pointer-events-none" />
-        <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-emerald-400 z-30 pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
+        <div className="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary z-30 pointer-events-none opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
       </div>
     );
   };
@@ -508,7 +494,7 @@ const Bookshelf = () => {
               style={{
                 opacity: spotlightActive ? 1 : 0,
                 background:
-                  "radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 214, 145, 0.35), rgba(255, 180, 90, 0.15) 35%, rgba(0,0,0,0) 65%)",
+                  "radial-gradient(260px circle at var(--spot-x, 50%) var(--spot-y, 50%), hsl(var(--palette-mist) / 0.35), hsl(var(--palette-mist) / 0.15) 35%, hsl(var(--palette-charcoal) / 0) 65%)",
               }}
             />
             {/* Study lamp + framed photo sitting on top of the shelf */}
@@ -612,7 +598,7 @@ const Bookshelf = () => {
             </div>
 
             {/* Books container (listens for outside clicks to close a book) */}
-            <div ref={booksContainerRef}>
+            <div>
               {visibleBooks.length === 0 ? (
                 <div className="library-empty-state">
                   <BookOpen size={26} aria-hidden="true" />
@@ -712,39 +698,6 @@ const Bookshelf = () => {
               )}
             </div>
 
-            {/* Book Details Pane */}
-            {selectedBook && (
-              <div
-                ref={detailsPaneRef}
-                id="book-details-pane"
-                className="library-book-details mt-8 p-4 bg-muted/50 rounded-lg transition-all duration-300 border border-border/30 relative"
-              >
-                <button
-                  onClick={() => setSelectedBook(null)}
-                  className="absolute top-2 right-2 p-1.5 rounded-full hover:bg-background/80 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  aria-label="Close book"
-                >
-                  <X className="h-4 w-4 text-muted-foreground" />
-                </button>
-                <h4 className="font-semibold text-foreground text-base md:text-lg pr-6">{selectedBook.title}</h4>
-                <p className="text-muted-foreground text-sm md:text-base">{selectedBook.author}</p>
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
-                  <span className="text-xs px-2 py-1 bg-primary/20 text-primary rounded">
-                    {selectedBook.genre}
-                  </span>
-                  <span className={`text-xs ${getStatusColor(selectedBook.status)}`}>
-                    {getStatusText(selectedBook.status)}
-                  </span>
-                </div>
-                <div className="mt-3 pt-3 border-t border-border/30">
-                  <h5 className="text-sm font-medium text-foreground mb-2">Summary</h5>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {selectedBook.summary}
-                  </p>
-                </div>
-              </div>
-            )}
-
             {/* Stats Footer */}
             <div className="mt-6 pt-4 border-t border-border/50">
               <div className="flex justify-between text-sm text-muted-foreground">
@@ -755,6 +708,80 @@ const Bookshelf = () => {
           </Card>
         </div>
       </div>
+      <Dialog open={!!selectedBook} onOpenChange={(open) => { if (!open) setSelectedBook(null); }}>
+        {selectedBook && (
+          <DialogContent
+            id="book-details-pane"
+            className="library-reader-dialog w-[calc(100vw-1.5rem)] max-w-[1120px] gap-0 overflow-y-auto border-0 bg-transparent p-0 text-foreground shadow-none"
+            style={{
+              "--reader-origin-x": `${readerOrigin.x}px`,
+              "--reader-origin-y": `${readerOrigin.y}px`,
+              "--reader-scale-x": readerOrigin.scaleX,
+              "--reader-scale-y": readerOrigin.scaleY,
+            } as CSSProperties}
+          >
+            <DialogTitle className="sr-only">{selectedBook.title} by {selectedBook.author}</DialogTitle>
+            <DialogDescription className="sr-only">An open book with notes and a summary in the reading room.</DialogDescription>
+            {(() => {
+              const note = libraryNotes.find((item) => item.book === selectedBook.title);
+              return (
+                <div className="library-reader-shell">
+                  <div className="library-reader-heading">
+                    <span className="library-reader-eyebrow">THE READING HOUR</span>
+                    <span className="library-reader-rule" aria-hidden="true" />
+                    <span className="library-reader-edition">VOLUME {selectedBook.id.padStart(2, "0")}</span>
+                  </div>
+                  <div className="library-reader-layout">
+                    <div className="library-reader-stage">
+                      <div ref={readerSpreadRef} className="library-reader-spread" role="group" aria-label={`Open pages from ${selectedBook.title}`}>
+                        <article className="library-reader-page library-reader-page-left">
+                          <span className="library-page-kicker">A BOOK FROM THE SHELF</span>
+                          <div className="library-page-ornament" aria-hidden="true">✳</div>
+                          <h2>{selectedBook.title}</h2>
+                          <p className="library-page-author">by {selectedBook.author}</p>
+                          <div className="library-page-divider" aria-hidden="true"><span>✦</span></div>
+                          <p className="library-page-description">{selectedBook.summary}</p>
+                          <span className="library-page-number">{String(Number(selectedBook.id) * 2 - 1).padStart(2, "0")}</span>
+                        </article>
+                        <article className="library-reader-page library-reader-page-right">
+                          <span className="library-page-kicker">A NOTE TO KEEP</span>
+                          <div className="library-reader-note">
+                            <span className="library-note-quote-mark" aria-hidden="true">“</span>
+                            <p>{note?.line ?? selectedBook.summary}</p>
+                            <span className="library-reader-note-source">{note ? `MARGIN NOTE · ${note.book}` : `${selectedBook.genre.toUpperCase()} · FROM THE LIBRARY`}</span>
+                          </div>
+                          <span className="library-page-number">{String(Number(selectedBook.id) * 2).padStart(2, "0")}</span>
+                        </article>
+                        <div className="library-reader-cover" aria-hidden="true">
+                          <img src={selectedBook.cover} alt="" />
+                          <span className="library-reader-cover-spine" />
+                        </div>
+                        <div className="library-reader-paper-edge" aria-hidden="true" />
+                      </div>
+                      <span className="library-reader-caption">A quiet moment between the covers</span>
+                    </div>
+                    <aside className="library-reader-details">
+                      <span className="library-reader-status">{getStatusText(selectedBook.status)}</span>
+                      <h2>{selectedBook.title}</h2>
+                      <p className="library-reader-byline">{selectedBook.author}</p>
+                      <div className="library-reader-tags">
+                        <span>{selectedBook.genre}</span>
+                        <span>{String(selectedBook.id).padStart(2, "0")} / {String(books.length).padStart(2, "0")}</span>
+                      </div>
+                      <div className="library-reader-summary">
+                        <span>FROM THE READING JOURNAL</span>
+                        <p>{selectedBook.summary}</p>
+                      </div>
+                      {note && <blockquote className="library-reader-quote">“{note.line}”</blockquote>}
+                    </aside>
+                  </div>
+                  <div className="library-reader-footer"><span>READ / REFLECT / REPEAT</span><span>EST. IN CURIOSITY</span></div>
+                </div>
+              );
+            })()}
+          </DialogContent>
+        )}
+      </Dialog>
     </section>
   );
 };

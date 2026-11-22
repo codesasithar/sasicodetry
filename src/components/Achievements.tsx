@@ -143,10 +143,10 @@ const Achievements = () => {
               <p className="text-muted-foreground">Awards Won</p>
             </div>
             <div className="text-center relative">
-              <div className="absolute inset-0 rounded-2xl bg-white/10 blur-2xl animate-pulse" />
+              <div className="absolute inset-0 rounded-2xl bg-foreground/10 blur-2xl animate-pulse" />
               <div className="absolute inset-0 rounded-2xl bg-accent/20 blur-xl animate-pulse" />
-              <div className="relative text-4xl sm:text-5xl font-bold text-white mb-2 drop-shadow-[0_0_20px_rgba(255,255,255,0.9),0_0_8px_rgba(255,255,255,0.6)] animate-glow">2+</div>
-              <p className="text-white font-semibold tracking-wide drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]">Years Experience</p>
+              <div className="relative text-4xl sm:text-5xl font-bold text-foreground mb-2 drop-shadow-[0_0_20px_#BBE1FA99] animate-glow">2+</div>
+              <p className="text-foreground font-semibold tracking-wide drop-shadow-[0_0_6px_#BBE1FA80]">Years Experience</p>
             </div>
           </div>
         </div>

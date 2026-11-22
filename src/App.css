@@ -10,10 +10,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em hsl(var(--palette-sky-focus) / 0.667));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em hsl(var(--palette-cloud) / 0.667));
 }
 
 @keyframes logo-spin {
@@ -36,13 +36,13 @@
 }
 
 .read-the-docs {
-  color: #888;
+  color: hsl(var(--palette-slate));
 }
 /* Add a simple ripple animation used by the code */
 .ripple {
   position: absolute;
   border-radius: 50%;
-  background: rgba(0,234,255,0.35);
+  background: hsl(var(--palette-sky-focus) / 0.35);
   animation: ripple-fade 0.4s linear;
   pointer-events: none;
   z-index: 20;

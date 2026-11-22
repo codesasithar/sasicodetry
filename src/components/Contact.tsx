@@ -80,31 +80,31 @@ const Contact = () => {
       icon: Linkedin,
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/sasitharcodes/",
-      color: "hover:text-blue-400"
+      color: "hover:text-primary-glow"
     },
     {
       icon: Github,
       label: "GitHub",
       href: "https://github.com/codesasithar",
-      color: "hover:text-gray-400"
+      color: "hover:text-muted-foreground"
     },
     {
       icon: Instagram,
       label: "Instagram",
       href: "https://www.instagram.com/sasitharm/",
-      color: "hover:text-pink-400"
+      color: "hover:text-primary-glow"
     },
     {
       icon: Facebook,
       label: "Facebook",
       href: "https://www.facebook.com/snazzy.sasithar",
-      color: "hover:text-blue-600"
+      color: "hover:text-primary-glow"
     },
     {
       icon: MessageSquare,
       label: "WhatsApp",
       href: "https://wa.me/919443798476",
-      color: "hover:text-green-400"
+      color: "hover:text-primary-glow"
     }
   ];
 

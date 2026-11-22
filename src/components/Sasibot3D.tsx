@@ -6,7 +6,7 @@ type Vec3 = readonly [number, number, number];
 
 interface Sasibot3DProps {
   buttonRef: RefObject<HTMLButtonElement>;
-  onReady: () => void;
+  onReady: (ready: boolean) => void;
 }
 
 interface RobotModel {
@@ -24,30 +24,30 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   root.add(body);
 
   const greenShell = new THREE.MeshPhysicalMaterial({
-    color: 0x9bd63d,
+    color: 0x748b91,
     metalness: 0.18,
     roughness: 0.24,
     clearcoat: 0.95,
     clearcoatRoughness: 0.16,
   });
   const lightShell = new THREE.MeshPhysicalMaterial({
-    color: 0xb4ed54,
+    color: 0xc1d1cf,
     metalness: 0.16,
     roughness: 0.2,
     clearcoat: 1,
     clearcoatRoughness: 0.13,
   });
   const trim = new THREE.MeshPhysicalMaterial({
-    color: 0x43d9e5,
+    color: 0x3282b8,
     metalness: 0.38,
     roughness: 0.22,
     clearcoat: 0.8,
-    emissive: 0x06373e,
+    emissive: 0x0f4c75,
   });
-  const seam = new THREE.MeshStandardMaterial({ color: 0x558d22, metalness: 0.16, roughness: 0.4 });
-  const eyeWhite = new THREE.MeshPhysicalMaterial({ color: 0xf4fbff, roughness: 0.16, clearcoat: 1 });
-  const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x10212c, metalness: 0.28, roughness: 0.16 });
-  const iris = new THREE.MeshStandardMaterial({ color: 0x2acfe2, metalness: 0.2, roughness: 0.18, emissive: 0x06313c });
+  const seam = new THREE.MeshStandardMaterial({ color: 0x636467, metalness: 0.16, roughness: 0.4 });
+  const eyeWhite = new THREE.MeshPhysicalMaterial({ color: 0xbbe1fa, roughness: 0.16, clearcoat: 1 });
+  const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x18262c, metalness: 0.28, roughness: 0.16 });
+  const iris = new THREE.MeshStandardMaterial({ color: 0x3282b8, metalness: 0.2, roughness: 0.18, emissive: 0x0f4c75 });
   const sphereGeometry = new THREE.SphereGeometry(1, 56, 40);
 
   const sphere = (parent: THREE.Group, material: THREE.Material, position: Vec3, scale: Vec3) => {
@@ -110,7 +110,7 @@ const createRobotModel = (THREE: ThreeRuntime): RobotModel => {
   // A soft, elliptical contact shadow grounds the floating mascot on transparent pages.
   const shadow = new THREE.Mesh(
     new THREE.CircleGeometry(0.72, 64),
-    new THREE.MeshBasicMaterial({ color: 0x071318, transparent: true, opacity: 0.26, depthWrite: false }),
+    new THREE.MeshBasicMaterial({ color: 0x171f22, transparent: true, opacity: 0.26, depthWrite: false }),
   );
   shadow.rotation.x = -Math.PI / 2;
   shadow.scale.set(1, 0.4, 1);
@@ -173,15 +173,24 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
     let threeRuntime: ThreeRuntime | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let removeInputListeners: (() => void) | undefined;
+    let resumeAnimation: (() => void) | undefined;
+    const desktopPointer = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    let idleHandle: number | undefined;
+    let fallbackTimer: number | undefined;
     const button = buttonRef.current;
     let pointerX = window.innerWidth / 2;
     let pointerY = window.innerHeight / 2;
     let hovering = false;
 
     const initialize = async () => {
+      if (!desktopPointer.matches) return;
       try {
         const THREE = await import("three");
-        if (disposed || !canvasRef.current || !button) return;
+        if (disposed || !desktopPointer.matches || !canvasRef.current || !button) return;
         threeRuntime = THREE;
 
         const canvas = canvasRef.current;
@@ -197,14 +206,14 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
         renderer.toneMappingExposure = 1.1;
 
         scene = new THREE.Scene();
-        scene.add(new THREE.HemisphereLight(0xc8ebff, 0x18212a, 2.1));
-        const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
+        scene.add(new THREE.HemisphereLight(0xc1d1cf, 0x171f22, 2.1));
+        const keyLight = new THREE.DirectionalLight(0xbbe1fa, 3.2);
         keyLight.position.set(-3.5, 5, 5);
         scene.add(keyLight);
-        const coolRim = new THREE.DirectionalLight(0x55dfff, 2.8);
+        const coolRim = new THREE.DirectionalLight(0x3282b8, 2.8);
         coolRim.position.set(3.5, 3, -3);
         scene.add(coolRim);
-        const warmFill = new THREE.DirectionalLight(0xffd39b, 1.25);
+        const warmFill = new THREE.DirectionalLight(0x748b91, 1.25);
         warmFill.position.set(-4, 1, 2);
         scene.add(warmFill);
 
@@ -269,7 +278,10 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
         const clock = new THREE.Clock();
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const animate = () => {
-          if (!renderer || !scene || disposed) return;
+          if (!renderer || !scene || disposed || !desktopPointer.matches || document.hidden) {
+            animationFrame = 0;
+            return;
+          }
           animationFrame = window.requestAnimationFrame(animate);
           const delta = Math.min(clock.getDelta(), 0.05);
           const bounds = button.getBoundingClientRect();
@@ -300,20 +312,68 @@ const Sasibot3D = ({ buttonRef, onReady }: Sasibot3DProps) => {
           renderer.render(scene, camera);
         };
 
+        resumeAnimation = () => {
+          if (animationFrame || !desktopPointer.matches || document.hidden) return;
+          animationFrame = window.requestAnimationFrame(animate);
+        };
         renderer.render(scene, camera);
-        onReady();
-        animationFrame = window.requestAnimationFrame(animate);
+        onReady(true);
+        resumeAnimation();
 
       } catch {
         // Keep the existing portrait visible if WebGL is unavailable on the device.
       }
     };
 
-    const initTimer = window.setTimeout(() => void initialize(), 180);
+    const cancelPendingInitialization = () => {
+      if (idleHandle !== undefined) idleWindow.cancelIdleCallback?.(idleHandle);
+      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      idleHandle = undefined;
+      fallbackTimer = undefined;
+    };
+    const scheduleInitialization = () => {
+      cancelPendingInitialization();
+      if (!desktopPointer.matches) {
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+        onReady(false);
+        return;
+      }
+      if (renderer && scene) {
+        onReady(true);
+        resumeAnimation?.();
+        return;
+      }
+      if (idleWindow.requestIdleCallback) {
+        idleHandle = idleWindow.requestIdleCallback(() => {
+          idleHandle = undefined;
+          void initialize();
+        }, { timeout: 2000 });
+      } else {
+        fallbackTimer = window.setTimeout(() => {
+          fallbackTimer = undefined;
+          void initialize();
+        }, 800);
+      }
+    };
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+      } else {
+        resumeAnimation?.();
+      }
+    };
+
+    desktopPointer.addEventListener("change", scheduleInitialization);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    scheduleInitialization();
 
     return () => {
       disposed = true;
-      window.clearTimeout(initTimer);
+      desktopPointer.removeEventListener("change", scheduleInitialization);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      cancelPendingInitialization();
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
       resizeObserver?.disconnect();
       removeInputListeners?.();

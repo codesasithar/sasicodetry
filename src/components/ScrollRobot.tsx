@@ -24,7 +24,7 @@ const ScrollRobot = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [robotReady, setRobotReady] = useState(false);
 
-  const markRobotReady = useCallback(() => setRobotReady(true), []);
+  const markRobotReady = useCallback((ready: boolean) => setRobotReady(ready), []);
 
   const closeChat = useCallback(() => {
     setChatOpen(false);
