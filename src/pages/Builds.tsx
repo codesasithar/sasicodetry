@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import MatrixBackground from "@/components/MatrixBackground";
-import CursorEffects from "@/components/CursorEffects";
 import ScrollToTop from "@/components/ScrollToTop";
 import ScrollRobot from "@/components/ScrollRobot";
 import MobileTypingReveal from "@/components/MobileTypingReveal";
@@ -76,7 +75,6 @@ const Builds = () => (
   <>
     <MatrixBackground />
     <div className="relative z-10 min-h-screen">
-      <CursorEffects />
       <Navigation />
       <ScrollToTop />
       <ScrollRobot />

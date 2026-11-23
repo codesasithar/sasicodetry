@@ -3885,7 +3885,7 @@
   }
 }
 
-/* Replace the native pointer only while the animated desktop cursor is active. */
+/* Hide the native pointer while the custom desktop cursor is active. */
 @media (hover: hover) and (pointer: fine) {
   html.has-modern-cursor,
   html.has-modern-cursor body,
@@ -3900,6 +3900,24 @@
   }
 
   html.has-modern-cursor select {
+    cursor: auto !important;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.has-liquid-glass-cursor,
+  html.has-liquid-glass-cursor body,
+  html.has-liquid-glass-cursor body * {
+    cursor: none !important;
+  }
+
+  html.has-liquid-glass-cursor input,
+  html.has-liquid-glass-cursor textarea,
+  html.has-liquid-glass-cursor [contenteditable="true"] {
+    cursor: text !important;
+  }
+
+  html.has-liquid-glass-cursor select {
     cursor: auto !important;
   }
 }
@@ -6616,13 +6634,13 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Cursor lens: the native pointer remains visible and interactive. */
+/* A liquid-glass magnifier follows the pointer on desktop. */
 .liquid-glass-lens {
   position: fixed;
   z-index: 100000;
   width: var(--lens-size, 136px);
   height: var(--lens-size, 136px);
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid hsl(var(--primary) / 0.28);
   border-radius: 50%;
   opacity: 0;
@@ -6692,6 +6710,21 @@ body {
   border-radius: inherit;
   background: radial-gradient(circle at 28% 17%, hsl(var(--foreground) / 0.2), transparent 34%);
   content: "";
+  pointer-events: none;
+}
+
+.liquid-glass-lens__handle {
+  position: absolute;
+  z-index: 3;
+  top: calc(50% + 42px);
+  left: calc(50% + 42px);
+  width: 15px;
+  height: 56px;
+  border: 1px solid hsl(var(--primary) / 0.62);
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(var(--palette-deep-space) / 0.96), hsl(var(--primary) / 0.72) 48%, hsl(var(--palette-deep-space) / 0.96));
+  box-shadow: 0 0.25rem 0.8rem hsl(var(--background) / 0.6), inset 0 1px hsl(var(--foreground) / 0.38);
+  transform: rotate(-45deg);
   pointer-events: none;
 }
 

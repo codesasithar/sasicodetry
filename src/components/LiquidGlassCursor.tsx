@@ -31,6 +31,7 @@ const LiquidGlassCursor = () => {
         "</filter>",
         "</svg>",
         '<div class="liquid-glass-lens__viewport"><div class="liquid-glass-lens__scene"></div></div>',
+        '<span class="liquid-glass-lens__handle"></span>',
       ].join("");
       lens.style.setProperty("--lens-size", LENS_SIZE + "px");
       lens.style.setProperty("--lens-magnification", String(LENS_MAGNIFICATION));
@@ -142,6 +143,12 @@ const LiquidGlassCursor = () => {
       };
 
       const reveal = (event: PointerEvent) => {
+        const target = event.target instanceof Element ? event.target : null;
+        if (target?.closest('input, textarea, select, [contenteditable="true"]')) {
+          hide();
+          return;
+        }
+
         targetX = event.clientX;
         targetY = event.clientY;
         if (!visible) {
@@ -193,7 +200,9 @@ const LiquidGlassCursor = () => {
     const syncPreference = () => {
       stopLens?.();
       stopLens = undefined;
-      if (finePointer.matches && !reducedMotion.matches) stopLens = startLens();
+      const shouldEnable = finePointer.matches && !reducedMotion.matches;
+      document.documentElement.classList.toggle("has-liquid-glass-cursor", shouldEnable);
+      if (shouldEnable) stopLens = startLens();
     };
 
     syncPreference();
@@ -203,6 +212,7 @@ const LiquidGlassCursor = () => {
       finePointer.removeEventListener("change", syncPreference);
       reducedMotion.removeEventListener("change", syncPreference);
       stopLens?.();
+      document.documentElement.classList.remove("has-liquid-glass-cursor");
     };
   }, []);
 
